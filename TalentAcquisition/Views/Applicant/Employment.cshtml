@@ -1,0 +1,237 @@
+﻿@model  TalentAcquisition.Core.Domain.WorkExperience
+
+@{
+    ViewBag.Title = "Employment";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<style>
+    .profile-link-active {
+        border-left: 2px solid rgb(4, 5, 47);
+    }
+
+        .profile-link-active a:hover {
+            border-left: none;
+        }
+
+    #blackview {
+        position: fixed; /* Stay in place */
+        z-index: 200; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    #bioform input,
+    select {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #bioform #submit input {
+        max-width: 280px;
+    }
+    #submit input {
+        max-width: 280px;
+    }
+    /***/
+</style>
+<div class="mainbody">
+    <div class="container body-content">
+        <div class="row container" id="pagecontent">
+            <div class="col-lg-4">
+                    @Html.Partial("_ApplicantSideBar")
+            </div>
+            <div class="col-md-6 col-lg-push-1" style="color:black;font-size:80%;padding-top:5em;" id="employments">
+                <h3>Employment</h3>
+                <span class="alert-success">@ViewBag.Message</span>
+                @Html.Action("_GetEmploymentList")
+                <div class="form-group" id="submit">
+                    <div class="col-md-12">
+                        <a class="btn-default btn" href="javascript:void(0)" id="newitem">Create New</a>
+                        <a class="btn-default btn" href="javascript:document.getElementById('bioForm').submit()">Save as Draft</a>
+                        <a class="btn-default btn" href="javascript:void(0)" id="nextpage">Next Page</a>
+                        <a class="btn-default btn" href="javascript:void(0)" id="previouspage">Previous Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="blackview" class="hide">
+    <div class="modal-content">
+        <div class="loader"></div>
+    </div>
+</div>
+<div id="divEdit"  style="display:none">
+    @*@using (Html.BeginForm("Profile/NewEmployment", "Applicant", FormMethod.Post))*@
+    @using (Ajax.BeginForm("Profile/NewEmployment","Applicant",new AjaxOptions() { UpdateTargetId="employments"}))
+    {
+           
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model=>model.JobSeekerID)
+        <input type="hidden" id="ID" />
+            <div class="form-horizontal">
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                        </th>
+                        <td>
+                            <input type="text" name="CompanyName" id="CompanyName" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobTitle)
+                        </th>
+                        <td>
+                            <input type="text" name="JobTitle" id="JobTitle" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobDescription)
+                        </th>
+                        <td>
+                            <input type="text" name="JobDescription" id="JobDescription" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReasonsForLeaving)
+                        </th>
+                        <td>
+                            <textarea type="text" name="ReasonsForLeaving" id="ReasonsForLeaving" class="form-control" rows="3" cols="50"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartingDate)
+                        </th>
+                        <td>
+                            <input type="text" name="StartingDate" data-date-format="DD-MM-YYYY" id="StartingDate" class="form-control" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndingDate)
+                        </th>
+                        <td>
+                            <input type="text" name="EndingDate" id="EndingDate" data-date-format="DD-MM-YYYY" class="form-control" value="" />
+                        </td>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="submit" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        }
+</div>
+
+@section Scripts {
+     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#StartingDate').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+         });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#EndingDate').datetimepicker({
+            defaultDate: '',
+            format: 'L',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'top'
+        });
+
+        var initDialog = function (type) {
+            var title = type;
+            $("#divEdit").dialog({
+                title: type + ' Qualification',
+                autoOpen: false,
+                modal: true,
+                width: 500,
+                dialogClass: 'mod-no-close',
+                buttons: {
+                    Save: function () {
+
+                        var id = $("#ID").val();
+                        var companyname = $("#CompanyName").val();
+                        var jobtitle = $("#JobTitle").val();
+                        var jobdescription = $("#JobDescription").val();
+                        var reasons = $("#ReasonsForLeaving").val();
+                        var startingdate = $("#StartingDate").val();
+                        var endingdate = $("#EndingDate").val();
+
+                        $(this).dialog("destroy");
+                    },
+                    Cancel: function () {
+                        $(this).dialog("destroy");
+                    }
+                }
+            });
+        };
+
+        $("a#newitem").on("click",function () {
+            initDialog("Add New ");
+            $("#divEdit").dialog("open");
+            return false;
+        });
+
+        $("a.edititem").on("click", function () {
+            initDialog("Edit Entry");
+            var row = $(this).closest('tr');
+
+            $("#ID").val(row.find("td:eq(0)").html().trim());
+            $("#CompanyName").val(row.find("td:eq(1)").html().trim());
+            $("#JobTitle").val(row.find("td:eq(2)").html().trim());
+            $("#JobDescription").val(row.find("td:eq(3)").html().trim());
+            $("#ReasonsForLeaving").val(row.find("td:eq(4)").html().trim());
+            $("#StartingDate").val(row.find("td:eq(5)").html().trim());
+            $("#EndingDate").val(row.find("td:eq(6)").html().trim());
+
+            $("#divEdit").dialog("open");
+            return false;
+        });
+
+        $("a.deleteitem").on("click", function () {
+            var row = $(this).closest('tr');
+            var id = row.find("td:eq(0)").html().trim();
+            var answer = confirm("You are about to delete this Entry."+id+ "Continue?");
+            if (answer)
+                alert(id);
+                //DeleteUser(id);
+            return false;
+        });
+
+        $('#nextpage').click(function (evt) {
+            alert('Form Started');
+            $('#blackview').removeClass("hide").addClass("show").delay(2000);
+            @*$.ajax({
+                type:"POST",url:"@(Url.Action("FirstPage","Home"))",data:{},
+                success: function (data) {
+                    alert('Form Changed');
+                    $('#pagecontent').load("/Home/SecondPage");
+                    $('.pagecontent').load(@(Url.Action("ThirdPage","Home"));
+                }
+            });*@
+        });
+    });
+</script>
+}

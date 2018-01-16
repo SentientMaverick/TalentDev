@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<style>
+    .banner a:hover {
+        border-bottom: none;
+        font-size: 105%;
+        text-decoration: none;
+        border-bottom: 2px solid white;
+        border-radius: 10px;
+    }
+
+    .banner a {
+        color: snow;
+        text-align: center;
+        margin: 0 auto;
+        padding: 10px;
+        border-bottom: none;
+        font-size: 100%;
+        transition: all ease-in-out 1.2s;
+    }
+
+    .banner {
+        margin-bottom: 50px;
+    }
+
+        .banner #login {
+            padding-top: 0.2em;
+            margin-top: -5em;
+        }
+
+    .jumbotron h1 {
+        margin-bottom: 0px;
+    }
+</style>
+
+<div class="body-content container">
+    <section class="banner">
+        <div class="jumbotron text-center" style="background-color:transparent">
+            <h1>The Job Website</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-push-6">
+                <div class="row" id="login">
+                    @Html.Partial("_LoginForm")
+               </div>
+         </div>
+        </div>
+    </section>
+    
+</div>
+<div class="mainbody">
+    <div class="container body-content">
+        <section class="recentjobs">
+            <div class="row container body-content">
+                <section class="searcharea ">
+                    @*@Html.Partial("SearchForm")*@
+                    @Html.Action("_GetSearchForm", "Job")
+                </section>
+            </div>
+            <div class="row container">
+                <div class="col-lg-4">
+                    <h2 class="text-center">Top Jobs</h2>
+                    <div class="row">
+                        <div class="job">
+                            <h2>Job Position</h2>
+                            <h4>Job Industry</h4>
+                            <h4>Job Location</h4>
+                            <p>Abstract Summary</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="job">
+                            <h2>Job Position</h2>
+                            <h4>Job Industry</h4>
+                            <h4>Job Location</h4>
+                            <p>Abstract Summary</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="job">
+                            <h2>Job Position</h2>
+                            <h4>Job Industry</h4>
+                            <h4>Job Location</h4>
+                            <p>Abstract Summary</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h2 class="text-center">Recent Job Openings</h2>
+                    <div class="container">
+                        @Html.Action("_GetRecentJobs", "Job")
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+   
+</div>
+   

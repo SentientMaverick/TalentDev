@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<div class="mainbody">
+    <div class="container body-content">
+        <section class="recentjobs">
+            <div class="row container body-content">
+                <section class="searcharea ">
+                    @Html.Action("_GetSearchForm", "Job")
+                </section>
+            </div>
+            <div class="row container">
+
+                <div class="col-lg-4">
+                    <ul class="sidebar nav">
+                        @Html.Partial("_SideBarMenu")
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <h2 class="text-center">Recent Jobs </h2>
+                    <div class="container">
+                        @Html.Action("_GetRecentJobs", "Job")
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+</div>
+
+    
+
+

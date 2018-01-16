@@ -1,0 +1,29 @@
+﻿@using System;
+@{
+    ViewBag.Title = "Jobs";
+    ViewBag.Comment = "No Available Job At the Moment";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<div class="mainbody">
+    <div class="container body-content">
+        <div class="recentjobs">
+            <div class="row">
+                <section class="searcharea">
+                    <h4 style="color:Background">Job Search</h4>
+                    @Html.Action("_GetSearchForm")
+                </section>
+            </div>
+            <div>
+                <h2 class="text-center">Jobs</h2>
+                <div class="col-lg-4">
+                </div>
+              <div class="col-md-8">
+                <div class="container">
+                   @Html.Action("_GetRecentJobs")
+                </div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>

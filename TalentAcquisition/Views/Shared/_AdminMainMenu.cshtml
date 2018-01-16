@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+     <li>@Html.ActionLink("Profile", "Profile", "Applicant")</li>
+     <li>@Html.ActionLink("Create Requisition", "Requisition/Create", "Admin")</li>
+     <li>@Html.ActionLink("Manage Requisitions", "Requisition/Active", "Admin")</li>
+     <li>@Html.ActionLink("Give Recommendation", "Recommendation/Request", "Admin")</li>
+}
+

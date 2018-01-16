@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.WorkExperience>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReasonsForLeaving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndingDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="hidden">
+                @item.ID
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReasonsForLeaving)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndingDate)
+            </td>
+            @if (ViewBag.Links == "Hide")
+            {
+
+            }
+            else
+            {
+                <td>
+                    <a href="javascript:void(0)" class="edititem">Edit</a> |
+                    <a href="javascript:void(0)" class="deleteitem">Delete</a>
+                    @*@Html.ActionLink("Edit", "Edit", new { htmlAttributes= new { @class = "edititem" }, id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { htmlAttributes= new { @class = "deleteitem" }, id = item.ID })*@
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,17 @@
+﻿@model TalentAcquisition.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Login Portal";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<div class="container body-content">
+    <br />
+    <div class="row">
+        @Html.Partial("_LoginForm")
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

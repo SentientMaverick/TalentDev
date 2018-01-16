@@ -1,0 +1,25 @@
+﻿
+<div class="body-content container">
+    <h4 class="text-center">Search For Jobs Here</h4>
+    @using (Html.BeginForm("Search","Job",FormMethod.Get))
+    {
+
+            <input type="text" name="skillOrProfession"class="form-control" placeholder="Type in a Skill or Profession" />
+            <select name="specialization" class="form-control">
+                <option value="-1">Specialization</option>
+                @foreach( var item in ViewBag.Industries)
+                {
+                  <option value="@item.Name">@item.Name</option>
+                }
+            </select>
+            <select name="department" class="form-control">
+                <option value="-1">Department</option>
+                @foreach (var item in ViewBag.Departments)
+                {
+                    <option value="@item.DepartmentName">@item.DepartmentName</option>
+                }
+            </select>
+            <input type="submit" value="Search" class="btn btn-default" />
+      }
+</div>
+
