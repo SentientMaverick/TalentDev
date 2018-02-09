@@ -1,0 +1,190 @@
+﻿@model TalentAcquisition.Core.Domain.JobRequisition
+<style>
+    select,input{
+        min-width:100%;
+        width:100%;
+    }
+    select{
+        margin-left:0px;
+    }
+</style>
+<div id="UpdatedSection">
+    <span class="alert-danger">@ViewBag.Message</span>
+    <div class="row">
+        @using (Html.BeginForm("Requisition/Create", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.DropDownList("departmentid", new SelectList(ViewBag.Departments, "DepartmentID", "DepartmentName"), "Select Department", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model=>model.OfficePositionID, new SelectList(ViewBag.Positions, "OfficePositionID", "Title"), "Select Position", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                @*<div class="form-group">
+                    <div class="col-md-12">
+                        <select id="OfficePosition" Name="OfficePosition" class="form-control" autofocus>
+                            <option value="">Select Position</option>
+                            <option value="1">A</option>
+                            <option value="2">A</option>
+                        </select>
+                    </div>
+                </div>*@
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control",@placeholder="Enter Job Title" } })
+                            @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control",@placeholder="Specify Location" } })
+                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.NoOfPositionsAvailable, new { htmlAttributes = new { @class = "form-control",@placeholder="Specify Number Of Slots Available" } })
+                        @Html.ValidationMessageFor(model => model.NoOfPositionsAvailable, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.TextAreaFor(model => model.JobDescription, new { @class = "form-control",@placeholder="Enter Job Description", rows = "8", cols = "10" })
+                        @Html.ValidationMessageFor(model => model.JobDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.AgeLimit, new { htmlAttributes = new { @class = "form-control", @placeholder = "Set The Upper Age Limit" } })
+                        @Html.ValidationMessageFor(model => model.AgeLimit, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.YearsOfExperience, new { htmlAttributes = new { @class = "form-control", @placeholder = "No of Years of Experience" } })
+                        @Html.ValidationMessageFor(model => model.YearsOfExperience, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <br/>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.EducationalRequirements, new { @class = "form-control",@placeholder="Enter Educational Requirements", rows = "8", cols = "10" })
+                            @Html.ValidationMessageFor(model => model.EducationalRequirements, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.JobResponsibilities, new { @class = "form-control",@placeholder="Enter The Responsibilities for the Role", rows = "8", cols = "10" })
+                            @Html.ValidationMessageFor(model => model.JobResponsibilities, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                       <div class="col-md-12">
+                            <input type="text" name="StartDate" data-date-format="DD-MM-YYYY" id="StartDate" class="form-control" value="" placeholder="Pick Starting Date for Recruitment"/>
+                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                       <div class="col-md-12">
+                            <input type="text" name="ClosingDate" data-date-format="DD-MM-YYYY" id="ClosingDate" class="form-control" value="" placeholder="Pick Closing Date for Recruitment"/>
+                                 @Html.ValidationMessageFor(model => model.ClosingDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+                </div>
+        }
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#departmentid").change(function ()
+        {
+            if ($("#departmentid").val() != "")
+            {
+                //alert("Value Selected");
+                var deptid = $("#departmentid").val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("RolesInDepartment","Requisition")",
+                    data: {departmentid:deptid},
+                    success: function (data) {
+                        // alert("positions obtained");
+                        var options = "";
+                        $(data).each(function () {
+                            options += '<option value="' + this.Value + '">' + this.Text + "</option>";
+                        //    $("#OfficePositionID").append($("<option></option>").val(this.Value).html(this.Text));
+                        });
+                        alert("position obtained" + options);
+                        $("#OfficePositionID").html(options);
+                        //$.each(data, function (i, val) {
+                        //    $("#OfficePositionID").append($("<option></option>",
+                        //       ($({ value: val.OfficePositionID, text: val.Title }))));
+                        //}); 
+                    },
+                    error:function(error){
+                        alert("Currently Unable To Retrieve Associated Departments. Retry Action");
+                        //
+                    }
+                });
+            }
+            else {
+                alert("Select Valid Value for Department");
+            }
+        });
+
+        $("#OfficePositionID").select(function () {
+            var roleid = $("#OfficePositionID").val();
+            alert("ok"+roleid);
+        });
+
+        $("#OfficePositionID").change(function ()
+        {
+            if ($("#OfficePositionID").val() != "")
+            {    
+                var roleid = $("#OfficePositionID").val();
+                //alert(roleid);
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: "@Url.Action("GetInformationForRole","Requisition")",
+                    data: {officeroleid:roleid},
+                success: function (role) {
+                   alert(role.Title);
+                        //$("#OfficePositionID").append($("<option></option>").val(this.Value).html(this.Text));
+                        //$("#JobTitle").val("Title");
+                    //$("#JobResponsibilities").val("Responsible");
+                   // var jsonobject = JSON.parse(role);
+                   // alert(jsonobject);
+                        $("#JobTitle").val(role.Title);
+                        $("#JobResponsibilities").html(role.Responsibilities);
+                        alert("Got It");
+                },
+                error:function(error){
+                    alert("failed");
+                    //
+                }
+            });
+        }
+        else {
+                alert("Select Valid Value for Office Role");
+    }
+    });
+    });
+</script>
+

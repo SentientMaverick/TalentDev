@@ -32,7 +32,7 @@ namespace TalentAcquisition.Core.Domain
         {
             get
             {
-                return LastName + ", " + FirstName;
+                return LastName + " " + FirstName;
             }
         }
         public int Age

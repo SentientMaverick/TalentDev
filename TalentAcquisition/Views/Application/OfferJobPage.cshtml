@@ -1,0 +1,30 @@
+﻿<style>
+    .onboarding{
+        min-height:200px;
+        border:1px solid #d1c4c4;
+        border-radius:5px;
+    }
+    .onboarding h4{
+
+    }
+</style>
+<script type="text/javascript">
+    $("#advance").prop("disabled", true);
+
+    $(document).ready(function (e) {
+        $("#onboardcandidate").on("click", function () {
+            e.preventDefault();
+            e.e.stopPropagation();
+        });
+    });
+</script>
+<div class="row">
+    <div class="padding"></div>
+    <div class="col-md-9">
+
+    </div>
+    <div class="col-md-3 onboarding">
+        <h4 class="padding">Proceed To Onboarding</h4>
+        <a class="btn btn-default btn-success btn-sm" id="onboardcandidate" name="onboardcandidate">Onboard Candidate</a>
+    </div>
+</div>

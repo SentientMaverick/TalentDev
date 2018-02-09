@@ -52,8 +52,8 @@ namespace TalentAcquisition.Models
         public int ID { get; set; }
 
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
+        [Display(Name = "Username or Email")]
+       // [EmailAddress]
         public string Email { get; set; }
 
         [Required]

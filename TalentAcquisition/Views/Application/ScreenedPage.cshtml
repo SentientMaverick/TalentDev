@@ -1,0 +1,30 @@
+﻿
+<div class="container">
+    <h3>Confirm Application</h3>
+    <h4>Confirm Application as Screened</h4>
+    <br /><br />
+    <a class="btn btn-default btn-success btn-sm" id="acceptcandidate" name="acceptcandidate">Proceed To Interview</a>
+    <a class="btn btn-default btn-danger btn-sm pull-right" id="rejectcandidate" name="rejectcandidate">Reject Application</a>
+<br/><br/>
+        <div class="row container">
+            @Html.Action("_GetRequisition","Applicant", new { id=ViewBag.pageid })
+        </div>
+        <div class="row">
+            @*@Html.Action("_GetApplication", "Applicant", new { id = ViewBag.applicationid })*@
+        </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var pageid=@ViewBag.applicationid;
+        $("#acceptcandidate").on("click", function () {
+            $("#advance").click();
+        });
+        $("#rejectcandidate").on("click", function () {
+            TerminateApplication();
+        });
+        function TerminateApplication() {
+            alert(pageid);
+        };
+    });
+</script>

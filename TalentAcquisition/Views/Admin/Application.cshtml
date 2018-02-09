@@ -1,0 +1,221 @@
+﻿@model TalentAcquisition.Core.Domain.JobApplication
+@{
+    ViewBag.Title = "Job Application";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+   // int pagenum =1;
+    int pagenum = (int)Model.ApplicationStatus;
+    int requisitionidglobal = Model.JobRequisitionID;
+    int applicationidglobal = Model.JobApplicationID;
+}
+<style>
+   .padding{
+        padding-top:3em;
+    }
+    .banner{
+        min-height:100px;
+        background-color:rgba(0,0,0,0.1);
+        padding:1.5em;
+        width:100%;
+    }
+    .banner button{
+        margin-top:2em;
+    }
+    .contain {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .progress-meter {
+        padding: 0;
+    }
+
+    ol.progress-meter {
+        padding-bottom: 9.5px;
+        list-style-type: none;
+    }
+
+        ol.progress-meter li {
+            display: inline-block;
+            text-align: center;
+            text-indent: -19px;
+            height: 36px;
+            width: 20.99%;
+            font-size: 12px;
+            border-bottom-width: 4px;
+            border-bottom-style: solid;
+        }
+
+            ol.progress-meter li:before {
+                position: relative;
+                float: left;
+                text-indent: 0;
+                left: calc(50% - 9.5px);
+            }
+
+            ol.progress-meter li.done {
+                font-size: 12px;
+            }
+
+                ol.progress-meter li.done:before {
+                    content: "\2713";
+                    height: 19px;
+                    width: 19px;
+                    line-height: 21.85px;
+                    bottom: -28.175px;
+                    border: none;
+                    border-radius: 19px;
+                }
+
+            ol.progress-meter li.todo {
+                font-size: 12px;
+            }
+
+                ol.progress-meter li.todo:before {
+                    content: "\2B24";
+                    font-size: 17.1px;
+                    bottom: -26.95px;
+                    line-height: 18.05px;
+                }
+
+            ol.progress-meter li.done {
+                color: black;
+                border-bottom-color: yellowgreen;
+            }
+
+                ol.progress-meter li.done:before {
+                    color: white;
+                    background-color: yellowgreen;
+                }
+
+            ol.progress-meter li.todo {
+                color: silver;
+                border-bottom-color: silver;
+            }
+
+                ol.progress-meter li.todo:before {
+                    color: silver;
+                }
+</style>
+@section Scripts{
+    <script type="text/javascript">
+        var pageid = @pagenum + 1;
+        var requisitionid=@requisitionidglobal;
+        var applicationid=@applicationidglobal;
+        $(document).ready(function () {
+          // $('#ProposedDate2').datetimepicker();
+           // UpdateApplication();
+
+            $("#advance").on("click", function () {
+                var answer = confirm("You are about to Advance this Application. Continue?");
+                if (answer)
+                    UpdateApplication();
+                return false;
+            });
+        });
+
+        function UpdateApplication() {
+            UpdateDisplay(pageid);
+            UpdateBanner(pageid);
+            pageid =pageid + 1;
+        };
+
+        function UpdateDisplay(pageid)
+        {
+            @*var url="@(Url.Action("UpdatePage","Application"))";*@
+            if(pageid==1){
+                var url="@(Url.Action("ScreenedPage","Application", new {requisitionid=requisitionidglobal,applicationid=applicationidglobal }))";
+            }
+            else if (pageid==2){
+                var url="@(Url.Action("InterviewPage","Application", new {requisitionid=requisitionidglobal,applicationid=applicationidglobal }))";
+            }
+            else if (pageid==3){
+                var url="@(Url.Action("OfferJobPage","Application", new {requisitionid=requisitionidglobal,applicationid=applicationidglobal }))";
+            }
+            LoadPage(url);
+        };
+
+        function LoadPage(Url){
+
+           $.ajax({
+               type:"POST",
+               url:"@(Url.Action("UpdatePage","Application"))",
+               data:{},
+               success:function(data){
+                   $("#dynamicContent").load(Url);
+                  // $.datepicker.initialized = false;
+                   //alert("done");
+                   //.find('[id^=ProposedDate2]').datepicker()
+                   //$("#dynamicContent").find('#ProposedDate2').datetimepicker({format: 'DD.MM.YYYY'});
+                   //$('#ProposedDate2').datetimepicker();
+                     },
+               error:function(error){
+                        alert("Error");
+                    }
+            });
+        };
+        function SubmitChanges(){
+
+        };
+        function UpdateBanner(pageidnum){
+
+            $(".progress-meter .progress-point").each(function(index,element) {
+                if(pageidnum >= index)
+                {
+                   $(this).removeClass("todo").addClass( "done" );
+                }
+            });
+        };
+    </script>
+    }
+<!-- Banner IS Fixed-->
+    <div class="banner">
+        <div class="contain">
+            <ol class="progress-meter">
+                <li class="progress-point done">Applied</li>
+                <li class="progress-point todo">Screened</li>
+                <li class="progress-point todo">Interview</li>
+                <li class="progress-point todo">Offer Job</li>
+            </ol>
+        </div>
+        <div class="container">
+            <div class="col-md-6 col-sm-3">
+                <button id="advance" name="advance" class="btn-success btn btn-sm">Advance To Next Stage</button>
+            </div>
+        </div>
+    </div>
+<!--Dynamic Body Content-->
+<section>
+    <div class="container body-content">
+        <div class="row">
+            <!--Side Bar-->
+            <div class="col-md-4 adminsidebar">
+                <div class="row">
+                     <br/>
+                    <h6><span><b>Applicant Name:</b> </span>@Model.JobSeeker.FullName</h6>
+                    <h6><span><b>Applied For:</b> </span>@Model.JobRequisition.JobTitle</h6>
+                    </div>
+                <div class="row" >
+                        <h6>
+                           <b>Date Of Application</b> :
+
+                            @Html.DisplayFor(model => model.RegistrationDate)
+                        </h6>
+                                        
+                        <h6>
+                            <b>
+                                @Html.DisplayNameFor(model => model.ApplicationStatus)
+                            </b>:  @Html.DisplayFor(model => model.ApplicationStatus.Value)
+                        </h6>
+                  </div>
+            </div>
+            <div class="col-md-8">
+                <div class="container" id="dynamicContent">
+                    @Html.Action("AppliedPage", "Application",new{requisitionid=requisitionidglobal,applicationid=applicationidglobal })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+  

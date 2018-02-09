@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-push-6">
                 <div class="row" id="login">
-                    @Html.Partial("_LoginForm")
+                    
                </div>
          </div>
         </div>
@@ -62,34 +62,15 @@
             </div>
             <div class="row container">
                 <div class="col-lg-4">
-                    <h2 class="text-center">Top Jobs</h2>
+                    <h2 class="text-center">Sign In</h2>
+                    <hr/>
                     <div class="row">
-                        <div class="job">
-                            <h2>Job Position</h2>
-                            <h4>Job Industry</h4>
-                            <h4>Job Location</h4>
-                            <p>Abstract Summary</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="job">
-                            <h2>Job Position</h2>
-                            <h4>Job Industry</h4>
-                            <h4>Job Location</h4>
-                            <p>Abstract Summary</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="job">
-                            <h2>Job Position</h2>
-                            <h4>Job Industry</h4>
-                            <h4>Job Location</h4>
-                            <p>Abstract Summary</p>
-                        </div>
+                        @Html.Partial("_LoginForm")
                     </div>
                 </div>
                 <div class="col-md-8">
                     <h2 class="text-center">Recent Job Openings</h2>
+                    <hr/>
                     <div class="container">
                         @Html.Action("_GetRecentJobs", "Job")
                     </div>

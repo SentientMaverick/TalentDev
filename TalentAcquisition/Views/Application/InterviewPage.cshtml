@@ -1,0 +1,168 @@
+﻿<style>
+ .description{
+        color:mediumpurple;
+        font-size:85%;
+    }
+    .panel-title a {
+     text-decoration:none;
+ }
+ .collapse .description{
+        display:none;
+    }
+ .datepicker,
+.table-condensed {
+    width: 300px;
+    /*height: 300px;*/
+    font-size: x-small; 
+}
+</style>
+<script type="text/javascript">
+    $("#advance").prop("disabled", true);
+
+    $(function () {
+        $('.panel-heading a').on('click', function (e) {
+            if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
+                e.preventDefault();
+            }
+        });
+        $('#closeinterview').on('click', function () {
+            $("#advance").click();
+        });
+    });
+</script>
+<script type="text/javascript">
+                    $('#ProposedDate1').datetimepicker({
+                        defaultDate: '',
+                        format: 'L',
+                        showClose: true,
+                        showClear: true,
+                        toolbarPlacement: 'top'
+                    });
+</script>
+<script type="text/javascript">
+                    $('#ProposedDate2').datetimepicker({
+                        defaultDate: '',
+                        format: 'L',
+                        showClose: true,
+                        showClear: true,
+                        toolbarPlacement: 'top'
+                    });
+</script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<div class="container">
+    <div style="padding-top:5em"></div>
+     <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1">Request Candidate Availability</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    @Html.Action("_GetCandidateAvailabilityForm", new { requisitionid = ViewBag.requisitionid, applicationid =ViewBag.applicationid})
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse2">Choose Interview Team</a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse3">Setup The Interview Schedule</a>
+                    <span class="pull-right description">Maven</span>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse4">Finalize Schedule</a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Action("_GetFinalizeInterviewForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse5">Feedback on Candidate</a>
+                </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Action("_GetInterviewFeedbackForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse6">Team Feedback</a>
+                </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Action("_GetTeamFeedback", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                 </div>
+                    <a class="btn btn-default btn-success btn-sm" id="closeinterview" name="closeinterview">Proceed To Job Offer</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Collapsible Group Item #1
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    collopse 1 body  here
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Collapsible Group Item #2
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    collapse body 2
+                </div>
+            </div>
+        </div>
+
+    </div>*@
+

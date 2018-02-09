@@ -1,0 +1,232 @@
+﻿@model TalentAcquisition.Core.Domain.JobRequisition
+
+@{
+    ViewBag.Title = "Pulish Requisition ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+     .adminsidebar {
+        height: 100%;
+        min-height: 500px;
+        padding: 1em;
+        color: black;
+    }
+
+        .adminsidebar h1, .adminsidebar h2, .adminsidebar h3 {
+            color: snow;
+            font-size: 125%;
+            text-shadow: white;
+            text-align: center;
+        }
+
+        .adminsidebar .nav {
+            margin: 0 auto;
+            /*background:rgba(255,255,255,0.1);*/
+            padding: 1em;
+        }
+
+        .adminsidebar li {
+            border-bottom: 1px solid white;
+            text-align: left;
+            border-left: 4px solid brown;
+        }
+
+            .adminsidebar li a:hover {
+                color: rgb(4, 5, 47);
+                background-color: snow;
+                display: block;
+            }
+
+            .adminsidebar li a {
+                color: white;
+                line-height: 2em;
+                width: 100%;
+                color:black;
+            }
+
+        .adminsidebar .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+            .adminsidebar .nav ul li {
+                border: 0;
+                margin-left: 1em;
+            }
+
+                .adminsidebar .nav ul li a:link,
+                .adminsidebar .nav ul li a:visited {
+                    color: black;
+                    padding: 0.5em 0.5em 0.5em 1em;
+                    display: block;
+                    text-decoration: none;
+                    border-left: 5px solid rgb(239,213,252);
+                }
+
+                .adminsidebar .nav ul li a:hover {
+                    color: rgb(49,52,61);
+                    border-left: 5px solid rgb(250,136,234);
+                }
+</style>
+<div class="container body-content">
+
+    <div class="col-md-4 adminsidebar">
+        <div class="container">
+            <br />
+            <ul class="nav">
+                @Html.Partial("_AdminDashboardSidebar")
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <section>
+            <h3>Proceed with Posting Job to Public Portal?</h3>
+            <div style="display:inline">
+                <a class="btn btn-default" href="/Admin/Edit/@Model.JobRequisitionID/@Model.JobTitle">Edit Requisition</a>
+                <a class="btn btn-default" href="/Admin/matchskill/@Model.JobRequisitionID/@Model.JobTitle">Skill Matching </a>
+                <a class="btn btn-default" href="/Admin/Reject/@Model.JobRequisitionID/@Model.JobTitle">Reject Requisition </a>
+            </div>
+            <div>
+                <br />
+                <h4>Job Requisition Information</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    @*<dt>
+                    @Html.DisplayNameFor(model => model.OfficePosition.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OfficePosition.Title)
+                </dd>*@
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobTitle)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobTitle)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Location)
+                    </dd>
+
+                    @*<dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>*@
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NoOfPositionsAvailable)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NoOfPositionsAvailable)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobDescription)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobDescription)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AgeLimit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AgeLimit)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EducationalRequirements)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EducationalRequirements)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobResponsibilities)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobResponsibilities)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.YearsOfExperience)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.YearsOfExperience)
+                    </dd>
+
+                    @*<dt>
+                    @Html.DisplayNameFor(model => model.HumanResourcePersonnelID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HumanResourcePersonnelID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.HeadOfDepartmentID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HeadOfDepartmentID)
+                </dd>*@
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PublishedDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PublishedDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.StartDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ClosingDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ClosingDate)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model=>model.JobRequisitionID)
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Publish" class="btn btn-default" />
+                    </div>
+                }
+            </div>
+        </section>
+        
+    </div>
+</div>
+        
+

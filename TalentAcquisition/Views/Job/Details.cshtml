@@ -22,14 +22,26 @@
                     Candidates must possess the following qualifications among others:
                     @* List out Qualifications *@
                     <ul>
-
-                    </ul>
-                    •           BSc. 2ND Class Lower and Higher National Diploma or its equivalent in Electrical or Mechanical Engineering from recognized and accredited institutions.
-                    •           Industrial experience will be an added advantage.
+                        <li>BSc. 2ND Class Lower and Higher National Diploma or its equivalent in Electrical or Mechanical Engineering from recognized and accredited institutions</li>
+                        
+                        @{
+                            string qualifications = Model.EducationalRequirements;
+                            if ((qualifications != "") && (qualifications != null))
+                            {
+                                char[] delimiters = new char[] { '\r', '\n' };
+                                string[] splitqualifications = qualifications.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (string entry in splitqualifications)
+                                {
+                                    <li>@entry</li>
+                                }
+                            }
+                        }
+                        <li>Industrial experience will be an added advantage</li>
+                    </ul>     
                 </p>
                 <h4>Age Limit</h4>
                 <p>
-                    Applicants should not be more than Twenty-Six years (26) old as at the time of application.
+                    Applicants should not be more than @Model.AgeLimit years old as at the time of application.
                 </p>
                 <h4>Job Responsibilities</h4>
                 <ul>
@@ -52,8 +64,10 @@
         <div class="col-lg-4">
            
             <div class="row " style="margin-top:5em;margin-bottom:5em">
-
+                  @if (Model.ClosingDate > DateTime.Now)
+                  {
                     <a class="btn-default btn btn-success" style="padding:1em" href="@Url.RouteUrl("ApplyLink", new { id = Model.JobRequisitionID })">Apply For Job</a>
+                  }
             </div> 
             <div class="row">
                 <style>

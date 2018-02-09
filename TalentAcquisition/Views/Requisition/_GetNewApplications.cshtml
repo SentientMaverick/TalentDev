@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobApplication>
+
+<table class="table" style="font-size:90%;border:none">
+    <tr style="font-family:'Century Gothic'">
+        <th>
+            @Html.DisplayNameFor(model => model.JobRequisition.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobSeeker.ApplicantNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr style="height:2em;border:1px solid #91dbdb;">
+        <td>
+            @Html.DisplayFor(modelItem => item.JobRequisition.JobTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobSeeker.ApplicantNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationDate)
+        </td>
+        <td><a class="btn btn-success btn-xs" href="/Admin/Application/@item.JobApplicationID/@item.JobRequisition.JobTitle">Manage</a></td>
+    </tr>
+    <tr style="height:0.5em;"></tr>
+}
+
+</table>

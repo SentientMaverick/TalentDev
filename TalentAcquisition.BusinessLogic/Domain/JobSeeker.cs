@@ -18,6 +18,10 @@ namespace TalentAcquisition.Core.Domain
         [Display(Name = "Date Of Registration")]
         public DateTime RegistrationDate { get; set; }
         public string  UploadedCVAddress { get; set; }
+        public string UploadedPassportAddress { get; set; }
+        [Display(Name = "Industry of Choice or Specialization")]
+        public int? IndustryID { get; set; }
+        public virtual Industry Industry { get; set; }
         public virtual ICollection<JobApplication> JobApplications { get; set; }
         public virtual ICollection<School> Schools { get; set; }
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }

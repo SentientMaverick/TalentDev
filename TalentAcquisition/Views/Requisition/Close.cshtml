@@ -1,0 +1,171 @@
+﻿@model TalentAcquisition.Core.Domain.JobRequisition
+
+@{
+    ViewBag.Title = "Close Requisition";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container body-content">
+<div class="col-md-4 adminsidebar">
+    <div class="container">
+        <br />
+        <ul class="nav">
+            @Html.Partial("_AdminDashboardSidebar")
+        </ul>
+    </div>
+</div>
+<div class="col-md-8">
+    <section class="container body-content">
+        <div class="row">
+            <h2>Close Requisition</h2>
+
+            <h3>Are you sure you want to close this  Requisition?</h3>
+            <div>
+                <h4>JobRequisition</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OfficePosition.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.OfficePosition.Title)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobTitle)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobTitle)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Location)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NoOfPositionsAvailable)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NoOfPositionsAvailable)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobDescription)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobDescription)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AgeLimit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AgeLimit)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EducationalRequirements)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EducationalRequirements)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobResponsibilities)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobResponsibilities)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.YearsOfExperience)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.YearsOfExperience)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HumanResourcePersonnelID)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HumanResourcePersonnelID)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HeadOfDepartmentID)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HeadOfDepartmentID)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PublishedDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PublishedDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.StartDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ClosingDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ClosingDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.joburl)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.joburl)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-default" />
+                    </div>
+                }
+            </div>
+     </div>
+            </section>
+</div>
+
+</div>
+

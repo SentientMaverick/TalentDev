@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
+using TalentAcquisition.Filters;
+using System.Web.UI;
 
 namespace TalentAcquisition.Controllers
 {
@@ -24,14 +27,17 @@ namespace TalentAcquisition.Controllers
         //    return View(getJobs());
         //}
         [AllowAnonymous]
+        [OutputCache(Duration = 1200, VaryByParam = "none")]
         public PartialViewResult _GetRecentJobs()
         {
             return PartialView(getJobs());
         }
+
         [AllowAnonymous]
+        [OutputCache(Duration = 3600, VaryByParam = "none")]
         public PartialViewResult _GetSearchForm()
         {
-          ViewBag.Departments=db.Departments.ToList();
+            ViewBag.Departments=db.Departments.ToList();
             ViewBag.Industries = db.Industries.ToList();
             return PartialView("SearchForm");
         }
@@ -100,6 +106,25 @@ namespace TalentAcquisition.Controllers
 
         private bool checkalluserfields()
         {
+            var userid = User.Identity.GetUserId();
+            var applicant = new TalentContext().Applicants.Where(s => s.UserId == userid).FirstOrDefault();
+            if (applicant == null)
+            {
+                return false;
+            }
+            if (
+                !Equals(applicant.Address,null)  &&
+                !Equals(applicant.FirstName, null) && !Equals(applicant.LastName, null) &&
+                !Equals(applicant.DateOfBirth, null)
+                //&& Equals(applicant.Age, null)
+                //&& !Equals(applicant.UploadedCVAddress, null) && 
+                //!Equals(applicant.UploadedPassportAddress, null) &&
+                //!Equals(applicant.ApplicantNumber, null) && (applicant.WorkExperiences.Count>0) &&
+                //(applicant.Schools.Count > 0) && (applicant.Certifications.Count > 0)
+                )
+            {
+                return true;
+            }
             return false;
         }
 
@@ -110,57 +135,108 @@ namespace TalentAcquisition.Controllers
             {
                 // from s in db.Students select s;
                 var anyjobs = db.JobRequisitions.Where(o => o.Status.Value 
-                == JobRequisition.JobRequisitionStatus.Posted).Take(10);
+                == JobRequisition.JobRequisitionStatus.Posted).Take(10).OrderByDescending(o=>o.PublishedDate);
                 jobs = anyjobs.ToList();
                     return jobs;
             }
         }
 
         // GET: Job/Details/5
+        
         [Route("Job/{id:int}/{name}", Name = "JobDetails")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            JobRequisition jobRequisition = db.JobRequisitions.Find(id);
-            if (jobRequisition == null)
-            {
-                return HttpNotFound();
-            }
-            return View(jobRequisition);
-        }
-
-        [Route("Apply/{id:int}", Name = "ApplyLink")]
-        public ActionResult Apply(int id)
-        {
             try
             {
-                if (id == 0)
+                if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                JobRequisition job = db.JobRequisitions.Find(id);
-                if (job == null)
+                JobRequisition jobRequisition = db.JobRequisitions.Find(id);
+                if (jobRequisition == null)
                 {
                     return HttpNotFound();
                 }
-                var application = new JobApplication();
+                return View(jobRequisition);
+            }
+            catch
+            {
+                return View("Error");
+            }
+            
+        }
+
+        [AuthorizeApplicant]
+        [Route("Apply/{id:int}", Name = "ApplyLink")]
+        public ActionResult Apply(int id)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobRequisition job = db.JobRequisitions.Find(id);
+            ViewBag.jobRequisition = job;
+            ViewBag.Industries = db.Industries.ToList();
+
+            if (job == null)
+            {
+                return HttpNotFound();
+            }
+            var jobseekerguid = User.Identity.GetUserId();
+            JobSeeker applicant = db.Applicants.Where(o => o.UserId == jobseekerguid)
+                .Include("JobApplications")
+                .Include("Schools")
+                .Include("WorkExperiences")
+                .Include("Certifications").FirstOrDefault();
+            return View(applicant);
+        }
+        [HttpPost]
+        [AuthorizeApplicant]
+        [Route("Apply/{id:int}")]
+        public ActionResult Apply(int id,JobSeeker jobseeker)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobRequisition job = db.JobRequisitions.Find(id);
+            if (job == null)
+            {
+                return HttpNotFound();
+            }
+            try
+            {   
                 //get the details of the applicant
                 var IsProfileCompleted = checkalluserfields();
-                if(IsProfileCompleted)
+                var IsApplicationExisting = checkIfApplicationExists(User.Identity.GetUserId(),id);
+                if (IsApplicationExisting)
                 {
+                    ViewBag.Message = "You have already filled out Application For this Job";
+                    return View();
+                }
+                if (IsProfileCompleted)
+                {
+                    //run check to see if there is an existing application with the clientid and job requisitionid
                     //Display Message to indicate Success
-                    try
-                    {
-
-                    }
-                    catch
-                    {
-
-                    }
                     //Create new Job Application
+                    
+                    var application = new JobApplication();
+                    application.ApplicationStatus = ApplicationStatus.Applied;
+                    application.JobSeekerID = getuserid();
+                    application.RegistrationDate = DateTime.Now;
+                    application.JobRequisitionID = id;
+
+                    using(var db=new TalentContext())
+                    {
+                        db.JobApplications.Add(application);
+                        db.SaveChanges();
+                    }
+                    ViewBag.Message = "True";
+
+                }
+                else
+                {
+                    ViewBag.Message = "False";
                 }
                 //Obtain List of Fields to be Updated
                 //Display Message to indicate Success
@@ -168,90 +244,112 @@ namespace TalentAcquisition.Controllers
             }
             catch
             {
-                return View("Error");
+                ViewBag.Message = "Please Re-Apply";
+                return View();
             }
         }
+
+        private bool checkIfApplicationExists(string userid,int requisitionid)
+        {
+            var user = db.Applicants.Where(o => o.UserId == userid).FirstOrDefault();
+            var application = db.JobApplications.Where(o => o.JobRequisitionID == requisitionid && o.JobSeekerID == user.ID);
+            if (application.Any())
+                return true;
+            return false;
+        }
+        private int getuserid()
+        {
+            var userid = User.Identity.GetUserId();
+            var applicant = new TalentContext().Applicants.Where(s => s.UserId == userid).FirstOrDefault();
+            return applicant.ID;
+        }
+
         // GET: Job/Create
 
-        public ActionResult Create()
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
+
+        //// POST: Job/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "JobRequisitionID,JobTitle,Status,NoOfPositionsAvailable,JobDescription,HumanResourcePersonnelID,HeadOfDepartmentID,StartDate,ClosingDate,JobUrl")] JobRequisition jobRequisition)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.JobRequisitions.Add(jobRequisition);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(jobRequisition);
+        //}
+
+        //// GET: Job/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    JobRequisition jobRequisition = db.JobRequisitions.Find(id);
+        //    if (jobRequisition == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(jobRequisition);
+        //}
+
+        //// POST: Job/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "JobRequisitionID,JobTitle,Status,NoOfPositionsAvailable,JobDescription,HumanResourcePersonnelID,HeadOfDepartmentID,StartDate,ClosingDate,JobUrl")] JobRequisition jobRequisition)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(jobRequisition).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(jobRequisition);
+        //}
+
+        //// GET: Job/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    JobRequisition jobRequisition = db.JobRequisitions.Find(id);
+        //    if (jobRequisition == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(jobRequisition);
+        //}
+
+        //// POST: Job/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    JobRequisition jobRequisition = db.JobRequisitions.Find(id);
+        //    db.JobRequisitions.Remove(jobRequisition);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+        [Route("Apply/UpdateEmployment")]
+        public JsonResult UpdateEmployment()
         {
-            return View();
+            return Json(new {fash="Baba Nla" },JsonRequestBehavior.AllowGet);
         }
-
-        // POST: Job/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JobRequisitionID,JobTitle,Status,NoOfPositionsAvailable,JobDescription,HumanResourcePersonnelID,HeadOfDepartmentID,StartDate,ClosingDate,JobUrl")] JobRequisition jobRequisition)
-        {
-            if (ModelState.IsValid)
-            {
-                db.JobRequisitions.Add(jobRequisition);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(jobRequisition);
-        }
-
-        // GET: Job/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            JobRequisition jobRequisition = db.JobRequisitions.Find(id);
-            if (jobRequisition == null)
-            {
-                return HttpNotFound();
-            }
-            return View(jobRequisition);
-        }
-
-        // POST: Job/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "JobRequisitionID,JobTitle,Status,NoOfPositionsAvailable,JobDescription,HumanResourcePersonnelID,HeadOfDepartmentID,StartDate,ClosingDate,JobUrl")] JobRequisition jobRequisition)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(jobRequisition).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(jobRequisition);
-        }
-
-        // GET: Job/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            JobRequisition jobRequisition = db.JobRequisitions.Find(id);
-            if (jobRequisition == null)
-            {
-                return HttpNotFound();
-            }
-            return View(jobRequisition);
-        }
-
-        // POST: Job/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            JobRequisition jobRequisition = db.JobRequisitions.Find(id);
-            db.JobRequisitions.Remove(jobRequisition);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

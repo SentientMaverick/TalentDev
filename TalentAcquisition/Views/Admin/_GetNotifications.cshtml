@@ -1,0 +1,23 @@
+﻿@model TalentAcquisition.Models.ViewModel.AdminDashboardNotification
+
+    @*<h3 class="jumbotron"><b>@Model.activeRequisitionCount</b> New Notifications</h3>*@
+<div class="row jumbotron">
+    <div class="col-md-6 container">
+        <h3 class="text-center">You have  <b>@Model.newJobRequisitionCount</b> 
+         Requisitions <br/>Pending Approval</h3>
+    </div>
+    <div class="col-md-6 container">
+        <h3 class="text-center">You have <b>@Model.activeRequisitionCount</b> Active Requisitions</h3>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    @foreach (var item in Model.Notifications.Take(20))
+    {
+        <div class="col-md-4 container">
+            <h4 class="" style="text-align:left">@item.Title</h4>
+            <h5>Registered Applicants: @item.JobApplicationCount</h5>
+            <h5><a href="@item.url">Details</a></h5>
+        </div>
+    }
+</div>

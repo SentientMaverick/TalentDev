@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
 using TalentAcquisition.Filters;
+using System.Net;
 
 namespace TalentAcquisition.Controllers
 {
@@ -21,19 +22,21 @@ namespace TalentAcquisition.Controllers
         
         [AllowAnonymous]
         // GET: Applicant
-        public ActionResult Portal()
+        public ActionResult Portal(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Dashboard", "Applicant");
             }
+            TempData["Url"] = returnUrl;
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model,string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
+          string returnUrl =(string)TempData["Url"];
             try
             {
                 SetInitializers();
@@ -41,8 +44,7 @@ namespace TalentAcquisition.Controllers
             }
             catch
             {
-               
-                return View(model);
+                return View("Portal",model);
             }
         }
 
@@ -58,6 +60,8 @@ namespace TalentAcquisition.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Register(RegisterViewModel model, string returnUrl)
         {
@@ -70,6 +74,7 @@ namespace TalentAcquisition.Controllers
             return View();
             //return View("Home/Index");
         }
+       [OutputCache(Duration =120,VaryByParam ="None")]
         private void SetUserSessionID()
         {
             if (TempData["userid"] == null)
@@ -79,16 +84,69 @@ namespace TalentAcquisition.Controllers
                 TempData["userid"] = applicantid;
             }
         }
-        public ActionResult ManageApplications()
+        [Route("Applicant/manage_application/{id:int}")]
+        public ActionResult ManageApplication(int? id)
+        {
+            var db = new TalentContext();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobApplication application = db.JobApplications.Find(id);
+           // JobApplication application = db.JobApplications.Include("JobRequisition").Include("JobSeeker").WhereFind(id);
+
+            if (application == null)
+            {
+                return HttpNotFound();
+            }
+            try
+            {
+                return View(application);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Message = "Sorry , Unable to retrieve Details for Job Application";
+                return View("Error");   
+            }
+            
+        }
+
+        [ChildActionOnly]
+        public ActionResult _GetRequisition(int? id)
+        {
+            var requisition = new JobRequisition();
+            using (var db = new TalentContext())
+            {
+                requisition = db.JobRequisitions.Find(id);
+            }
+            return PartialView(requisition);
+        }
+        [ChildActionOnly]
+        public ActionResult _GetApplication(int? id)
+        {
+            var application = new JobApplication();
+            var db = new TalentContext();
+                application = db.JobApplications.Find(id);
+            return PartialView(application);
+        }
+        [HttpPost]
+        [Route("Applicant/manage_application/{id:int}")]
+        public ActionResult ManageApplication(JobApplication application)
         {
             return View();
         }
-
         [Route("Applicant/Profile")]
         public ActionResult ManageProfile()
         {
             SetUserSessionID();
             var user = getUserProfile();
+            //user.ID = (int)TempData["userid"];
+            // user.IndustryID = 1;
+            using (var db = new TalentContext())
+            {
+                ViewBag.Industries = db.Industries.ToList();
+            }
+
             return View(user);
         }
         [HttpPost]
@@ -96,7 +154,12 @@ namespace TalentAcquisition.Controllers
         [Route("Applicant/Profile")]
         public async Task<ActionResult> ManageProfile(JobSeeker applicant)
         {
-            applicant.ID = (int)TempData["userid"];
+            if (!ModelState.IsValid || Equals(applicant.ID,null) )
+            {
+                //ModelState.AddModelError("IndustryID", "Select an Industry of Specialization");
+                return View(applicant);
+            }
+            //applicant.ID = (int)TempData["userid"];
             return await app.SaveBioDetails(applicant);
         }
         [Route("Applicant/Profile/Uploadcv")]
@@ -180,6 +243,7 @@ namespace TalentAcquisition.Controllers
         [ChildActionOnly]
         public PartialViewResult _GetEmploymentList()
         {
+            SetUserSessionID();
             var applicantid = (int)TempData["userid"];
             var employments = new List<WorkExperience>();
             using (var db = new TalentContext())
@@ -202,7 +266,39 @@ namespace TalentAcquisition.Controllers
             }
             return View(applicant);
         }
-
+        [ChildActionOnly]
+        public ActionResult _GetOverview()
+        {
+            SetUserSessionID();
+            var applicantid = (int)TempData["userid"];
+            var applicant = new JobSeeker();
+            using (var db = new TalentContext())
+            {
+               ViewBag.Links = "Hide";
+                applicant = db.Applicants.Include("Schools").Include("Certifications").Include("WorkExperiences").FirstOrDefault(x => x.ID == applicantid);
+            }
+            return PartialView(applicant);
+        }
+        public ActionResult _GetApplicantOverview(int applicantid)
+        {
+            var applicant = new JobSeeker();
+            using (var db = new TalentContext())
+            {
+                ViewBag.Links = "Hide";
+                applicant = db.Applicants.Include("Schools").Include("Certifications").Include("WorkExperiences").FirstOrDefault(x => x.ID == applicantid);
+            }
+            return PartialView("_GetOverview",applicant);
+        }
+        [Route("Applicant/JobApplications")]
+        public ActionResult JobApplications()
+        {
+            SetUserSessionID();
+            var id = (int)TempData["userid"];
+            ViewBag.Userid = id;
+            var applications = new List<JobApplication>();
+            applications = new TalentContext().JobApplications.Where(application=>application.JobSeekerID== id).ToList() ;
+            return PartialView(applications);
+        }
         private JobSeeker getUserProfile()
         {
             var currentuser = new JobSeeker();
@@ -214,6 +310,7 @@ namespace TalentAcquisition.Controllers
             }
             return currentuser;
         }
+        [AllowAnonymous]
         public ActionResult RegistrationSuccess()
         {
             if (User.Identity.IsAuthenticated)
@@ -224,6 +321,7 @@ namespace TalentAcquisition.Controllers
             return View();
             //return View("Home/Index");
         }
+
         
     }
 }

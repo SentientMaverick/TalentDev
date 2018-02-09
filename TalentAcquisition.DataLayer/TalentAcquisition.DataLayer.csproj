@@ -152,6 +152,22 @@
     <Compile Include="Migrations\201801150954591_updatedCertificationModelagain.Designer.cs">
       <DependentUpon>201801150954591_updatedCertificationModelagain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801220830487_updateJobseekerModel.cs" />
+    <Compile Include="Migrations\201801220830487_updateJobseekerModel.Designer.cs">
+      <DependentUpon>201801220830487_updateJobseekerModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801221143488_updateJobApplicationModel.cs" />
+    <Compile Include="Migrations\201801221143488_updateJobApplicationModel.Designer.cs">
+      <DependentUpon>201801221143488_updateJobApplicationModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801230650551_changedApplicantSpecializationType.cs" />
+    <Compile Include="Migrations\201801230650551_changedApplicantSpecializationType.Designer.cs">
+      <DependentUpon>201801230650551_changedApplicantSpecializationType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802051544211_addedNoteAttributeToInterviewClass.cs" />
+    <Compile Include="Migrations\201802051544211_addedNoteAttributeToInterviewClass.Designer.cs">
+      <DependentUpon>201802051544211_addedNoteAttributeToInterviewClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -193,6 +209,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801150954591_updatedCertificationModelagain.resx">
       <DependentUpon>201801150954591_updatedCertificationModelagain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801220830487_updateJobseekerModel.resx">
+      <DependentUpon>201801220830487_updateJobseekerModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801221143488_updateJobApplicationModel.resx">
+      <DependentUpon>201801221143488_updateJobApplicationModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801230650551_changedApplicantSpecializationType.resx">
+      <DependentUpon>201801230650551_changedApplicantSpecializationType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802051544211_addedNoteAttributeToInterviewClass.resx">
+      <DependentUpon>201802051544211_addedNoteAttributeToInterviewClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,6 +17,7 @@ namespace TalentAcquisition.Core.Domain
         public int JobApplicationID { get; set; }
         public int JobSeekerID { get; set; }
         public int JobRequisitionID { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public ApplicationStatus? ApplicationStatus { get; set; }
         public virtual JobSeeker JobSeeker { get; set; }
         public virtual JobRequisition JobRequisition { get; set; }

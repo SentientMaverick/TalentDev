@@ -1,0 +1,53 @@
+﻿@model TalentAcquisition.Core.Domain.Interview
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Interview Team</h4>
+        <hr/>
+        <div class="row container">
+            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 1</b></p>
+            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 2</b></p>
+            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 3</b></p>
+            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 4</b></p>
+        </div>
+    </div>
+    <div class="col-md-6">
+@using (Html.BeginForm("_SubmitInterviewSchedulingForm", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
+{
+    <style>
+        textarea{
+            min-width:100%;
+            width:100%;
+        }
+        label{
+            font-size:90%;
+        }
+    </style>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group hidden">
+            @Html.DisplayFor(model => model.InterviewID)
+        </div>
+        <div class="form-group">
+                @Html.Label("Final Details", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-12">
+                    <textarea name="SchedulingFinalNotes" id="SchedulingFinalNotes" rows="5" cols="40" class="form-control" value="" placeholder="Enter any Extra Information That the Candidate should know"></textarea>
+                    @Html.ValidationMessage("FinalInformation", "", new { @class = "text-danger" })
+                </div>
+        </div>
+        <div class="form-group">
+            <label>Chosen Date For Interview</label>
+            <div class="col-md-12">
+                <input type="text"  value="@Model.ProposedDate2" data-date-format="DD-MM-YYYY" id="Date" name="Date" class="form-control" disabled/>
+            </div>
+        </div>
+        <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <input type="submit" value="Finalize Interview" class="btn btn-default" />
+                </div>
+        </div>
+        </div>
+
+        }
+    </div>
+</div>

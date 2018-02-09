@@ -1,0 +1,164 @@
+﻿@model TalentAcquisition.Core.Domain.OfficePosition
+
+@{
+    ViewBag.Title = "Edit Position";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<style>
+    .adminsidebar {
+        height: 100%;
+        min-height: 500px;
+        padding: 1em;
+        background-color: rgba(0,0,0,1);
+        color: white;
+    }
+
+        .adminsidebar h1, .adminsidebar h2, .adminsidebar h3 {
+            color: snow;
+            font-size: 125%;
+            text-shadow: white;
+            text-align: center;
+        }
+
+        .adminsidebar .nav {
+            margin: 0 auto;
+            /*background:rgba(255,255,255,0.1);*/
+            padding: 1em;
+        }
+
+        .adminsidebar li {
+            border-bottom: 1px solid white;
+            text-align: left;
+            border-left: 4px solid brown;
+        }
+
+            .adminsidebar li a:hover {
+                color: rgb(4, 5, 47);
+                background-color: snow;
+                display: block;
+            }
+
+            .adminsidebar li a {
+                color: white;
+                line-height: 2em;
+                width: 100%;
+            }
+
+        .adminsidebar .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+            .adminsidebar .nav ul li {
+                border: 0;
+                margin-left: 1em;
+            }
+
+                .adminsidebar .nav ul li a:link,
+                .adminsidebar .nav ul li a:visited {
+                    color: snow;
+                    padding: 0.5em 0.5em 0.5em 1em;
+                    display: block;
+                    text-decoration: none;
+                    border-left: 5px solid rgb(239,213,252);
+                }
+
+                .adminsidebar .nav ul li a:hover {
+                    color: rgb(49,52,61);
+                    border-left: 5px solid rgb(250,136,234);
+                }
+    /*.bioform input,
+                    select {
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                    .bioform #submit input
+                    {
+                        max-width: 280px;
+                    }*/
+</style>
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4 adminsidebar">
+            <div class="container">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <section class="container body-content">
+                <div class="row bioform">
+                    <h3>Dashboard</h3>
+                    <br />
+                    <h4>Edit Office Role</h4>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.OfficePositionID)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DepartmentID, "Department", htmlAttributes: new { @class = " col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("DepartmentID", new SelectList(ViewBag.Departments, "DepartmentID", "DepartmentName"), "", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IndustryID, "Industry", htmlAttributes: new { @class = " col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("IndustryID", new SelectList(ViewBag.Industries, "IndustryID", "Name"), "", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.IndustryID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RoleSummary, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RoleSummary, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RoleSummary, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reqirements, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-8">
+                                    @Html.TextAreaFor(model => model.Reqirements, new { @class = "form-control", rows = "8", cols = "10" })
+                                  
+                                    @Html.ValidationMessageFor(model => model.Reqirements, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+              </section>
+        </div>
+
+    </div>
+</section>

@@ -10,12 +10,26 @@ namespace TalentAcquisition.Filters
     public class AuthorizeApplicantAttribute:AuthorizeAttribute
     {
         private AppManager app = new AppManager();
+        private string returnto,returnurl;
         public AuthorizeApplicantAttribute()
         {
         }
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            if (Equals(httpContext.User.Identity.Name, ""))
+            {
+                returnto = httpContext.Request.CurrentExecutionFilePath;
+                returnurl = httpContext.Request.Url.ToString();
+                return false;
+            }
+            else
+                return true;
+        }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
                 {
-                    filterContext.Result = new RedirectResult("~/Applicant/Portal");
+            //filterContext.HttpContext.Response.
+            filterContext.Result = new RedirectResult("~/Applicant/Portal?returnUrl="+returnto);
+          
                 }
         }
 }

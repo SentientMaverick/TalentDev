@@ -1,0 +1,136 @@
+﻿@model TalentAcquisition.Core.Domain.InterviewDetail
+<style>
+    select, input {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    select {
+        margin-left: 0px;
+    }
+</style>
+@using (Html.BeginForm("_SubmitChooseInterviewTeamForm", "Application", FormMethod.Post, new { @class = "teamform", @id = "teamform" }))
+{
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        @*<div class="col-md-12">
+            @Html.DropDownList("TeamMember1ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Team Member from HR", htmlAttributes: new { @class = "form-control" })
+        </div>*@
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.DropDownList("TeamMember1ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Member from HR", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeamMember1ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.DropDownList("TeamMember2ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Head of Department", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeamMember2ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.DropDownList("TeamMember3ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Team Member 3", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeamMember3ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.DropDownList("TeamMember4ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Team Member 4", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeamMember4ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-6 col-md-6">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(function () {
+        var form = $("#teamform");
+        form.submit(function (e) {
+            var input1 = $("#TeamMember1ID");
+            var input2 = $("#TeamMember2ID");
+            var input3 = $("#TeamMember3ID");
+            var input4 = $("#TeamMember4ID");
+            if ((input1.val() == "") || (input2.val() == "") || (input3.val() == "") || (input4.val() == "")) {
+
+                alert("Please fill all the fields before submitting the form");
+            }
+            if ((input1.val() == input2.val()) || (input1.val() == input3.val())
+                || (input1.val() == input4.val()) || (input2.val() == input3.val())
+                || (input2.val() == input4.val()) || (input3.val() == input4.val())) {
+
+                alert("You cannot choose the same employee twice! Please ensure 4 different Employees are chosen!");
+            }
+            e.preventDefault();
+            $.ajax({
+                type:"POST",
+                url:form.attr("action"),
+                data:form.serialize(),
+                success: function (data) {
+                    if (data)
+                        alert("Success");
+                },
+                error:function(error){
+                    alert("Error");
+                }
+            });
+        });
+
+        $("#form").validate({
+            errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+            errorElement: 'div',
+            errorPlacement: function (error, e) {
+                e.parents('.form-group > div').append(error);
+            },
+            highlight: function (e) {
+
+                $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                $(e).closest('.help-block').remove();
+            },
+            success: function (e) {
+                e.closest('.form-group').removeClass('has-success has-error');
+                e.closest('.help-block').remove();
+            },
+            rules: {
+                'ProposedDate1': {
+                    required: true
+                    //date: true
+                }
+
+                //'Password': {
+                //    required: true,
+                //    minlength: 6
+                //},
+
+                //'ConfirmPassword': {
+                //    required: true,
+                //    equalTo: '#Password'
+                //}
+            },
+            messages: {
+                'ProposedDate1': 'Please enter valid Date'
+
+                //'Password': {
+                //    required: 'Please provide a password',
+                //    minlength: 'Your password must be at least 6 characters long'
+                //},
+
+                //'ConfirmPassword': {
+                //    required: 'Please provide a password',
+                //    minlength: 'Your password must be at least 6 characters long',
+                //    equalTo: 'Please enter the same password as above'
+                //}
+            }
+        });
+    });
+</script>

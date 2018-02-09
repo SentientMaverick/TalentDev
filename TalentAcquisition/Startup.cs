@@ -17,7 +17,7 @@ namespace TalentAcquisition
             ConfigureAuth(app);
             //createEmployees();
             //createOfficePositions();
-            createOfficePositions();
+            //createOfficePositions();
         }
 
         private void createOfficePositions()

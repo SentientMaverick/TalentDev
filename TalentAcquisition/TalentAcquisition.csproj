@@ -170,10 +170,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndustryController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobSeekersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RequisitionController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Filters\AuthorizeApplicantAttribute.cs" />
     <Compile Include="Filters\AuthorizeRolesAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -185,6 +191,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModel\EmployeePortalView.cs" />
+    <Compile Include="Models\ViewModel\AdminView .cs" />
     <Compile Include="Models\ViewModel\PublicPortalView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -213,17 +220,9 @@
     <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
     <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery-ui.min.css" />
     <Content Include="Content\themes\base\menu.css" />
     <Content Include="Content\themes\base\progressbar.css" />
     <Content Include="Content\themes\base\resizable.css" />
@@ -321,18 +320,12 @@
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -347,6 +340,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Uploads\passport.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -418,10 +412,54 @@
     <Content Include="Views\Admin\Dashboard.cshtml" />
     <Content Include="Views\Shared\_AdminMainMenu.cshtml" />
     <Content Include="Views\Job\Apply.cshtml" />
+    <Content Include="Views\Admin\_GetNotifications.cshtml" />
+    <Content Include="Views\Shared\_AdminDashboardSidebar.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\_GetOfficePositions.cshtml" />
+    <Content Include="Views\Industry\Index.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Delete.cshtml" />
+    <Content Include="Views\Industry\Create.cshtml" />
+    <Content Include="Views\Industry\Edit.cshtml" />
+    <Content Include="Views\Industry\Delete.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Details.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Requisition\_GetDetailsFromRole.cshtml" />
+    <Content Include="Views\Requisition\Create.cshtml" />
+    <Content Include="Views\Requisition\Index.cshtml" />
+    <Content Include="Views\Requisition\_GetIncomingRequisitions.cshtml" />
+    <Content Include="Views\Requisition\Close.cshtml" />
+    <Content Include="Views\Requisition\Publish.cshtml" />
+    <Content Include="Views\Requisition\Details.cshtml" />
+    <Content Include="Views\Requisition\_GetNewApplications.cshtml" />
+    <Content Include="Views\Applicant\JobApplications.cshtml" />
+    <Content Include="Views\Applicant\ManageApplication.cshtml" />
+    <Content Include="Views\Requisition\_GetRequisition.cshtml" />
+    <Content Include="Views\Applicant\_GetRequisition.cshtml" />
+    <Content Include="Views\Admin\Application.cshtml" />
+    <Content Include="Views\Requisition\Edit.cshtml" />
+    <Content Include="Views\Applicant\_GetOverview.cshtml" />
+    <Content Include="Views\Application\AppliedPage.cshtml" />
+    <Content Include="Views\Application\ScreenedPage.cshtml" />
+    <Content Include="Views\Applicant\_GetApplication.cshtml" />
+    <Content Include="Views\Application\InterviewPage.cshtml" />
+    <Content Include="Views\Application\OfferJobPage.cshtml" />
+    <Content Include="Views\Application\_GetCandidateAvailabilityForm.cshtml" />
+    <Content Include="Views\Application\_GetChooseInterviewTeamForm.cshtml" />
+    <Content Include="Views\Application\_GetInterviewFeedbackForm.cshtml" />
+    <Content Include="Views\Application\_GetFinalizeInterviewForm.cshtml" />
+    <Content Include="Views\Application\_GetTeamFeedback.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

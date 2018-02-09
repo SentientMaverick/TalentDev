@@ -1,8 +1,379 @@
-﻿
+﻿@model TalentAcquisition.Core.Domain.JobSeeker
+@using  TalentAcquisition.Core.Domain;
 @{
     ViewBag.Title = "Application Summary";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
+    JobRequisition jobRequisition = (JobRequisition)ViewBag.jobRequisition;
+}
+<div class="mainbody">
+    <div class="container body-content" style="color:black">
+            <div class="row container">
+                <div class="col-md-4">
+                        @Html.Partial("_ApplicantSideBar")
+                </div>
+                <div class="col-md-8" style="padding-top:2em">
+                    <div class="container body-content">
+                        <h3>Apply for @jobRequisition.JobTitle Opening </h3><hr/>
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Job Abstract</div>
+                                <div class="panel-body" id="JobRequisitionDetails" style="font-size:90%">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-3">JobTitle:</label>
+                                                <div class="col-sm-9">
+                                                    <p class="form-control-static">@jobRequisition.JobTitle</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-3">Location:</label>
+                                                <div class="col-sm-9">
+                                                    <p class="form-control-static">@jobRequisition.Location</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-3">Job Expires:</label>
+                                                <div class="col-sm-9">
+                                                    <p class="form-control-static">@jobRequisition.ClosingDate.ToShortDateString()</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-3">Slots Available:</label>
+                                                <div class="col-sm-9">
+                                                    <p class="form-control-static">@jobRequisition.NoOfPositionsAvailable</p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                        @using (Html.BeginForm(new { id = "bioForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.ID);
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Personal Information</div>
+                                    <div class="panel-body" id="PersonalDetails" style="font-size:80%">
+                                        <div class="form-horizontal">
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            <div class="wideinput" id="bioform">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.RegistrationDate, htmlAttributes: new { @class = "control-label col-md-3", })
+                                                    <div class="col-md-8" id="dateinput">
+                                                        @Html.EditorFor(model => model.RegistrationDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.RegistrationDate, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.DateOfBirth, new
+                                                                   {
+                                                                       htmlAttributes = new
+                                                                       {
+                                                                           @Value = Model.DateOfBirth.ToString("MM/dd/yyyy"),
+                                                                           @class = "form-control"
+                                                                       }
+                                                                   })
+                                                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", rows = "3", cols = "10" })
+                                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.IndustryID, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("IndustryID", new SelectList(ViewBag.Industries, "IndustryId", "Name"), "Select Specialization", htmlAttributes: new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.IndustryID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Work History</div>
+                                        <div class="panel-body" id="EmploymentDetails" style="font-size:90%">
+                                            @Html.Action("_GetEmploymentList", "Applicant", Model.WorkExperiences)  
+                                        </div>
+                                        <a class="btn-default btn" href="javascript:void(0)" id="newitem">Create New</a>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Education History</div>
+                                        <div class="panel-body" id="EducationDetails" style="font-size:90%">
+                                            @Html.Action("_GetEmploymentList", "Applicant", Model.WorkExperiences)
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Uploaded Files</div>
+                                        <div class="panel-body" id="UploadedDetails" style="font-size:90%">
+                                            @Html.Action("_GetEmploymentList", "Applicant", Model.WorkExperiences)
+                                        </div>
+                                    </div>
+                                </div>
+                        }                       
+                        </div>
+                </div>
+            </div>
+    </div>
+
+</div>
+<div id="divEdit" style="display:none">
+    @*@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "EmploymentDetails" }))*@
+    <form id="employmentform">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
+        <input type="hidden" id="ID" />
+        <div class="form-horizontal">
+            <table class="table">
+                <tr>
+                    <th>
+                        CompanyName
+                    </th>
+                    <td>
+                        <input type="text" name="CompanyName" id="CompanyName" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        JobTitle
+                    </th>
+                    <td>
+                        <input type="text" name="JobTitle" id="JobTitle" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Job Description
+                    </th>
+                    <td>
+                        <input type="text" name="JobDescription" id="JobDescription" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Reasons For Leaving
+                    </th>
+                    <td>
+                        <textarea type="text" name="ReasonsForLeaving" id="ReasonsForLeaving" class="form-control" rows="3" cols="50"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Starting Date
+                    </th>
+                    <td>
+                        <input type="text" name="StartingDate" data-date-format="DD-MM-YYYY" id="StartingDate" class="form-control" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Ending Date
+                    </th>
+                    <td>
+                        <input type="text" name="EndingDate" id="EndingDate" data-date-format="DD-MM-YYYY" class="form-control" value="" />
+                    </td>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="submit" id="submitemployment" /></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#StartingDate').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+         });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $('#dateinput :input').prop("disabled", true);
+            $('#DateOfBirth').datetimepicker({
+                defaultDate: '@Model.DateOfBirth',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+        });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#EndingDate').datetimepicker({
+            defaultDate: '',
+            format: 'L',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'top'
+        });
+
+        var initDialog = function (type) {
+            var title = type;
+            $("#divEdit").dialog({
+                title: type + ' Qualification',
+                autoOpen: false,
+                modal: true,
+                width: 500,
+                dialogClass: 'mod-no-close',
+                buttons: {
+                    Save: function () {
+
+                        var id = $("#ID").val();
+                        var companyname = $("#CompanyName").val();
+                        var jobtitle = $("#JobTitle").val();
+                        var jobdescription = $("#JobDescription").val();
+                        var reasons = $("#ReasonsForLeaving").val();
+                        var startingdate = $("#StartingDate").val();
+                        var endingdate = $("#EndingDate").val();
+
+                        $(this).dialog("destroy");
+                    },
+                    Cancel: function () {
+                        $(this).dialog("destroy");
+                    }
+                }
+            });
+        };
+
+        $("a#newitem").on("click",function () {
+            initDialog("Add New ");
+            
+            $("#divEdit").dialog("open");
+            return false;
+        });
+
+        $("a.edititem").on("click", function () {
+            initDialog("Edit Entry");
+            var row = $(this).closest('tr');
+
+            $("#ID").val(row.find("td:eq(0)").html().trim());
+            $("#CompanyName").val(row.find("td:eq(1)").html().trim());
+            $("#JobTitle").val(row.find("td:eq(2)").html().trim());
+            $("#JobDescription").val(row.find("td:eq(3)").html().trim());
+            $("#ReasonsForLeaving").val(row.find("td:eq(4)").html().trim());
+            $("#StartingDate").val(row.find("td:eq(5)").html().trim());
+            $("#EndingDate").val(row.find("td:eq(6)").html().trim());
+
+            $("#divEdit").dialog("open");
+            return false;
+        });
+
+        $("a.deleteitem").on("click", function () {
+            var row = $(this).closest('tr');
+            var id = row.find("td:eq(0)").html().trim();
+            var answer = confirm("You are about to delete this Entry."+id+ "Continue?");
+            if (answer)
+                alert(id);
+                //DeleteUser(id);
+            return false;
+        });
+
+        var employmentform = $("#employmentform");
+        employmentform.submit(function (e) {
+            e.preventDefault();
+            UpdateEmployment();
+        });
+
+        function UpdateEmployment()
+        {
+           $.ajax({
+                type:"POST",url:"@(Url.Action("UpdateEmployment","Apply"))",
+                data:employmentform.serialize(),
+                success: function (data) {
+               alert("Success" + data);
+               @*$("#EmploymentDetails").load(@(Url.Action("_GetEmploymentList", "Applicant"));*@
+                },
+               error:function(error){
+                   alert("Error" + error);
+               }
+           });
+       }
+       function UpdateEducation() {
+
+       }
+       function UpdateUploads() {
+
+       }
+            @*$.ajax({
+                type:"POST",url:"@(Url.Action("FirstPage","Home"))",data:{},
+                success: function (data) {
+                    alert('Form Changed');
+                    $('#pagecontent').load("/Home/SecondPage");
+                    $('.pagecontent').load(@(Url.Action("ThirdPage","Home"));
+                }
+            });*@
+    });
+</script>
 }
 
-<h2>Apply</h2>
+@*@if (ViewBag.Message == "True")
 
+            {
+                <div class="row">
+                    <h3 class="text-center">Application Was Successful</h3>
+                </div>
+    <div class="row">
+    <p>Return to the Profile Page by clicking on the <span class="btn btn-default"> @Html.ActionLink("Link", "Profile", "Applicant")</span> </p>
+    </div>
+            }
+            else if(ViewBag.Message=="False")
+            {
+                <div class="row">
+                    <h3 class="text-center">Application Was not Successful</h3>
+                </div>
+                    <h4>Application Was not Successful. Update Missing fields in profile and Try Again</h4>
+            }
+            else
+            {
+                <div class="row">
+                    <h3 class="text-center">Existing Application Found</h3>
+                </div>
+                <h4>You have already filled out Application For this Job</h4>
+            }*@

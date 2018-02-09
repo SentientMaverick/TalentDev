@@ -16,6 +16,7 @@ namespace TalentAcquisition.Controllers
         private TalentContext db = new TalentContext();
 
         // GET: JobSeekers
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Applicants.ToList());

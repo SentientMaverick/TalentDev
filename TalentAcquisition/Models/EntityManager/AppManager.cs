@@ -107,6 +107,7 @@ namespace TalentAcquisition
                         originaluserdata.PhoneNumber = applicant.PhoneNumber;
                         originaluserdata.Address = applicant.Address;
                         originaluserdata.DateOfBirth = applicant.DateOfBirth;
+                        originaluserdata.IndustryID = applicant.IndustryID;
                         db.Entry(originaluserdata).State = EntityState.Modified;
                           await db.SaveChangesAsync();
                         //db.SaveChanges();
@@ -158,19 +159,75 @@ namespace TalentAcquisition
                         }
             return View("Signup",model);
         }
-        public void EmployeeRegistartion()
-        {
 
+        public ActionResult EmployeeRegistration(Employee employee, string UserEmail)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var db = new TalentContext())
+                {
+                    using (var dbtransact = db.Database.BeginTransaction())
+                    {
+                        ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
+                        try
+                        {
+                            ApplicationDbContext context = new ApplicationDbContext();
+
+
+                            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+                            var user = new ApplicationUser { UserName = UserEmail, Email = UserEmail };
+                            //var result = await UserManager.CreateAsync(user, model.Password);
+                            //var user = new ApplicationUser();
+
+                            //user.UserName = employee.EmployeeNumber;
+                            //user.Email = "syedshanumcain@gmail.com";
+                            // user.Email = UserEmail;
+                            string userPWD = employee.Password;
+
+                            var chkUser = UserManager.Create(user, userPWD);
+
+                            if (chkUser.Succeeded)
+                            {
+                                employee.UserId = user.Id;
+                                //user.LockoutEnabled = true;
+                                db.Employees.Add(employee);
+                                db.SaveChanges();
+                            }
+                            dbtransact.Commit();
+                            ViewBag.Message = "Successfully Created Employee Record.";
+                        }
+                        catch
+                        {
+                            dbtransact.Rollback();
+                            ViewBag.Message = "Sorry! Please Check if all the fields are field correctly and try again.";
+                            return View("Employees/Create",employee);
+                        }
+                    }
+                }
+                return View("Employees/Create");
+            }
+           return View("Employees/Create",employee);
         }
         #endregion
         #region HelperMethods
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            try
             {
-                return Redirect(returnUrl);
+                //if (Url.IsLocalUrl(returnUrl))
+                //{
+                    return Redirect(returnUrl);
+                //}
+                //return RedirectToAction("Dashboard", "Applicant");
             }
-            return RedirectToAction("Index", "Home");
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            
         }
         private void AddErrors(IdentityResult result)
         {
@@ -181,11 +238,15 @@ namespace TalentAcquisition
         }
         private async Task<ActionResult> PerformLogin(LoginViewModel model, string returnUrl, string origin)
         {
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,shouldLockout:false);
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (origin == "Employee")
+                    if (returnUrl != null)
+                        return RedirectToLocal(returnUrl);
+                    else if (origin == "Employee")
                         return RedirectToAction("Dashboard", "Admin");
                     else
                         return RedirectToAction("Dashboard", "Applicant");

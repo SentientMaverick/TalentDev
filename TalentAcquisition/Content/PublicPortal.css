@@ -65,7 +65,6 @@ footer{
     color:red;
 }
 
-
     .loginform{
         margin:0 auto;
         padding-top:1em;
@@ -131,21 +130,14 @@ footer{
      .sidebar li a:hover{
          color:white;
          background-color:rgb(4, 5, 47);
-<<<<<<< HEAD
-         display:block;
-=======
->>>>>>> 077195ab7df4de1c47c101358f4d4f6a3e1e555a
-         
+         display:block;    
      }
      .sidebar li a{
         color:rgb(4, 5, 47);
-<<<<<<< HEAD
         line-height:3em;
         padding:1em;
-=======
         padding:2em;
          display:block;
->>>>>>> 077195ab7df4de1c47c101358f4d4f6a3e1e555a
          width:100%;
      }
      .searcharea{
@@ -217,3 +209,4 @@ display:none;
 0% { transform: rotate(0deg); }
 100% { transform: rotate(360deg); }
 }
+

@@ -1,0 +1,164 @@
+﻿@model TalentAcquisition.Core.Domain.JobRequisition
+@{
+    ViewBag.Title = "Requisition Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+@section Scripts{
+    <script type="text/javascript">
+    $(function () {
+        $(".Details").accordion({
+            collapsible: true
+        });
+    });
+</script>
+}
+
+<div class="container body-content">
+    <h2>Manage Requisitions</h2>
+    <div class="col-md-4 adminsidebar">
+        <div class="container">
+            <br />
+            <ul class="nav">
+                @Html.Partial("_AdminDashboardSidebar")
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8" style="font-size:90%">
+        <section class="container body-content">
+            <div class="row Details" id="JobDetails">
+                <h4 class="alert-success">Job Details</h4>
+                <div class="col-lg-12">
+                    <dl class="" style="font-size:90%">
+                         <dt>
+                            Industry
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.OfficePosition.Industry.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.JobTitle)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.JobTitle)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Location)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Status)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NoOfPositionsAvailable)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.NoOfPositionsAvailable)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.JobDescription)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.JobDescription)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AgeLimit)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.AgeLimit)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EducationalRequirements)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EducationalRequirements)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.JobResponsibilities)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.JobResponsibilities)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.YearsOfExperience)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.YearsOfExperience)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PublishedDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PublishedDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.StartDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ClosingDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ClosingDate)
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </section>
+        <section class="container body-content">
+            <div class="row Details" id="NewApplications">
+                <h4 class="alert-success">New Applications</h4>
+                 @Html.Action("_GetNewApplications", new { id = ViewBag.RequisitionID })
+            </div>
+        </section>
+        <section class="container body-content">
+            
+            <div class="row Details" id="ScreenedApplications">
+                <h4 class="alert-success">Screened Applications</h4>
+                @Html.Action("_GetScreenedApplications", new { id = ViewBag.RequisitionID })
+            </div>
+        </section>
+        <section class="container body-content">
+            <div class="row Details" id="ClosedApplications">
+                <h4 class="alert-success">Closed Applications</h4>
+                @Html.Action("_GetClosedApplications", new { id= ViewBag.RequisitionID })
+            </div>
+            
+        </section>
+    </div>
+
+</div>
+
+

@@ -3,11 +3,90 @@
     ViewBag.Title = "Admin Panel";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<style>
+ .adminsidebar {
+        height: 100%;
+        min-height: 500px;
+        padding: 1em;
+        color: black;
+    }
+
+        .adminsidebar h1, .adminsidebar h2, .adminsidebar h3 {
+            color: snow;
+            font-size: 125%;
+            text-shadow: white;
+            text-align: center;
+        }
+
+        .adminsidebar .nav {
+            margin: 0 auto;
+            /*background:rgba(255,255,255,0.1);*/
+            padding: 1em;
+        }
+
+        .adminsidebar li {
+            border-bottom: 1px solid white;
+            text-align: left;
+            border-left: 4px solid brown;
+        }
+
+            .adminsidebar li a:hover {
+                color: rgb(4, 5, 47);
+                background-color: snow;
+                display: block;
+            }
+
+            .adminsidebar li a {
+                color: white;
+                line-height: 2em;
+                width: 100%;
+                color:black;
+            }
+
+        .adminsidebar .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+            .adminsidebar .nav ul li {
+                border: 0;
+                margin-left: 1em;
+            }
+
+                .adminsidebar .nav ul li a:link,
+                .adminsidebar .nav ul li a:visited {
+                    color: black;
+                    padding: 0.5em 0.5em 0.5em 1em;
+                    display: block;
+                    text-decoration: none;
+                    border-left: 5px solid rgb(239,213,252);
+                }
+
+                .adminsidebar .nav ul li a:hover {
+                    color: rgb(49,52,61);
+                    border-left: 5px solid rgb(250,136,234);
+                }
+</style>
 <section class="mainbody">
-    <section class="container body-content">
-        <section class="">
-            <h2>Dashboard</h2>
+    <div class="container">
+        <div class="col-md-4 adminsidebar">
+            <div class="container">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <section class="container body-content">
+                <div class="row">
+                    <h2>Dashboard</h2>
+                    @Html.Action("_GetNotifications", "Admin")
+                </div>
             </section>
-        </section>
+        </div>
+    
+    </div>
 </section>
 

@@ -13,6 +13,7 @@ namespace TalentAcquisition.Core.Domain
         public int JobRequisitionID { get; set; }
         public int JobApplicationID { get; set; }
         public int OfficePositionID { get; set; }
+        public string SchedulingFinalNote { get; set; }
         public DateTime ProposedDate1 { get; set; }
         public DateTime ProposedDate2 { get; set; }
         public DateTime? ScheduledDate { get; set; }
