@@ -9,7 +9,7 @@
                     new { id = Model.JobRequisitionID, name = url })">@Html.DisplayFor(model => model.JobTitle)
              </a>
         @*@Html.ActionLink(Model.JobTitle,"Details","Job",new {id=Model.JobRequisitionID })*@</h2>
-        <h4><span class="glyphicon-map-marker"></span>Industry <span class="glyphicon-bell"></span>@Html.DisplayFor(model => model.Location)</h4>
+        <h4><span class="glyphicon glyphicon-calendar"></span>  @Model.ClosingDate.ToShortDateString() <span class="glyphicon glyphicon-map-marker"></span>  @Html.DisplayFor(model => model.Location)</h4>
         <p>@Html.DisplayFor(model => model.JobDescription)</p>
     </div>
 </div>

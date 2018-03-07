@@ -36,3 +36,4 @@ C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.BusinessLogic\bin\Mi
 C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.BusinessLogic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.dll
 C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.pdb
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.csprojResolveAssemblyReference.cache

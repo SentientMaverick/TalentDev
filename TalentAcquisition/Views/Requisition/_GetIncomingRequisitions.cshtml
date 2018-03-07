@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobRequisition>
 
-<table class="table table-bordered table-striped" id="RequisitionTable">
+<table class="table table-striped" id="RequisitionTable" style="font-size:80%">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.JobTitle)
@@ -39,9 +39,13 @@
             {
                 @item.PublishedDate.ToShortDateString()
             }
+            else if ((int)item.Status == 3)
+            {
+                 <p>Rejected</p>
+            }
             else
             {
-               <p>Unpublished</p> 
+               <p> Unpublished </p>
             }
         </td>
         
@@ -55,20 +59,25 @@
               @if ((int)item.Status == 1)
                 {
                    <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
-                                Close</a><span>|</span>
-            }
-            else
-            {
+                                Close</a>
+            <span>|</span><a href="@Url.RouteUrl("RequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">Details</a>
+
+              }
+              else if ((int)item.Status == 3)
+              {
+                <a href="@Url.RouteUrl("Edit",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                    Modify</a>   
+              }
+              else
+              {
                 <a href="@Url.RouteUrl("MatchSkill",new { id = item.JobRequisitionID, details = item.JobTitle })">
                     Skill Matching
                 </a> <span>|</span>
                 <a href="@Url.RouteUrl("PublishLink",new { id = item.JobRequisitionID, details = item.JobTitle })">
                     Publish
-                </a> <span>|</span>
-            }
-            <a href="@Url.RouteUrl("RequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">
-            Details
-            </a>
+                </a> @*<span>|</span><a href="@Url.RouteUrl("RequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">Details</a>*@
+              }
+            
         </td>
     </tr>
 }

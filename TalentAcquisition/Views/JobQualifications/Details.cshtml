@@ -1,0 +1,43 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.JobQualification
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>JobQualification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QualificationType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QualificationType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QualificationCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QualificationCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

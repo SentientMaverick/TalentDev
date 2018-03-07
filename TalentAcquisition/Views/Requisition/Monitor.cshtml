@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Monitor Requisitions";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#RequisitionTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<section class="mainbody">
+    <div class="container body-content">
+        <div class="col-md-4">
+            <div class="container">
+                @Html.Partial("_AdminDashboardSidebar")
+            </div>
+        </div>
+        <div class="col-md-8">
+            <br /><br /><br /><br />
+            <div class="row">
+                <div class="row">
+                    @Html.Action("_GetNotifications", "Admin")
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+

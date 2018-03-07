@@ -14,33 +14,34 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
+        @Html.HiddenFor(model => model.InterviewID)
         @*<div class="col-md-12">
             @Html.DropDownList("TeamMember1ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Team Member from HR", htmlAttributes: new { @class = "form-control" })
         </div>*@
         <div class="form-group">
             <div class="col-md-12">
-                @Html.DropDownList("TeamMember1ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Member from HR", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TeamMember1ID", new SelectList(ViewBag.allEmployees, "ID", "FullName"), "Choose Member from HR", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TeamMember1ID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
-                @Html.DropDownList("TeamMember2ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Head of Department", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TeamMember2ID", new SelectList(ViewBag.allEmployees, "ID", "FullName"), "Choose Head of Department", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TeamMember2ID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
-                @Html.DropDownList("TeamMember3ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Team Member 3", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TeamMember3ID", new SelectList(ViewBag.allEmployees, "ID", "FullName"), "Choose Team Member 3", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TeamMember3ID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
-                @Html.DropDownList("TeamMember4ID", new SelectList(ViewBag.allApplicants, "ID", "FullName"), "Choose Team Member 4", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TeamMember4ID", new SelectList(ViewBag.allEmployees, "ID", "FullName"), "Choose Team Member 4", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TeamMember4ID, "", new { @class = "text-danger" })
             </div>
         </div>

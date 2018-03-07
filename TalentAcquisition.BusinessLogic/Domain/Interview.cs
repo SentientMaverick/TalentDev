@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TalentAcquisition.Core.Domain
 {
@@ -9,6 +10,7 @@ namespace TalentAcquisition.Core.Domain
         {
             TeamMembers = new HashSet<Employee>();
         }
+        [Key]
         public int InterviewID { get; set; }
         public int JobRequisitionID { get; set; }
         public int JobApplicationID { get; set; }

@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "Job Application";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-   // int pagenum =1;
-    int pagenum = (int)Model.ApplicationStatus;
+    int pagenum =0;
+    //int pagenum = (int)Model.ApplicationStatus;
     int requisitionidglobal = Model.JobRequisitionID;
     int applicationidglobal = Model.JobApplicationID;
 }
@@ -98,7 +98,7 @@
 </style>
 @section Scripts{
     <script type="text/javascript">
-        var pageid = @pagenum + 1;
+        var pageid = @pagenum;
         var requisitionid=@requisitionidglobal;
         var applicationid=@applicationidglobal;
         $(document).ready(function () {
@@ -122,13 +122,14 @@
         function UpdateDisplay(pageid)
         {
             @*var url="@(Url.Action("UpdatePage","Application"))";*@
-            if(pageid==1){
+            //alert(pageid);
+            if(pageid==0){
                 var url="@(Url.Action("ScreenedPage","Application", new {requisitionid=requisitionidglobal,applicationid=applicationidglobal }))";
             }
-            else if (pageid==2){
+            else if (pageid==1){
                 var url="@(Url.Action("InterviewPage","Application", new {requisitionid=requisitionidglobal,applicationid=applicationidglobal }))";
             }
-            else if (pageid==3){
+            else if (pageid==2){
                 var url="@(Url.Action("OfferJobPage","Application", new {requisitionid=requisitionidglobal,applicationid=applicationidglobal }))";
             }
             LoadPage(url);
@@ -138,12 +139,12 @@
 
            $.ajax({
                type:"POST",
-               url:"@(Url.Action("UpdatePage","Application"))",
+               url:"@(Url.Action("UpdatePage","Application", new { applicationid = applicationidglobal }))",
                data:{},
                success:function(data){
                    $("#dynamicContent").load(Url);
                   // $.datepicker.initialized = false;
-                   //alert("done");
+                  // alert("done");
                    //.find('[id^=ProposedDate2]').datepicker()
                    //$("#dynamicContent").find('#ProposedDate2').datetimepicker({format: 'DD.MM.YYYY'});
                    //$('#ProposedDate2').datetimepicker();
@@ -157,9 +158,9 @@
 
         };
         function UpdateBanner(pageidnum){
-
+            var _pg=pageidnum+1;
             $(".progress-meter .progress-point").each(function(index,element) {
-                if(pageidnum >= index)
+                if(_pg >= index)
                 {
                    $(this).removeClass("todo").addClass( "done" );
                 }

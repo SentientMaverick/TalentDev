@@ -14,31 +14,53 @@ $(document).ready(function(){
   });
 });
 </script>
-
-<div class="container body-content">
-    <h2>Manage Requisitions</h2>
-    <div class="col-md-4 adminsidebar">
-        <div class="container">
-            <br/>
-            <ul class="nav">
-                @Html.Partial("_AdminDashboardSidebar")
-            </ul>
+<section class="mainbody">
+    <div class="container body-content">
+        <div class="col-md-4">
+            <div class="container">
+                    @Html.Partial("_AdminDashboardSidebar")
+            </div>
         </div>
-    </div>
-    <div class="col-md-8">
-        <section class="container body-content">
-            <span>@ViewBag.Message</span>
-            <input class="form-control" id="myInput" type="text" placeholder="Search..">
-            <div class="row">
-                <h3>Incoming Requisitions</h3>
-                @Html.Action("_GetIncomingRequisitions","Requisition")
-            </div>
-            <div class="row">
-                <h3>Active Requisitions</h3>
-                @Html.Action("_GetActiveRequisitions","Requisition")
-            </div>
-        </section>
-    </div>
+        <div class="col-md-8">
+            <br /><br /><br/><br/>
+            <section class="container body-content">
+                <span>@ViewBag.Message</span>
+                    <div style="padding-left:-10px;margin-left:-10px">
+                        <span class="glyphicon glyphicon-search"></span>
+                        <input class="form-control" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block"/>
+                    </div><hr />
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p class="">Incoming Requisitions</p>
+                            </div>
+                            <div class="panel-body">
+                                @Html.Action("_GetIncomingRequisitions", "Requisition")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p class="">Ongoing Requisitions</p>
+                            </div>
+                            <div class="panel-body">
+                                @Html.Action("_GetActiveRequisitions", "Requisition")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p class="">Rejected Requisitions</p>
+                            </div>
+                            <div class="panel-body">
+                                @Html.Action("_GetRejectedRequisitions", "Requisition")
+                            </div>
+                        </div>
+                    </div>
+</section>
+        </div>
 
-</div>
-
+    </div>
+    </section>

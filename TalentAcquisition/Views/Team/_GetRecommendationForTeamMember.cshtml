@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Recommend Applicant";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+$(document).ready(function(){
+});
+</script>
+@*<style>
+    input {
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-bottom: 2em;
+    }
+</style>*@
+<div class="container body-content">
+    <br />
+    <div class="col-md-8">
+        <div class="row">
+            <h4 class="alert-info">Recommendation</h4>
+            <br />
+            <section class="container body-content">
+                <span>@ViewBag.Message</span>
+                <div class="row">
+                    @Html.Action("_GetInterviewFeedbackForm", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                </div>
+
+            </section>
+        </div>
+        <hr />
+        <div class="row">
+            <h4 class="alert-info">Applicant Profile</h4>
+                <div class="container">
+                    @Html.Action("_GetApplicantOverview", "Applicant", new { applicantid = ViewBag.applicantid })
+            </div>
+        </div>
+    </div>
+</div>
+

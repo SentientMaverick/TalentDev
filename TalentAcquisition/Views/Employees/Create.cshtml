@@ -83,7 +83,7 @@
 </style>
 <section class="mainbody">
     <div class="container">
-        <div class="col-md-4 adminsidebar">
+        <div class="col-md-4">
             <div class="container">
                 <ul class="nav">
                     @Html.Partial("_AdminDashboardSidebar")
@@ -93,8 +93,7 @@
         <div class="col-md-8">
             <section class="container body-content">
                 <div class="row bioform">
-                    <h2>Employee Manager</h2>
-                    <br />
+                    <br /><br/><br/>
                     <h4>Create New Employee</h4>
                     <br />
                     <!--Comment-->
@@ -167,7 +166,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = " col-md-2" })
                                 <div class="col-md-10">
-                                    <input type="datetime" name="DateOfBirth" id="DateOfBirth" data-date-format="DD-MM-YYYY" class="form-control" value="" no-padding placeholder="Pick First Date for Interview" />
+                                    <input type="datetime" name="DateOfBirth" id="DateOfBirth" data-date-format="DD-MM-YYYY" class="form-control" value="" no-padding placeholder="Pick Date of Birth" />
                                     @*@Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })*@
                                     @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                                 </div>

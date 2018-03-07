@@ -1,0 +1,24 @@
+﻿@model List<TalentAcquisition.Models.Core.CheckModel>
+<style>
+    .skills{font-size:85%;
+                    }
+    .skills input{
+             
+        margin-bottom:2em;
+                    }
+</style>
+<br /><br />
+<div class="row skills">
+
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        <div class="col-md-4">
+            @Html.HiddenFor(it => it[i].Id)
+            @Html.HiddenFor(it => it[i].Name)
+            @Html.DisplayFor(it => it[i].Name)
+            @*@Html.CheckBoxFor(it => it[i].Checked)*@
+            <span class="pull-right" style="color:black">@Html.CheckBoxFor(it => it[i].Checked)</span>
+        </div>
+
+    }
+</div>

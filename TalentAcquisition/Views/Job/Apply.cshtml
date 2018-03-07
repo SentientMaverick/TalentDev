@@ -14,6 +14,29 @@
                 <div class="col-md-8" style="padding-top:2em">
                     <div class="container body-content">
                         <h3>Apply for @jobRequisition.JobTitle Opening </h3><hr/>
+                        @if (ViewBag.Message == "True")
+                        {
+                                <div class="row">
+                                    <h3 class="text-center alert-success">Application Was Successful</h3>
+                                    <p>Return to the Profile Page by clicking on the <span class="btn btn-default"> @Html.ActionLink("Link", "Profile", "Applicant")</span> </p>
+                                </div>
+                        }
+                        else if (ViewBag.Message == "False")
+                        {
+                            <div class="row">
+                                <h3 class="text-center alert-danger">Application Was not Successful</h3>
+
+                                <h4>Application Was not Successful. Update Missing fields in profile and Try Again</h4>
+                            </div>
+                                }
+                        else if  (ViewBag.Message == "FoundApplication")
+                        {
+                            <div class="row">
+                                <h4 class="text-center alert-danger">Existing Application Found</h4>
+
+                                <p>You have already filled out Application For this Job</p>
+                            </div>
+                        }
                         <div class="panel-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">Job Abstract</div>
@@ -47,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        @using (Html.BeginForm(new { id = "bioForm" }))
+                        @using(Html.BeginForm("Apply","Job",FormMethod.Post,new { id = "bioForm" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => model.ID);
@@ -129,6 +152,7 @@
                                             @Html.Action("_GetEmploymentList", "Applicant", Model.WorkExperiences)  
                                         </div>
                                         <a class="btn-default btn" href="javascript:void(0)" id="newitem">Create New</a>
+                                        <br/>
                                     </div>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">Education History</div>
@@ -143,7 +167,10 @@
                                         </div>
                                     </div>
                                 </div>
-                        }                       
+                                <div class="form-group">
+                                    <input type="submit" value="Submit Application" class="btn btn-default btn-success" />
+                                </div>
+                                }                       
                         </div>
                 </div>
             </div>
@@ -353,27 +380,3 @@
 </script>
 }
 
-@*@if (ViewBag.Message == "True")
-
-            {
-                <div class="row">
-                    <h3 class="text-center">Application Was Successful</h3>
-                </div>
-    <div class="row">
-    <p>Return to the Profile Page by clicking on the <span class="btn btn-default"> @Html.ActionLink("Link", "Profile", "Applicant")</span> </p>
-    </div>
-            }
-            else if(ViewBag.Message=="False")
-            {
-                <div class="row">
-                    <h3 class="text-center">Application Was not Successful</h3>
-                </div>
-                    <h4>Application Was not Successful. Update Missing fields in profile and Try Again</h4>
-            }
-            else
-            {
-                <div class="row">
-                    <h3 class="text-center">Existing Application Found</h3>
-                </div>
-                <h4>You have already filled out Application For this Job</h4>
-            }*@

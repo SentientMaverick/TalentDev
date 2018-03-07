@@ -1,7 +1,7 @@
 ﻿@model TalentAcquisition.Core.Domain.JobApplication
 
 @{
-    ViewBag.Title = "ManageApplication";
+    ViewBag.Title = "Manage Application";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 <div class="mainbody">
@@ -15,16 +15,18 @@
     <div class="col-md-8" style="color:black">
         <section class="container body-content" style="margin-top:2em">
             <div class="row">
-                @if (Equals(Model.ApplicationStatus.ToString(), "Interview"))
-                {
+                <div class="panel-group">
+                    @if (Equals(Model.ApplicationStatus.ToString(), "Interview"))
+                    {
                         <h3>Interview</h3>
-                        @Html.Action("_GetInterview")
-                }
-                @if (Equals(Model.ApplicationStatus.ToString(), "JobOffer"))
-                {
+                        @Html.Action("_GetInterview", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                    }
+                    @if (Equals(Model.ApplicationStatus.ToString(), "JobOffer"))
+                    {
                         <h3>Job Offer</h3>
-                        @Html.Action("_GetJobOffer")
-                }
+                        @Html.Action("_GetJobOffer", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                    }
+                </div>
             </div>
             <div class="row">
                 <div class="panel-group">

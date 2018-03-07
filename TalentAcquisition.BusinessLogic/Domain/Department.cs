@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TalentAcquisition.BusinessLogic.Domain;
+
 namespace TalentAcquisition.Core.Domain
 {
     public class Department
@@ -24,6 +26,7 @@ namespace TalentAcquisition.Core.Domain
         }
         public int IndustryId { get; set; }
         public string Name { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
 
     }
 }

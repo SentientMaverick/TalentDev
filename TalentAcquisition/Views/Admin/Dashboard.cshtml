@@ -4,86 +4,120 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <style>
- .adminsidebar {
-        height: 100%;
-        min-height: 500px;
-        padding: 1em;
-        color: black;
-    }
+ .icon{
+     padding:0.8em;
+     height:200px;
+ }
+ .icon a{
+     text-decoration:none;
+ }
+ .icon a:hover{
+     color:azure;
+     display:block;
+     width:100%;
+ }
 
-        .adminsidebar h1, .adminsidebar h2, .adminsidebar h3 {
-            color: snow;
-            font-size: 125%;
-            text-shadow: white;
-            text-align: center;
-        }
-
-        .adminsidebar .nav {
-            margin: 0 auto;
-            /*background:rgba(255,255,255,0.1);*/
-            padding: 1em;
-        }
-
-        .adminsidebar li {
-            border-bottom: 1px solid white;
-            text-align: left;
-            border-left: 4px solid brown;
-        }
-
-            .adminsidebar li a:hover {
-                color: rgb(4, 5, 47);
-                background-color: snow;
-                display: block;
-            }
-
-            .adminsidebar li a {
-                color: white;
-                line-height: 2em;
-                width: 100%;
-                color:black;
-            }
-
-        .adminsidebar .nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-
-            .adminsidebar .nav ul li {
-                border: 0;
-                margin-left: 1em;
-            }
-
-                .adminsidebar .nav ul li a:link,
-                .adminsidebar .nav ul li a:visited {
-                    color: black;
-                    padding: 0.5em 0.5em 0.5em 1em;
-                    display: block;
-                    text-decoration: none;
-                    border-left: 5px solid rgb(239,213,252);
-                }
-
-                .adminsidebar .nav ul li a:hover {
-                    color: rgb(49,52,61);
-                    border-left: 5px solid rgb(250,136,234);
-                }
+.icon img{
+    margin:0 auto;
+    top:50%;left:30%;
+    position:relative;
+}
+.icon h4{
+    color:rgba(4, 5, 47,0.7);
+    line-height:1.5em;
+    padding-top:1em;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align:center;
+    font-size:125%;
+}
 </style>
 <section class="mainbody">
     <div class="container">
-        <div class="col-md-4 adminsidebar">
+        @*<div class="col-md-4 adminsidebar">
             <div class="container">
                 <ul class="nav">
                     @Html.Partial("_AdminDashboardSidebar")
                 </ul>
             </div>
+        </div>*@
+        <div class="col-md-4">
+            @Html.Partial("_AdminDashboardSidebar")
         </div>
         <div class="col-md-8">
-            <section class="container body-content">
+            <section class="">
+               <div style="padding-top:2em;"></div>
+                <p style="font-family: 'Fira Mono';font-size: 22px;">Dashboard</p>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    @*<li><a href="#">Private</a></li>*@
+                    @*<li><a href="#">Pictures</a></li>*@
+                    <li class="active">Dashboard</li>
+                </ol>
                 <div class="row">
-                    <h2>Dashboard</h2>
-                    @Html.Action("_GetNotifications", "Admin")
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Agenda.png" />
+                            <h4>Dashboard</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("jobmanager")">
+                                <img src="~/Assets/Icons/Presentation-.png" />
+                                <h4>Job Board</h4>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("requisitions")">
+                                <img src="~/Assets/Icons/Man-Suit-2.png" />
+                                <h4>Requisition Management</h4>
+                            </a>
+                            </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("onboarding")">
+                                <img src="~/Assets/Icons/Desk.png" />
+                                <h4>Employee Onboarding</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Coin-Dollar.png" />
+                            <h4>Expense Management</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Engineer.png" />
+                            <h4>Trainings</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Support.png" />
+                            <h4>Complaint/Query Management</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Bank.png" />
+                            <h4>Leave Management</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Organogram-2.png" />
+                            <h4>Organizational Management</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Bedge.png" />
+                            <h4>Personnel Management</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Bullish.png" />
+                            <h4>Employee Performance</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Hammer.png" />
+                            <h4>Settings</h4>
+                        </div>
+                    </div>
                 </div>
+                @*<div class="row">
+                    @Html.Action("_GetNotifications", "Admin")
+                </div>*@
             </section>
         </div>
     

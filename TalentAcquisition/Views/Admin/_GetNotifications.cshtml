@@ -1,7 +1,7 @@
 ﻿@model TalentAcquisition.Models.ViewModel.AdminDashboardNotification
 
     @*<h3 class="jumbotron"><b>@Model.activeRequisitionCount</b> New Notifications</h3>*@
-<div class="row jumbotron">
+@*<div class="row jumbotron">
     <div class="col-md-6 container">
         <h3 class="text-center">You have  <b>@Model.newJobRequisitionCount</b> 
          Requisitions <br/>Pending Approval</h3>
@@ -9,15 +9,122 @@
     <div class="col-md-6 container">
         <h3 class="text-center">You have <b>@Model.activeRequisitionCount</b> Active Requisitions</h3>
     </div>
+</div>*@
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.newJobRequisitionCount</div>
+                        <div>New Requisitions</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.activeRequisitionCount</div>
+                        <div>Ongoing Recruitments</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    @*<div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">124</div>
+                        <div>New Orders!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">13</div>
+                        <div>Support Tickets!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>*@
 </div>
+<!-- /.row -->
 <hr/>
 <div class="row">
-    @foreach (var item in Model.Notifications.Take(20))
+    @foreach (var item in Model.Notifications)
     {
         <div class="col-md-4 container">
-            <h4 class="" style="text-align:left">@item.Title</h4>
-            <h5>Registered Applicants: @item.JobApplicationCount</h5>
-            <h5><a href="@item.url">Details</a></h5>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                           @item.Title
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse">
+                        <div class="panel-body">
+                            <h5>Registered Applicants: @item.JobApplicationCount</h5>
+                            <h5>Location: @item.Location</h5>
+                            <h5><a href="@item.url">Details</a></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <br/>
+            @*<h5>Registered Applicants: @item.JobApplicationCount</h5>
+            <h5><a href="@item.url">Details</a></h5>*@
         </div>
     }
 </div>

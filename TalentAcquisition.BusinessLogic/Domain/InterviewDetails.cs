@@ -10,7 +10,10 @@ namespace TalentAcquisition.Core.Domain
         {
 
         }
+        [Key]
         public int InterviewDetailID {get;set;}
+
+        public int InterviewID { get; set; }
         public int TeamMember1ID { get; set; }
         public int TeamMember2ID { get; set; }
         public int TeamMember3ID { get; set; }

@@ -1,0 +1,133 @@
+﻿@*@model List<TalentAcquisition.Models.Core.CheckModel>*@
+@using TalentAcquisition.Models.Core;
+
+@{
+    ViewBag.Title = "Skills";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+                <style>
+                    .profile-link-active {
+                        border-left: 2px solid rgb(4, 5, 47);
+                    }
+
+                        .profile-link-active a:hover {
+                            border-left: none;
+                        }
+
+                    #blackview {
+                        position: fixed; /* Stay in place */
+                        z-index: 200; /* Sit on top */
+                        left: 0;
+                        top: 0;
+                        width: 100%; /* Full width */
+                        height: 100%; /* Full height */
+                        overflow: auto; /* Enable scroll if needed */
+                        background-color: rgb(0,0,0); /* Fallback color */
+                        background-color: rgba(0,0,0,0.4);
+                    }
+
+                    #bioform input,
+                    select {
+                        width: 100%;
+                        max-width: 100%;
+                    }
+
+                    #bioform #submit input {
+                        max-width: 280px;
+                    }
+                    /***/
+                </style>
+                <div class="mainbody">
+                    <div class="container body-content">
+                        <h2>Profile</h2>
+                        <div class="row container" id="pagecontent">
+                            <div class="col-lg-4">
+                                @Html.Partial("_ApplicantSideBar")
+                            </div>
+                            <div class="col-md-6 col-lg-push-1" style="color:black;font-size:80%;padding-top:7em;">
+
+                                @using(Html.BeginForm(new { @id = "bioForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @*@Html.HiddenFor(model => model.ID);*@
+
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Skills</label>
+                                            <div class="col-md-9">
+                                                <br /><br />
+                                                <div class="row">
+                                                    @Html.Action("_GetSkills", new { id= ViewBag.userid})
+                                                    @*@for (var i = 0; i < Model.Count(); i++)
+                                                    {
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                @Html.HiddenFor(it => it[i].Id)
+                                                                @Html.DisplayFor(it => it[i].Name)
+                                                            </td>
+                                                            <td>
+                                                                @Html.CheckBoxFor(it => it[i].Checked)
+                                                            </td>
+                                                        </tr>
+                                                    </table> 
+                                                    }*@
+                                                </div>
+                                                <input id="1" name="ret" type="text" value="" />
+                                                <input id="2" name="ret" type="text" value="" />
+
+                                                <input type="hidden" name="products.Index" value="cold" />
+                                                <input type="text" name="products[cold].Name" value="Beer" />
+                                                <input type="text" name="products[cold].Price" value="7.32" />
+
+                                                <input type="hidden" name="products.Index" value="123" />
+                                                <input type="text" name="products[123].Name" value="Chips" />
+                                                <input type="text" name="products[123].Price" value="2.23" />
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="submit">
+                                            <div class="col-md-offset-3 col-md-8">
+                                                <input type="submit" name="submit" />
+                                                <a class="btn-default btn" href="javascript:document.getElementById('bioForm').submit()">Save as Draft</a>
+                                                <a class="btn-default btn" href="javascript:void()" id="nextpage">Next Page</a>
+                                                <a class="btn-default btn" href="javascript:void()" id="previouspage">Previous Page</a>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                              }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="blackview" class="hide">
+                    <div class="modal-content">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+    @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    $(document).ready(function()
+    {
+        //$('#blackview').addClass("hide");
+        $('#nextpage').click(function (evt) {
+            alert('Form Started');
+            //$('#modal').removeClass("hide").addClass("show");
+            $('#blackview').removeClass("hide").addClass("show").delay(2000);
+            @*$.ajax({
+                type:"POST",url:"@(Url.Action("FirstPage","Home"))",data:{},
+                success: function (data) {
+                    alert('Form Changed');
+                    $('#pagecontent').load("/Home/SecondPage");
+                    $('.pagecontent').load(@(Url.Action("ThirdPage","Home"));
+                }
+            });*@
+        });
+    });
+                    </script>
+                }
+

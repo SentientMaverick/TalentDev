@@ -29,11 +29,10 @@ namespace TalentAcquisition.Controllers
             }
             return View();
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Portal(LoginViewModel model, string returnUrl)
         {
             try
             {
@@ -53,6 +52,16 @@ namespace TalentAcquisition.Controllers
             SetUserSessionID();
             ViewBag.UserID = TempData["userid"];
             return View();
+        }
+        [Route("Admin/jobmanager")]
+        public ActionResult jobmanager()
+        {
+            var allCompanyJobs = new List<OfficePosition>();
+            using (var db=new TalentContext())
+            {
+                allCompanyJobs = db.OfficePositions.Include("Department").Include("Industry").ToList();
+            }
+            return View(allCompanyJobs);
         }
         [ChildActionOnly]
         public ActionResult _GetNotifications()
@@ -75,7 +84,7 @@ namespace TalentAcquisition.Controllers
                 var jobs = new List<JobRequisition>();
                 using (var db = new TalentContext())
                 {
-                    var alljobs = db.JobRequisitions;
+                    var alljobs = db.JobRequisitions.Include("JobApplications");
                     var publishedjobs = alljobs.Where(o => o.Status.Value
                      != JobRequisition.JobRequisitionStatus.Completed);
                     var activejobs = publishedjobs.Where(o => o.Status.Value
@@ -96,7 +105,8 @@ namespace TalentAcquisition.Controllers
                             {
                                 ID = item.JobRequisitionID,
                                 Title = "New Requisition for " +
-                                  item.JobTitle + " Starting Date:" + item.StartDate,
+                                item.JobTitle, Location = item.Location,
+                                JobApplicationCount=item.JobApplications.Count,
                                 url = "/Job/" + item.JobRequisitionID + "/" + String.Join("-", url)
                             };
                           notification.Notifications.Add(notificationitem);
@@ -113,7 +123,7 @@ namespace TalentAcquisition.Controllers
                                 {
                                     ID = item.JobRequisitionID,
                                     Title = "New Requisition for " +
-                                  item.JobTitle + " Starting Date:" + item.StartDate,
+                                  item.JobTitle,
                                     url = "/Job/" + item.JobRequisitionID + "/" + String.Join("-", url)
                                 };
                                 notification.Notifications.Add(notificationitem);
@@ -122,6 +132,7 @@ namespace TalentAcquisition.Controllers
                         }
                     }
                 }
+                notification.Notifications= (List<DashboardNotification>)notification.Notifications.Take(5);
             }
             catch
             {
@@ -177,18 +188,15 @@ namespace TalentAcquisition.Controllers
             }
             return Json(new { status = updatestatus },JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult Create()
         {
             return View();
         }
-
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
-
         // POST: Admin/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -204,7 +212,6 @@ namespace TalentAcquisition.Controllers
                 return View();
             }
         }
-
         // POST: Admin/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
@@ -220,8 +227,6 @@ namespace TalentAcquisition.Controllers
                 return View();
             }
         }
-
-
         private void SetInitializers()
         {
             var var1 = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
@@ -240,8 +245,13 @@ namespace TalentAcquisition.Controllers
             if (TempData["userid"] == null)
             {
                 var userid = User.Identity.GetUserId();
-                var applicantid = new TalentContext().Employees.Where(s => s.UserId == userid).FirstOrDefault().ID;
-                TempData["userid"] = applicantid;
+                var applicant = new TalentContext().Employees.Where(s => s.UserId == userid);
+                if(applicant.Any())
+                {
+                    //var applicantid = new TalentContext().Employees.Where(s => s.UserId == userid).FirstOrDefault().ID;
+                    var applicantid = applicant.FirstOrDefault().ID;
+                    TempData["userid"] = applicantid;
+                }
             }
 
         }

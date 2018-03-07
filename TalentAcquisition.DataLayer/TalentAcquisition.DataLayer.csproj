@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppManager.cs" />
+    <Compile Include="JobsContext.cs" />
     <Compile Include="LoginContext.cs" />
     <Compile Include="Migrations\201801021312577_InitialCreate.cs" />
     <Compile Include="Migrations\201801021312577_InitialCreate.Designer.cs">
@@ -168,6 +169,38 @@
     <Compile Include="Migrations\201802051544211_addedNoteAttributeToInterviewClass.Designer.cs">
       <DependentUpon>201802051544211_addedNoteAttributeToInterviewClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802120757547_addedKeyToInterviewDetail.cs" />
+    <Compile Include="Migrations\201802120757547_addedKeyToInterviewDetail.Designer.cs">
+      <DependentUpon>201802120757547_addedKeyToInterviewDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802121150023_addedNoteToJobRequisition.cs" />
+    <Compile Include="Migrations\201802121150023_addedNoteToJobRequisition.Designer.cs">
+      <DependentUpon>201802121150023_addedNoteToJobRequisition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802131024370_addedSkillModel.cs" />
+    <Compile Include="Migrations\201802131024370_addedSkillModel.Designer.cs">
+      <DependentUpon>201802131024370_addedSkillModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802131316251_addedVirtual.cs" />
+    <Compile Include="Migrations\201802131316251_addedVirtual.Designer.cs">
+      <DependentUpon>201802131316251_addedVirtual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802131437124_addedVirtual1.cs" />
+    <Compile Include="Migrations\201802131437124_addedVirtual1.Designer.cs">
+      <DependentUpon>201802131437124_addedVirtual1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802151402418_addedQualificationsToRequisitions.cs" />
+    <Compile Include="Migrations\201802151402418_addedQualificationsToRequisitions.Designer.cs">
+      <DependentUpon>201802151402418_addedQualificationsToRequisitions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803061444395_UpdatedOfficePositionModel.cs" />
+    <Compile Include="Migrations\201803061444395_UpdatedOfficePositionModel.Designer.cs">
+      <DependentUpon>201803061444395_UpdatedOfficePositionModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803061514449_UpdatedOfficePositionModel2.cs" />
+    <Compile Include="Migrations\201803061514449_UpdatedOfficePositionModel2.Designer.cs">
+      <DependentUpon>201803061514449_UpdatedOfficePositionModel2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -221,6 +254,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802051544211_addedNoteAttributeToInterviewClass.resx">
       <DependentUpon>201802051544211_addedNoteAttributeToInterviewClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802120757547_addedKeyToInterviewDetail.resx">
+      <DependentUpon>201802120757547_addedKeyToInterviewDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802121150023_addedNoteToJobRequisition.resx">
+      <DependentUpon>201802121150023_addedNoteToJobRequisition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802131024370_addedSkillModel.resx">
+      <DependentUpon>201802131024370_addedSkillModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802131316251_addedVirtual.resx">
+      <DependentUpon>201802131316251_addedVirtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802131437124_addedVirtual1.resx">
+      <DependentUpon>201802131437124_addedVirtual1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802151402418_addedQualificationsToRequisitions.resx">
+      <DependentUpon>201802151402418_addedQualificationsToRequisitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803061444395_UpdatedOfficePositionModel.resx">
+      <DependentUpon>201803061444395_UpdatedOfficePositionModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803061514449_UpdatedOfficePositionModel2.resx">
+      <DependentUpon>201803061514449_UpdatedOfficePositionModel2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.Interview>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#RequisitionTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<style>
+    input {
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-bottom: 2em;
+    }
+</style>
+<div class="container body-content">
+    <div class="col-md-4 adminsidebar">
+        <div class="container">
+            <br />
+            <ul class="nav">
+                @Html.Partial("_AdminDashboardSidebar")
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h3>Interviews</h3>
+        <section class="container body-content">
+            <span>@ViewBag.Message</span>
+            <br/>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.JobRequisitionID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.JobApplicationID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ScheduledDate)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobRequisitionID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobApplicationID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ScheduledDate)
+                        </td>
+                        <td>
+                            <a href="@Url.RouteUrl("TeamRequisitionLink",new {id = item.InterviewID})"> Details</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </section>
+    </div>
+
+</div>

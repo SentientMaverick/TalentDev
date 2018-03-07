@@ -71,6 +71,18 @@
                         @Html.ValidationMessageFor(model => model.YearsOfExperience, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EnumDropDownListFor(model => model.HighestQualification, "Select Highest Qualification For Position", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.HighestQualification, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EnumDropDownListFor(model => model.MinimumQualification, "Select Minimum Qualification For Position", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MinimumQualification, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
             <div class="col-lg-6">
                 <br/>
@@ -86,14 +98,18 @@
                             @Html.ValidationMessageFor(model => model.JobResponsibilities, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <div class="form-group">
                        <div class="col-md-12">
                             <input type="text" name="StartDate" data-date-format="DD-MM-YYYY" id="StartDate" class="form-control" value="" placeholder="Pick Starting Date for Recruitment"/>
                             @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                <div class="form-group">
+                    <label class="control-label col-md-2">Skills</label>
+                    <div class="col-md-12">
+                        @Html.Action("_GetSkills")
+                    </div>
+                </div>
                     <div class="form-group">
                        <div class="col-md-12">
                             <input type="text" name="ClosingDate" data-date-format="DD-MM-YYYY" id="ClosingDate" class="form-control" value="" placeholder="Pick Closing Date for Recruitment"/>

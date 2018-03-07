@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
+using TalentAcquisition.BusinessLogic.Domain;
+using TalentAcquisition.BusinessLogic.UpdatedDomain;
 
 namespace TalentAcquisition.DataLayer
 {
@@ -71,7 +73,11 @@ namespace TalentAcquisition.DataLayer
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
-
+        public DbSet<Skill> Skills { get; set; }
+        //public DbSet<Job> Jobs { get; set; }
+        public DbSet<JobQualification> JobQualifications { get; set; }
+        public DbSet<JobRequirement> JobRequirements { get; set; }
+        public DbSet<Branch> Branches { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.RegisterViewModel> RegisterViewModels { get; set; }
 
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.LoginViewModel> LoginViewModels { get; set; }

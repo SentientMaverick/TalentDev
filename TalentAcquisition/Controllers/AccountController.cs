@@ -10,6 +10,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TalentAcquisition.Models;
 using TalentAcquisition.DataLayer;
+using System.Collections.Generic;
+using System.Collections;
+using System.Web.Caching;
 
 namespace TalentAcquisition.Controllers
 {
@@ -399,10 +402,24 @@ namespace TalentAcquisition.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            // remove any webforms cached item with the wildcard default.aspx*
+            HttpResponse.RemoveOutputCacheItem("/Home/Index");
+            // remove my MVC controller action's output
+            HttpResponse.RemoveOutputCacheItem(Url.Action("index", "home"));
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
+        //public void ClearCacheItems()
+        //{
+        //    List<string> keys = new List<string>();
+        //    IDictionaryEnumerator enumerator = Cache.GetEnumerator();
 
+        //    while (enumerator.MoveNext())
+        //        keys.Add(enumerator.Key.ToString());
+
+        //    for (int i = 0; i < keys.Count; i++)
+        //        Cache.Remove(keys[i]);
+        //}
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]

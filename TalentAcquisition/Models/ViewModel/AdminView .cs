@@ -23,6 +23,7 @@ namespace TalentAcquisition.Models.ViewModel
         public int ID { get; set; }
         public string url { get; set; }
         public string Title { get; set; }
+        public string Location { get; set; }
         public int JobApplicationCount { get; set; }
     }
 }

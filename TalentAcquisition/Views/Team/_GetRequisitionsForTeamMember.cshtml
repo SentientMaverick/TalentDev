@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobRequisition>
+
+<table class="table table-bordered table-striped" id="RequisitionTable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoOfPositionsAvailable)
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfPositionsAvailable)
+            </td>
+            <td>
+                @if ((int)item.Status == 4)
+                {
+                    <p> Closed</p>
+                }
+                else if ((int)item.Status == 3)
+                {
+                    <p>Rejected</p>
+                }
+                else
+                {
+                    <p> Ongoing </p>
+                }
+            </td>
+            <td>
+                <a href="@Url.RouteUrl("TeamRequisition",new { id = item.JobRequisitionID, details = item.JobTitle })">Details</a>
+            </td>
+        </tr>
+    }
+
+</table>
+

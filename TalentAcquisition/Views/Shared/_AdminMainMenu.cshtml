@@ -2,9 +2,9 @@
 
 @if (Request.IsAuthenticated)
 {
-     <li>@Html.ActionLink("Profile", "Profile", "Applicant")</li>
      <li>@Html.ActionLink("Create Requisition", "Requisition/Create", "Admin")</li>
      <li>@Html.ActionLink("Manage Requisitions", "Requisitions", "Admin")</li>
-     <li>@Html.ActionLink("Give Recommendation", "Recommendation/Request", "Admin")</li>
+     <li>@Html.ActionLink("Interviews", "Requisitions", "Team")</li>
+
 }
 

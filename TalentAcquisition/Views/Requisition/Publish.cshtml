@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <style>
+    dd,dt{
+        margin-bottom:0.5em;
+    }
      .adminsidebar {
         height: 100%;
         min-height: 500px;
@@ -84,8 +87,8 @@
         <section>
             <h3>Proceed with Posting Job to Public Portal?</h3>
             <div style="display:inline">
-                <a class="btn btn-default" href="/Admin/Edit/@Model.JobRequisitionID/@Model.JobTitle">Edit Requisition</a>
-                <a class="btn btn-default" href="/Admin/matchskill/@Model.JobRequisitionID/@Model.JobTitle">Skill Matching </a>
+                @*<a class="btn btn-default" href="/Admin/Edit/@Model.JobRequisitionID/@Model.JobTitle">Edit Requisition</a>*@
+                <a class="btn btn-default" href="/Admin/matchskill/@Model.JobRequisitionID?details=@Model.JobTitle">Skill Matching </a>
                 <a class="btn btn-default" href="/Admin/Reject/@Model.JobRequisitionID/@Model.JobTitle">Reject Requisition </a>
             </div>
             <div>
@@ -211,6 +214,24 @@
 
                     <dd>
                         @Html.DisplayFor(model => model.ClosingDate)
+                    </dd>
+                    <dt>
+                        Required Skills
+                    </dt>
+                    <dd>
+                        @{
+                            var requiredskills = "";
+                            foreach (var skill in Model.Skills)
+                            {
+                                requiredskills += skill.Name + " , ";
+                            }
+                            if (requiredskills != "")
+                            {
+                                requiredskills = requiredskills.Remove(requiredskills.Length - 2, 2);
+                            }
+
+                        }
+                        @requiredskills
                     </dd>
 
                 </dl>

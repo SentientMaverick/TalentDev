@@ -27,7 +27,7 @@ namespace TalentAcquisition.Controllers
         //    return View(getJobs());
         //}
         [AllowAnonymous]
-        [OutputCache(Duration = 1200, VaryByParam = "none")]
+        [OutputCache(Duration = 120, VaryByParam = "none")]
         public PartialViewResult _GetRecentJobs()
         {
             return PartialView(getJobs());
@@ -72,34 +72,44 @@ namespace TalentAcquisition.Controllers
             var jobs = new List<JobRequisition>();
             using (db)
             {
-                var alljobs= from s in db.JobRequisitions select s;
-                var publishedjobs = alljobs.Where(o => o.Status.Value
-                == JobRequisition.JobRequisitionStatus.Posted);
-                var filteredjobs = new List<JobRequisition> { };
+                //var alljobs= from s in db.JobRequisitions
+                //             select s;
+                var alljobs = db.JobRequisitions.Include(c => c.OfficePosition);
+                jobs = alljobs.ToList();
+                var publishedjobs = alljobs.Where(o => o.Status.Value == JobRequisition.JobRequisitionStatus.Posted);
+                var filteredjobs = new List<JobRequisition>();
+
+                if((skillOrProfession == "") && (specialization == "-1"))
+                {
+                    return jobs;
+                }
                 if (skillOrProfession != "")
                 {
                     filteredjobs = publishedjobs.Where(s => s.JobDescription.Contains(skillOrProfession)).ToList();
                 }
-                if (department != "")
+                if (department != "-1")
                 {
-                    filteredjobs.Union(publishedjobs.Where(s => s.OfficePosition.Department.DepartmentName.ToString() == department).ToList());
+                    var deptid = db.Departments.Where(s => s.DepartmentName == department).FirstOrDefault().DepartmentID;
+                    filteredjobs.Union(publishedjobs.Where(s => s.OfficePosition.DepartmentID== deptid).ToList());
 
                 }
-                if (specialization == "")
+                if (specialization != "-1")
                 {
-                    filteredjobs.Union(publishedjobs.Where(s => s.OfficePosition.Industry.Name.ToString() == skillOrProfession).ToList());
+                    var industryid=db.Industries.Where(s => s.Name == specialization).FirstOrDefault().IndustryId;
+                    filteredjobs.Union(publishedjobs.Where(s => s.OfficePosition.IndustryID == industryid).ToList());
                 }
-                var requiredjobs = from pj in publishedjobs
-                                   join oj in db.OfficePositions
-                                   on pj.OfficePositionID equals oj.OfficePositionID
-                                   join dp in db.Departments on oj.DepartmentID equals dp.DepartmentID
-                                   join ind in db.Industries on oj.IndustryID equals ind.IndustryId
-                                   where (oj.Title.Contains(skillOrProfession)||
-                                   ind.Name.Contains(specialization) ||
-                                   dp.DepartmentName.Contains(department))
-                                   select pj;
+                //var requiredjobs = from pj in publishedjobs
+                //                   join oj in db.OfficePositions
+                //                   on pj.OfficePositionID equals oj.OfficePositionID
+                //                   join dp in db.Departments on oj.DepartmentID equals dp.DepartmentID
+                //                   join ind in db.Industries on oj.IndustryID equals ind.IndustryId
+                //                   where (oj.Title.Contains(skillOrProfession)||
+                //                   ind.Name.Contains(specialization) ||
+                //                   dp.DepartmentName.Contains(department))
+                //                   select pj;
                 //jobs = requiredjobs.ToList();
-                jobs = filteredjobs;
+                alljobs = alljobs
+                    .Intersect(filteredjobs);
                 return jobs;
             }
         }
@@ -200,6 +210,8 @@ namespace TalentAcquisition.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             JobRequisition job = db.JobRequisitions.Find(id);
+            ViewBag.Industries = db.Industries.ToList();
+            ViewBag.jobRequisition = job;
             if (job == null)
             {
                 return HttpNotFound();
@@ -211,8 +223,8 @@ namespace TalentAcquisition.Controllers
                 var IsApplicationExisting = checkIfApplicationExists(User.Identity.GetUserId(),id);
                 if (IsApplicationExisting)
                 {
-                    ViewBag.Message = "You have already filled out Application For this Job";
-                    return View();
+                    ViewBag.Message = "FoundApplication";
+                    return View(jobseeker);
                 }
                 if (IsProfileCompleted)
                 {
@@ -240,12 +252,12 @@ namespace TalentAcquisition.Controllers
                 }
                 //Obtain List of Fields to be Updated
                 //Display Message to indicate Success
-                return View();
+                return View(jobseeker);
             }
             catch
             {
                 ViewBag.Message = "Please Re-Apply";
-                return View();
+                return View(jobseeker);
             }
         }
 

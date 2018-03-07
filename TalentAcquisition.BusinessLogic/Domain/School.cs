@@ -33,12 +33,15 @@ namespace TalentAcquisition.Core.Domain
 
     public enum GradeObtained
     {
-        BEng,
-        HND,
-        OND,
-        PGD,
+        None,
+        FLSC,
         WASSCE,
-        FLSC
+        Diploma,
+        HigherDiploma,
+        Bachelors,
+        PostGraduateDiploma,
+        Masters,
+        Doctorate
     }
     public class School
     {

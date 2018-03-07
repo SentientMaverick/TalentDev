@@ -54,6 +54,7 @@ namespace TalentAcquisition.Controllers
         }
 
         // GET: Role/Create
+        [Route("Admin/Job/Create")]
         [Route("Admin/manage_officeposition/Create")]
         public ActionResult Create()
         {
@@ -85,7 +86,7 @@ namespace TalentAcquisition.Controllers
                     //Insert Logic to prevent adding the same role title 2 or more times to a single department 
                 }
 
-               return RedirectToAction("manage_officeposition","Admin");
+               return RedirectToAction("jobmanager","Admin");
             }
             catch
             {
@@ -93,6 +94,7 @@ namespace TalentAcquisition.Controllers
             }
         }
         // GET: Role/Details/5
+        [Route("Admin/Job/{id:int}")]
         [Route("Admin/manage_officeposition/Details/{id:int}",Name ="RoleDetails")]
         public ActionResult Details(int id)
         {
@@ -113,6 +115,7 @@ namespace TalentAcquisition.Controllers
         }
 
         // GET: Role/Edit/5
+        [Route("Admin/Edit/{id:int}")]
         [Route("Admin/manage_officeposition/Edit/{id}")]
         public ActionResult Edit(int id)
         {
@@ -134,6 +137,7 @@ namespace TalentAcquisition.Controllers
             }
         }
         // POST: Role/Edit/5
+        [Route("Admin/Job/Edit/{id:int}")]
         [Route("Admin/manage_officeposition/Edit/{id}")]
         [HttpPost]
         public ActionResult Edit(int id, OfficePosition position)

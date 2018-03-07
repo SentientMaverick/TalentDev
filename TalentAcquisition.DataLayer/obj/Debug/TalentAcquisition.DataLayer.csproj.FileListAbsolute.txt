@@ -89,3 +89,11 @@ C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\
 C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.updateJobApplicationModel.resources
 C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.changedApplicantSpecializationType.resources
 C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedNoteAttributeToInterviewClass.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedKeyToInterviewDetail.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedNoteToJobRequisition.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedSkillModel.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedVirtual.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedVirtual1.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedQualificationsToRequisitions.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedOfficePositionModel.resources
+C:\Users\User\Desktop\TalentAcquisition1-\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedOfficePositionModel2.resources

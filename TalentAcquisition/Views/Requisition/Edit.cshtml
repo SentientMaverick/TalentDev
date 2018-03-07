@@ -96,12 +96,11 @@
                     <h4>Edit Job Requisition</h4>
                     <br/>
                     <!--Comment-->
-                    <span class="alert-danger">
-
-                    </span>
-                    <br/>
-                    <span>@ViewBag.RejectMessage</span>
-                    <br/>
+                    <div class="alert-danger">
+                        <h4>Rejection Note</h4>
+                        @Model.RejectionNote
+                    </div>
+                    <br/><br/><br />
                     <style>
                         select, input {
                             min-width: 100%;
@@ -206,10 +205,17 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label>Required Skills</label>
+                                        <div class="col-md-12">
+                                            @Html.Action("_GetSkills",new {id=Model.JobRequisitionID })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-md-12">
                                             <input type="submit" value="Save Changes" class="btn btn-default" />
                                         </div>
                                     </div>
+                                
                                 </div>
                             }
                         </div>

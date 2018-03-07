@@ -1,18 +1,18 @@
 ﻿@model TalentAcquisition.Core.Domain.Interview
-
+@using TalentAcquisition.Core.Domain;
 <div class="row">
     <div class="col-md-6">
         <h4>Interview Team</h4>
         <hr/>
         <div class="row container">
-            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 1</b></p>
-            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 2</b></p>
-            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 3</b></p>
-            <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>Team Member 4</b></p>
+            @foreach (var item in (List<Employee>)ViewBag.teamMembers)
+            {
+                <p><img src="~/Uploads/passport.png" width="40" height="40" style="border-radius:50%" />   <b>@item.FullName</b></p>
+            }
         </div>
     </div>
     <div class="col-md-6">
-@using (Html.BeginForm("_SubmitInterviewSchedulingForm", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
+@using (Html.BeginForm("_SubmitInterviewSchedulingForm", "Application", FormMethod.Post, new { @class = "schform", @id = "schform" }))
 {
     <style>
         textarea{
@@ -24,6 +24,7 @@
         }
     </style>
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.InterviewID);
     <div class="form-horizontal">
         <div class="form-group hidden">
             @Html.DisplayFor(model => model.InterviewID)
@@ -31,14 +32,14 @@
         <div class="form-group">
                 @Html.Label("Final Details", htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-12">
-                    <textarea name="SchedulingFinalNotes" id="SchedulingFinalNotes" rows="5" cols="40" class="form-control" value="" placeholder="Enter any Extra Information That the Candidate should know"></textarea>
+                    <textarea name="SchedulingFinalNote" id="SchedulingFinalNote" rows="5" cols="40" class="form-control" value="" placeholder="">@Model.SchedulingFinalNote</textarea>
                     @Html.ValidationMessage("FinalInformation", "", new { @class = "text-danger" })
                 </div>
         </div>
         <div class="form-group">
             <label>Chosen Date For Interview</label>
             <div class="col-md-12">
-                <input type="text"  value="@Model.ProposedDate2" data-date-format="DD-MM-YYYY" id="Date" name="Date" class="form-control" disabled/>
+                <input type="text"  value="@Model.ScheduledDate" data-date-format="DD-MM-YYYY" id="Date" name="Date" class="form-control" disabled/>
             </div>
         </div>
         <div class="form-group">
@@ -51,3 +52,77 @@
         }
     </div>
 </div>
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(function () {
+        var form = $("#schform");
+        form.submit(function (e) {
+            //var input1 = $("#ProposedDate1");
+            //var input2 = $("#ProposedDate2");
+            //if ((input1.val() == "") || (input1.val() == "")) {
+
+            //    //input1.closest("span").append("Enter Date").show();
+            //}
+            e.preventDefault();
+            $.ajax({
+                type:"POST",
+                url:form.attr("action"),
+                data:form.serialize(),
+                success: function (data) {
+                    if (data)
+                        alert("Success");
+                },
+                error:function(error){
+                    alert("Error");
+                }
+            });
+        });
+
+        $("#form").validate({
+            errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+            errorElement: 'div',
+            errorPlacement: function (error, e) {
+                e.parents('.form-group > div').append(error);
+            },
+            highlight: function (e) {
+
+                $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                $(e).closest('.help-block').remove();
+            },
+            success: function (e) {
+                e.closest('.form-group').removeClass('has-success has-error');
+                e.closest('.help-block').remove();
+            },
+            rules: {
+                'ProposedDate1': {
+                    required: true
+                    //date: true
+                }
+
+                //'Password': {
+                //    required: true,
+                //    minlength: 6
+                //},
+
+                //'ConfirmPassword': {
+                //    required: true,
+                //    equalTo: '#Password'
+                //}
+            },
+            messages: {
+                'ProposedDate1': 'Please enter valid Date'
+
+                //'Password': {
+                //    required: 'Please provide a password',
+                //    minlength: 'Your password must be at least 6 characters long'
+                //},
+
+                //'ConfirmPassword': {
+                //    required: 'Please provide a password',
+                //    minlength: 'Your password must be at least 6 characters long',
+                //    equalTo: 'Please enter the same password as above'
+                //}
+            }
+        });
+    });
+</script>

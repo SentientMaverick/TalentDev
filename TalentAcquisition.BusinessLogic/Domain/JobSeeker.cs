@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TalentAcquisition.BusinessLogic.Domain;
 
 namespace TalentAcquisition.Core.Domain
 {
@@ -12,6 +13,8 @@ namespace TalentAcquisition.Core.Domain
             Schools = new HashSet<School>();
             WorkExperiences = new HashSet<WorkExperience>();
             Certifications = new HashSet<Certification>();
+            Skills = new HashSet<Skill>();
+
         }
         [Display(Name ="Username")]
         public string ApplicantNumber { get; set; }
@@ -21,12 +24,14 @@ namespace TalentAcquisition.Core.Domain
         public string UploadedPassportAddress { get; set; }
         [Display(Name = "Industry of Choice or Specialization")]
         public int? IndustryID { get; set; }
+        public GradeObtained? HighestQualification { get; set; }
         public virtual Industry Industry { get; set; }
         public virtual ICollection<JobApplication> JobApplications { get; set; }
         public virtual ICollection<School> Schools { get; set; }
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }
         public virtual ICollection<Certification> Certifications { get; set; }
-       // public virtual ICollection<Certification> Uploads { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
+        // public virtual ICollection<Certification> Uploads { get; set; }
 
     }
 }

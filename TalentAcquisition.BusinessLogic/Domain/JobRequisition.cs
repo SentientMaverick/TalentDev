@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TalentAcquisition.BusinessLogic.Domain;
 
 
 namespace TalentAcquisition.Core.Domain
@@ -10,11 +11,12 @@ namespace TalentAcquisition.Core.Domain
     {
         public enum JobRequisitionStatus
         {
-            Created,Posted,Completed
+            Created,Posted,Completed,Rejected
         }
         public JobRequisition()
         {
             JobApplications= new HashSet<JobApplication>();
+            Skills = new HashSet<Skill>();
         }
         public int JobRequisitionID { get; set; }
         public int OfficePositionID { get; set; }
@@ -22,6 +24,10 @@ namespace TalentAcquisition.Core.Domain
         public string JobTitle { get; set; }
         [Display(Name = "Location")]
         public string Location { get; set; }
+        [Display(Name = "Minimum Grade")]
+        public GradeObtained? HighestQualification { get; set; }
+        [Display(Name = "Maximum Grade")]
+        public GradeObtained? MinimumQualification { get; set; }
         public JobRequisitionStatus? Status { get; set; }
         [Display(Name = "Positions Available")]
         public int NoOfPositionsAvailable { get; set; }
@@ -43,10 +49,12 @@ namespace TalentAcquisition.Core.Domain
         [Display(Name = "Closing Date")]
         public DateTime ClosingDate { get; set; }
         public string joburl { get; set; }
+        public string RejectionNote { get; set; }
         public Employee Employee { get; set; }
         public Employee Employee1 { get; set; }
         public virtual ICollection<JobApplication> JobApplications { get; set; }
         public  virtual OfficePosition OfficePosition { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
 
         public string ApplicationDeadline
         {
