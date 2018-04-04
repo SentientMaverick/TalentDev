@@ -1,90 +1,12 @@
 ﻿@model TalentAcquisition.Core.Domain.OfficePosition
-
 @{
-    ViewBag.Title = "Edit Position";
+    ViewBag.Title = "Edit Job";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Edit</h2>
-
-<style>
-    .adminsidebar {
-        height: 100%;
-        min-height: 500px;
-        padding: 1em;
-        background-color: rgba(0,0,0,1);
-        color: white;
-    }
-
-        .adminsidebar h1, .adminsidebar h2, .adminsidebar h3 {
-            color: snow;
-            font-size: 125%;
-            text-shadow: white;
-            text-align: center;
-        }
-
-        .adminsidebar .nav {
-            margin: 0 auto;
-            /*background:rgba(255,255,255,0.1);*/
-            padding: 1em;
-        }
-
-        .adminsidebar li {
-            border-bottom: 1px solid white;
-            text-align: left;
-            border-left: 4px solid brown;
-        }
-
-            .adminsidebar li a:hover {
-                color: rgb(4, 5, 47);
-                background-color: snow;
-                display: block;
-            }
-
-            .adminsidebar li a {
-                color: white;
-                line-height: 2em;
-                width: 100%;
-            }
-
-        .adminsidebar .nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-
-            .adminsidebar .nav ul li {
-                border: 0;
-                margin-left: 1em;
-            }
-
-                .adminsidebar .nav ul li a:link,
-                .adminsidebar .nav ul li a:visited {
-                    color: snow;
-                    padding: 0.5em 0.5em 0.5em 1em;
-                    display: block;
-                    text-decoration: none;
-                    border-left: 5px solid rgb(239,213,252);
-                }
-
-                .adminsidebar .nav ul li a:hover {
-                    color: rgb(49,52,61);
-                    border-left: 5px solid rgb(250,136,234);
-                }
-    /*.bioform input,
-                    select {
-                        width: 100%;
-                        max-width: 100%;
-                    }
-                    .bioform #submit input
-                    {
-                        max-width: 280px;
-                    }*/
-</style>
 <section class="mainbody">
     <div class="container">
-        <div class="col-md-4 adminsidebar">
+        <div class="col-md-4">
             <div class="container">
                 <ul class="nav">
                     @Html.Partial("_AdminDashboardSidebar")
@@ -92,73 +14,212 @@
             </div>
         </div>
         <div class="col-md-8">
-            <section class="container body-content">
-                <div class="row bioform">
-                    <h3>Dashboard</h3>
-                    <br />
-                    <h4>Edit Office Role</h4>
-                    @using (Html.BeginForm())
-                    {
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Edit Job</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard", "Admin")">Home</a></li>
+                <li><a href="@Url.Action("Jobmanager", "Admin")">Job Manager</a></li>
+                <li class="active">Job</li>
+                <li class="active">@Model.Title</li>
+            </ol>
+            <section class="">
+                <div class="row">
+                    <a href="javascript:void()" id="submitjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Save Changes</a>
+                    <a href="javascript:void()" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+                </div>
+                <div class="row" style="font-size:80%">
+                    <div class="row">
+                        <span class="alert-success">@ViewBag.Message</span>
+                    </div>
+                    <form action="" method="post" id="editform">
+                        <style>
+                            select {
+                                padding: 0;
+                                margin: 0;
+                                width: 100%;
+                                min-width: 100%;
+                                font-size: 80%;
+                            }
+
+                            .form-group {
+                                padding-bottom: -1.0em;
+                                margin-bottom: 0.4em;
+                            }
+
+                            textarea {
+                                margin-top: -2em;
+                                padding-top: -2em;
+                            }
+
+                            input {
+                                margin: 0;
+                                padding: 0;
+                            }
+
+                            label {
+                                font-size: 90%;
+                            }
+                        </style>
                         @Html.AntiForgeryToken()
-
-                        <div class="form-horizontal">
-
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.OfficePositionID)
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.DepartmentID, "Department", htmlAttributes: new { @class = " col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.DropDownList("DepartmentID", new SelectList(ViewBag.Departments, "DepartmentID", "DepartmentName"), "", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
-                                </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Job Details
                             </div>
+                            <div class="panel-body" style="margin-bottom:-1.5em">
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="row">
+                                        <div class="row"></div>
+                                        <div class="row"></div>
+                                        <div class="row"></div>
+                                        <div class="row"></div>
+                                        <div class="col-md-12 col-lg-6">
+                                            @Html.HiddenFor(model => model.OfficePositionID)
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.JobID, htmlAttributes: new { @class = "col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.JobID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.ValidationMessageFor(model => model.JobID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Posts, htmlAttributes: new { @class = "col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.Posts, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.ValidationMessageFor(model => model.Reqirements, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.JobDescription, htmlAttributes: new { @class = "col-md-3" })
+                                                    <div class="col-md-8" style="margin-top:2em">
+                                                        @Html.TextAreaFor(model => model.JobDescription, new { @class = "form-control", rows = "4", cols = "5" })
+                                                        @Html.ValidationMessageFor(model => model.JobDescription, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-6">
+                                            <div class="col-md-12" style="font-size:90%">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.MainObjective, htmlAttributes: new { @class = "col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.MainObjective, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.MainObjective, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.IndustryID, "Industry", htmlAttributes: new { @class = " col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("IndustryID", new SelectList(ViewBag.Industries, "IndustryId", "Name"), "", htmlAttributes: new { @class = "form-control input-sm" })
+                                                        @Html.ValidationMessageFor(model => model.IndustryID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.DepartmentID, "Department", htmlAttributes: new { @class = " col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("DepartmentID", new SelectList(ViewBag.Departments, "DepartmentID", "DepartmentName"), "", htmlAttributes: new { @class = "form-control input-sm" })
+                                                        @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group" style="font-size:90%">
+                                                    @Html.LabelFor(model => model.SupervisorID, htmlAttributes: new { @class = " col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("SupervisorID", new SelectList(ViewBag.Positions, "OfficePositionID", "Title"), "", htmlAttributes: new { @class = "form-control input-sm" })
+                                                        @Html.ValidationMessageFor(model => model.SupervisorID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.BranchID, "Branch", htmlAttributes: new { @class = " col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("BranchID", new SelectList(ViewBag.Branches, "BranchId", "Location"), "", htmlAttributes: new { @class = "form-control input-sm" })
+                                                        @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.IndustryID, "Industry", htmlAttributes: new { @class = " col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.DropDownList("IndustryID", new SelectList(ViewBag.Industries, "IndustryID", "Name"), "", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.IndustryID, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.RoleSummary, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RoleSummary, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RoleSummary, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Reqirements, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-8">
-                                    @Html.TextAreaFor(model => model.Reqirements, new { @class = "form-control", rows = "8", cols = "10" })
-                                  
-                                    @Html.ValidationMessageFor(model => model.Reqirements, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Save" class="btn btn-default" />
                                 </div>
                             </div>
                         </div>
-
-                    }
+                        <div class="panel panel-primary" style="margin-top:-1.7em;">
+                            <div class="panel-heading">
+                                Job Requirements
+                            </div>
+                            <div class="panel-body">
+                                <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                                @Html.Action("_GetRequirementsForEditing",new {requirements= (List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>)ViewBag.SelectedRequirements })
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
-              </section>
+            </section>
         </div>
-
     </div>
 </section>
+@section Scripts{
+    <script type="text/javascript">
+        var reqcount = @Model.JobRequirements.Count() +1;
+        $(document).ready(function()
+        {
+            $("#submitjob").on("click", function () {
+                $("#editform").submit();
+            });
+            $("#reqjob").on("click", function () {
+                //$("#editform").attr('url').set();
+                $("#editform").submit();
+            });
+            @*frm.submit(function (e) {
+
+               e.preventDefault();
+
+                $.ajax({
+                    type: frm.attr('method'),
+                    url: "@(Url.Action("Job/Create","Admin"))",
+                    data: frm.serializeArray()
+                });
+
+            });*@
+
+            $("a#additem").on("click", function () {
+                var i=reqcount;
+                var newdiv = "<tr id="+10+i+">";
+                $.ajax({
+                    type: "GET", url: "@(Url.Action("_CreateNewRequirement","Role"))",
+                    data: {id:i},
+                    success: function (data) {
+                        $("tbody#requirementslist").append(data);
+                        reqcount += 1;
+                    },
+                    error: function (error) {
+                        alert("Error" + error.toString());
+                    }
+                    });
+                });
+
+        });
+    </script>
+}

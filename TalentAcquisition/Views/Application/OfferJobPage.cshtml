@@ -25,6 +25,6 @@
     </div>
     <div class="col-md-3 onboarding">
         <h4 class="padding">Proceed To Onboarding</h4>
-        <a class="btn btn-default btn-success btn-sm" id="onboardcandidate" name="onboardcandidate">Onboard Candidate</a>
+        <a class="btn btn-default btn-success btn-sm" href="@(Url.Action("_confirmapplicantonboarding", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))" id="onboardcandidate" name="onboardcandidate">Onboard Candidate</a>
     </div>
 </div>

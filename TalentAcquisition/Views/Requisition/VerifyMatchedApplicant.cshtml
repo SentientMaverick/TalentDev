@@ -1,0 +1,303 @@
+﻿@model TalentAcquisition.Core.Domain.JobRequisition
+@{
+    ViewBag.Title = "Verify Matched Applicant";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts{
+    <script type="text/javascript">
+    $(function () {
+        $(".Details").accordion({
+            collapsible: true
+        });
+    });
+    </script>
+}
+<style>
+    .padding {
+        padding-top: 3em;
+    }
+
+    .banner {
+        min-height: 100px;
+        background-color: rgba(0,0,0,0.1);
+        padding: 1.5em;
+        width: 100%;
+    }
+
+        .banner button {
+            margin-top: 2em;
+        }
+
+        .banner h3 {
+            color: yellowgreen;
+        }
+
+    .contain {
+        width: 80%;
+        margin: 0 auto;
+    }
+</style>
+<!-- Banner IS Fixed-->
+<div class="banner">
+    <div class="contain">
+        <div class="row">
+            <div class="col-md-2">
+                <h3 style="font-size:95%">Position</h3>
+                <h5>@Model.JobTitle</h5>
+            </div>
+            <div class="col-md-10">
+                <h3 class="text-center" style="font-size:95%">Application Summary</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5 class="text-center">Total Applicants</h5>
+                        <h3 class="text-center">@Model.JobApplications.Count</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="text-center">Total Matched</h5>
+                        <h3 class="text-center">@Model.JobApplications.Count</h3>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="text-center">Screened</h5>
+                        <h3 class="text-center">@Model.JobApplications.Where(o => o.ApplicationStatus == TalentAcquisition.Core.Domain.ApplicationStatus.Screened).Count()</h3>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="text-center">Interviewed</h5>
+                        <h3 class="text-center">@Model.JobApplications.Where(o => o.ApplicationStatus == TalentAcquisition.Core.Domain.ApplicationStatus.Interview).Count()</h3>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="text-center">Job Offered</h5>
+                        <h3 class="text-center">@Model.JobApplications.Where(o => o.ApplicationStatus == TalentAcquisition.Core.Domain.ApplicationStatus.JobOffer).Count()</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-6 col-sm-3">
+        </div>
+    </div>
+</div>
+<div class="container body-content">
+    <br />
+    <div class="col-md-4">
+        <br />
+        <div class="container">
+            <section class="container body-content">
+                <div class="row Details" id="JobDetails">
+                    <h4>Job Details</h4>
+                    <div class="col-lg-12" style="font-size:90%">
+                        <dl class="" style="font-size:80%">
+                            <dt>
+                                Industry
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.OfficePosition.Industry.Name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.JobTitle)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.JobTitle)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Location)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Location)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Status)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.NoOfPositionsAvailable)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NoOfPositionsAvailable)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.AgeLimit)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.AgeLimit)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EducationalRequirements)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EducationalRequirements)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.JobResponsibilities)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.JobResponsibilities)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.YearsOfExperience)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.YearsOfExperience)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PublishedDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PublishedDate)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.StartDate)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ClosingDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ClosingDate)
+                            </dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="col-md-8" style="font-size:90%">
+        <br />
+        <section class="container body-content">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Applicant Profile
+                </div>
+                <div class="panel-body" style="min-height:350px;margin-bottom:10em;overflow-y:scroll">
+                    <div class="row">
+                        <div class="container">
+                            @Html.Action("_GetApplicantOverview", "Applicant", new { applicantid = ViewBag.applicantid })
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="col-lg-12">
+                        @using (Html.BeginForm(FormMethod.Post))
+                        {
+                            @*<input id="id" name="id" type="hidden" value="@Model.JobRequisitionID" />
+                            <input id="applicantid" name="applicantid" type="hidden" value="@ViewBag.applicantid" />*@
+                            <input type="submit" value="Validate" class="btn btn-xs btn-primary" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(function () {
+       // var form = $("#form");
+
+        $("#matchbyapplication").click(function(){
+            //HideApplicationsSection
+            //ShowApplicantSecton
+
+        });
+        $("#matchbyapplicant").click(function () {
+            //ShowApplicationsSection
+            //HideApplicantSecton
+        });
+
+        //form.submit(function (e) {
+        //    alert("Here");
+        //    e.preventDefault();
+        //    $.ajax({
+        //        type:"POST",
+        //        url:form.attr("action"),
+        //        data:form.serialize(),
+        //        success: function (data) {
+        //            if (data)
+        //                alert("Success");
+        //        },
+        //        error:function(error){
+        //            alert("Error");
+        //        }
+        //    });
+        //});
+
+        //$("#form").validate({
+        //    errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+        //    errorElement: 'div',
+        //    errorPlacement: function (error, e) {
+        //        e.parents('.form-group > div').append(error);
+        //    },
+        //    highlight: function (e) {
+
+        //        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        //        $(e).closest('.help-block').remove();
+        //    },
+        //    success: function (e) {
+        //        e.closest('.form-group').removeClass('has-success has-error');
+        //        e.closest('.help-block').remove();
+        //    },
+        //    rules: {
+        //        'ProposedDate1': {
+        //            required: true
+        //            //date: true
+        //        }
+
+        //        //'Password': {
+        //        //    required: true,
+        //        //    minlength: 6
+        //        //},
+
+        //        //'ConfirmPassword': {
+        //        //    required: true,
+        //        //    equalTo: '#Password'
+        //        //}
+        //    },
+        //    messages: {
+        //        'ProposedDate1': 'Please enter valid Date'
+
+        //        //'Password': {
+        //        //    required: 'Please provide a password',
+        //        //    minlength: 'Your password must be at least 6 characters long'
+        //        //},
+
+        //        //'ConfirmPassword': {
+        //        //    required: 'Please provide a password',
+        //        //    minlength: 'Your password must be at least 6 characters long',
+        //        //    equalTo: 'Please enter the same password as above'
+        //        //}
+        //    }
+        //});
+    });
+</script>
+
+

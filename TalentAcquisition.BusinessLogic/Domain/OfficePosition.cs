@@ -9,7 +9,11 @@ namespace TalentAcquisition.Core.Domain
 {
     public class OfficePosition
     {
-
+        public OfficePosition()
+        {
+            Employees = new HashSet<Employee>();
+            JobRequirements = new HashSet<JobRequirement>();
+        }
         public int OfficePositionID { get; set; }
         [Display(Name = "Job ID")]
         public string JobID { get; set; }
@@ -43,11 +47,11 @@ namespace TalentAcquisition.Core.Domain
         public int RequisitionCount { get; set; }
         public string Status { get; set; }
         public DateTime DateCreated { get; set; }
-        public ICollection<JobOccupant> Employees { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
         //public ICollection<JobQualification> Qualifications { get; set; }
-        public ICollection<JobRequirement> Requirements { get; set; }
+        public virtual ICollection<JobRequirement> JobRequirements { get; set; }
         public virtual Department Department { get; set; }
-       public virtual Industry Industry { get; set; }
+        public virtual Industry Industry { get; set; }
     }
     /*
     public class Role

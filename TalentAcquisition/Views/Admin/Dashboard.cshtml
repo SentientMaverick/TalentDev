@@ -19,7 +19,8 @@
 
 .icon img{
     margin:0 auto;
-    top:50%;left:30%;
+    /*top:50%;*/
+    left:30%;
     position:relative;
 }
 .icon h4{
@@ -54,6 +55,7 @@
                     <li class="active">Dashboard</li>
                 </ol>
                 <div class="row">
+
                     <div class="row">
                         <div class="col-lg-3 col-md-6 icon">
                             <img src="~/Assets/Icons/Agenda.png" />
@@ -66,9 +68,9 @@
                             </a>
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("requisitions")">
+                            <a href="@Url.Action("jobrequisitionmanager")">
                                 <img src="~/Assets/Icons/Man-Suit-2.png" />
-                                <h4>Requisition Management</h4>
+                                <h4>Job Requisition Management</h4>
                             </a>
                             </div>
                         <div class="col-lg-3 col-md-6 icon">
@@ -98,12 +100,16 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-md-6 icon">
-                            <img src="~/Assets/Icons/Organogram-2.png" />
-                            <h4>Organizational Management</h4>
+                            <a href="@Url.Action("organisationmanager")">
+                                <img src="~/Assets/Icons/Organogram-2.png" />
+                                <h4>Organizational Management</h4>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
-                            <img src="~/Assets/Icons/Bedge.png" />
-                            <h4>Personnel Management</h4>
+                            <a href="@Url.Action("personnelmanager")">
+                                <img src="~/Assets/Icons/Bedge.png" />
+                                <h4>Personnel Management</h4>
+                            </a>  
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
                             <img src="~/Assets/Icons/Bullish.png" />
@@ -123,4 +129,3 @@
     
     </div>
 </section>
-

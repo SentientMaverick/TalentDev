@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TalentAcquisition.BusinessLogic.Domain;
+using TalentAcquisition.BusinessLogic.UpdatedDomain;
 
 namespace TalentAcquisition.Core.Domain
 {
@@ -14,6 +15,7 @@ namespace TalentAcquisition.Core.Domain
             WorkExperiences = new HashSet<WorkExperience>();
             Certifications = new HashSet<Certification>();
             Skills = new HashSet<Skill>();
+            MatchedApplicants = new HashSet<MatchedApplicant>();
 
         }
         [Display(Name ="Username")]
@@ -31,6 +33,7 @@ namespace TalentAcquisition.Core.Domain
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }
         public virtual ICollection<Certification> Certifications { get; set; }
         public virtual ICollection<Skill> Skills { get; set; }
+        public virtual ICollection<MatchedApplicant> MatchedApplicants { get; set; }
         // public virtual ICollection<Certification> Uploads { get; set; }
 
     }

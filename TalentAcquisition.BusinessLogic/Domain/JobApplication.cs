@@ -6,7 +6,7 @@ namespace TalentAcquisition.Core.Domain
 {
     public enum ApplicationStatus
     {
-        Applied, Screened, Interview, JobOffer, Canceled
+        Applied, Screened, Interview, JobOffer, Canceled,JobOfferAccepted,Onboarding
     }
     public class JobApplication
     {

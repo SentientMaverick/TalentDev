@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Interview";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -21,27 +21,32 @@ $(document).ready(function(){
         margin-bottom:2em;
     }
 </style>
-<div class="container body-content">
-    <div class="col-md-4 adminsidebar">
-        <div class="container">
-            <br />
-            <ul class="nav">
-                @Html.Partial("_AdminDashboardSidebar")
-            </ul>
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4">
+            <div class="container">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Interview</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard", "Admin")">Home</a></li>
+                <li class="active">Interviews</li>
+            </ol>
+            <section class="container body-content">
+                <span>@ViewBag.Message</span>
+                <div class="row">
+                    <div class="form-group">
+                    <label class="">Search </label>
+                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                    </div>
+                    @Html.Action("_GetRequisitionsForTeamMember")
+                </div>
+            </section>
         </div>
     </div>
-    <div class="col-md-8">
-        <h3>Active Requisitions</h3>
-        <section class="container body-content">
-            <span>@ViewBag.Message</span>
-            
-            <div class="row">
-                <div class="form-group"><label class="">Search </label> <input class="form-control" id="myInput" type="text" placeholder="Search.."></div>
-                
-                @Html.Action("_GetRequisitionsForTeamMember")
-            </div>
-        </section>
-    </div>
-
-</div>
-
+</section>

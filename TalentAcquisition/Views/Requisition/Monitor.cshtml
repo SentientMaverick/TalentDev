@@ -22,13 +22,27 @@ $(document).ready(function(){
             </div>
         </div>
         <div class="col-md-8">
-            <br /><br /><br /><br />
-            <div class="row">
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Requisition Dashboard</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                @*<li><a href="#">Pictures</a></li>*@
+                @*<li class="active"><a href="@Url.Action("Requistionmanager","Admin")">Requisition Manager</a></li>*@
+                <li class="active">Job Requisition Manager</li>
+            </ol>
+            <section class="container body-content">
                 <div class="row">
-                    @Html.Action("_GetNotifications", "Admin")
+                    <a href="@Url.Action("requisition/create","Admin")" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+                    <a href="@Url.Action("requisitions","Admin")" class="btn"><img src="~/Assets/Icons/Agenda.png" width="20" />Manage Requisitions</a>
                 </div>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="row">
+                        @Html.Action("_GetNotifications", "Admin")
+                    </div>
+                </div>
+            </section>
+</div>
 
     </div>
 </section>

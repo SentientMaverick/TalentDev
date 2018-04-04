@@ -11,6 +11,7 @@
                     font-size:90%;
                 }
             </style>
+            @Html.HiddenFor(model=>model.InterviewID)
             @*<input type="hidden" name="InterviewID" value="@Model.InterviewID" />*@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group hidden">
@@ -59,13 +60,13 @@
             <div class="padding"></div>
             <div class="padding"></div>
             <div class="padding"></div>
-            @*<div class="form-group">
+            <div class="form-group hidden">
                 @Html.LabelFor(model => model.ScheduledDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ScheduledDate, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ScheduledDate, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

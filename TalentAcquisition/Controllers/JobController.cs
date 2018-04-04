@@ -74,12 +74,12 @@ namespace TalentAcquisition.Controllers
             {
                 //var alljobs= from s in db.JobRequisitions
                 //             select s;
-                var alljobs = db.JobRequisitions.Include(c => c.OfficePosition);
+                var alljobs = db.JobRequisitions.Include("OfficePosition.Department");
                 jobs = alljobs.ToList();
                 var publishedjobs = alljobs.Where(o => o.Status.Value == JobRequisition.JobRequisitionStatus.Posted);
                 var filteredjobs = new List<JobRequisition>();
 
-                if((skillOrProfession == "") && (specialization == "-1"))
+                if((skillOrProfession == null) && (specialization == null))
                 {
                     return jobs;
                 }
@@ -87,16 +87,16 @@ namespace TalentAcquisition.Controllers
                 {
                     filteredjobs = publishedjobs.Where(s => s.JobDescription.Contains(skillOrProfession)).ToList();
                 }
-                if (department != "-1")
+                if (department != "-1" && department != null)
                 {
                     var deptid = db.Departments.Where(s => s.DepartmentName == department).FirstOrDefault().DepartmentID;
-                    filteredjobs.Union(publishedjobs.Where(s => s.OfficePosition.DepartmentID== deptid).ToList());
-
+                    var deptjobs = db.JobRequisitions.Where(s => s.OfficePosition.DepartmentID == deptid && s.Status.Value == JobRequisition.JobRequisitionStatus.Posted).ToList();
+                    filteredjobs= filteredjobs.Union(deptjobs).ToList();
                 }
-                if (specialization != "-1")
+                if (specialization != "-1" && specialization != null)
                 {
                     var industryid=db.Industries.Where(s => s.Name == specialization).FirstOrDefault().IndustryId;
-                    filteredjobs.Union(publishedjobs.Where(s => s.OfficePosition.IndustryID == industryid).ToList());
+                    filteredjobs = filteredjobs.Union(db.JobRequisitions.Where(s => s.OfficePosition.IndustryID == industryid && s.Status.Value == JobRequisition.JobRequisitionStatus.Posted)).ToList();
                 }
                 //var requiredjobs = from pj in publishedjobs
                 //                   join oj in db.OfficePositions
@@ -108,9 +108,7 @@ namespace TalentAcquisition.Controllers
                 //                   dp.DepartmentName.Contains(department))
                 //                   select pj;
                 //jobs = requiredjobs.ToList();
-                alljobs = alljobs
-                    .Intersect(filteredjobs);
-                return jobs;
+                return filteredjobs.OrderBy(x=>x.PublishedDate).ToList();
             }
         }
 

@@ -201,6 +201,42 @@
     <Compile Include="Migrations\201803061514449_UpdatedOfficePositionModel2.Designer.cs">
       <DependentUpon>201803061514449_UpdatedOfficePositionModel2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803070824186_updatedjobqualificationclass.cs" />
+    <Compile Include="Migrations\201803070824186_updatedjobqualificationclass.Designer.cs">
+      <DependentUpon>201803070824186_updatedjobqualificationclass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803071043353_updatedRequirementclass.cs" />
+    <Compile Include="Migrations\201803071043353_updatedRequirementclass.Designer.cs">
+      <DependentUpon>201803071043353_updatedRequirementclass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803121621530_newman.cs" />
+    <Compile Include="Migrations\201803121621530_newman.Designer.cs">
+      <DependentUpon>201803121621530_newman.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803141107003_AddedFieldsToJobRequisition.cs" />
+    <Compile Include="Migrations\201803141107003_AddedFieldsToJobRequisition.Designer.cs">
+      <DependentUpon>201803141107003_AddedFieldsToJobRequisition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803261341324_InteviewEvaluationModelAdded.cs" />
+    <Compile Include="Migrations\201803261341324_InteviewEvaluationModelAdded.Designer.cs">
+      <DependentUpon>201803261341324_InteviewEvaluationModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803270741515_UpdatedNada.cs" />
+    <Compile Include="Migrations\201803270741515_UpdatedNada.Designer.cs">
+      <DependentUpon>201803270741515_UpdatedNada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803290921484_AddedModelsForOnboarding.cs" />
+    <Compile Include="Migrations\201803290921484_AddedModelsForOnboarding.Designer.cs">
+      <DependentUpon>201803290921484_AddedModelsForOnboarding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803291135341_UpdatedModelsForOnboarding.cs" />
+    <Compile Include="Migrations\201803291135341_UpdatedModelsForOnboarding.Designer.cs">
+      <DependentUpon>201803291135341_UpdatedModelsForOnboarding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804031255505_ModifiedWelcomeGuideModel.cs" />
+    <Compile Include="Migrations\201804031255505_ModifiedWelcomeGuideModel.Designer.cs">
+      <DependentUpon>201804031255505_ModifiedWelcomeGuideModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -278,6 +314,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803061514449_UpdatedOfficePositionModel2.resx">
       <DependentUpon>201803061514449_UpdatedOfficePositionModel2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803070824186_updatedjobqualificationclass.resx">
+      <DependentUpon>201803070824186_updatedjobqualificationclass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803071043353_updatedRequirementclass.resx">
+      <DependentUpon>201803071043353_updatedRequirementclass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803121621530_newman.resx">
+      <DependentUpon>201803121621530_newman.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803141107003_AddedFieldsToJobRequisition.resx">
+      <DependentUpon>201803141107003_AddedFieldsToJobRequisition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803261341324_InteviewEvaluationModelAdded.resx">
+      <DependentUpon>201803261341324_InteviewEvaluationModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803270741515_UpdatedNada.resx">
+      <DependentUpon>201803270741515_UpdatedNada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803290921484_AddedModelsForOnboarding.resx">
+      <DependentUpon>201803290921484_AddedModelsForOnboarding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803291135341_UpdatedModelsForOnboarding.resx">
+      <DependentUpon>201803291135341_UpdatedModelsForOnboarding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804031255505_ModifiedWelcomeGuideModel.resx">
+      <DependentUpon>201804031255505_ModifiedWelcomeGuideModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

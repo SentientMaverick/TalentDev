@@ -10,11 +10,13 @@ using System.Web;
 using System.Web.Mvc;
 using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
+using TalentAcquisition.Filters;
 using TalentAcquisition.Models;
 using TalentAcquisition.Models.ViewModel;
 
 namespace TalentAcquisition.Controllers
 {
+    [AuthorizeEmployee]
     public class AdminController : Controller
     {
         private AppManager app = new AppManager();
@@ -31,7 +33,7 @@ namespace TalentAcquisition.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public async Task<ActionResult> Portal(LoginViewModel model, string returnUrl)
         {
             try
@@ -46,7 +48,9 @@ namespace TalentAcquisition.Controllers
             }
         }
         //[Route("Employee/Dashboard")]
+        [AuthorizeEmployee]
         [Route("Admin/Dashboard")]
+        [OutputCache(Duration =20)]
         public ActionResult Dashboard()
         {
             SetUserSessionID();
@@ -63,6 +67,25 @@ namespace TalentAcquisition.Controllers
             }
             return View(allCompanyJobs);
         }
+        [Route("Admin/onboarding")]
+        public ActionResult onboarding()
+        {
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
+        [Route("Admin/organisationmanager")]
+        public ActionResult organisationmanager()
+        {
+            var allCompanyJobs = new List<OfficePosition>();
+            using (var db = new TalentContext())
+            {
+                allCompanyJobs = db.OfficePositions.Include("Department").Include("Industry").ToList();
+            }
+            return View();
+        }
         [ChildActionOnly]
         public ActionResult _GetNotifications()
         {
@@ -72,7 +95,6 @@ namespace TalentAcquisition.Controllers
             
             return PartialView(notification);
         }
-
         private AdminDashboardNotification GetNotifications(int? id)
         {
             var notification = new AdminDashboardNotification();
@@ -140,7 +162,6 @@ namespace TalentAcquisition.Controllers
             }
             return notification;
         }
-
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
@@ -173,7 +194,6 @@ namespace TalentAcquisition.Controllers
             return View(jobApplication);
         }
         // GET: Admin/Create
-
         [ChildActionOnly]
         public JsonResult UpdateApplication(int applicationid)
         {

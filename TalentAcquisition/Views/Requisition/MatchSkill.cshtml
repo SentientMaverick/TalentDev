@@ -1,4 +1,5 @@
 ﻿@model TalentAcquisition.Core.Domain.JobRequisition
+@using TalentAcquisition.BusinessLogic.UpdatedDomain; 
 @{
     ViewBag.Title = "Match Skill";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -41,26 +42,30 @@
 <div class="banner">
     <div class="contain">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <h3 style="font-size:95%">Position</h3>
                 <h5>@Model.JobTitle</h5>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <h3 class="text-center" style="font-size:95%">Application Summary</h3>
                 <div class="row">
                     <div class="col-md-3">
-                        <h5 class="text-center">Total</h5>
+                        <h5 class="text-center">Total Applications</h5>
                         <h3 class="text-center">@Model.JobApplications.Count</h3>
                     </div>
                     <div class="col-md-3">
+                        <h5 class="text-center">Total Matched</h5>
+                        <h3 class="text-center">@{List<MatchedApplicant> items = (List<MatchedApplicant>)ViewBag.MatchedApplicants;}@items.Count</h3>
+                    </div>
+                    <div class="col-md-2">
                         <h5 class="text-center">Screened</h5>
                         <h3 class="text-center">@Model.JobApplications.Where(o => o.ApplicationStatus == TalentAcquisition.Core.Domain.ApplicationStatus.Screened).Count()</h3>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <h5 class="text-center">Interviewed</h5>
                         <h3 class="text-center">@Model.JobApplications.Where(o => o.ApplicationStatus == TalentAcquisition.Core.Domain.ApplicationStatus.Interview).Count()</h3>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <h5 class="text-center">Job Offered</h5>
                         <h3 class="text-center">@Model.JobApplications.Where(o => o.ApplicationStatus == TalentAcquisition.Core.Domain.ApplicationStatus.JobOffer).Count()</h3>
                     </div>
@@ -74,7 +79,6 @@
     </div>
 </div>
 <div class="container body-content">
-    <h3>Manage Requisitions</h3>
     <br />
     <div class="col-md-4">
         <br />
@@ -86,16 +90,10 @@
                      @using (Html.BeginForm("matchskill/"+Model.JobRequisitionID, "Admin",FormMethod.Get))
                      {
                         @*<input id="id" name="id" type="hidden" value="@Model.JobRequisitionID" />*@
-                        <input id="filter" name="filter" type="hidden" value="application" />
-                        <input type="submit" id="matchbyapplication" value="Check Received Applications" class="btn btn-xs btn-primary" />
+                        <input id="filter" name="filter" type="radio" value="application" style="display:inline"/><p>Check Received Applications</p>
+                        <input id="filter" name="filter" type="radio" value="applicant"/><p>Check Applicant Pool</p>
+                        <input type="submit" id="matchbyapplication" value="Match" class="btn btn-xs btn-primary" />
                      }
-                        <br />
-                      @using (Html.BeginForm("matchskill/"+Model.JobRequisitionID, "Admin", FormMethod.Get))
-                      {
-                            @*<input id="id" name="id" type="hidden" value="@Model.JobRequisitionID" />*@
-                            <input id="filter" name="filter" type="hidden" value="applicant" />
-                            <input type="submit" id="matchbyapplicant" value="Check Database Records" class="btn btn-xs btn-primary" />
-                        }
                     </div>
                 </div>
             </section>
@@ -208,7 +206,14 @@
     <div class="col-md-8" style="font-size:90%">
         <br />
         <section class="container body-content">
-            @if (ViewBag.Filter == "application")
+            @if (ViewBag.Filter == null)
+            {
+                <div class="row Details" id="ClosedApplications">
+                    <h4 class="alert-success">Recent Matching Results</h4>
+                    @Html.Action("_GetPreviouslyMatchedApplicants", new { id = ViewBag.RequisitionID })
+                </div>
+            }
+            else if (ViewBag.Filter == "application")
             {
                 <div class="row Details" id="ClosedApplications">
                     <h4 class="alert-success">Matched Applications</h4>

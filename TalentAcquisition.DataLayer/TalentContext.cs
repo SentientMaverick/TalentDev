@@ -78,6 +78,13 @@ namespace TalentAcquisition.DataLayer
         public DbSet<JobQualification> JobQualifications { get; set; }
         public DbSet<JobRequirement> JobRequirements { get; set; }
         public DbSet<Branch> Branches { get; set; }
+        public DbSet<MatchedApplicant> MatchedApplicants { get; set; }
+        public DbSet<InterviewEvaluation> InterviewEvaluations { get; set; }
+        public DbSet<Evaluation> Evaluations { get; set; }
+        public DbSet<OnboardingTemplate> OnboardingTemplates { get; set; }
+        public DbSet<WelcomeGuide> WelcomeGuides { get; set; }
+        public DbSet<OnboardActivity> OnboardActivities { get; set; }
+        public DbSet<CompletedActivity> CompletedActivities { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.RegisterViewModel> RegisterViewModels { get; set; }
 
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.LoginViewModel> LoginViewModels { get; set; }

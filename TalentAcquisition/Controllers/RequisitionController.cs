@@ -6,12 +6,15 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TalentAcquisition.BusinessLogic.Domain;
+using TalentAcquisition.BusinessLogic.UpdatedDomain;
 using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
+using TalentAcquisition.Filters;
 using TalentAcquisition.Models.Core;
 
 namespace TalentAcquisition.Controllers
 {
+    [AuthorizeEmployee]
     public class RequisitionController : Controller
     {
         // GET: Requisition
@@ -19,7 +22,8 @@ namespace TalentAcquisition.Controllers
         public ActionResult Index()
         {
             return View();
-        }
+        }  
+        [Route("Admin/JobrequisitionManager")]
         [Route("Admin/Requisitions/Monitor")]
         public ActionResult Monitor()
         {
@@ -34,9 +38,11 @@ namespace TalentAcquisition.Controllers
         [Route("Admin/Requisition/Create")]
         public ActionResult Create(JobRequisition requisition, List<CheckModel> checks)
         {
+            var req = new TalentContext().JobRequisitions.Count();
+            requisition.RequisitionNo = "TR" + String.Format("{0:D6}", req + 1);
             if (!ModelState.IsValid)
             {
-                ViewBag.Message = "Couldn't Create Requisition";
+                ViewBag.Message = "Couldn't Create Requisition; Form was not Completed Properly";
                 return View(requisition);
             }
             try
@@ -102,9 +108,83 @@ namespace TalentAcquisition.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.MatchedApplicants = new List<MatchedApplicant>();
+                if (jobRequisition.MatchedApplicants.Count() > 0)
+                {
+                    ViewBag.MatchedApplicants = db.MatchedApplicants.Include("JobSeeker").Where(x => x.JobRequisitionID == id).ToList();
+                }
                 ViewBag.Filter = filter;
                 ViewBag.RequisitionID = jobRequisition.JobRequisitionID;
                 return View(jobRequisition);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+        [Route("Admin/matchskill/{id:int}/ScreenApplicant/{applicantid:int}")]
+        public ActionResult VerifyMatchedApplicant(int? id,int?applicantid, string details, string filter)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                if (applicantid == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                TalentContext db = new TalentContext();
+                JobRequisition jobRequisition = db.JobRequisitions.Include("Skills").Where(x => x.JobRequisitionID == id).First();
+                if (jobRequisition == null)
+                {
+                    return HttpNotFound();
+                }
+                JobSeeker applicant = db.Applicants.Include("skills").Where(x => x.ID == applicantid).First();
+                if (applicant == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.applicantid = applicantid;
+                ViewBag.Applicant = applicant;
+                ViewBag.RequisitionID = jobRequisition.JobRequisitionID;
+                return View(jobRequisition);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+        [Route("Admin/matchskill/{id:int}/ScreenApplicant/{applicantid:int}")]
+        [HttpPost]
+        public ActionResult VerifyMatchedApplicant(int id, int applicantid)
+        {
+            try
+            {
+                using (var db = new TalentContext())
+                {
+                    var existingapplication = db.JobApplications.Where(x => x.JobRequisitionID == id && x.JobSeekerID == applicantid);
+                    if (existingapplication.Any())
+                    {
+                        existingapplication.First().ApplicationStatus = ApplicationStatus.Screened;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        var application = new JobApplication()
+                        {
+                            JobRequisitionID = id,
+                            JobSeekerID = applicantid,
+                            ApplicationStatus = ApplicationStatus.Screened,
+                            RegistrationDate = DateTime.Now
+                        };
+                        db.JobApplications.Add(application);
+                        db.SaveChanges();
+                    }
+                    
+                }
+                return RedirectToAction("Matchskill/"+id,"Admin");
             }
             catch (Exception ex)
             {
@@ -314,17 +394,48 @@ namespace TalentAcquisition.Controllers
 
         public ActionResult _GetMatchingApplications(int id)
         {
+            ViewBag.RequisitionID = id;
             var activeapplications = new List<JobApplication>();
             activeapplications = MatchingTheCandidatesByApplicationAlgorithm(id);
+            List<JobSeeker> _matchedapplicants = activeapplications.Select(x => x.JobSeeker).ToList();
+            UpdateMatchedApplicantRecord(_matchedapplicants,id);
             return PartialView("_GetNewApplications", activeapplications);
         }
-        public ActionResult _GetMatchingApplicants(int id)
+
+        private void UpdateMatchedApplicantRecord(List<JobSeeker> matchedapplicants,int requisitionid)
         {
-            var activeapplicants = new List<JobSeeker>();
-            activeapplicants = MatchingTheCandidatesAlgorithm(id);
-            return PartialView(activeapplicants);
+            using (var db = new TalentContext())
+            {
+                var prevmatchedapplicants = db.MatchedApplicants.Include("JobSeeker").Where(x => x.JobRequisitionID == requisitionid);
+                foreach(var applicant in matchedapplicants)
+                {
+                    if (!prevmatchedapplicants.Where(x=>x.JobSeeker.ID==applicant.ID).Any())
+                    {
+                        var matchedrecord = new MatchedApplicant() { JobRequisitionID = requisitionid, JobSeekerID = applicant.ID };
+                        db.MatchedApplicants.Add(matchedrecord);
+                        db.SaveChanges();
+                    }
+                }
+            }
         }
 
+        public ActionResult _GetMatchingApplicants(int id)
+        {
+            ViewBag.RequisitionID = id;
+            var activeapplicants = new List<JobSeeker>();
+            activeapplicants = MatchingTheCandidatesAlgorithm(id);
+            UpdateMatchedApplicantRecord(activeapplicants,id);
+            return PartialView(activeapplicants);
+        }
+        public ActionResult _GetPreviouslyMatchedApplicants(int id)
+        {
+            ViewBag.RequisitionID = id;
+            var activeapplicants = new List<JobSeeker>();
+            var db = new TalentContext();
+            var matchedapplicantsrecords= db.MatchedApplicants.Include("JobSeeker.Skills").Where(x => x.JobRequisitionID == id);
+            activeapplicants = matchedapplicantsrecords.Select(x => x.JobSeeker).ToList();
+            return PartialView(activeapplicants);
+        }
         [ChildActionOnly]
         public ActionResult _GetScreenedApplications(int id)
         {
@@ -379,13 +490,17 @@ namespace TalentAcquisition.Controllers
         [ChildActionOnly]
         public ActionResult _GetDetailsFromRole()
         {
+            var job = new JobRequisition();
             using (var db = new TalentContext())
             {
                 ViewBag.Departments = db.Departments.ToList();
                 ViewBag.Positions = Enumerable.Empty<SelectListItem>();
-                
+                var req = db.JobRequisitions.Count();
+                job.RequisitionNo = "TR" + String.Format("{0:D6}", req + 1);
             }
-            return PartialView();
+            // var numgen = new Random();
+            
+            return PartialView(job);
         }
         public ActionResult _GetSkills(int? id)
         {
@@ -441,7 +556,9 @@ namespace TalentAcquisition.Controllers
         {
             var db = new TalentContext();
             OfficePosition details = db.OfficePositions.Find(officeroleid);
-            return Json(new { Title = details.Title, Responsibilities = details.Reqirements }, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
+            var employeecount = db.Employees.Where(x => x.OfficePositionID == officeroleid).Count();
+            var vaccantposts = details.Posts - employeecount;
+            return Json(new { Title = details.Title, Responsibilities = details.Reqirements,Posts=details.Posts,AvailablePosts=vaccantposts }, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
         }
 
         private List<JobSeeker> MatchingTheCandidatesAlgorithm(int id)

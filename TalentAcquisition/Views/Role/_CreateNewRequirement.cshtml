@@ -1,0 +1,79 @@
+﻿@model  List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>
+       
+ @{
+     var i = (int)ViewBag.ID;
+   }
+@for (int j = 0; j <= i; j++)
+{
+    if (j == i-1)
+    {
+        <tr id="j">
+            <td style="width:10em">
+                @Html.DropDownListFor(it => it[j].QualificationCode, new SelectList(ViewBag.Requirements, "ID", "QualificationCode"), "", htmlAttributes: new { @class = "form-control input-sm" })
+            </td>
+            <td style="width:10em">
+                @Html.DropDownListFor(it => it[j].QualificationType, new SelectList(ViewBag.Requirements, "ID", "QualificationType"), "", htmlAttributes: new { @class = "form-control input-sm" })
+            </td>
+            <td>@Html.EditorFor(it => it[j].Priority, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+            <td>@Html.EditorFor(it => it[j].ScoreID, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+            <td>@Html.EditorFor(it => it[j].NeedCode, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+            <td>@Html.EditorFor(it => it[j].StageCode, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+            <td>@Html.EditorFor(it => it[j].DesiredScore, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+            <td colspan="3">
+                @Html.CheckBoxFor(it => it[j].Mandatory, new { htmlAttributes = new { @class = "" } })
+                <a id="removeitem" href="javascript:void()"><img src="~/Assets/Icons/Delete.png" width="20" height="20" class="pull-right"/></a>
+            </td>
+            <td class="hidden">@Html.HiddenFor(it => it[j].ID)</td>
+            <td class="hidden">@Html.HiddenFor(it => it[j].QualificationID)</td>
+        </tr>
+    }
+}
+  
+
+@*<tr id="@i">
+    <td style="width:10em">
+        @Html.DropDownList("it["+i+"].QualificationCode", new SelectList(ViewBag.Requirements, "ID", "QualificationCode"), "", htmlAttributes: new { @class = "form-control input-sm" })
+    </td>
+    <td style="width:10em">
+        @Html.DropDownList("it[" + i + "].QualificationType", new SelectList(ViewBag.Requirements, "ID", "QualificationType"), "", htmlAttributes: new { @class = "form-control input-sm" })
+    </td>
+    <td>@Html.Editor("[" + i + "].Priority", new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.Editor("[" + i + "].ScoreID", new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.Editor("[" + i + "].NeedCode", new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.Editor("[" + i + "].StageCode", new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.Editor("[" + i + "].DesiredScore", new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td colspan="3">
+        @Html.CheckBox("[" + i + "].Mandatory", new { htmlAttributes = new { @class = "" } })
+        <a id="removeitem" href="javascript:void()"><span class="fa fa-times fa-lg pull-right"></span></a>
+    </td>
+    <td class="hidden">@Html.Hidden("[" + i + "].ID")</td>
+    <td class="hidden">@Html.Hidden("[" + i + "].QualificationID")</td>   
+ </tr>*@
+ <script>
+     $(function () {
+         $("a#removeitem").on("click", function () {
+             $(this).closest('tr').remove();
+             //alert("item removed");
+         });
+     });
+ </script>  
+
+@*<tr id="@i">
+    <td style="width:10em">
+        @Html.DropDownListFor(it => it[i].QualificationCode, new SelectList(ViewBag.Requirements, "ID", "QualificationCode"), "", htmlAttributes: new { @class = "form-control input-sm" })
+    </td>
+    <td style="width:10em">
+        @Html.DropDownListFor(it => it[i].QualificationType, new SelectList(ViewBag.Requirements, "ID", "QualificationType"), "", htmlAttributes: new { @class = "form-control input-sm" })
+    </td>
+    <td>@Html.EditorFor(it => it[i].Priority, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.EditorFor(it => it[i].ScoreID, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.EditorFor(it => it[i].NeedCode, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.EditorFor(it => it[i].StageCode, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td>@Html.EditorFor(it => it[i].DesiredScore, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+    <td colspan="3">
+        @Html.CheckBoxFor(it => it[i].Mandatory, new { htmlAttributes = new { @class = "" } })
+        <a id="removeitem" href="javascript:void()"><span class="fa fa-times fa-lg pull-right"></span></a>
+    </td>
+    <td class="hidden">@Html.HiddenFor(it => it[i].ID)</td>
+    <td class="hidden">@Html.HiddenFor(it => it[i].QualificationID)</td>
+</tr>*@

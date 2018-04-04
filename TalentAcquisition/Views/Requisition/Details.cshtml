@@ -39,8 +39,11 @@
     <div class="contain">
         <div class="row">
             <div class="col-md-4">
+                <h2>@Model.RequisitionNo</h2>
                 <h3 style="font-size:95%">Position</h3>
                 <h5>@Model.JobTitle</h5>
+                <h3 style="font-size:95%">Slots Available</h3>
+                <h5>@Model.NoOfPositionsAvailable</h5>
             </div>
             <div class="col-md-8">
                 <h3 class="text-center" style="font-size:95%">Application Summary</h3>
@@ -71,13 +74,12 @@
     </div>
 </div>
 <div class="container body-content">
-    <h3>Manage Requisitions</h3>
     <br/><br />
     <div class="col-md-4">
         <br />
         <div class="container">
             <section class="container body-content">
-                <div class="row Details" id="JobDetails">
+                @*<div class="row Details" id="JobDetails">
                     <h4>Skill Matching</h4>
                     <div class="col-lg-12" style="font-size:90%">
                         @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form", @id = "form" }))
@@ -86,7 +88,7 @@
                             <input type="button" value="Match" class="btn btn-default btn-primary" />
                         }
                     </div>
-                </div>
+                </div>*@
              </section>
                 <section class="container body-content">
                     <div class="row Details" id="JobDetails">

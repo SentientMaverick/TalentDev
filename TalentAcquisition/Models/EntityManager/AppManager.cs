@@ -130,9 +130,11 @@ namespace TalentAcquisition
                     //System.Threading.Thread.Sleep(500);
                         await db.SaveChangesAsync();
                     }
+                    ViewBag.userid = applicant.ID;
                     return RedirectToAction("Profile", "Applicant");
                 }
-                return View("ManageProfile", "Applicant", applicant);
+            ViewBag.userid = applicant.ID;
+            return View("ManageProfile", "Applicant", applicant);
             //}
             //catch (Exception ex)
             //{

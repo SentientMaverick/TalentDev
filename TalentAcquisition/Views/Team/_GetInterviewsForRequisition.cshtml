@@ -21,54 +21,59 @@
         margin-bottom: 2em;
     }
 </style>
-<div class="container body-content">
-    <div class="col-md-4 adminsidebar">
-        <div class="container">
-            <br />
-            <ul class="nav">
-                @Html.Partial("_AdminDashboardSidebar")
-            </ul>
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4">
+            <div class="container">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Interview -@Model.FirstOrDefault().InterviewID </p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard", "Admin")">Home</a></li>
+                <li><a href="@Url.Action("Requisitions", "Team")">Interview</a></li>
+                <li class="active">Applications</li>
+            </ol>
+            <section style="font-size:90%" class="container">
+                <span>@ViewBag.Message</span>
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobRequisitionID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobApplicationID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ScheduledDate)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobRequisitionID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobApplicationID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ScheduledDate)
+                            </td>
+                            <td>
+                                <a href="@Url.RouteUrl("TeamRequisitionLink",new {id = item.InterviewID})"> Details</a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </section>
         </div>
     </div>
-    <div class="col-md-8">
-        <h3>Interviews</h3>
-        <section class="container body-content">
-            <span>@ViewBag.Message</span>
-            <br/>
-            <table class="table table-striped">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.JobRequisitionID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.JobApplicationID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ScheduledDate)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.JobRequisitionID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.JobApplicationID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ScheduledDate)
-                        </td>
-                        <td>
-                            <a href="@Url.RouteUrl("TeamRequisitionLink",new {id = item.InterviewID})"> Details</a>
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        </section>
-    </div>
-
-</div>
+</section>

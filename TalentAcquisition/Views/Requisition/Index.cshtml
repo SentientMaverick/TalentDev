@@ -4,63 +4,63 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#RequisitionTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
 <section class="mainbody">
-    <div class="container body-content">
+    <div class="container">
         <div class="col-md-4">
             <div class="container">
+                <ul class="nav">
                     @Html.Partial("_AdminDashboardSidebar")
+                </ul>
             </div>
         </div>
         <div class="col-md-8">
-            <br /><br /><br/><br/>
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Add Job</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                @*<li><a href="#">Pictures</a></li>*@
+                <li class="active"><a href="@Url.Action("jobrequisitionmanager","Admin")">Job Requisition Manager</a></li>
+                <li class="active">Requisitions</li>
+            </ol>
             <section class="container body-content">
                 <span>@ViewBag.Message</span>
-                    <div style="padding-left:-10px;margin-left:-10px">
-                        <span class="glyphicon glyphicon-search"></span>
-                        <input class="form-control" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block"/>
-                    </div><hr />
-                    <div class="row">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <p class="">Incoming Requisitions</p>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Action("_GetIncomingRequisitions", "Requisition")
-                            </div>
+                <div class="row">
+                    <a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+                    <span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Incoming Requisitions</p>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Action("_GetIncomingRequisitions", "Requisition")
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <p class="">Ongoing Requisitions</p>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Action("_GetActiveRequisitions", "Requisition")
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Ongoing Requisitions</p>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Action("_GetActiveRequisitions", "Requisition")
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <p class="">Rejected Requisitions</p>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Action("_GetRejectedRequisitions", "Requisition")
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Rejected Requisitions</p>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Action("_GetRejectedRequisitions", "Requisition")
                         </div>
                     </div>
-</section>
+                </div>
+            </section>
         </div>
 
     </div>
-    </section>
+</section>

@@ -30,7 +30,7 @@
                             </div>
                             <div class="panel-body">
                                 <p>
-                                    <a class="btn btn-default btn-primary btn-xs" href="@Url.Action("Job/Create","Admin")">Create Job</a>
+                                    <a class="btn btn-default btn-xs" href="@Url.Action("Job/Create","Admin")" style="outline:none"><img src="~/Assets/Icons/File-Plus.png" />Create Job</a>
                                 </p>
                                 <table class="table"  style="font-size:80%">
                                     <tr>
@@ -95,7 +95,7 @@
                                                 @Html.DisplayFor(modelItem => item.Industry.Name)
                                             </td>*@
                                             <td>
-                                               <a  href="@Url.Action("Job/"+item.OfficePositionID, "Admin")">Link-@Html.DisplayFor(modelItem => item.JobID)</a>
+                                               <a  href="@Url.Action("Job/"+item.OfficePositionID, "Admin")">@Html.DisplayFor(modelItem => item.JobID)</a>
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Title)

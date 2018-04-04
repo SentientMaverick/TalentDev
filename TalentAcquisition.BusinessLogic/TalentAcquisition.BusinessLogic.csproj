@@ -93,10 +93,18 @@
     <Compile Include="Domain\WorkExperience.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdatedDomain\Branch.cs" />
+    <Compile Include="UpdatedDomain\CompletedActivity.cs" />
+    <Compile Include="UpdatedDomain\Evaluation.cs" />
+    <Compile Include="UpdatedDomain\InterviewEvaluation.cs" />
     <Compile Include="UpdatedDomain\Job.cs" />
     <Compile Include="UpdatedDomain\JobOccupant.cs" />
     <Compile Include="UpdatedDomain\JobQualification.cs" />
     <Compile Include="UpdatedDomain\JobRequirement.cs" />
+    <Compile Include="UpdatedDomain\MatchedApplicant.cs" />
+    <Compile Include="UpdatedDomain\OnboardActivity.cs" />
+    <Compile Include="UpdatedDomain\OnboardingTemplate.cs" />
+    <Compile Include="UpdatedDomain\Requisition.cs" />
+    <Compile Include="UpdatedDomain\WelcomeGuide.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />

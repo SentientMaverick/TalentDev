@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TalentAcquisition.BusinessLogic.UpdatedDomain;
 
 namespace TalentAcquisition.Core.Domain
 {
@@ -9,6 +10,7 @@ namespace TalentAcquisition.Core.Domain
         public Interview()
         {
             TeamMembers = new HashSet<Employee>();
+            InterviewEvaluations = new HashSet<InterviewEvaluation>();
         }
         [Key]
         public int InterviewID { get; set; }
@@ -21,6 +23,7 @@ namespace TalentAcquisition.Core.Domain
         public DateTime? ScheduledDate { get; set; }
         public virtual InterviewDetail InterviewDetails {get;set;}
         public virtual ICollection<Employee> TeamMembers { get; set; }
+        public virtual ICollection<InterviewEvaluation> InterviewEvaluations { get; set; }
     }
 
 }

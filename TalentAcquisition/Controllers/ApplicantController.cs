@@ -166,19 +166,20 @@ namespace TalentAcquisition.Controllers
             {
                 ViewBag.Industries = db.Industries.ToList();
                 ViewBag.Skills = db.Skills.ToList();
-                var list = new List<CheckModel>();
-                foreach (var item in (List<Skill>)ViewBag.Skills)
-                {
-                    if (user.Skills.Contains(item))
-                    {
-                        list.Add(new CheckModel { Id = item.ID, Name = item.Name, Checked = true});
-                    }
-                    else
-                    {
-                        list.Add(new CheckModel { Id = item.ID, Name = item.Name, Checked = false });
-                    }  
-                }
-                ViewBag.SelectedSkills = list;
+                //var list = new List<CheckModel>();
+                //foreach (var item in (List<Skill>)ViewBag.Skills)
+                //{
+                //    if (user.Skills.Contains(item))
+                //    {
+                //        list.Add(new CheckModel { Id = item.ID, Name = item.Name, Checked = true});
+                //    }
+                //    else
+                //    {
+                //        list.Add(new CheckModel { Id = item.ID, Name = item.Name, Checked = false });
+                //    }  
+                //}
+
+                //ViewBag.SelectedSkills = list;
                 ViewBag.userid = user.ID;
             }
             return View(user);
@@ -200,13 +201,17 @@ namespace TalentAcquisition.Controllers
             //List<Skill> r = (List<Skill>)selectedskills;
             // checks.Where(x=>x.Checked==true).Select(new {}
 
-            if (!ModelState.IsValid || Equals(applicant.ID,null) )
+            if (!ModelState.IsValid || Equals(applicant.ID,null) || Equals(applicant.FirstName, null))
             {
-                //ModelState.AddModelError("IndustryID", "Select an Industry of Specialization");
+                ViewBag.userid = applicant.ID;
+                ModelState.AddModelError("", "Please Complete all Mandatory Fields");
+                ModelState.AddModelError("IndustryID", "Select an Industry of Specialization");
+                ModelState.AddModelError("IndustryID", "Select an Industry of Specialization");
                 ViewBag.Industries = new TalentContext().Industries.ToList();
                 return View(applicant);
             }
             //applicant.ID = (int)TempData["userid"];
+            //ViewBag.userid = applicant.ID;
             return await app.SaveBioDetails(applicant);
         }
         [Route("Applicant/Profile/Uploadcv")]

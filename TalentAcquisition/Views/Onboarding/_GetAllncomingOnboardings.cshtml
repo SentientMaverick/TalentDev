@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobApplication>
+
+<table class="table table-striped" style="font-size:90%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobRequisition.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobSeeker.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ApplicationStatus)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobRequisition.JobTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobSeeker.ApplicantNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationDate)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ApplicationStatus)
+        </td>*@
+        <td>
+            <a href="@Url.Action("Guide/Create/applicant/"+ item.JobSeekerID,"Onboarding")">Proceed To Onboarding</a>
+            @*@Html.ActionLink("Details", "Details", new { id=item.JobApplicationID }) |*@
+        </td>
+    </tr>
+}
+
+</table>

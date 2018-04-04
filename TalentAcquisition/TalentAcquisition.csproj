@@ -179,11 +179,13 @@
     <Compile Include="Controllers\JobQualificationsController.cs" />
     <Compile Include="Controllers\JobSeekersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OnboardingController.cs" />
     <Compile Include="Controllers\RequisitionController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Filters\AuthorizeApplicantAttribute.cs" />
+    <Compile Include="Filters\AuthorizeEmployeeAttribute.cs" />
     <Compile Include="Filters\AuthorizeRolesAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -227,11 +229,14 @@
     <Content Include="Assets\Icons\Coin-Dollar.png" />
     <Content Include="Assets\Icons\Compas.png" />
     <Content Include="Assets\Icons\Dashboard.png" />
+    <Content Include="Assets\Icons\Delete.png" />
     <Content Include="Assets\Icons\Delivery-Truck.png" />
     <Content Include="Assets\Icons\Desk.png" />
     <Content Include="Assets\Icons\Diploma.png" />
     <Content Include="Assets\Icons\Engineer.png" />
     <Content Include="Assets\Icons\Envelope-Refresh.png" />
+    <Content Include="Assets\Icons\File-Minus.png" />
+    <Content Include="Assets\Icons\File-Plus.png" />
     <Content Include="Assets\Icons\Gift-Box.png" />
     <Content Include="Assets\Icons\Gift.png" />
     <Content Include="Assets\Icons\Graduation-Cap.png" />
@@ -349,6 +354,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\PublicPortal.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -526,6 +532,8 @@
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.timepicker.js" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -678,6 +686,29 @@
     <Content Include="Views\JobQualifications\Details.cshtml" />
     <Content Include="Views\JobQualifications\Edit.cshtml" />
     <Content Include="Views\JobQualifications\Index.cshtml" />
+    <Content Include="Views\Role\_GetRequirements.cshtml" />
+    <Content Include="Views\Role\_CreateNewRequirement.cshtml" />
+    <Content Include="Views\Admin\organisationmanager.cshtml" />
+    <Content Include="Views\Requisition\VerifyMatchedApplicant.cshtml" />
+    <Content Include="Views\Application\EvaluationPage.cshtml" />
+    <Content Include="Views\Application\_GetCandidateEvaluationForm.cshtml" />
+    <Content Include="Views\Application\_GetInterviewEvaluations.cshtml" />
+    <Content Include="Views\Application\_GetEvaluations.cshtml" />
+    <Content Include="Views\Requisition\_GetPreviouslyMatchedApplicants.cshtml" />
+    <Content Include="Views\Admin\onboarding.cshtml" />
+    <Content Include="Views\Shared\_NormalLayout.cshtml" />
+    <Content Include="Uploads\Resume.pdf" />
+    <Content Include="Views\Onboarding\_GetAllTemplates.cshtml" />
+    <Content Include="Views\Onboarding\_GetAllncomingOnboardings.cshtml" />
+    <Content Include="Views\Onboarding\CreateTemplate.cshtml" />
+    <Content Include="Views\Onboarding\EditTemplate.cshtml" />
+    <Content Include="Views\Onboarding\CreateGuide.cshtml" />
+    <Content Include="Views\Onboarding\EditGuide.cshtml" />
+    <Content Include="Views\Onboarding\_CreateActivity.cshtml" />
+    <Content Include="Views\Onboarding\_GetAllActivities.cshtml" />
+    <Content Include="Views\Onboarding\_GetAllActiveOnboardings.cshtml" />
+    <Content Include="Views\Onboarding\PreviewGuide.cshtml" />
+    <Content Include="Views\Shared\_OnboardingLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -690,6 +721,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Talent.HRM.Services\Talent.HRM.Services.csproj">
+      <Project>{9fe08534-80b1-4c94-8615-4d38f967c22e}</Project>
+      <Name>Talent.HRM.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TalentAcquisition.BusinessLogic\TalentAcquisition.BusinessLogic.csproj">
       <Project>{ec5d80ef-25be-42d2-9e24-4cfac0b41374}</Project>
       <Name>TalentAcquisition.BusinessLogic</Name>

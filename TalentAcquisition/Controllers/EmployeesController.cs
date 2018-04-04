@@ -28,6 +28,7 @@ namespace TalentAcquisition.Controllers
         }
 
         // GET: Employees
+        [Route("Admin/PersonnelManager")]
         [Route("Admin/Restricted/manage_Employee")]
         public ActionResult Index()
         {
@@ -51,6 +52,7 @@ namespace TalentAcquisition.Controllers
         }
 
         // GET: Employees/Create
+        [Route("Admin/Personnel/Create")]
         [Route("Admin/Restricted/add_Employee")]
         public ActionResult Create()
         {
@@ -63,6 +65,7 @@ namespace TalentAcquisition.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Admin/Personnel/Create")]
         [Route("Admin/Restricted/add_Employee")]
         public ActionResult Create([Bind(Include = "ID,EmployeeNumber,EmploymentDate,OfficePositionID,UserId,FirstName,LastName,DateOfBirth,Password,Address,PhoneNumber")] Employee employee,string UserEmail)
         {
@@ -71,6 +74,7 @@ namespace TalentAcquisition.Controllers
         }
 
         // GET: Employees/Edit/5
+        [Route("Admin/Personnel/Update/{id:int}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,11 +89,108 @@ namespace TalentAcquisition.Controllers
             ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
             return View(employee);
         }
-
+        [Route("Admin/Personnel/Onboard/{id:int}/Start")]
+        public ActionResult StartOnboarding(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobSeeker applicant = db.Applicants.Find(id);
+            if (applicant == null)
+            {
+                return HttpNotFound();
+            }
+            var employeerecord = db.Employees.Where(s=>s.UserId == applicant.UserId);
+            Employee employee = new Employee();
+            if (!employeerecord.Any())
+            {
+                employee = new Employee
+                {
+                    FirstName = applicant.FirstName,
+                    LastName = applicant.LastName,
+                    Address = applicant.Address,
+                    DateOfBirth = applicant.DateOfBirth,
+                    UserId = applicant.UserId,
+                    EmploymentDate = DateTime.Now,
+                    PhoneNumber = applicant.PhoneNumber
+                };
+                db.Employees.Add(employee);
+                db.SaveChanges();
+            }
+            ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
+            return View(employee);
+        }
+        [Route("Admin/Personnel/Onboard/{id:int}/Update")]
+        public ActionResult UpdateOnboarding(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobSeeker applicant = db.Applicants.Find(id);
+            if (applicant == null)
+            {
+                return HttpNotFound();
+            }
+            var employeerecord = db.Employees.Where(s => s.UserId == applicant.UserId);
+            Employee employee = new Employee();
+            if (!employeerecord.Any())
+            {
+                employee = new Employee
+                {
+                    FirstName = applicant.FirstName,
+                    LastName = applicant.LastName,
+                    Address = applicant.Address,
+                    DateOfBirth = applicant.DateOfBirth,
+                    UserId = applicant.UserId,
+                    EmploymentDate = DateTime.Now,
+                    PhoneNumber = applicant.PhoneNumber
+                };
+                db.Employees.Add(employee);
+                db.SaveChanges();
+            }
+            ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
+            return View(employee);
+        }
+        [Route("Admin/Personnel/Onboard/{id:int}/Complete")]
+        public ActionResult Completeboarding(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobSeeker applicant = db.Applicants.Find(id);
+            if (applicant == null)
+            {
+                return HttpNotFound();
+            }
+            var employeerecord = db.Employees.Where(s => s.UserId == applicant.UserId);
+            Employee employee = new Employee();
+            if (!employeerecord.Any())
+            {
+                employee = new Employee
+                {
+                    FirstName = applicant.FirstName,
+                    LastName = applicant.LastName,
+                    Address = applicant.Address,
+                    DateOfBirth = applicant.DateOfBirth,
+                    UserId = applicant.UserId,
+                    EmploymentDate = DateTime.Now,
+                    PhoneNumber = applicant.PhoneNumber
+                };
+                db.Employees.Add(employee);
+                db.SaveChanges();
+            }
+            ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
+            return View(employee);
+        }
         // POST: Employees/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
+        [Route("Admin/Personnel/Update/{id:int}")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,EmployeeNumber,EmploymentDate,OfficePositionID,UserId,FirstName,LastName,DateOfBirth,Password,Address,PhoneNumber")] Employee employee)
         {

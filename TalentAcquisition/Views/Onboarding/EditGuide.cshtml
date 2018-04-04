@@ -1,0 +1,186 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.WelcomeGuide
+
+@{
+    ViewBag.Title = "Customize Guide";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-family: 'Fira Mono';font-size: 22px;">Onboarding</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    <li><a href="@Url.Action("Onboarding","Admin")">Onboarding</a></li>
+    <li class="active">Guide</li>
+    <li class="active">Customize</li>
+</ol>
+<section class="container body-content">
+    <span>@ViewBag.Message</span>
+    <style>
+        .nav-tabs li {
+            min-width: 10em;
+        }
+
+            .nav-tabs li a {
+                color: green;
+            }
+    </style>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Guide For - <b>@Model.Name : @Model.Position</b></p>
+            </div>
+            <div class="panel-body">
+                
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "frm", id = "frm" }))
+                {
+                    <a href="">
+                        <img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="submit" value="Update Guide" class="btn btn-default input-sm" style="outline:none;border:none" />
+                    </a>
+                    <a href="javascript:void(0)" id="sendemail">
+                        <img src="~/Assets/Icons/Envelope-Refresh.png" width="20" />  Send To Applicant
+                    </a> 
+                    <a href="/Onboarding/Preview/@Model.previewurl" id="sendemail" target="_blank">
+                      <span class="pull-right"><img src="~/Assets/Icons/Presentation-.png" width="20" />  Preview</span>
+                    </a>
+                    <hr />
+                    <style>
+                         #cres li a{
+                            border:none;
+                            outline:none;
+                            box-shadow:none;
+                        }
+                        #cres {
+                            border:none;
+                        }
+                    </style>
+                    <ul class="nav nav-tabs" id="cres">                       
+                        <li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon">&#xe008;</span> Welcome Message</a></li>
+                        <li><a data-toggle="tab" href="#activities"><span class="glyphicon glyphicon-certificate"></span> Activities</a></li>
+                        <li><a data-toggle="tab" href="#extrainfo"><span class="glyphicon glyphicon-book"></span> Extra Info</a></li>
+                    </ul>
+                   
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal" style="font-size:90%;min-height:400px">
+                        @Html.HiddenFor(model=>model.previewurl)
+                        <style>
+                            label {
+                                font-size: 90%;
+                            }
+                        </style>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <div class="row container">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.WelcomeMessage, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-12" style="margin-top:2em">
+                                            @Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "10", cols = "5" })
+                                            @Html.ValidationMessageFor(model => model.WelcomeMessage, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="activities" class="tab-pane fade">
+                                <div class="row">
+                                    @Html.Action("_GetAllActivities",new {id= Model.ID })
+                                </div>
+                            </div>
+                            <div id="extrainfo" class="tab-pane fade">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <br/><br/>
+                                <div class="row hidden">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8" style="margin-left:-4em">
+                                                @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row hidden">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.Label("Template", htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8" style="margin-left:-1.2em">
+                                                @Html.EditorFor(model=>model.TemplateID)
+                                                @*@Html.DropDownList("TemplateID", new SelectList(ViewBag.Templates, "ID", "Title"), "", htmlAttributes: new { @class = "form-control input-sm" })*@
+                                                @*@Html.DropDownList("TemplateID", null, htmlAttributes: new { @class = "form-control" })*@
+                                                @Html.ValidationMessage("TemplateID", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8" style="margin-left:-4em">
+                                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group hidden">
+                                    @Html.LabelFor(model => model.JobSeekerID, "JobSeekerID", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.JobSeekerID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                        @*@Html.DropDownList("JobSeekerID", null, htmlAttributes: new { @class = "form-control" })*@
+                                        @Html.ValidationMessageFor(model => model.JobSeekerID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row hidden">
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            @Html.Label("Branch", htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.BranchID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                @Html.ValidationMessageFor(model => model.BranchID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group hidden">
+                                    @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        var form = $("#frm");
+        $("#sendemail").click(function () {
+            //form.submit();
+            var url = "@(Url.Action("_NotifyApplicant", "Onboarding",new {id=Model.ID }))";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {}, // serializes the form's elements. data: form.serialize(),
+                success: function (data) {
+                    alert(data); 
+                }
+            });
+        });
+        
+    });
+</script>
+

@@ -84,14 +84,15 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-3" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.DateOfBirth, new
+                                                <input type="text" class="form-control" data-date-format="DD/MM/YYYY" id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth" />
+                                                @*@Html.EditorFor(model => model.DateOfBirth, new
                                {
                                    htmlAttributes = new
                                    {
-                                       @Value = Model.DateOfBirth.ToString("MM/dd/yyyy"),
+                                       @Value = Model.DateOfBirth.ToString("mm/DD/yyyy"),
                                        @class = "form-control"
                                    }
-                               })
+                               })*@
                                                 @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                                             </div>
                                         </div>

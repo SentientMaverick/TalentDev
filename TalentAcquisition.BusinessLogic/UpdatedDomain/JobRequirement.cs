@@ -12,6 +12,7 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public int ID { get; set; }
         [Required]
         public int QualificationID { get; set; }
+        public int OfficePositionID { get; set; }
         [Display(Name = "Qualification Type")]
         public string QualificationType { get; set; }
         [Display(Name = "Qualification Code")]
@@ -29,5 +30,6 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public bool Mandatory { get; set; }
         [Display(Name = "Desired Score")]
         public decimal DesiredScore { get; set; }
+        public virtual Core.Domain.OfficePosition OfficePosition { get; set; }
     }
 }

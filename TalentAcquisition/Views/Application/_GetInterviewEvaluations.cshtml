@@ -1,0 +1,60 @@
+﻿
+@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.InterviewEvaluation>
+
+<table class="table table-striped">
+    <thead class="mdb-color darken-3">
+        <tr style="font-size:90%">
+    <thead class="mdb-color darken-3">
+        <tr style="font-size:90%">
+            <th>
+                @Html.DisplayNameFor(model => model.Employee.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EvaluationNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecommendForHire)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EvaluationNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecommendForHire)
+                </td>
+                <td>
+                    <a target="_blank" href="@(Url.Action("_getcandidateevaluationform", "Application", new { interviewid = item.InterviewID, employeeid = item.EmployeeID }))">Edit</a>
+                    @*@Html.ActionLink("Edit", "_getcandidateevaluationform", new { id = item.ID }|) *@ 
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                </td>
+            </tr>
+        }
+
+
+</table>
