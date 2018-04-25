@@ -56,3 +56,4 @@ C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talen
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.BusinessLogic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.dll
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.pdb
+C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.csprojResolveAssemblyReference.cache

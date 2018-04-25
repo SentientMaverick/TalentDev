@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobRequisition>
-
+@using Humanizer
 <table class="table table-striped" id="RequisitionTable" style="font-size:80%">
     <tr>
         <th>
@@ -9,16 +9,7 @@
             @Html.DisplayNameFor(model => model.Location)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NoOfPositionsAvailable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublishedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClosingDate)
+            Date Created
         </th>
         <th></th>
     </tr>
@@ -32,52 +23,26 @@
             @Html.DisplayFor(modelItem => item.Location)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NoOfPositionsAvailable)
+                @item.PublishedDate.Humanize()
         </td>
         <td>
-            @if ((int)item.Status == 1)
+            @if ((int)item.Status == 0)
             {
-                @item.PublishedDate.ToShortDateString()
-            }
-            else if ((int)item.Status == 3)
-            {
-                 <p>Rejected</p>
+                <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                    Close
+                </a><span>|</span>
+                <a href="/Admin/Requisition/Approve/@item.JobRequisitionID/@item.JobTitle">View and Approve</a> <span>|</span>
+                <a href="/Admin/Requisition/Reject/@item.JobRequisitionID/@item.JobTitle">Reject</a>
             }
             else
             {
-               <p> Unpublished </p>
-            }
-        </td>
-        
-        <td>
-            @item.StartDate.ToShortDateString()
-        </td>
-        <td>
-            @item.ClosingDate.ToShortDateString()
-        </td>
-        <td>
-              @if ((int)item.Status == 1)
-                {
-                   <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
-                                Close</a>
-            <span>|</span><a href="@Url.RouteUrl("RequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">Details</a>
-
-              }
-              else if ((int)item.Status == 3)
-              {
                 <a href="@Url.RouteUrl("Edit",new { id = item.JobRequisitionID, details = item.JobTitle })">
-                    Modify</a>   
-              }
-              else
-              {
-                <a href="@Url.RouteUrl("MatchSkill",new { id = item.JobRequisitionID, details = item.JobTitle })">
-                    Skill Matching
-                </a> <span>|</span>
-                <a href="@Url.RouteUrl("PublishLink",new { id = item.JobRequisitionID, details = item.JobTitle })">
-                    Publish
-                </a> @*<span>|</span><a href="@Url.RouteUrl("RequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">Details</a>*@
-              }
-            
+                    Modify
+                </a><span>|</span>
+                <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                    Close
+                </a>
+            }
         </td>
     </tr>
 }

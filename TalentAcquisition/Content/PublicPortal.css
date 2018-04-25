@@ -211,3 +211,10 @@ display:none;
 100% { transform: rotate(360deg); }
 }
 
+ @media only screen and (max-width:1000px ) {
+     .mysidebar{
+         background-color:red;
+         display:none;
+         width:0px;
+     }
+}

@@ -1,7 +1,7 @@
 ﻿@model TalentAcquisition.Core.Domain.JobRequisition
 
 @{
-    ViewBag.Title = "Pulish Requisition ";
+    ViewBag.Title = "Publish Requisition ";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <section class="mainbody">
@@ -15,11 +15,11 @@
         </div>
         <div class="col-md-8">
             <div style="padding-top:2em;"></div>
-            <p style="font-family: 'Fira Mono';font-size: 22px;">Approve Requisition</p>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Publish Requisition</p>
             <ol class="breadcrumb">
                 <li><a href="@Url.Action("Dashboard", "Admin")">Home</a></li>
                 <li><a href="@Url.Action("Requisitionmanager", "Admin")">Requisition Manager</a></li>
-                <li class="active">Approve Requisition</li>
+                <li class="active">Publish Requisition</li>
                 <li class="active">@Model.RequisitionNo</li>
             </ol>
             <section class="" style="margin:-2px">
@@ -29,9 +29,9 @@
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(model => model.JobRequisitionID)
                             
-                            <a href="javascript:void()" id="submitreq" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="15" /><input type="submit" value="Approve Requisition" style="outline:none;background-color:none;border:none"/></a>
+                            <a href="javascript:void()" id="submitreq" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="15" /><input type="submit" value="Publish Requisition" style="outline:none;background-color:none;border:none"/></a>
                             <a href="/Admin/matchskill/@Model.JobRequisitionID?details=@Model.JobTitle" id="reqjob" class="btn"><img src="~/Assets/Icons/Toolbox.png" width="15" />Skill Matching</a>
-                            <a href="/Admin/Reject/@Model.JobRequisitionID/@Model.JobTitle" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Minus.png" width="15" />Reject Requisition</a>
+                            @*<a href="/Admin/Requisition/Reject/@Model.JobRequisitionID/@Model.JobTitle" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Minus.png" width="15" />Reject Requisition</a>*@
                     }
                        </div>
                 <div class="row">
@@ -41,7 +41,6 @@
                         </div>
                         <div class="panel-body" style="margin-bottom:-1.5em">
                             <section>
-                                <h4>Proceed with Posting Job to Public Portal?</h4>
                                 <div>
                                     <br />
                                     <h4>Job Requisition Information</h4>

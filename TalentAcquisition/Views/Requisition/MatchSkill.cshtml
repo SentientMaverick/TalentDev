@@ -86,13 +86,44 @@
             <section class="container body-content">
                 <div class="row Details" id="JobDetails">
                     <h4>Skill Matching</h4>
-                    <div class="col-lg-12" style="font-size:80%">
+                    <div class="col-lg-12" style="font-size:70%">
                      @using (Html.BeginForm("matchskill/"+Model.JobRequisitionID, "Admin",FormMethod.Get))
                      {
                         @*<input id="id" name="id" type="hidden" value="@Model.JobRequisitionID" />*@
-                        <input id="filter" name="filter" type="radio" value="application" style="display:inline"/><p>Check Received Applications</p>
-                        <input id="filter" name="filter" type="radio" value="applicant"/><p>Check Applicant Pool</p>
-                        <input type="submit" id="matchbyapplication" value="Match" class="btn btn-xs btn-primary" />
+                         <div class="form-horizontal">
+                             <div class="form-group">
+                                 <div class="col-md-12">
+                                     <div class="col-md-2">
+                                         <input id="filter" name="filter" type="radio" value="application" style="display:inline" />
+                                     </div>
+                                     <div class="col-md-10">
+                                         <p>Check Received Applications</p>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <div class="col-md-12">
+                                     <div class="col-md-2">
+                                         <input id="filter" name="filter" type="radio" value="applicant" style="display:inline" />
+                                     </div>
+                                     <div class="col-md-10">
+                                         <p>Check Applicant Pool</p>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <div class="col-md-12">
+                                     <div class="col-md-2">
+                                         <input id="filter" name="filter" type="radio" value="both" style="display:inline" />
+                                     </div>
+                                     <div class="col-md-10">
+                                         <p>Check Applicant Pool and Applications Received</p>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         @*<input id="filter" name="filter" type="radio" value="applicant"/><p>Check Applicant Pool</p>*@
+                        <input type="submit" id="matchbyapplication" value="Match" class="btn btn-xs btn-primary col-md-6" />
                      }
                     </div>
                 </div>
@@ -205,30 +236,51 @@
     </div>
     <div class="col-md-8" style="font-size:90%">
         <br />
-        <section class="container body-content">
-            @if (ViewBag.Filter == null)
-            {
-                <div class="row Details" id="ClosedApplications">
-                    <h4 class="alert-success">Recent Matching Results</h4>
-                    @Html.Action("_GetPreviouslyMatchedApplicants", new { id = ViewBag.RequisitionID })
+        <section class="body-content">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Matching Result
                 </div>
-            }
-            else if (ViewBag.Filter == "application")
-            {
-                <div class="row Details" id="ClosedApplications">
-                    <h4 class="alert-success">Matched Applications</h4>
-                    @Html.Action("_GetMatchingApplications", new { id = ViewBag.RequisitionID })
-                </div>
-            }
-            else if(ViewBag.Filter == "applicant")
-            {
-                <div class="row Details" id="ClosedApplications">
-                    <h4 class="alert-success">Matched Applicants</h4>
-                    @Html.Action("_GetMatchingApplicants", new { id = ViewBag.RequisitionID })
-                </div>
-            }
+                <div class="panel-body" style="margin-bottom:1.5em">
+                    @if (ViewBag.Filter == null)
+                   {
+                        <div class="row Details" id="ClosedApplications">
+                            <h4 class="alert-success">Recent Matching Results</h4>
+                            @Html.Action("_GetPreviouslyMatchedApplicants", new { id = ViewBag.RequisitionID })
+                        </div>
+                    }
+                    else if (ViewBag.Filter == "application")
+                    {
+                        <div class="row Details" id="ClosedApplications">
+                            <h4 class="alert-success">Matched Applications</h4>
+                            @Html.Action("_GetMatchingApplications", new { id = ViewBag.RequisitionID })
+                        </div>
+                    }
+                    else if (ViewBag.Filter == "applicant")
+                    {
+                        <div class="row Details" id="ClosedApplications">
+                            <h4 class="alert-success">Matched Applicants</h4>
+                            @Html.Action("_GetMatchingApplicants", new { id = ViewBag.RequisitionID })
+                        </div>
+                    }
+                    else if (ViewBag.Filter == "both")
+                    {
 
+
+                        <div class="row Details" id="ClosedApplications">
+                            <h4 class="alert-success">Matched Applications</h4>
+                            @Html.Action("_GetMatchingApplications", new { id = ViewBag.RequisitionID })
+                        </div>
+                        <hr />
+                        <div class="row Details" id="ClosedApplications">
+                            <h4 class="alert-success">Matched Applicants</h4>
+                            @Html.Action("_GetMatchingApplicants", new { id = ViewBag.RequisitionID })
+                        </div>
+                    }
+                </div>
+            </div>
         </section>
+
     </div>
 </div>
 

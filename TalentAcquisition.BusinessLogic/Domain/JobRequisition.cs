@@ -11,7 +11,11 @@ namespace TalentAcquisition.Core.Domain
     {
         public enum JobRequisitionStatus
         {
-            Created,Posted,Completed,Rejected
+            Created,
+            Approved,
+            Posted,
+            Completed,
+            Rejected
         }
         public enum JobPriority
         {

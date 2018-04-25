@@ -17,8 +17,10 @@ namespace TalentAcquisition.Controllers
 {
     public class ApplicationController : Controller
     {
+        #region Fields
         TalentContext db = new TalentContext();
-        IEmailMessaging _messaging;
+        IEmailMessaging _messaging; 
+        #endregion
         #region Views
         // GET: Application
         public ActionResult Index()
@@ -296,12 +298,16 @@ namespace TalentAcquisition.Controllers
                 {
                     int count = db.InterviewEvaluations.Where(x => x.InterviewID == interviewevaluation.InterviewID).Count();
                     interviewevaluation.EvaluationNo = "TR" + String.Format("{0:D6}", interviewid + count + 6);
+                    interviewevaluation.EmployeeID = employeeid;
+                    interviewevaluation.InterviewID = interviewid;
                     interviewevaluation.StageID = 1;
                 }
             }
             return PartialView(interviewevaluation);
         }
-        public ActionResult _SubmitCandidateEvaluationForm(int? interviewid, int? employeeid, InterviewEvaluation interviewevaluation)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult _SubmitCandidateEvaluationForm(InterviewEvaluation interviewevaluation)
         {
             if (ModelState.IsValid)
             {
@@ -320,9 +326,10 @@ namespace TalentAcquisition.Controllers
                     }
                 }
                 ViewBag.Message = "Successful";
+                return RedirectToAction("Dashboard", "Admin");
             }
             // return PartialView(interviewevaluation);
-            return RedirectToAction("_getcandidateevaluationform", "Application", new { interviewid = interviewid, employeeid = employeeid });
+            return RedirectToAction("_getcandidateevaluationform", "Application", new { interviewid = interviewevaluation.InterviewID, employeeid = interviewevaluation.EmployeeID });
         }
         public ActionResult _GetInterviewEvaluations(int interviewid)
         {

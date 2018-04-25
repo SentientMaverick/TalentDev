@@ -159,7 +159,7 @@ C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talen
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedNada.resources
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedModelsForOnboarding.resources
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedModelsForOnboarding.resources
+C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.ModifiedWelcomeGuideModel.resources
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.csproj.GenerateResource.Cache
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.dll
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.pdb
-C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.ModifiedWelcomeGuideModel.resources

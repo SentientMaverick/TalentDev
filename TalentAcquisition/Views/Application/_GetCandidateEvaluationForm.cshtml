@@ -8,9 +8,13 @@
 <section class="mainbody">
     <div class="container">
         <div class="col-md-12">
-@using (Html.BeginForm("_submitcandidateevaluationform","Application",FormMethod.Get))
+@using (Html.BeginForm("_submitcandidateevaluationform","Application",FormMethod.Post))
             {
     @Html.AntiForgeryToken()
+    @*@Html.HiddenFor(model=>model.EmployeeID)
+    @Html.HiddenFor(model => model.EvaluationNo)
+    @Html.HiddenFor(model => model.InterviewID)
+    @Html.HiddenFor(model => model.StageID)*@
             <div class="container">
                 <div style="padding-top:5em"></div>
                 <span>@ViewBag.Message</span>
@@ -89,37 +93,37 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6 col-xs-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.RecommendForStage2, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
+                                                    @Html.LabelFor(model => model.RecommendForStage2, htmlAttributes: new { @class = "col-md-6" })
+                                                    <div class="col-md-6">
                                                         @Html.CheckBoxFor(model => model.RecommendForStage2, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.RecommendForStage2, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6 col-xs-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.RecommendForStage3, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
+                                                    @Html.LabelFor(model => model.RecommendForStage3, htmlAttributes: new { @class = "col-md-6" })
+                                                    <div class="col-md-6">
                                                         @Html.CheckBoxFor(model => model.RecommendForStage3, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.RecommendForStage3, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6 col-xs-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.RecommendForHire, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
+                                                    @Html.LabelFor(model => model.RecommendForHire, htmlAttributes: new { @class = "col-md-6" })
+                                                    <div class="col-md-6">
                                                         @Html.CheckBoxFor(model => model.RecommendForHire, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.RecommendForHire, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
+                                            </div> 
+                                            <div class="col-md-6 col-xs-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.JobAcceptance, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
+                                                    @Html.LabelFor(model => model.JobAcceptance, htmlAttributes: new { @class = "col-md-6" })
+                                                    <div class="col-md-6">
                                                         @Html.CheckBoxFor(model => model.JobAcceptance, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.JobAcceptance, "", new { @class = "text-danger" })
                                                     </div>
@@ -127,7 +131,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-lg-6">
-                                            <div class="container">
+                                            <div class="">
                                                 <style>
                                                     input[type=radio] {
                                                         margin: 0px !important;
@@ -155,41 +159,46 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                @*<div class="col-md-12">
                                                     <h6>
                                                         Based on your Assesment of this candidate, do you think that this candidate should be offered a Job?
                                                     </h6>
                                                     <h5 class=""> Yes <input type="radio" value="true" name="Recommendation" id="Recommendation" /><span> No <input type="radio" value="false" name="Recommendation" id="Recommendation" /></span></h5>
-                                                </div>
+                                                </div>*@
+                                                <br/>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.Score1, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.Score1, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                                        @Html.ValidationMessageFor(model => model.Score1, "", new { @class = "text-danger" })
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Score1, htmlAttributes: new { @class = "col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.Score1, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.Score1, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.Score2, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.Score2, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                                        @Html.ValidationMessageFor(model => model.Score2, "", new { @class = "text-danger" })
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Score2, htmlAttributes: new { @class = "col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.Score2, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.Score2, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.Score3, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.Score3, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                                        @Html.ValidationMessageFor(model => model.Score3, "", new { @class = "text-danger" })
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Score3, htmlAttributes: new { @class = "col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.Score3, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.Score3, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
                                                     </div>
+
                                                 </div>
-                                            </div>
-                                            
+                                            </div>         
                                         </div>
                                     </div>
 
@@ -208,7 +217,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                        <input type="submit" value="Create" class="btn btn-default btn-primary" />
                     </div>
                 </div>
             </div>
@@ -216,3 +225,11 @@
             </div>
 </div>
 </section>
+<script type="text/javascript">
+    $(function () {
+        //$("#EvaluationNo").attr("disabled", true);
+        //$("#EmployeeID").attr("disabled", true);
+        //$("#InterviewID").attr("disabled", true);
+        //$("#StageID").attr("disabled", true);
+    });
+</script>

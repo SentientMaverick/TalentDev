@@ -161,6 +161,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12 hidden">
+                            <div class="form-group">
+                                <div class="col-md-8">
+                                    @Html.EnumDropDownListFor(model => model.MinimumQualification, "Select Minimum Qualification For Position", htmlAttributes: new { @class = "form-control input-sm" })
+                                    @Html.ValidationMessageFor(model => model.MinimumQualification, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 @Html.Label("Skills", htmlAttributes: new { @class = "col-md-2" })
@@ -169,6 +177,7 @@
                                 </div>
                             </div>
                         </div>
+                       
                         <div class="col-md-12 hidden">
                             <div class="form-group">
                                 <div class="col-md-12">
@@ -180,20 +189,6 @@
                                 <div class="col-md-12">
                                     @Html.TextAreaFor(model => model.JobResponsibilities, new { @class = "form-control", @placeholder = "Enter The Responsibilities for the Role", rows = "8", cols = "10" })
                                     @Html.ValidationMessageFor(model => model.JobResponsibilities, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 hidden">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    @Html.EnumDropDownListFor(model => model.HighestQualification, "Select Highest Qualification For Position", htmlAttributes: new { @class = "form-control input-sm" })
-                                    @Html.ValidationMessageFor(model => model.HighestQualification, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    @Html.EnumDropDownListFor(model => model.MinimumQualification, "Select Minimum Qualification For Position", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.MinimumQualification, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -259,6 +254,21 @@
                                 <div class="col-md-6" style="margin-left:-5em;width:270px">
                                     @Html.EnumDropDownListFor(model => model.Priority, htmlAttributes: new { @class = "form-control input-sm" })
                                     @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-4">Qualification</label>
+                                <div class="col-md-8">
+                                    <div class="col-md-6">
+                                    @Html.EnumDropDownListFor(model => model.HighestQualification, "Highest Qualification For Position", htmlAttributes: new { @class = "form-control input-sm" })
+                                    @Html.ValidationMessageFor(model => model.HighestQualification, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-md-6">
+                                    @Html.EnumDropDownListFor(model => model.MinimumQualification, "Minimum Qualification For Position", htmlAttributes: new { @class = "form-control input-sm" })
+                                    @Html.ValidationMessageFor(model => model.MinimumQualification, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
                         </div>

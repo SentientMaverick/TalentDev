@@ -13,8 +13,10 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public int ID { get; set; }
         public string EvaluationNo { get; set; }
         public int EmployeeID { get; set; }
+        [Display(Name = "Interview ID")]
         public int InterviewID { get; set; }
-       // public int JobApplicationID { get; set; }
+        // public int JobApplicationID { get; set; }
+        [Display(Name = "Stage ID")]
         public int StageID { get; set; }
         public int Score1 { get; set; }
         public int Score2 { get; set; }
@@ -22,9 +24,13 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public string ApplicantStrength { get; set; }
         public string ApplicantWeakness { get; set; }
         public string Recommendation { get; set; }
+        [Display(Name = "Recommend For Hire ")]
         public bool RecommendForHire { get; set; }
+        [Display(Name = "Recommend For Stage 2 ")]
         public bool RecommendForStage2 { get; set; }
+        [Display(Name = "Recommend For Stage 3 ")]
         public bool RecommendForStage3 { get; set; }
+        [Display(Name = "Job Acceptance ")]
         public bool JobAcceptance { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Interview Interview { get; set; }

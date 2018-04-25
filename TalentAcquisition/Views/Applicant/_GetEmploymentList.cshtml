@@ -41,10 +41,16 @@
                 @Html.DisplayFor(modelItem => item.ReasonsForLeaving)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingDate)
+                @item.StartingDate.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndingDate)
+                @{ 
+                    if(item.EndingDate!=null)
+                    {
+                        DateTime dt = (DateTime)item.EndingDate;
+                        <p>@dt.ToShortDateString()</p>
+                    }
+                }
             </td>
             @if (ViewBag.Links == "Hide")
             {
