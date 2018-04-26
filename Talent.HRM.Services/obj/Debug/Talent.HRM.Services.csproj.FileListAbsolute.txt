@@ -3,3 +3,8 @@ C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talen
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.csprojResolveAssemblyReference.cache
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.dll
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.pdb
+C:\repos\TalentDev\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.dll
+C:\repos\TalentDev\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.pdb
+C:\repos\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.csprojResolveAssemblyReference.cache
+C:\repos\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.dll
+C:\repos\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.pdb
