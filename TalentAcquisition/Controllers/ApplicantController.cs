@@ -51,20 +51,17 @@ namespace TalentAcquisition.Controllers
                 return RedirectToAction("Portal");
             }
         }
-
         private void SetInitializers()
         {
             var var1 = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             var var2 = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             app.UserManager = var2; app.SignInManager = var1;
         }
-
         [AllowAnonymous]
         public ActionResult Signup()
         {
             return View();
         }
-
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Register(RegisterViewModel model, string returnUrl)
@@ -128,7 +125,6 @@ namespace TalentAcquisition.Controllers
             }
             
         }
-
         [ChildActionOnly]
         public ActionResult _GetRequisition(int? id)
         {

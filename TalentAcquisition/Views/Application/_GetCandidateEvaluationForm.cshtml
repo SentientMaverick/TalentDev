@@ -5,16 +5,127 @@
 }
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<style>
+    .padding {
+        padding-top: 3em;
+    }
+
+    .banner {
+        min-height: 100px;
+        background-color: rgba(0,0,0,0.1);
+        padding: 1.5em;
+        width: 100%;
+    }
+
+        .banner button {
+            margin-top: 2em;
+        }
+
+    .contain {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .progress-meter {
+        padding: 0;
+    }
+
+    ol.progress-meter {
+        padding-bottom: 9.5px;
+        list-style-type: none;
+    }
+
+        ol.progress-meter li {
+            display: inline-block;
+            text-align: center;
+            text-indent: -19px;
+            height: 36px;
+            width: 15.99%;
+            font-size: 12px;
+            border-bottom-width: 4px;
+            border-bottom-style: solid;
+        }
+
+            ol.progress-meter li:before {
+                position: relative;
+                float: left;
+                text-indent: 0;
+                left: calc(50% - 9.5px);
+            }
+
+            ol.progress-meter li.done {
+                font-size: 12px;
+            }
+
+                ol.progress-meter li.done:before {
+                    content: "\2713";
+                    height: 19px;
+                    width: 19px;
+                    line-height: 21.85px;
+                    bottom: -28.175px;
+                    border: none;
+                    border-radius: 19px;
+                }
+
+            ol.progress-meter li.todo {
+                font-size: 12px;
+            }
+
+                ol.progress-meter li.todo:before {
+                    content: "\2B24";
+                    font-size: 17.1px;
+                    bottom: -26.95px;
+                    line-height: 18.05px;
+                }
+
+            ol.progress-meter li.done {
+                color: black;
+                border-bottom-color: yellowgreen;
+            }
+
+                ol.progress-meter li.done:before {
+                    color: white;
+                    background-color: yellowgreen;
+                }
+
+            ol.progress-meter li.todo {
+                color: silver;
+                border-bottom-color: silver;
+            }
+
+                ol.progress-meter li.todo:before {
+                    color: silver;
+                }
+</style>
 <section class="mainbody">
+    <div class="banner">
+        <div class="contain">
+            <ol class="progress-meter">
+                <li class="progress-point todo">Applied</li>
+                <li class="progress-point todo">Screened</li>
+                <li class="progress-point todo">Interview</li>
+                <li class="progress-point done">Evaluation</li>
+            </ol>
+        </div>
+        <div class="container">
+            <div class="col-md-6 col-sm-3">
+                <h4>Interview Number: @Model.InterviewID</h4>
+                <h4>Job Position: </h4>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="col-md-12">
 @using (Html.BeginForm("_submitcandidateevaluationform","Application",FormMethod.Post))
             {
     @Html.AntiForgeryToken()
-    @*@Html.HiddenFor(model=>model.EmployeeID)
+    @Html.HiddenFor(model=>model.EmployeeID)
     @Html.HiddenFor(model => model.EvaluationNo)
     @Html.HiddenFor(model => model.InterviewID)
-    @Html.HiddenFor(model => model.StageID)*@
+    @Html.HiddenFor(model => model.StageID)
+    @Html.HiddenFor(model => model.Score1)
+    @Html.HiddenFor(model => model.Score2)
+    @Html.HiddenFor(model => model.Score3)
             <div class="container">
                 <div style="padding-top:5em"></div>
                 <span>@ViewBag.Message</span>
@@ -61,7 +172,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.EvaluationNo, htmlAttributes: new { @class = "col-md-3" })
                                                     <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.EvaluationNo, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.DisplayFor(model => model.EvaluationNo, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.EvaluationNo, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -70,7 +181,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.InterviewID, htmlAttributes: new { @class = "col-md-3" })
                                                     <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.InterviewID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.DisplayFor(model => model.InterviewID, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.InterviewID, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -79,7 +190,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "col-md-3" })
                                                     <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.EmployeeID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.DisplayFor(model => model.EmployeeID, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -88,7 +199,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.StageID, htmlAttributes: new { @class = "col-md-3" })
                                                     <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.StageID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.DisplayFor(model => model.StageID, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                         @Html.ValidationMessageFor(model => model.StageID, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -171,27 +282,27 @@
                                                 <div class="col-xs-12">
                                                     <div class="col-md-6 col-xs-6">
                                                         <div class="form-group">
-                                                            @Html.LabelFor(model => model.Score1, htmlAttributes: new { @class = "col-md-3" })
-                                                            <div class="col-md-8">
-                                                                @Html.EditorFor(model => model.Score1, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                            @Html.LabelFor(model => model.Score1, htmlAttributes: new { @class = "col-md-5" })
+                                                            <div class="col-md-6">
+                                                                @Html.DisplayFor(model => model.Score1, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                                 @Html.ValidationMessageFor(model => model.Score1, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-xs-6">
                                                         <div class="form-group">
-                                                            @Html.LabelFor(model => model.Score2, htmlAttributes: new { @class = "col-md-3" })
-                                                            <div class="col-md-8">
-                                                                @Html.EditorFor(model => model.Score2, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                            @Html.LabelFor(model => model.Score2, htmlAttributes: new { @class = "col-md-5" })
+                                                            <div class="col-md-6">
+                                                                @Html.DisplayFor(model => model.Score2, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                                 @Html.ValidationMessageFor(model => model.Score2, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            @Html.LabelFor(model => model.Score3, htmlAttributes: new { @class = "col-md-3" })
-                                                            <div class="col-md-8">
-                                                                @Html.EditorFor(model => model.Score3, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                            @Html.LabelFor(model => model.Score3, htmlAttributes: new { @class = "col-md-5" })
+                                                            <div class="col-md-6">
+                                                                @Html.DisplayFor(model => model.Score3, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                                 @Html.ValidationMessageFor(model => model.Score3, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
