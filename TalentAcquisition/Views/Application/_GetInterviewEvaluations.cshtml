@@ -1,6 +1,20 @@
 ﻿
 @model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.InterviewEvaluation>
 
+@{ 
+    var approvedno= Model.Where(x => x.RecommendForHire == true).Count();
+    var totalno = Model.Count();
+}
+<script>
+    var approvedno=@approvedno;
+    var totalno=@totalno;
+    if(totalno==approvedno){
+        $("#advance").prop("disabled", false);
+    }
+    $(function () {
+        
+    });
+</script>
 <table class="table table-striped">
     <thead class="mdb-color darken-3">
         <tr style="font-size:90%">
