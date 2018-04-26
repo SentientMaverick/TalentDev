@@ -1,4 +1,5 @@
-﻿<style>
+﻿<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<style>
     .onboarding{
         min-height:200px;
         border:1px solid #d1c4c4;
@@ -8,13 +9,21 @@
 
     }
 </style>
+@{
+    bool offeraccepted = (bool)ViewBag.OfferAccepted;
+}
+
 <script type="text/javascript">
     $("#advance").prop("disabled", true);
+    if(@offeraccepted){
 
-    $(document).ready(function (e) {
+    }
+    $(function () {
+        alert("booloffer");
+        $("#onboardcandidate").addClass("hidden");
         $("#onboardcandidate").on("click", function () {
             e.preventDefault();
-            e.e.stopPropagation();
+            e.stopPropagation();
         });
     });
 </script>

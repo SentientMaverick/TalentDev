@@ -90,9 +90,11 @@ namespace TalentAcquisition.Controllers
         public ActionResult OfferJobPage(int requisitionid, int applicationid)
         {
             var req = db.JobApplications.Find(applicationid);
+            ViewBag.OfferAccepted = false;
             if (req.ApplicationStatus <= ApplicationStatus.JobOffer)
                 req.ApplicationStatus = ApplicationStatus.JobOffer;
-
+            if (req.ApplicationStatus == ApplicationStatus.JobOfferAccepted)
+                ViewBag.OfferAccepted = true;
             db.SaveChanges();
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;

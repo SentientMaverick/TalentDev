@@ -98,7 +98,7 @@
                 }
 </style>
 <section class="mainbody">
-    <div class="banner">
+    <div class="banner hidden-md hidden-sm hidden-xs">
         <div class="contain">
             <ol class="progress-meter">
                 <li class="progress-point todo">Applied</li>
@@ -109,23 +109,23 @@
         </div>
         <div class="container">
             <div class="col-md-6 col-sm-3">
-                <h4>Interview Number: @Model.InterviewID</h4>
-                <h4>Job Position: </h4>
+                <h6>Interview Number: @Model.InterviewID</h6>
+                <h6>Job Position: </h6>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="col-md-12">
-@using (Html.BeginForm("_submitcandidateevaluationform","Application",FormMethod.Post))
-            {
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model=>model.EmployeeID)
-    @Html.HiddenFor(model => model.EvaluationNo)
-    @Html.HiddenFor(model => model.InterviewID)
-    @Html.HiddenFor(model => model.StageID)
-    @Html.HiddenFor(model => model.Score1)
-    @Html.HiddenFor(model => model.Score2)
-    @Html.HiddenFor(model => model.Score3)
+    <div class="container" style="margin-top:-4.5em">
+        <div class="col-lg-push-2 col-lg-10 col-md-12">
+        @using (Html.BeginForm("_submitcandidateevaluationform","Application",FormMethod.Post))
+                    {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model=>model.EmployeeID)
+            @Html.HiddenFor(model => model.EvaluationNo)
+            @Html.HiddenFor(model => model.InterviewID)
+            @Html.HiddenFor(model => model.StageID)
+            @Html.HiddenFor(model => model.Score1)
+            @Html.HiddenFor(model => model.Score2)
+            @Html.HiddenFor(model => model.Score3)
             <div class="container">
                 <div style="padding-top:5em"></div>
                 <span>@ViewBag.Message</span>
@@ -331,15 +331,16 @@
                         </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default btn-primary" />
+                    <div class="col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default btn-primary col-md-4" />
                     </div>
                 </div>
             </div>
             }
             </div>
-</div>
-</section><div id="blackview" class="hide">
+    </div>
+</section>
+<div id="blackview" class="hide">
     <div class="modal-content">
         <div class="loader"></div>
     </div>
@@ -383,10 +384,10 @@
             };
 
             $("a#additem").on("click", function () {
-                alert();
+                alert("1");
                 initDialog("Add New ");
                 $("#divEdit").dialog("open");
-                alert();
+                alert("2");
                 return false;
             });
             //$("#EvaluationNo").attr("disabled", true);
