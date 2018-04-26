@@ -18,8 +18,11 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         // public int JobApplicationID { get; set; }
         [Display(Name = "Stage ID")]
         public int StageID { get; set; }
+        [Display(Name = "Stage 1 Score")]
         public int Score1 { get; set; }
+        [Display(Name = "Stage 2 Score")]
         public int Score2 { get; set; }
+        [Display(Name = "Stage 3 Score")]
         public int Score3 { get; set; }
         public string ApplicantStrength { get; set; }
         public string ApplicantWeakness { get; set; }
