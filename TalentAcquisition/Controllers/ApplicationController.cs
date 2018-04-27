@@ -357,13 +357,49 @@ namespace TalentAcquisition.Controllers
         public ActionResult _GetEvaluations(int id)
         {
             var evaluations = new List<Evaluation>();
-            evaluations.Add(new Evaluation() { ID = 1, InterviewEvaluationID = 1, EvaluationCode = "D", EvaluationDescription = "Dressing" });
-            evaluations.Add(new Evaluation() { ID = 2, InterviewEvaluationID = 1, EvaluationCode = "C", EvaluationDescription = "Composure" });
             using (var db = new TalentContext())
             {
-
+                evaluations = db.Evaluations.Where(x => x.InterviewEvaluationID == id).ToList();
             }
             return PartialView(evaluations);
+        }
+        public JsonResult _AddorUpdateEvaluation(Evaluation evaluation)
+        {
+            var action = false;
+            if (ModelState.IsValid)
+            {
+                using (var db = new TalentContext())
+                {
+                    if (evaluation.ID != 0)
+                    {
+                        db.Evaluations.Add(evaluation);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        db.Evaluations.Add(evaluation);
+                        db.Entry(evaluation).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    action = true;
+                }
+            }     
+            return Json(action, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult _DeleteEvaluation(int id)
+        {
+            var action = false;
+            var evaluation = new Evaluation();
+            using (var db = new TalentContext())
+            {
+                evaluation = db.Evaluations.Find(id);
+                if(evaluation != null)
+                {
+                    db.Evaluations.Remove(evaluation);
+                }
+                action = true;
+            }
+            return  Json(action,JsonRequestBehavior.AllowGet);
         }
         public ActionResult _ConfirmApplicantOnboarding(int requisitionid, int applicationid)
         {
