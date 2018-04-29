@@ -237,6 +237,10 @@
     <Compile Include="Migrations\201804031255505_ModifiedWelcomeGuideModel.Designer.cs">
       <DependentUpon>201804031255505_ModifiedWelcomeGuideModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804291536585_ModifiedOnboardingRelatedModels.cs" />
+    <Compile Include="Migrations\201804291536585_ModifiedOnboardingRelatedModels.Designer.cs">
+      <DependentUpon>201804291536585_ModifiedOnboardingRelatedModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -341,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804031255505_ModifiedWelcomeGuideModel.resx">
       <DependentUpon>201804031255505_ModifiedWelcomeGuideModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291536585_ModifiedOnboardingRelatedModels.resx">
+      <DependentUpon>201804291536585_ModifiedOnboardingRelatedModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

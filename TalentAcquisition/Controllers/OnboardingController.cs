@@ -203,9 +203,27 @@ namespace TalentAcquisition.Controllers
             var activity = new OnboardActivity();
             return View();
         }
-        public ActionResult _GetAllActivities(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult _CreateActivity(OnboardActivity activity)
+        {
+            if (ModelState.IsValid)
+            {
+                db.OnboardActivities.Add(activity);
+                db.SaveChanges();
+            }
+            return View();
+        }
+        public ActionResult _GetAllActivitiesForTemplate(int id)
+        {
+            var activitylist = new List<CompletedActivity>();
+            activitylist = db.CompletedActivities.Where(x=>x.OnboardingTemplateID==id).ToList();
+            return PartialView(activitylist);
+        }
+        public ActionResult _GetAllActivities()
         {
             var activitylist = new List<OnboardActivity>();
+            activitylist = db.OnboardActivities.ToList();
             return PartialView(activitylist);
         }
         public JsonResult _NotifyApplicant(int id)

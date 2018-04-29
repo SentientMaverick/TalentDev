@@ -32,6 +32,5 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public virtual Branch Branch { get; set; }
         public virtual JobSeeker JobSeeker { get; set; }
         public virtual ICollection<CompletedActivity> CompletedActivities { get; set; }
-        public virtual ICollection<OnboardActivity> OnboardActivities { get; set; }
     }
 }

@@ -18,6 +18,6 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public string Location { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateEdited { get; set; }
-        public virtual ICollection<OnboardActivity> OnboardActivities { get; set; }
+        public virtual ICollection<CompletedActivity> CompletedActivities { get; set; }
     }
 }
