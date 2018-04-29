@@ -8,6 +8,7 @@ using TalentAcquisition.DataLayer;
 using TalentAcquisition.Models.ViewModel;
 using Talent.HRM.Services.Email;
 using Talent.HRM.Services.Interfaces;
+using TalentAcquisition.Helper;
 
 namespace TalentAcquisition.Controllers
 {
@@ -214,11 +215,30 @@ namespace TalentAcquisition.Controllers
             }
             return View();
         }
+        public ActionResult _CreateActivityViewModel(int id,int templateid)
+        {
+            var onboardActivity = db.OnboardActivities.Find(id);
+            var activitymodel = OnboardingUtilityHelper.ConvertToActivityModel(onboardActivity);
+            activitymodel.OnboardingTemplateID = templateid;
+            return PartialView(activitymodel);
+        }
+        [HttpPost]
+        public JsonResult _CreateActivityViewModel(ActivityViewModel activity)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.OnboardActivities.Add(activity);
+                db.SaveChanges();
+            }
+            return Json(true,JsonRequestBehavior.AllowGet);
+        }
         public ActionResult _GetAllActivitiesForTemplate(int id)
         {
+            var activities = new SelectedActivityViewModel();
             var activitylist = new List<CompletedActivity>();
             activitylist = db.CompletedActivities.Where(x=>x.OnboardingTemplateID==id).ToList();
-            return PartialView(activitylist);
+            activities.Activities.Add(new ActivityViewModel { Title = "Title", Body = "Body" });
+            return PartialView(activities);
         }
         public ActionResult _GetAllActivities()
         {

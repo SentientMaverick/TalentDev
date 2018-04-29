@@ -1,0 +1,118 @@
+﻿@model TalentAcquisition.Models.ViewModel.ActivityViewModel
+<style>
+    .panel-heading {
+        padding: 0.5em;
+    }
+
+        .panel-heading h4 {
+            padding: 0px;
+        }
+</style>
+<script type="text/javascript">
+   // $("#advance").prop("disabled", true);
+
+    $(function () {
+        $('.panel-heading a').on('click', function (e) {
+            if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+@using (Html.BeginForm("_CreateActivityViewModel","Onboarding", FormMethod.Post, new { @class = "form", @id = "form" }))
+{
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#@Model.ID" style="text-decoration:none">@Html.EditorFor(model=>model.Title, new { htmlAttributes = new { @class = "form-control col-md-12" } })</a>
+                    </h4>
+                </div>
+                <div id="@Model.ID" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <input type="datetime" data-date-min="03/05/2018" data-date-format="DD/MM/YYYY" name="DueDate" id="DueDate" value="" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="" style="margin-top:0.5em">
+                                @Html.TextAreaFor(model=>model.Body, new { @class = "form-control", rows = "8", cols = "5" })
+                                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="submit" value="Create" class="btn col-sm-6 btn-default btn-primary btn-xs" />
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.OnboardActivityID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OnboardActivityID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OnboardActivityID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.WelcomeGuideID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.WelcomeGuideID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.WelcomeGuideID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.OnboardingTemplateID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OnboardingTemplateID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OnboardingTemplateID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+}
+
+<script type="text/javascript">
+    var date = new Date();
+    $("#DueDate").datetimepicker({
+        //pickTime: false,
+       //// daysOfWeekDisabled: [0],
+       // format: 'dd/mm/yyyy',
+        //language: 'en',
+        //startDate: '+2d',
+       // "startDate":date,
+       // endDate: date
+    });
+    $(function () {
+        var form = $("#form");
+        form.submit(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.isDefaultPrevented()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr("action"),
+                    data: form.serialize(),
+                    success: function (response) {
+                        //alert(response);
+                        $('#dvright').load("@(Url.Action("_GetAllActivitiesForTemplate", "Onboarding", new { id = Model.OnboardingTemplateID }))");
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                });
+            }
+            
+        });
+    });;
+</script>
+

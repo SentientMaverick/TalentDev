@@ -194,6 +194,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\OnboardingUtilityHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntityManager\ApplicationManager.cs" />
     <Compile Include="Models\EntityManager\AppManager.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Models\ViewModel\EmployeePortalView.cs" />
     <Compile Include="Models\ViewModel\AdminView .cs" />
     <Compile Include="Models\ViewModel\PublicPortalView.cs" />
+    <Compile Include="Models\ViewModel\SelectedActivityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -716,6 +718,8 @@
     <Content Include="Views\Requisition\_GetActiveRequisitions.cshtml" />
     <Content Include="Views\Requisition\Approve.cshtml" />
     <Content Include="Views\Shared\EvaluationView.cshtml" />
+    <Content Include="Views\Onboarding\_GetAllActivitiesForTemplate.cshtml" />
+    <Content Include="Views\Onboarding\_CreateActivityViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,15 +6,18 @@
             <th>
                 Activity Name
             </th>
+            <th></th>
         </tr>
     </thead>
 <tbody id="activities">
     @foreach (var item in Model)
     {
         <tr>
-            <td draggable="true">
+            <td class="hidden">@Html.DisplayFor(modelItem=>item.ID)</td>
+            <td draggable="true" id="activity">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+            <td><a href="javascript:void(0)" id="addactivity">Add</a></td>
         </tr>
     }
 </tbody>

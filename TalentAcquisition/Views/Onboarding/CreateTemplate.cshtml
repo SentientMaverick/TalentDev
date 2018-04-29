@@ -23,17 +23,23 @@
                 <p class="">Onboarding Template</p>
             </div>
             <div class="panel-body">
-
                 @using (Html.BeginForm())
-               {
+                {
                     <a href="" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="submit" value="Create Template" class="btn btn-default input-sm" /></a>
-                    <hr />
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal" style="font-size:90%">
                         <style>
                             label{
                                 font-size:90%;
                             }
+                            .form-group {
+                                padding: 0;
+                            }
+
+                                .form-group input {
+                                    padding: 0;
+                                    margin-bottom: 0;
+                                }
                         </style>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="row">
@@ -97,13 +103,71 @@
                 <p class="">Onboarding Activities</p>
             </div>
             <div class="panel-body">
-                <div class="col-md-9">
-
+                <div class="col-md-9" id="dvright"> 
+                    <br/>         
+                        @Html.Action("_GetAllActivitiesForTemplate", "Onboarding", new { id = Model.ID })
                 </div>
-                <div class="col-md-3">
-                    @Html.Action("_GetAllActivities","Onboarding",new { id=Model.ID})
+                <div class="col-md-3" id="activitylist">
+                    @Html.Action("_GetAllActivities","Onboarding")
                 </div>
             </div>
         </div>
     </div>
 </section>
+<div class="" id="dynamicholder"></div>
+@Scripts.Render("~/bundles/jqueryval")
+@section Scripts{
+<script type="text/javascript">
+    var mainurl = "@(Url.Action("_CreateActivityViewModel","Onboarding"))";
+    var templateid=@Model.ID;
+    $(function () {
+        $("a#addactivity").click(function () {
+
+            var row = $(this).closest('tr');
+            var id = row.find("td:eq(0)").html().trim();
+            //alert(id);
+            url=mainurl + "?id="+id+"&templateid="+templateid;
+            //alert(url);
+            @*$("#dynamicholder").load("@(Url.Action("_CreateActivityViewModel","Onboarding",new {id=1}))");*@
+            //alert($("#dynamicholder").html());
+            $.get(url,{},function(data,status,jqXHR) {
+               // alert(data);
+                $('#selectedactivities').append(data);
+            });
+});
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        setEvents();
+
+        //Function to set events for Drag-Drop
+        function setEvents() {
+            var lst = $('#activity');
+            //Set Drag on Each 'li' in the list
+                $.each(lst, function (idx, val) {
+                    $('#activity').on('dragstart', function (evt) {
+                        evt.originalEvent.dataTransfer.setData("Text", evt.target.textContent);
+                        evt.target.draggable = false;
+                    });
+                });
+
+            //Set the Drop on the <div>
+                $("#dvright").on('drop', function (evt) {
+                    evt.preventDefault();
+                    var data = evt.originalEvent.dataTransfer.getData("Text");
+                    var lst = $("#lstselectedproducts");
+                    var li = "<li>"+data+"</li>";
+                    li.textContent = data;
+                    lst.append(li);
+                });
+
+            //The dragover
+                $("#dvright").on('dragover', function (evt) {
+                    evt.preventDefault();
+                });
+        }
+    });
+</script>
+}
