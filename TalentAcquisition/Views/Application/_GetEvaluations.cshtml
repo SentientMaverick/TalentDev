@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.Evaluation>
-
-<table class="table">
-    <tr>
+@{
+    int stage = (int)ViewBag.stageid;
+}
+<table class="table table-striped">
+    <tr class="">
         <th>
             @Html.DisplayNameFor(model => model.EvaluationCode)
         </th>
@@ -12,16 +14,25 @@
             @Html.DisplayNameFor(model => model.Score1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Score2)
+            @if (stage >= 2)
+            {
+                @Html.DisplayNameFor(model => model.Score2)
+            }     
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Score3)
+            @if (stage == 3)
+            {
+                @Html.DisplayNameFor(model => model.Score3)
+            }      
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td class="hidden">
+        @Html.DisplayFor(modelItem=>item.ID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.EvaluationCode)
         </td>
@@ -31,14 +42,20 @@
         <td>
             @Html.DisplayFor(modelItem => item.Score1)
         </td>
+        @if (stage >= 2)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Score2)
+            </td>
+            if (stage == 3)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score3)
+                </td>
+            }
+        }
         <td>
-            @Html.DisplayFor(modelItem => item.Score2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Score3)
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            <a href="javascript:void(0)" id="deleteitem">Delete</a>
         </td>
     </tr>
 }

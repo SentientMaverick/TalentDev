@@ -3,8 +3,7 @@
     ViewBag.Title = "Interview Evaluation Page";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 <style>
     .padding {
         padding-top: 3em;
@@ -40,7 +39,7 @@
             text-align: center;
             text-indent: -19px;
             height: 36px;
-            width: 15.99%;
+            width: 22.99%;
             font-size: 12px;
             border-bottom-width: 4px;
             border-bottom-style: solid;
@@ -326,15 +325,15 @@
                             </div>
                             <div class="panel-body">
                                 <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
-                                @Html.Action("_GetEvaluations","Application",new{id=Model.InterviewID})
+                                <div id="evaluations">
+                                    @Html.Action("_GetEvaluations", "Application", new { id = Model.ID,stageid=Model.StageID })
+                                </div>             
                             </div>
                         </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default btn-primary col-md-4" />
-                    </div>
-                </div>
+                <div class="row col-xs-12" style="margin-left:-2em">
+                    <input type="submit" value="Save" class="btn btn-default btn-primary col-md-4 col-xs-12" />
+                </div>                
             </div>
             }
             </div>
@@ -346,6 +345,10 @@
     </div>
 </div>
 <div id="divEdit" style="display:none">
+    @using (Html.BeginForm("_AddorUpdateEvaluation", "Application", FormMethod.Post,new { @class = "form", @id = "form" }))
+    {
+        @Html.Action("_NewEvaluation");
+    }
 
 </div>
 <style>
@@ -361,38 +364,79 @@
         background-color: rgba(0,0,0,0.4);
     }
 </style>
-    <script type="text/javascript">
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>*@
+@section Scripts{
+<script type="text/javascript">
         $(function () {
             var initDialog = function (type) {
                 var title = type;
                 $("#divEdit").dialog({
-                    title: type + ' Qualification',
+                    title: type + ' Evaluation',
                     autoOpen: false,
                     modal: true,
                     width: 500,
                     dialogClass: 'mod-no-close',
                     buttons: {
                         Save: function () {
-
+                            // alert('here');
+                            var form = $("#form");
+                            $("#InterviewEvaluationID").val(@Model.ID);
+                           // alert($("#EvaluationDescription").val());
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: form.attr("action"),
+                                    data: form.serialize(),
+                                    success: function (response) {
+                                        $('#evaluations').load("@(Url.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID }))");
+                                    },
+                                    error: function (error) {
+                                        alert('failed');
+                                    }
+                                });
+                           // alert('there');
                             $(this).dialog("destroy");
-                        },
+            },
                         Cancel: function () {
                             $(this).dialog("destroy");
-                        }
-                    }
-                });
+            }
+        }
+    });
             };
 
             $("a#additem").on("click", function () {
-                alert("1");
-                initDialog("Add New ");
+                initDialog("Add");
                 $("#divEdit").dialog("open");
-                alert("2");
                 return false;
             });
+            $("a#deleteitem").on("click", function () {
+                var row = $(this).closest('tr');
+                var id = row.find("td:eq(0)").html().trim();
+                var answer = confirm("You are about to delete this Entry." + id + "Continue?");
+                if (answer)
+                    DeleteEvaluation(id);
+                    //alert(id);
+                return false;
+            });
+            function DeleteEvaluation(eid) {
+                $.ajax(
+                                {
+                                    type: "POST",
+                                    url: "@(Url.Action("_DeleteEvaluation", "Application"))",
+                                    data: {id:eid},
+                                    success: function (response) {
+                                        $('#evaluations').load("@(Url.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID }))");
+                                    },
+                                    error: function (error) {
+                                        alert('failed');
+                                    }
+                                });
+            }
             //$("#EvaluationNo").attr("disabled", true);
             //$("#EmployeeID").attr("disabled", true);
             //$("#InterviewID").attr("disabled", true);
             //$("#StageID").attr("disabled", true);
         });
     </script>
+}

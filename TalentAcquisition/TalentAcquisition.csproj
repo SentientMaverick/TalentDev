@@ -715,6 +715,7 @@
     <Content Include="Views\Shared\_OnboardingLayout.cshtml" />
     <Content Include="Views\Requisition\_GetActiveRequisitions.cshtml" />
     <Content Include="Views\Requisition\Approve.cshtml" />
+    <Content Include="Views\Shared\EvaluationView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

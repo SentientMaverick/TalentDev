@@ -354,14 +354,20 @@ namespace TalentAcquisition.Controllers
             }
             return PartialView(interviewevaluations);
         }
-        public ActionResult _GetEvaluations(int id)
+        public ActionResult _GetEvaluations(int id,int stageid)
         {
+            ViewBag.stageid = stageid;
             var evaluations = new List<Evaluation>();
             using (var db = new TalentContext())
             {
                 evaluations = db.Evaluations.Where(x => x.InterviewEvaluationID == id).ToList();
             }
             return PartialView(evaluations);
+        }
+        public ActionResult _NewEvaluation()
+        {
+            var evaluation = new Evaluation();
+            return PartialView("EvaluationView", evaluation);
         }
         public JsonResult _AddorUpdateEvaluation(Evaluation evaluation)
         {
@@ -370,7 +376,7 @@ namespace TalentAcquisition.Controllers
             {
                 using (var db = new TalentContext())
                 {
-                    if (evaluation.ID != 0)
+                    if (evaluation.ID == 0)
                     {
                         db.Evaluations.Add(evaluation);
                         db.SaveChanges();
@@ -389,13 +395,14 @@ namespace TalentAcquisition.Controllers
         public JsonResult _DeleteEvaluation(int id)
         {
             var action = false;
-            var evaluation = new Evaluation();
+            //var evaluation = new Evaluation();
             using (var db = new TalentContext())
             {
-                evaluation = db.Evaluations.Find(id);
+                var evaluation = db.Evaluations.Find(id);
                 if(evaluation != null)
                 {
                     db.Evaluations.Remove(evaluation);
+                    db.SaveChanges();
                 }
                 action = true;
             }
