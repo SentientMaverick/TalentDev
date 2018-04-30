@@ -26,8 +26,8 @@
 
                 @using (Html.BeginForm())
                 {
-                    <a href=""><img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="submit" value="Save Template" class="btn btn-default input-sm" /></a>
-                    <hr />
+                    <input type="submit" value="Save Template" class="btn btn-default input-sm btn-primary" />
+                    <hr/>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal" style="font-size:90%">
                         <style>
@@ -92,7 +92,63 @@
                 }
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Onboarding Activities</p>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-9" id="dvright">
+                    <br />
+                    @Html.Action("_GetAllActivitiesForTemplate", "Onboarding", new { id = Model.ID })
+                    <br />
+                </div>
+                <div class="col-md-3" id="activitylist">
+                    @Html.Action("_GetAllActivities", "Onboarding")
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+@Scripts.Render("~/bundles/jqueryval")
+@section Scripts{
+    <script type="text/javascript">
+        var mainurl = "@(Url.Action("_CreateActivityViewModel","Onboarding"))";
+        var deleteurl = "@(Url.Action("_DeleteActivity","Onboarding"))";
+        var templateid=@Model.ID;
+        $(function () {
+            $("a#addactivity").click(function () {
 
+                var row = $(this).closest('tr');
+                var id = row.find("td:eq(0)").html().trim();
+                //alert(id);
+                url=mainurl + "?id="+id+"&templateid="+templateid;
+                //alert(url);
+                @*$("#dynamicholder").load("@(Url.Action("_CreateActivityViewModel","Onboarding",new {id=1}))");*@
+                //alert($("#dynamicholder").html());
+                $.get(url,{},function(data,status,jqXHR) {
+                    // alert(data);
+                    $('#selectedactivities').append(data);
+                });
+            
+            });
+
+            $("a#deleteactivity").click(function () {
+
+                var row = $(this).closest('#activitypanel');
+                //alert(row.html())
+                var id = row.find("#item_ID").val().trim();
+                alert(id);
+                url=deleteurl + "?id="+id;
+                //alert(url);
+                @*$("#dynamicholder").load("@(Url.Action("_CreateActivityViewModel","Onboarding",new {id=1}))");*@
+                //alert($("#dynamicholder").html());
+                $.get(url,{},function(data,status,jqXHR) {
+                    // alert(data);
+                    row.hide('slow').html("");
+                   // $('#selectedactivities').remove(row);
+                });
+            });
+       });
+    </script>
+}
 

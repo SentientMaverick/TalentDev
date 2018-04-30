@@ -17,5 +17,33 @@ namespace TalentAcquisition.Helper
             activity.Title = onboardactivity.Name;
             return activity;
         }
+
+        public static CompletedActivity ConvertToCompletedActivity(ActivityViewModel activitymodel)
+        {
+            var activity = new CompletedActivity();
+            activity.OnboardingTemplateID = activitymodel.OnboardingTemplateID;
+            activity.Type = activitymodel.Type;
+            activity.Name = activitymodel.Title;
+            activity.Description = activitymodel.Body;
+            activity.DueDate = activitymodel.DueDate;
+            return activity;
+        }
+
+        public static List<ActivityViewModel> ConvertToActivityModelList(List<CompletedActivity> activitylist)
+        {
+            var activities = new List<ActivityViewModel>();
+            foreach(var activity in activitylist)
+            {
+                var activitymodel = new ActivityViewModel();
+                activitymodel.ID = activity.ID;
+                activitymodel.OnboardActivityID = activity.OnboardActivityID;
+                activitymodel.Type = activity.Type;
+                activitymodel.Title = activity.Name;
+                activitymodel.Body = activity.Description;
+                activitymodel.DueDate = activity.DueDate;
+                activities.Add(activitymodel);
+            }
+            return activities;
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace TalentAcquisition.Controllers
                 template.DateEdited = DateTime.Now;
                 db.OnboardingTemplates.Add(template);
                 db.SaveChanges();
-                return RedirectToAction("Onboarding", "Admin");
+                return RedirectToAction("Template/Customize/"+template.ID, "Onboarding");
             }
             return View(template);
         }
@@ -223,11 +223,13 @@ namespace TalentAcquisition.Controllers
             return PartialView(activitymodel);
         }
         [HttpPost]
-        public JsonResult _CreateActivityViewModel(ActivityViewModel activity)
+        [ValidateAntiForgeryToken]
+        public JsonResult _CreateActivityViewModel(ActivityViewModel activitymodel)
         {
             if (ModelState.IsValid)
             {
-                //db.OnboardActivities.Add(activity);
+                CompletedActivity activity = OnboardingUtilityHelper.ConvertToCompletedActivity(activitymodel);
+                db.CompletedActivities.Add(activity);
                 db.SaveChanges();
             }
             return Json(true,JsonRequestBehavior.AllowGet);
@@ -237,8 +239,18 @@ namespace TalentAcquisition.Controllers
             var activities = new SelectedActivityViewModel();
             var activitylist = new List<CompletedActivity>();
             activitylist = db.CompletedActivities.Where(x=>x.OnboardingTemplateID==id).ToList();
-            activities.Activities.Add(new ActivityViewModel { Title = "Title", Body = "Body" });
+            activities.Activities.AddRange(OnboardingUtilityHelper.ConvertToActivityModelList(activitylist));
             return PartialView(activities);
+        }
+        public JsonResult _DeleteActivity(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                CompletedActivity activity = db.CompletedActivities.Find(id);
+                db.CompletedActivities.Remove(activity);
+                db.SaveChanges();
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         public ActionResult _GetAllActivities()
         {

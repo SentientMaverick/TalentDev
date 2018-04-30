@@ -76,17 +76,38 @@
                     Interview Evaluation Summary
                 </div>
                 <div class="panel-body" style="margin-bottom:-1.5em">
-
+                    <a id="additem" target="_blank" href="@(Url.Action("_getcandidateevaluationform", "Application", new { interviewid = ViewBag.interviewid, employeeid = ViewBag.jobseekerid }))" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                    @*<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Evaluation</button>*@
+                    @Html.Action("_GetInterviewEvaluations", "Application", new { interviewid = ViewBag.interviewid })
                 </div>
             </div>
             <div class="panel panel-primary" style="margin-top:-1.7em;">
                 <div class="panel-heading">
-                    Team Evaluations
+                    Evaluation Categories
                 </div>
+                <table class="table table-striped">
+                    <tr>
+                        <td>Evaluation Code</td>
+                        <td>Evaluation Description</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            D
+                        </td>
+                        <td>
+                            Dressing
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            C
+                        </td>
+                        <td>
+                            Composure
+                        </td>
+                    </tr>
+                </table>
                 <div class="panel-body">
-                    <a id="additem" target="_blank" href="@(Url.Action("_getcandidateevaluationform", "Application", new { interviewid = ViewBag.interviewid, employeeid = ViewBag.jobseekerid }))" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>               
-                    @*<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Evaluation</button>*@                   
-                    @Html.Action("_GetInterviewEvaluations","Application",new{interviewid = ViewBag.interviewid })
                 </div>
             </div>
     </div>

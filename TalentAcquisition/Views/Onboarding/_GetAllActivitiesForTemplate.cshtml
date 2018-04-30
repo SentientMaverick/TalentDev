@@ -22,10 +22,12 @@
         <div class="row" id="selectedactivities">
             @foreach (var item in Model.Activities)
             {
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="activitypanel">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" href="#@item.ID" style="text-decoration:none">@item.Title</a>
+                            @Html.HiddenFor(modelItem=>item.ID)
+                            <a id="deleteactivity" class="pull-right" href="javascrip:void(0)"><img src="~/Assets/Icons/Delete.png" height="15"/></a>
                         </h4>
                     </div>
                     <div id="@item.ID" class="panel-collapse collapse in">
