@@ -115,7 +115,7 @@ namespace TalentAcquisition.Controllers
         {
             using (var db = new TalentContext())
              {
-              var guide = db.WelcomeGuides.Include("OnboardActivities").Where(x => x.ID == id);
+              var guide = db.WelcomeGuides.Include("CompletedActivities").Where(x => x.ID == id);
                 if(guide.First().WelcomeMessage==null && guide.First().TemplateID != null)
                 {
                     guide.First().WelcomeMessage = db.OnboardingTemplates.Find(guide.First().TemplateID).WelcomeMessage;

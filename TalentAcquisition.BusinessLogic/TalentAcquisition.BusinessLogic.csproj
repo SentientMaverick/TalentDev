@@ -95,6 +95,7 @@
     <Compile Include="UpdatedDomain\Branch.cs" />
     <Compile Include="UpdatedDomain\CompletedActivity.cs" />
     <Compile Include="UpdatedDomain\Evaluation.cs" />
+    <Compile Include="UpdatedDomain\EvaluationCategory.cs" />
     <Compile Include="UpdatedDomain\InterviewEvaluation.cs" />
     <Compile Include="UpdatedDomain\Job.cs" />
     <Compile Include="UpdatedDomain\JobOccupant.cs" />

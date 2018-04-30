@@ -408,6 +408,50 @@ namespace TalentAcquisition.Controllers
             }
             return  Json(action,JsonRequestBehavior.AllowGet);
         }
+        public ActionResult _NewEvaluationCategory()
+        {
+            var evaluation = new Evaluation();
+            return PartialView("EvaluationView", evaluation);
+        }
+        public JsonResult _AddorUpdateEvaluationCategory(Evaluation evaluation)
+        {
+            var action = false;
+            if (ModelState.IsValid)
+            {
+                using (var db = new TalentContext())
+                {
+                    if (evaluation.ID == 0)
+                    {
+                        db.Evaluations.Add(evaluation);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        db.Evaluations.Add(evaluation);
+                        db.Entry(evaluation).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    action = true;
+                }
+            }
+            return Json(action, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult _DeleteEvaluationCategory(int id)
+        {
+            var action = false;
+            //var evaluation = new Evaluation();
+            using (var db = new TalentContext())
+            {
+                var evaluation = db.Evaluations.Find(id);
+                if (evaluation != null)
+                {
+                    db.Evaluations.Remove(evaluation);
+                    db.SaveChanges();
+                }
+                action = true;
+            }
+            return Json(action, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult _ConfirmApplicantOnboarding(int requisitionid, int applicationid)
         {
             using (var db = new TalentContext())

@@ -87,24 +87,20 @@
                 </div>
                 <table class="table table-striped">
                     <tr>
-                        <td>Evaluation Code</td>
-                        <td>Evaluation Description</td>
+                        <th>Evaluation Code</th>
+                        <th>Evaluation Description</th>
+                        <th></th>
                     </tr>
+                    
+                    @*@Html.Action("_GetEvaluationCategories", "Application", new { interviewid = ViewBag.interviewid })*@
                     <tr>
                         <td>
-                            D
+                            <input type="text" value="" id="EvaluationCode"  name="EvaluationCode" class="form-control input-sm" />
                         </td>
                         <td>
-                            Dressing
+                            <input type="text" value="" id="EvaluationDescription" name="EvaluationDescription" class="form-control input-sm" />
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            C
-                        </td>
-                        <td>
-                            Composure
-                        </td>
+                        <td><a href="javascript:void(0)"><img src="~/Assets/Icons/Delete.png" height="15" /></a></td>
                     </tr>
                 </table>
                 <div class="panel-body">
