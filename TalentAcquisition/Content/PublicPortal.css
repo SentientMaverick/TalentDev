@@ -16,7 +16,9 @@
 .dl-horizontal dt {
     white-space: normal;
 }
-
+.form-group {
+  margin-bottom: 5px !important;
+}
 /* Set width on the form input elements since they're 100% wide by default */
 
 
@@ -106,7 +108,7 @@ footer{
      .recentjobs h2{
          color:rgba(4, 5, 47,0.9);
          padding:0.2em;
-         font-size:1.8em;
+         font-size:0.9em;
      }
      .recentjobs .job{
          padding:1em;
@@ -115,6 +117,7 @@ footer{
          width:100%;
          border:1px solid #ddd;
          box-shadow: 0px 2px 0px 2px rgba(0,0,0,0.1);
+        
      }
      /*.sidebar{
          margin-top: 6em;
