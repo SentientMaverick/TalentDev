@@ -3,7 +3,7 @@
     string url = Html.DisplayFor(model => model.JobTitle).ToString();
     url=url.Replace(" ","-");
 }
-<div class="row">
+<div class="col-sm-4">
     <div class="job">
         <h2><a href="@Url.RouteUrl("JobDetails",
                     new { id = Model.JobRequisitionID, name = url })">@Html.DisplayFor(model => model.JobTitle)

@@ -8,11 +8,15 @@
     select {
         margin-left: 0px;
     }
+    .form-group{
+        margin-bottom: 5px !important;
+    }
 </style>
 @using (Html.BeginForm("_SubmitChooseInterviewTeamForm", "Application", FormMethod.Post, new { @class = "teamform", @id = "teamform" }))
 {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal"> 
+       @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
         @Html.HiddenFor(model => model.InterviewID)
         @*<div class="col-md-12">
@@ -51,6 +55,7 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+    </div>
 }
 
 @Scripts.Render("~/bundles/jqueryval")
