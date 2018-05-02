@@ -166,3 +166,5 @@ C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talen
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.ModifiedOnboardingRelatedModels.resources
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedCompletedActivityModel.resources
 C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedWelcomeIDinCompletedActivityModel.resources
+C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedEvaluationCategoryModel.resources
+C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedCompletedActivityModel1.resources

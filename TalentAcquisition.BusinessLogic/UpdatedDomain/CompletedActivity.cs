@@ -14,7 +14,7 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public bool HasTaskBeenCompleted { get; set; }
         public ActivityType Type { get; set; }
         public int? WelcomeGuideID { get; set; }
-        public int OnboardingTemplateID { get; set; }
+        public int? OnboardingTemplateID { get; set; }
         public DateTime DueDate { get; set; }
         public virtual WelcomeGuide WelcomeGuide { get; set; }
     }

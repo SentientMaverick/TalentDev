@@ -45,5 +45,18 @@ namespace TalentAcquisition.Helper
             }
             return activities;
         }
+
+        public static List<CompletedActivity> ConvertToGuideActivities(List<CompletedActivity> activities,int guideid)
+        {
+            var guideactivities = new List<CompletedActivity>();
+            guideactivities = activities.Select(o => new CompletedActivity
+            { ID = o.ID,
+              Name = o.Name,
+              DueDate=o.DueDate,
+              Description=o.Description,
+              WelcomeGuideID=guideid
+            }).ToList();
+            return guideactivities;
+        }
     }
 }

@@ -1,0 +1,41 @@
+﻿@model List<TalentAcquisition.BusinessLogic.UpdatedDomain.EvaluationCategory>
+
+@{
+    var i = (int)ViewBag.ID;
+}
+
+@for (int j = 0; j <= i; j++)
+{
+    if (j == i - 1)
+    {
+        <tr class="evaluation">
+            @Html.HiddenFor(it => it[i].ID)
+            <td>@Html.DisplayFor(it => it[i].ID)</td>
+            <td>@Html.EditorFor(it => it[i].EvaluationCode, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+            <td>@Html.EditorFor(it => it[i].EvaluationDescription, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+            <td>@Html.HiddenFor(it => it[i].InterviewID)</td>
+            <td><a id="deletecategory" href="javascript:void(0)"><img src="~/Assets/Icons/Delete.png" height="15" /></a></td>
+        </tr>
+    }
+}
+<script>
+    var deleteurl="/Application/_RemoveCategory";
+     $(function () {
+         $("a#deletecategory").on("click", function () {
+             var row= $(this).closest('tr');
+             var id= row.find("td:eq(0)").html().trim();
+             var url = deleteurl + "?id=" + id;
+             alert(id);
+             if(id==0)
+             {
+                     $(this).closest('tr').remove();
+             }
+             else{
+                 $.get(url,{},function(){
+                     $(this).closest('tr').remove();
+                 });
+             }
+             //alert("item removed");
+         });
+     });
+</script>  

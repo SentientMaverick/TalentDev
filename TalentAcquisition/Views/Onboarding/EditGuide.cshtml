@@ -79,8 +79,10 @@
                                 </div>
                             </div>
                             <div id="activities" class="tab-pane fade">
-                                <div class="row">
-                                    @Html.Action("_GetAllActivities",new {id= Model.ID })
+                                <div class="row body-content">
+                                    <div class="col-md-10">
+                                        @Html.Action("_GetAllActivitiesForGuide", new { id = Model.ID })
+                                    </div> 
                                 </div>
                             </div>
                             <div id="extrainfo" class="tab-pane fade">

@@ -356,7 +356,7 @@
 <div id="divEdit" style="display:none">
     @using (Html.BeginForm("_AddorUpdateEvaluation", "Application", FormMethod.Post,new { @class = "form", @id = "form" }))
     {
-        @Html.Action("_NewEvaluation");
+        @Html.Action("_NewEvaluation",new { aid=Model.InterviewID});
     }
 
 </div>
@@ -375,10 +375,28 @@
 </style>
 @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>*@
+@{
+    Dictionary<string,string> dict = ViewBag.Dictionary;
+}
+
 @section Scripts{
 <script type="text/javascript">
     var  stageid=@Model.StageID;
-        $(function () {
+    var collection = @Html.Raw(Json.Encode(dict));
+    $(function () {
+        //alert(collection["PQ"]);
+        //$.each(collection, function (key, value) {
+        //   // console.log(key);
+        //   // console.log(value);
+
+        //});
+        $("#dcode").change(function(){
+            //alert("valuechanged");
+            var newval= $(this).val();
+            //alert(collection[newval]);
+            $("#deval").val(collection[newval]);
+            $("#EvaluationDescription").val(collection[newval])
+        });
             var initDialog = function (type) {
                 var title = type;
                 $("#divEdit").dialog({

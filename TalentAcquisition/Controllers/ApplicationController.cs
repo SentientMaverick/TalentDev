@@ -289,8 +289,16 @@ namespace TalentAcquisition.Controllers
         public ActionResult _GetCandidateEvaluationForm(int interviewid, int employeeid)
         {
             var interviewevaluation = new InterviewEvaluation();
+
             using (var db = new TalentContext())
             {
+                var categories = db.EvaluationCategories.Where(x => x.InterviewID == interviewid).ToList();
+                var dictionary = new Dictionary<string, string>();
+                foreach (var item in categories)
+                {
+                    dictionary[item.EvaluationCode] = item.EvaluationDescription;
+                }
+                ViewBag.Dictionary = dictionary;
                 var existinginterviewevaluation = db.InterviewEvaluations.Where(x => x.InterviewID == interviewid && x.EmployeeID == employeeid);
                 if (existinginterviewevaluation.Any())
                 {
@@ -364,9 +372,18 @@ namespace TalentAcquisition.Controllers
             }
             return PartialView(evaluations);
         }
-        public ActionResult _NewEvaluation()
+        public ActionResult _NewEvaluation(int aid)
         {
             var evaluation = new Evaluation();
+            //ViewBag.Categories = new SelectList(db.Interviews, "EvaluationCode", "EvaluationCode");
+            var categories = db.EvaluationCategories.Where(x=>x.InterviewID == aid).ToList();
+            var dictionary = new Dictionary<string,string>();
+            foreach(var item in categories)
+            {
+                dictionary[item.EvaluationCode] = item.EvaluationDescription;
+            }
+            ViewBag.Categories = categories;
+            ViewBag.Dictionary = dictionary;
             return PartialView("EvaluationView", evaluation);
         }
         public JsonResult _AddorUpdateEvaluation(Evaluation evaluation)
@@ -408,10 +425,49 @@ namespace TalentAcquisition.Controllers
             }
             return  Json(action,JsonRequestBehavior.AllowGet);
         }
-        public ActionResult _NewEvaluationCategory()
+        public ActionResult _NewEvaluationCategory(int id,int interviewid)
         {
-            var evaluation = new Evaluation();
-            return PartialView("EvaluationView", evaluation);
+            var evaluation = new List<EvaluationCategory>();
+            ViewBag.ID = id;
+            for (int i = 0; i <= id; i++)
+            {
+                evaluation.Add(new EvaluationCategory() { InterviewID=interviewid});
+            }
+            return PartialView(evaluation);
+        }
+        public ActionResult _GetEvaluationCategories(int interviewid)
+        {
+            var evaluation = new List<EvaluationCategory>();
+            evaluation = db.EvaluationCategories.Where(x => x.InterviewID == interviewid).ToList();
+            return PartialView(evaluation);
+        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public JsonResult _SubmitCategoriesForm(IEnumerable<EvaluationCategory> submittedcategories)
+        {
+            bool action = false;
+            if (submittedcategories !=null && submittedcategories.Count() >= 0)
+            {
+                var categories = submittedcategories.ToList();
+                foreach (EvaluationCategory category in categories)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        if (category.ID == 0)
+                        {
+                            db.EvaluationCategories.Add(category);
+                        }
+                        else
+                        {
+                            db.Entry(category).State = System.Data.Entity.EntityState.Modified;
+                        }
+                        db.SaveChanges();
+                    }
+                    action = true;
+                }
+            }
+            
+            return Json(action, JsonRequestBehavior.AllowGet);
         }
         public JsonResult _AddorUpdateEvaluationCategory(Evaluation evaluation)
         {

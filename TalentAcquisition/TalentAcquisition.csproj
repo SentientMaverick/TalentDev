@@ -177,6 +177,7 @@
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\EvaluationCategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndustryController.cs" />
     <Compile Include="Controllers\JobController.cs" />
@@ -727,6 +728,13 @@
     <Content Include="Views\Shared\EvaluationView.cshtml" />
     <Content Include="Views\Onboarding\_GetAllActivitiesForTemplate.cshtml" />
     <Content Include="Views\Onboarding\_CreateActivityViewModel.cshtml" />
+    <Content Include="Views\Application\_GetEvaluationCategories.cshtml" />
+    <Content Include="Views\Application\_NewEvaluationCategory.cshtml" />
+    <Content Include="Views\EvaluationCategories\Create.cshtml" />
+    <Content Include="Views\EvaluationCategories\Delete.cshtml" />
+    <Content Include="Views\EvaluationCategories\Details.cshtml" />
+    <Content Include="Views\EvaluationCategories\Edit.cshtml" />
+    <Content Include="Views\EvaluationCategories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

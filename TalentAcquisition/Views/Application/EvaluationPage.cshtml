@@ -1,19 +1,56 @@
 ﻿
 @{
     ViewBag.Title = "Interview Evaluation Page";
+    var intv = ViewBag.interviewid;
     //int _applicantid = (int)ViewBag.jobseekerid;
     //int _interviewid = (int)ViewBag.interviewid;
 }
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
     $("#advance").prop("disabled", true);
+</script>
+<script type="text/javascript">
+    @*var intvID=@ViewBag.interviewid;
+    var insertcategory=@Url.Action("_NewEvaluationCategory", "Application");*@
+    var intvID = @intv;
+    var insertcategory = "/Application/_NewEvaluationCategory";
+    var count = $("tr#evaluation").length;
+    var newcategoryid = count;
     $(function () {
-        $('.panel-heading a').on('click', function (e) {
-            if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
-                e.preventDefault();
-            }
+        $("a#addcategory").on("click", function () { 
+            newcategoryid += 1;
+            //alert(newcategoryid);
+            var url = insertcategory + "?id=" + newcategoryid + "&interviewid=" + intvID;
+            $.get(url, {}, function (response) {
+                alert(response);
+                $("#categorylist").append(response);
+            });
         });
-        $('#closeinterview').on('click', function () {
-            $("#advance").click();
+
+        var form = $("#form");
+        $("#submitcategory").click(function () {
+            form.submit(); 
+          });
+        form.submit(function(e) {
+            e.preventDefault();         
+            alert("Submitting....");
+            $.ajax(
+                    {
+                        type: "POST",
+                        url: form.attr("action"),
+                        data: form.serialize(),
+                        success: function (response) {
+                            if(response){
+                                alert("Changes Made Successfully");
+                            }
+                            else{
+                                alert("Unsucessful");
+                            }
+                        },
+                        error: function (error) {
+                            alert('failed');
+                        }
+                 });
         });
     });
 </script>
@@ -38,8 +75,16 @@
         font-size: x-small;
     }
 </style>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<style>
+    #categorylist input, #categorylist select {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background-color: inherit;
+        padding: 0;
+        margin: 0;
+    }
+</style>
 <div class="container">
     <div style="padding-top:5em"></div>
     <div class="row" style="font-size:80%">
@@ -84,35 +129,33 @@
             <div class="panel panel-primary" style="margin-top:-1.7em;">
                 <div class="panel-heading">
                     Evaluation Categories
-                </div>
-                <table class="table table-striped">
-                    <tr>
-                        <th>Evaluation Code</th>
-                        <th>Evaluation Description</th>
-                        <th></th>
-                    </tr>
-                    
-                    @*@Html.Action("_GetEvaluationCategories", "Application", new { interviewid = ViewBag.interviewid })*@
-                    <tr>
-                        <td>
-                            <input type="text" value="" id="EvaluationCode"  name="EvaluationCode" class="form-control input-sm" />
-                        </td>
-                        <td>
-                            <input type="text" value="" id="EvaluationDescription" name="EvaluationDescription" class="form-control input-sm" />
-                        </td>
-                        <td><a href="javascript:void(0)"><img src="~/Assets/Icons/Delete.png" height="15" /></a></td>
-                    </tr>
-                </table>
+                </div>               
                 <div class="panel-body">
+                    <a id="addcategory" href="javascript:void(0)" class="pull-right" style="text-decoration:none"><img src="~/Assets/Icons/File-Plus.png"  height="20" />Add</a>
+                    <table class="table table-striped" style="font-size:80%">
+                       <thead>
+                           <tr>
+                               <th>ID</th>
+                               <th>Evaluation Code</th>
+                               <th>Evaluation Description</th>
+                               <th></th>
+                               <th></th>
+                           </tr>
+                       </thead>          
+                        @using (Html.BeginForm("_SubmitCategoriesForm", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
+                        {
+                                    @Html.AntiForgeryToken()
+                                    <tbody id="categorylist">
+                                        @Html.Action("_GetEvaluationCategories", "Application", new { interviewid = ViewBag.interviewid })
+                                    </tbody>        
+                                    <tr><td><input id="submitcategory" type="submit" value="Save" class="btn btn-primary btn-sm col-md" /></td></tr>
+                         }
+                    </table>
                 </div>
             </div>
     </div>
 </div>
-<script>
-    $(function () {
-
-    });
-</script>
+@*@Scripts.Render("~/bundles/jqueryval")*@
 @*<div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">

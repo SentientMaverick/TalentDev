@@ -107,8 +107,12 @@ namespace TalentAcquisition.Controllers
                 guide.Status = Status.Review;
                 db.WelcomeGuides.Add(guide);
                 db.SaveChanges();
+                var activities = db.CompletedActivities.Where(x => x.OnboardingTemplateID == guide.ID).ToList();
+                var guideactivities = OnboardingUtilityHelper.ConvertToGuideActivities(activities,guide.ID);
+                db.CompletedActivities.AddRange(guideactivities);
+                db.SaveChanges();
             }
-            return View();
+            return RedirectToAction("Guide/Customize/" + guide.Name + "/" + guide.ID, "Onboarding");
         }
         [Route("Onboarding/Guide/Customize/{applicant}/{id:int}")]
         public ActionResult EditGuide(int id)
@@ -257,6 +261,14 @@ namespace TalentAcquisition.Controllers
             var activitylist = new List<OnboardActivity>();
             activitylist = db.OnboardActivities.ToList();
             return PartialView(activitylist);
+        }
+        public ActionResult _GetAllActivitiesForGuide(int id)
+        {
+            var activities = new SelectedActivityViewModel();
+            var activitylist = new List<CompletedActivity>();
+            activitylist = db.CompletedActivities.Where(x => x.WelcomeGuideID == id).ToList();
+            activities.Activities.AddRange(OnboardingUtilityHelper.ConvertToActivityModelList(activitylist));
+            return PartialView("_GetAllActivitiesForTemplate", activities);
         }
         public JsonResult _NotifyApplicant(int id)
         {

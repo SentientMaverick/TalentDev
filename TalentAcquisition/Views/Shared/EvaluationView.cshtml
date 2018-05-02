@@ -1,8 +1,9 @@
 ﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.Evaluation
-   
+@using TalentAcquisition.BusinessLogic.UpdatedDomain;
  @Html.AntiForgeryToken()
 @Html.HiddenFor(model => model.InterviewEvaluationID)
 @Html.HiddenFor(model => model.ID)
+
 <table>
     <thead>
         <tr></tr>
@@ -10,11 +11,14 @@
     <tbody>
         <tr>
             <td>Evaluation Code</td>
-            <td><input type="text" id="EvaluationCode" name="EvaluationCode" required class="form-control input-sm" /></td>
+            <td>@Html.DropDownListFor(it => it.EvaluationCode, new SelectList(ViewBag.Categories, "EvaluationCode", "EvaluationCode", Model.EvaluationCode), htmlAttributes: new { @class = "form-control input-sm", id = "dcode" })</td>
+            @*<td><input type="text" id="EvaluationCode" name="EvaluationCode" required class="form-control input-sm" /></td>*@
         </tr>
         <tr>
+            @Html.HiddenFor(it => it.EvaluationDescription)
             <td>Evaluation Description</td>
-            <td><input type="text" required id="EvaluationDescription" name="EvaluationDescription" class="form-control input-sm" /></td>
+            <td><input type="text" id="deval"disabled required class="form-control input-sm" /></td>
+            @*<td>@Html.DropDownListFor(it => it.EvaluationDescription, new SelectList(ViewBag.Categories, "EvaluationDescription", "EvaluationDescription", Model.EvaluationDescription), htmlAttributes: new { @class = "form-control input-sm", id = "deval", })</td>*@
         </tr>
         <tr>
             <td>Stage 1 Score</td>
