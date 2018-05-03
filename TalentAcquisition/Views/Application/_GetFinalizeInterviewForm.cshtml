@@ -1,5 +1,6 @@
 ﻿@model TalentAcquisition.Core.Domain.Interview
 @using TalentAcquisition.Core.Domain;
+
 <link rel="stylesheet" href="~/Content/jquery.timepicker.css" type="text/css" />
 <div class="row">
     <div class="col-md-6">
@@ -13,9 +14,9 @@
         </div>
     </div>
     <div class="col-md-6">
-@using (Html.BeginForm("_SubmitInterviewSchedulingForm", "Application", FormMethod.Post, new { @class = "schform", @id = "schform" }))
-{
-    <style>
+    @using (Html.BeginForm("_SubmitInterviewSchedulingForm", "Application", FormMethod.Post, new { @class = "schform", @id = "schform" }))
+    {
+        <style>
         /*textarea{
             
             width:70%;
@@ -34,60 +35,51 @@
         <div class="form-group hidden">
             @Html.DisplayFor(model => model.InterviewID)
         </div>
-       
         <div class="form-group">
             <div class="col-sm-12">
                 <label class="col-sm-5">Venue</label>
                 <div class="col-sm-7">
-                    <input type="text" value="@Model.ScheduledDate" data-date-format="DD-MM-YYYY" id="Date" name="Date" class="form-control" />
+                    <input type="text" value="" required id="Venue" name="Venue" class="form-control" />
                 </div>
             </div>
         </div>
         <div class="form-group">
-<<<<<<< HEAD
-            <label>Chosen Date For Interview</label>
-            <div class="col-md-8">
-                <input type="text"  value="@(((DateTime)Model.ScheduledDate).ToShortDateString())" data-date-format="DD-MM-YYYY" id="Date" name="Date" class="form-control"/>
-=======
             <div class="col-sm-12">
                 <label class="col-sm-5">Chosen Date</label>
                 <div class="col-sm-7">
-                    <input type="text" value="@Model.ScheduledDate" data-date-format="DD-MM-YYYY" id="Date" name="Date" class="form-control" />
+                    <input type="text" value="@Model.ScheduledDate" data-date-format="DD-MM-YYYY" id="ScheduledDate" name="ScheduledDate" class="form-control" />
                 </div>
->>>>>>> pr/2
             </div>
         </div>
-            <div class="form-group">
+        <div class="form-group">
                 <div class="col-sm-12">
                     <label class="col-sm-5">Scheduled Time</label>
                     <div class="col-sm-7">
                         <input type="text" value="" id="Time" name="Time" class="form-control" />
                     </div>
                 </div>
-            </div>
-        <div class="form-group">
-            
-            <div class="col-sm-12">
-                @*@Html.Label("Final Details", htmlAttributes: new { @class = "control-label col-md-4" })*@
-                <label class="col-sm-5">Additional Details</label>
-                <div class="col-sm-7">
-                    <textarea name="SchedulingFinalNote" id="SchedulingFinalNote" rows="4" class="form-control" value="" placeholder="">@Model.SchedulingFinalNote</textarea>
-                    @Html.ValidationMessage("FinalInformation", "", new { @class = "text-danger" })
-                </div>
-                </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <label class="col-sm-5"></label>
-                <div class="col-sm-7">
-                    <input type="submit" value="Send Invitation" class="btn btn-success" />
+            <div class="form-group">
+                <div class="col-sm-12">
+                    @*@Html.Label("Final Details", htmlAttributes: new { @class = "control-label col-md-4" })*@
+                    <label class="col-sm-5">Additional Details</label>
+                    <div class="col-sm-7">
+                        <textarea name="SchedulingFinalNote" id="SchedulingFinalNote" rows="4" class="form-control" value="" placeholder="">@Model.SchedulingFinalNote</textarea>
+                        @Html.ValidationMessage("FinalInformation", "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label class="col-sm-5"></label>
+                    <div class="col-sm-7">
+                        <input type="submit" value="Send Invitation" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-
-}
-    </div>
+    }
+</div>
 </div>
 @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.timepicker.min.js" type="text/javascript"></script>
