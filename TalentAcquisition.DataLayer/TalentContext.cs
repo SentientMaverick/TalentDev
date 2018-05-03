@@ -86,6 +86,7 @@ namespace TalentAcquisition.DataLayer
         public DbSet<OnboardActivity> OnboardActivities { get; set; }
         public DbSet<CompletedActivity> CompletedActivities { get; set; }
         public DbSet<EvaluationCategory> EvaluationCategories { get; set; }
+        public DbSet<ApplicantEvaluationMetrics> ApplicantEvaluationMetrics { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.ActivityViewModel> ActivityViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.RegisterViewModel> RegisterViewModels { get; set; }
 

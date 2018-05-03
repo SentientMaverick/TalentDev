@@ -10,6 +10,7 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
     {
         public int ID { get; set; }
         public int InterviewID { get; set; }
+        public int? OfficePositionID { get; set; }
         [Required]
         [Display(Name = "Evaluation Code")]
         public string EvaluationCode { get; set; }
@@ -18,5 +19,6 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
         public string EvaluationDescription { get; set; }
         public bool Deleted { get; set; }
         public virtual Core.Domain.Interview Interview { get; set; }
+        public virtual Core.Domain.OfficePosition OfficePosition { get; set; }
     }
 }

@@ -735,6 +735,8 @@
     <Content Include="Views\EvaluationCategories\Details.cshtml" />
     <Content Include="Views\EvaluationCategories\Edit.cshtml" />
     <Content Include="Views\EvaluationCategories\Index.cshtml" />
+    <Content Include="Views\Role\_GetApplicantMetrics.cshtml" />
+    <Content Include="Views\Role\_NewApplicantMetric.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

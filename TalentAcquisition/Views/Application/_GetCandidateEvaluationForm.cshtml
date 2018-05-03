@@ -115,80 +115,117 @@
         </div>
     </div>
     <div class="container" style="margin-top:-4.5em">
-        <div class="col-lg-push-2 col-lg-10 col-md-12">
-        @using (Html.BeginForm("_submitcandidateevaluationform","Application",FormMethod.Post))
-                    {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model=>model.EmployeeID)
-            @Html.HiddenFor(model => model.EvaluationNo)
-            @Html.HiddenFor(model => model.InterviewID)
-            @Html.HiddenFor(model => model.StageID)
-            @Html.HiddenFor(model => model.Score1)
-            @Html.HiddenFor(model => model.Score2)
-            @Html.HiddenFor(model => model.Score3)
-            <div class="container">
-                <div style="padding-top:5em"></div>
-                <span>@ViewBag.Message</span>
+        <div class="row">
+            <div style="padding-top:5em"></div>
+            <div class="col-md-3">
                 <div class="row" style="font-size:80%">
-                        <style>
-                            select {
-                                padding: 0;
-                                margin: 0;
-                                width: 100%;
-                                min-width: 100%;
-                                font-size: 80%;
-                            }
-
-                            .form-group {
-                                padding-bottom: -1.0em;
-                                margin-bottom: 0.4em;
-                            }
-
-                            textarea {
-                                margin-top: -2em;
-                                padding-top: -2em;
-                            }
-
-                            input {
-                                margin: 0;
-                                padding: 0;
-                            }
-
-                            label {
-                                font-size: 90%;
-                            }
-                        </style>
+                    <div class="col-xs-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                Interview Evaluation Summary
+                                Applicant Profile
                             </div>
-                            <div class="panel-body" style="margin-bottom:-1.5em">
-                                <div class="form-horizontal">
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-6">
-                                            <div class="col-md-12">
-                                                @Html.HiddenFor(model=>model.ID)
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.EvaluationNo, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
-                                                        <input value="@Model.EvaluationNo" class="form-control input-sm" disabled />
-                                                        @*@Html.DisplayFor(model => model.EvaluationNo, new { htmlAttributes = new { @class = "form-control input-sm" } })*@
-                                                        @Html.ValidationMessageFor(model => model.EvaluationNo, "", new { @class = "text-danger" })
+                            <div class="panel-body">
+                                <div class="row body-content">
+                                    <div class="col-xs-4 container"><img src="~/Uploads/passport.png" width="150" class="pull-left" /></div>
+                                    <div class="col-xs-4 col-md-12">
+                                        <h5><b>Name: </b>Jide Kosoko</h5>
+                                        <h5><b>Age: </b>25</h5>
+                                        <h5><b>Highest Qualification: </b> B.Eng</h5>
+                                        <h5><b>Position Applied For: </b> Head  Of Automation </h5>
+                                        <h5><a href="~/Uploads/Resume.pdf" target="_blank"><img src="~/Assets/Icons/Books.png" height="15" /> Resume</a></h5>
+                                    </div>   
+                                    <div class="col-xs-4 col-md-12">
+                                        <h5><b>Skills</b></h5>
+                                    </div>   
+                                    <div class="col-xs-6 col-md-12">
+                                        <h5><b>Qualifications</b></h5>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </div>  
+                                    <div class="col-xs-6 col-md-12">
+                                        <h5><b>Work Experience</b></h5>
+                                    </div>                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                @using (Html.BeginForm("_submitcandidateevaluationform", "Application", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.EmployeeID)
+                    @Html.HiddenFor(model => model.EvaluationNo)
+                    @Html.HiddenFor(model => model.InterviewID)
+                    @Html.HiddenFor(model => model.StageID)
+                    @Html.HiddenFor(model => model.Score1)
+                    @Html.HiddenFor(model => model.Score2)
+                    @Html.HiddenFor(model => model.Score3)
+                    <div class="container">
+                        
+                        <span>@ViewBag.Message</span>
+                        <div class="row" style="font-size:80%">
+                            <style>
+                                select {
+                                    padding: 0;
+                                    margin: 0;
+                                    width: 100%;
+                                    min-width: 100%;
+                                    font-size: 80%;
+                                }
+
+                                .form-group {
+                                    padding-bottom: -1.0em;
+                                    margin-bottom: 0.4em;
+                                }
+
+                                textarea {
+                                    margin-top: -2em;
+                                    padding-top: -2em;
+                                }
+
+                                input {
+                                    margin: 0;
+                                    padding: 0;
+                                }
+
+                                label {
+                                    font-size: 90%;
+                                }
+                            </style>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Interview Evaluation Summary
+                                </div>
+                                <div class="panel-body" style="margin-bottom:-1.5em">
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-6">
+                                                <div class="col-md-12">
+                                                    @Html.HiddenFor(model => model.ID)
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.EvaluationNo, htmlAttributes: new { @class = "col-md-3" })
+                                                        <div class="col-md-8">
+                                                            <input value="@Model.EvaluationNo" class="form-control input-sm" disabled />
+                                                            @*@Html.DisplayFor(model => model.EvaluationNo, new { htmlAttributes = new { @class = "form-control input-sm" } })*@
+                                                            @Html.ValidationMessageFor(model => model.EvaluationNo, "", new { @class = "text-danger" })
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.InterviewID, htmlAttributes: new { @class = "col-md-3" })
-                                                    <div class="col-md-8">
-                                                        <input value="@Model.InterviewID" class="form-control input-sm" disabled/>
-                                                        @*@Html.DisplayFor(model => model.InterviewID, new { htmlAttributes = new { @class = "form-control input-sm disabled" } })*@
-                                                        @Html.ValidationMessageFor(model => model.InterviewID, "", new { @class = "text-danger" })
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.InterviewID, htmlAttributes: new { @class = "col-md-3" })
+                                                        <div class="col-md-8">
+                                                            <input value="@Model.InterviewID" class="form-control input-sm" disabled />
+                                                            @*@Html.DisplayFor(model => model.InterviewID, new { htmlAttributes = new { @class = "form-control input-sm disabled" } })*@
+                                                            @Html.ValidationMessageFor(model => model.InterviewID, "", new { @class = "text-danger" })
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            @*<div class="col-md-12">
+                                                @*<div class="col-md-12">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "col-md-3" })
                                                     <div class="col-md-8">
@@ -206,44 +243,43 @@
                                                     </div>
                                                 </div>
                                             </div>*@
-                                            @if (Model.StageID < 2)
-                                            {
-                                                <div class="col-md-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(model => model.RecommendForStage2, htmlAttributes: new { @class = "col-md-9" })
-                                                        <div class="col-md-2">
-                                                            @Html.CheckBoxFor(model => model.RecommendForStage2, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                                            @Html.ValidationMessageFor(model => model.RecommendForStage2, "", new { @class = "text-danger" })
+                                                @if (Model.StageID < 2)
+                                                {
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.RecommendForStage2, htmlAttributes: new { @class = "control-label" })
+                                                            <div style="display:inline-block">
+                                                                @Html.CheckBoxFor(model => model.RecommendForStage2, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.RecommendForStage2, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            }
-                                            @if (Model.StageID < 3)
-                                            {
-                                                <div class="col-md-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(model => model.RecommendForStage3, htmlAttributes: new { @class = "col-md-9" })
-                                                        <div class="col-md-2">
-                                                            @Html.CheckBoxFor(model => model.RecommendForStage3, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                                            @Html.ValidationMessageFor(model => model.RecommendForStage3, "", new { @class = "text-danger" })
+                                                }
+                                                @if (Model.StageID < 3)
+                                                {
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.RecommendForStage3, htmlAttributes: new { @class = "control-label" })
+                                                            <div style="display:inline-block">
+                                                                @Html.CheckBoxFor(model => model.RecommendForStage3, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.RecommendForStage3, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            }           
-                                            <div class="col-md-12 col-xs-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.RecommendForHire, htmlAttributes: new { @class = "col-md-6" })
-                                                    <div class="col-md-3">
-                                                        <p>
-                                                            Yes @Html.RadioButtonFor(model => model.RecommendForHire, true, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                                            <span class="pull-right">No @Html.RadioButtonFor(model => model.RecommendForHire, false, new { htmlAttributes = new { @class = "form-control input-sm" } })</span>
-                                                        </p>
+                                                }
+                                                <div class="col-md-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        @*<p><span class="control-label">Recommend For Hire</span></p>*@
+                                                        <label class="control-label">Recommend For Hire</label>
+                                                          <div style="display:inline-block">
+                                                                Yes @Html.RadioButtonFor(model => model.RecommendForHire, true, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                <span class="pull-right">   No @Html.RadioButtonFor(model => model.RecommendForHire, false, new { htmlAttributes = new { @class = "form-control input-sm" } })</span>
+                                                            </div>
                                                             @*@Html.CheckBoxFor(model => model.RecommendForHire, new { htmlAttributes = new { @class = "form-control input-sm" } })*@
-                                                        @Html.ValidationMessageFor(model => model.RecommendForHire, "", new { @class = "text-danger" })
-                                                    </div>
+                                                            @Html.ValidationMessageFor(model => model.RecommendForHire, "", new { @class = "text-danger" })
+                                                        </div>
                                                 </div>
-                                            </div> 
-                                            @*<div class="col-md-6 col-xs-6">
+                                                @*<div class="col-md-6 col-xs-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.JobAcceptance, htmlAttributes: new { @class = "col-md-6" })
                                                     <div class="col-md-6">
@@ -252,46 +288,46 @@
                                                     </div>
                                                 </div>
                                             </div>*@
-                                        </div>
-                                        <div class="col-md-12 col-lg-6">
-                                            <div class="">
-                                                <style>
-                                                    input[type=radio] {
-                                                        margin: 0px !important;
-                                                        padding: 0px !important;
-                                                    }
+                                            </div>
+                                            <div class="col-md-12 col-lg-6">
+                                                <div class="">
+                                                    <style>
+                                                        input[type=radio] {
+                                                            margin: 0px !important;
+                                                            padding: 0px !important;
+                                                        }
 
-                                                    span {
-                                                        margin: 0px !important;
-                                                        padding: 0px !important;
-                                                    }
-                                                </style>
-                                                <div class="col-md-12">
-                                                    <ul class="nav nav-tabs">
-                                                        <li class="active"><a data-toggle="tab" href="#home">Strength</a></li>
-                                                        <li><a data-toggle="tab" href="#menu1">Weakness</a></li>
-                                                    </ul>
-                                                    <div class="tab-content">
-                                                        <div id="home" class="tab-pane fade in active">
-                                                            <br />
-                                                            <textarea class="form-control" id="Strength" name="Strength" rows="5" cols="40"></textarea>
-                                                        </div>
-                                                        <div id="menu1" class="tab-pane fade">
-                                                            <br />
-                                                            <textarea class="form-control" id="Weakness" name="Weakness" rows="5" cols="40"></textarea>
+                                                        span {
+                                                            margin: 0px !important;
+                                                            padding: 0px !important;
+                                                        }
+                                                    </style>
+                                                    <div class="col-md-12">
+                                                        <ul class="nav nav-tabs">
+                                                            <li class="active"><a data-toggle="tab" href="#home">Strength</a></li>
+                                                            <li><a data-toggle="tab" href="#menu1">Weakness</a></li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div id="home" class="tab-pane fade in active">
+                                                                <br />
+                                                                <textarea class="form-control" id="Strength" name="Strength" rows="5" cols="40"></textarea>
+                                                            </div>
+                                                            <div id="menu1" class="tab-pane fade">
+                                                                <br />
+                                                                <textarea class="form-control" id="Weakness" name="Weakness" rows="5" cols="40"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                @*<div class="col-md-12">
+                                                    @*<div class="col-md-12">
                                                     <h6>
                                                         Based on your Assesment of this candidate, do you think that this candidate should be offered a Job?
                                                     </h6>
                                                     <h5 class=""> Yes <input type="radio" value="true" name="Recommendation" id="Recommendation" /><span> No <input type="radio" value="false" name="Recommendation" id="Recommendation" /></span></h5>
                                                 </div>*@
-                                                <br/>
-                                            </div>
-                                            <div class="row">
-                                                @*<div class="col-xs-12">
+                                                    <br />
+                                                </div>
+                                                <div class="row">
+                                                    @*<div class="col-xs-12">
                                                     <div class="col-md-6 col-xs-6">
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.Score1, htmlAttributes: new { @class = "col-md-5" })
@@ -321,31 +357,32 @@
                                                     </div>
 
                                                 </div>*@
-                                            </div>         
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary" style="margin-top:-1.7em;">
+                                <div class="panel-heading">
+                                    Evaluation Areas
+                                </div>
+                                <div class="panel-body">
+                                    <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                                    <div id="evaluations">
+                                        @Html.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID })
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-primary" style="margin-top:-1.7em;">
-                            <div class="panel-heading">
-                                Evaluation Areas
-                            </div>
-                            <div class="panel-body">
-                                <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
-                                <div id="evaluations">
-                                    @Html.Action("_GetEvaluations", "Application", new { id = Model.ID,stageid=Model.StageID })
-                                </div>             
-                            </div>
+                        <div class="row col-xs-12" style="margin-left:-2em">
+                            <input type="submit" value="Save" class="btn btn-default btn-primary col-md-4 col-xs-12" />
                         </div>
-                </div>
-                <div class="row col-xs-12" style="margin-left:-2em">
-                    <input type="submit" value="Save" class="btn btn-default btn-primary col-md-4 col-xs-12" />
-                </div>                
+                    </div>
+                }
             </div>
-            }
-            </div>
+        </div>     
     </div>
 </section>
 <div id="blackview" class="hide">
@@ -438,6 +475,14 @@
                 }
                 else{
                     $("#RecommendForStage3").attr("disabled",false);
+                }
+            });
+            $("#RecommendForStage3").change(function() {
+                if(this.checked) {
+                    $("#RecommendForStage2").attr("disabled",true);
+                }
+                else{
+                    $("#RecommendForStage2").attr("disabled",false);
                 }
             });
             $("a#additem").on("click", function () {

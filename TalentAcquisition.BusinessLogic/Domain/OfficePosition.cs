@@ -50,6 +50,7 @@ namespace TalentAcquisition.Core.Domain
         public virtual ICollection<Employee> Employees { get; set; }
         //public ICollection<JobQualification> Qualifications { get; set; }
         public virtual ICollection<JobRequirement> JobRequirements { get; set; }
+        public virtual ICollection<ApplicantEvaluationMetrics> ApplicantMetrics { get; set; }
         public virtual Department Department { get; set; }
         public virtual Industry Industry { get; set; }
     }

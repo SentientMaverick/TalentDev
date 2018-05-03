@@ -173,6 +173,33 @@
                                 @Html.Action("_GetRequirementsForEditing",new {requirements= (List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>)ViewBag.SelectedRequirements })
                             </div>
                         </div>
+                        <div class="panel panel-primary" style="margin-top:-1.7em;">
+                            <div class="panel-heading">
+                                Applicant Evaluation Metrics
+                            </div>
+                            <div class="panel-body">
+                                <a id="addappmetric" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                                @Html.Action("_GetApplicantMetrics", new {jobid=Model.OfficePositionID })
+                            </div>
+                        </div>
+                        <div class="panel panel-primary" style="margin-top:-1.7em;">
+                            <div class="panel-heading">
+                                Probation Evaluation Metrics
+                            </div>
+                            <div class="panel-body">
+                                <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                                @*@Html.Action("_GetRequirementsForEditing", new { requirements = (List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>)ViewBag.SelectedRequirements })*@
+                            </div>
+                        </div>
+                        <div class="panel panel-primary" style="margin-top:-1.7em;">
+                            <div class="panel-heading">
+                                Job Evaluation Metrics
+                            </div>
+                            <div class="panel-body">
+                                <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                                @*@Html.Action("_GetRequirementsForEditing", new { requirements = (List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>)ViewBag.SelectedRequirements })*@
+                            </div>
+                        </div>
                     </form>
                 </div>
 

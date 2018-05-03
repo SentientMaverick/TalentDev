@@ -1,0 +1,91 @@
+﻿@model List<TalentAcquisition.BusinessLogic.UpdatedDomain.ApplicantEvaluationMetrics>
+ @{
+     int AJobID = ViewBag.JobID;
+  }
+<style>
+    #appmetricslist input, #appmetricslist select {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background-color: inherit;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+@*<a id="addcategory" href="javascript:void(0)" class="pull-right" style="text-decoration:none"><img src="~/Assets/Icons/File-Plus.png" height="20" />Add</a>*@
+<script type="text/javascript">
+    @*var intvID=@ViewBag.interviewid;
+    var insertcategory=@Url.Action("_NewEvaluationCategory", "Application");*@
+    var jobID = @AJobID;
+    var insertcategory = "/Role/_NewApplicantMetric";
+    var count = $("tr#appmetric").length;
+    var newcategoryid = count;
+    $(function () {
+        $("a#addappmetric").on("click", function () {
+            newcategoryid += 1;
+            alert(newcategoryid);
+            var url = insertcategory + "?id=" + newcategoryid + "&jobid=" + jobID;
+            $.get(url, {}, function (response) {
+                alert(response);
+                $("#appmetricslist").append(response);
+            });
+        });
+      });
+</script>
+<table class="table table-striped" style="font-size:90%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Evaluation Code</th>
+            <th>Evaluation Description</th>
+            <th>Max Score</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    @*@using (Html.BeginForm("_SubmitCategoriesForm", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
+    {
+        @Html.AntiForgeryToken()*@
+        <tbody id="appmetricslist">
+            @if (Model != null)
+            {
+                for (var i = 0; i < Model.Count(); i++)
+                {
+                    int c = i + 1;
+                    <tr class="appmetric">
+                        @Html.HiddenFor(it => it[i].ID)
+                        <td>@c</td>
+                        <td>@Html.EditorFor(it => it[i].EvaluationCode, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+                        <td>@Html.EditorFor(it => it[i].EvaluationDescription, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+                        <td>@Html.EditorFor(it => it[i].MaximumScore, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
+                        <td>@Html.HiddenFor(it => it[i].OfficePositionID)</td>
+                        <td><a id="deleteappmetric" href="javascript:void(0)"><img src="~/Assets/Icons/Delete.png" height="15" /></a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+       @*}*@
+</table>
+
+
+<script>
+    var deleteurl="/Role/_DeleteApplicantMetric";
+     $(function () {
+         $("a#deleteappmetric").on("click", function () {
+             var row= $(this).closest('tr');
+             var id= row.find("td:eq(0)").html().trim();
+             alert(id);
+             var url=deleteurl+"?id="+id;
+             if(id==0)
+             {
+                     $(this).hide('slow').closest('tr').remove();
+             }
+             else{
+                 $.get(url,{},function(){
+                     $(this).hide('slow').closest('tr').remove();
+                 });
+             }
+             //alert("item removed");
+         });
+     });
+</script> 

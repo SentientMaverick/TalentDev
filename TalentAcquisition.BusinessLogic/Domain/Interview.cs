@@ -21,6 +21,7 @@ namespace TalentAcquisition.Core.Domain
         public DateTime ProposedDate1 { get; set; }
         public DateTime ProposedDate2 { get; set; }
         public DateTime? ScheduledDate { get; set; }
+        public string Venue { get; set; }
         public virtual InterviewDetail InterviewDetails {get;set;}
         public virtual ICollection<Employee> TeamMembers { get; set; }
         public virtual ICollection<InterviewEvaluation> InterviewEvaluations { get; set; }
