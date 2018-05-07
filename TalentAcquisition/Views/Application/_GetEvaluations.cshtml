@@ -1,62 +1,77 @@
-﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.Evaluation>
+﻿@model List<TalentAcquisition.BusinessLogic.UpdatedDomain.Evaluation>
 @{
     int stage = (int)ViewBag.stageid;
 }
+<style>
+    #evaluationlist input, #evaluationlist select {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background-color: inherit;
+        padding: 0;
+        margin: 0;
+    }
+</style>
 <table class="table table-striped">
     <tr class="">
         <th>
-            @Html.DisplayNameFor(model => model.EvaluationCode)
+           EvaluationCode
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EvaluationDescription)
+            Evaluation Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Score1)
+            Stage 1 Score
         </th>
         <th>
             @if (stage >= 2)
             {
-                @Html.DisplayNameFor(model => model.Score2)
+              <p>Stage 2 Score</p>
             }     
         </th>
         <th>
             @if (stage == 3)
             {
-                @Html.DisplayNameFor(model => model.Score3)
+                <p>Stage 3 Score</p>
             }      
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+   @for (var i = 0; i < Model.Count(); i++)
+    {
+@*@foreach (var item in Model) {*@
+    <tr id="evaluationlist">
         <td class="hidden">
-        @Html.DisplayFor(modelItem=>item.ID)
+        @Html.DisplayFor(it => it[i].ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EvaluationCode)
+            @Html.DisplayFor(it => it[i].EvaluationCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EvaluationDescription)
+            @Html.DisplayFor(it => it[i].EvaluationDescription)
         </td>
+        <td class="hidden">@Html.HiddenFor(it => it[i].EvaluationCode)</td>
+        <td class="hidden">@Html.HiddenFor(it => it[i].EvaluationDescription)</td>
+        <td class="hidden">@Html.HiddenFor(it => it[i].InterviewEvaluationID)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.Score1)
+            @Html.EditorFor(it => it[i].Score1, new { htmlAttributes = new { @class = "form-control input-sm col-md-4" } })
         </td>
         @if (stage >= 2)
         {
             <td>
-                @Html.DisplayFor(modelItem => item.Score2)
+                @Html.EditorFor(it => it[i].Score2)
             </td>
             if (stage == 3)
             {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Score3)
+                    @Html.EditorFor(it => it[i].Score3)
                 </td>
             }
         }
-        <td>
+        @*<td>
             <a href="javascript:void(0)" id="deleteitem">Delete</a>
-        </td>
+        </td>*@
     </tr>
 }
 

@@ -12,6 +12,7 @@ using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
 using Talent.HRM.Services.Interfaces;
 using Talent.HRM.Services.Email;
+using TalentAcquisition.Models.ViewModel;
 
 namespace TalentAcquisition.Controllers
 {
@@ -118,7 +119,8 @@ namespace TalentAcquisition.Controllers
             }
             interview.JobApplicationID = applicationid;
             interview.JobRequisitionID = requisitionid;
-            interview.OfficePositionID = db.JobApplications.Where(o => o.JobRequisitionID == interview.JobRequisitionID).FirstOrDefault().JobApplicationID;
+            //interview.OfficePositionID = db.JobApplications.Where(o => o.JobRequisitionID == interview.JobRequisitionID).FirstOrDefault().JobApplicationID;
+            interview.OfficePositionID = db.JobRequisitions.Where(o => o.JobRequisitionID == interview.JobRequisitionID).FirstOrDefault().OfficePositionID;
             db.SaveChanges();
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;
@@ -293,6 +295,8 @@ namespace TalentAcquisition.Controllers
             using (var db = new TalentContext())
             {
                 var categories = db.EvaluationCategories.Where(x => x.InterviewID == interviewid).ToList();
+                var officeid = db.Interviews.Where(x => x.InterviewID == interviewid).First().OfficePositionID;
+                ViewBag.OfficeID = officeid;
                 var dictionary = new Dictionary<string, string>();
                 foreach (var item in categories)
                 {
@@ -317,12 +321,20 @@ namespace TalentAcquisition.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _SubmitCandidateEvaluationForm(InterviewEvaluation interviewevaluation)
+        public ActionResult _SubmitCandidateEvaluationForm(InterviewEvaluation interviewevaluation, List<Evaluation> evaluations)
         {
             if (ModelState.IsValid)
             {
                 using (var db = new TalentContext())
                 {
+                    foreach(var evaluation in evaluations)
+                    {
+                        if (evaluation.ID == 0)
+                        {
+                            db.Evaluations.Add(evaluation);
+                            db.SaveChanges();
+                        }
+                    }
                     // interviewevaluation.EvaluationNo = "TR" + String.Format("{0:D6}", interviewid + db.InterviewEvaluations.Where(x => x.InterviewID == interviewevaluation.InterviewID).Count());
                     if (interviewevaluation.ID == 0)
                     {
@@ -347,9 +359,20 @@ namespace TalentAcquisition.Controllers
             using (var db = new TalentContext())
             {
                 var allevaluations = db.InterviewEvaluations.Include("Employee").Where(x => x.InterviewID == interviewid).ToList();
+                var evalscores= db.Evaluations.Include("InterviewEvaluation").Where(x => x.InterviewEvaluation.InterviewID == interviewid);
                 if (allevaluations.Any())
                 {
+                    foreach (var score in allevaluations)
+                    {
+                        var ev = evalscores.Where(x => x.InterviewEvaluationID == score.ID);
+                        if(ev.Count()>0)
+                        {
+                            score.Score1 = (decimal)ev.Average(x => x.Score1);
+                        }
+                        
+                    }
                     interviewevaluations.AddRange(allevaluations);
+                    
                 }
                 //interviewevaluations.Add(new InterviewEvaluation()
                 //{
@@ -362,15 +385,50 @@ namespace TalentAcquisition.Controllers
             }
             return PartialView(interviewevaluations);
         }
-        public ActionResult _GetEvaluations(int id,int stageid)
+        public ActionResult _GetEvaluations(int id,int stageid,int officeid)
         {
             ViewBag.stageid = stageid;
+            var applicantmetrics = db.ApplicantEvaluationMetrics.Where(x => x.OfficePositionID == officeid);
+            ViewBag.ApplicantMetrics = applicantmetrics;
             var evaluations = new List<Evaluation>();
             using (var db = new TalentContext())
             {
-                evaluations = db.Evaluations.Where(x => x.InterviewEvaluationID == id).ToList();
+               var evaluationss = db.Evaluations.Where(x => x.InterviewEvaluationID == id).ToList();
+                if (evaluationss.Count() != applicantmetrics.Count())
+                {
+                    foreach (var metric in applicantmetrics)
+                    {
+                        evaluations.Add(new Evaluation
+                        {
+                            EvaluationCode = metric.EvaluationCode,
+                            EvaluationDescription = metric.EvaluationDescription,
+                            InterviewEvaluationID = id
+                        });
+                    }
+
+                }
+                else
+                {
+                    evaluations = evaluationss;
+                }
             }
+            
+
             return PartialView(evaluations);
+        }
+        public ActionResult _GetApplicantInterviewView(int id, int officeid)
+        {
+            var model = new ApplicantEvalFormViewModel();
+
+            var applicationid = db.Interviews.Where(x => x.InterviewID == id).First().JobApplicationID;
+            var applicantid = db.JobApplications.Where(x => x.JobApplicationID == applicationid).First().JobSeekerID;
+            var applicant = db.Applicants.Include("Skills").Where(x => x.ID == applicantid).First();
+            model.Name = applicant.FullName;
+            model.Age = applicant.Age;
+            model.HighestQualification = applicant.HighestQualification.ToString();
+            model.skills = applicant.Skills.Select(x => x.Name).ToList();
+            model.PositionAppliedFor = db.JobRequisitions.Where(x => x.OfficePositionID == officeid).First().JobTitle;
+            return PartialView(model);
         }
         public ActionResult _NewEvaluation(int aid)
         {

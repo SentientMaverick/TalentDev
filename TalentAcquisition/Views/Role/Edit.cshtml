@@ -31,7 +31,7 @@
                     <div class="row">
                         <span class="alert-success">@ViewBag.Message</span>
                     </div>
-                    <form action="" method="post" id="editform">
+                    <form action="" method="post" id="editform" enctype="multipart/form-data">
                         <style>
                             select {
                                 padding: 0;
@@ -213,11 +213,41 @@
         $(document).ready(function()
         {
             $("#submitjob").on("click", function () {
-                $("#editform").submit();
+                var validated = ValidateForms();
+                if (validated) {
+                   // alert("Checking Form")
+                    $("#editform").submit();
+                }
+                else {
+                    alert("Please Fill All Fields Properly");
+                }
             });
+            var ValidateForms = function () {
+
+                return true;
+            }
+
             $("#reqjob").on("click", function () {
                 //$("#editform").attr('url').set();
                 $("#editform").submit();
+
+            });
+
+            $("#editform").submit(function () {
+                var form = $("#editform");
+                alert(form.serialize().toString());
+                $.ajax(
+                                {
+                                    type: "POST",
+                                    url: form.attr("action"),
+                                    data: form.serialize(),
+                                    success: function (response) {
+
+                                         },
+                                    error: function (error) {
+                                       // alert('failed');
+                                    }
+                                });
             });
             @*frm.submit(function (e) {
 

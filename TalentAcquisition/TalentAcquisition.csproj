@@ -201,6 +201,7 @@
     <Compile Include="Models\EntityManager\AppManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\ApplicantEvalFormViewModel.cs" />
     <Compile Include="Models\ViewModel\CheckModel.cs" />
     <Compile Include="Models\ViewModel\EmployeePortalView.cs" />
     <Compile Include="Models\ViewModel\AdminView .cs" />
@@ -737,6 +738,7 @@
     <Content Include="Views\EvaluationCategories\Index.cshtml" />
     <Content Include="Views\Role\_GetApplicantMetrics.cshtml" />
     <Content Include="Views\Role\_NewApplicantMetric.cshtml" />
+    <Content Include="Views\Application\_GetApplicantInterviewView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

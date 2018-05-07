@@ -233,7 +233,7 @@ namespace TalentAcquisition.Controllers
         [Route("Admin/Job/Edit/{id:int}")]
         [Route("Admin/manage_officeposition/Edit/{id}")]
         [HttpPost]
-        public ActionResult Edit(int id, OfficePosition position, IEnumerable<BusinessLogic.UpdatedDomain.JobRequirement> requirements, IEnumerable<BusinessLogic.UpdatedDomain.ApplicantEvaluationMetrics> applicantmetrics)
+        public ActionResult Edit(int id, OfficePosition position, IEnumerable<JobRequirement> requirements, IEnumerable<ApplicantEvaluationMetrics> applicantmetrics)
         {
             position.DateCreated = DateTime.Now;
             var dbposition = new OfficePosition();
@@ -253,29 +253,14 @@ namespace TalentAcquisition.Controllers
                 }
                 
             }
-            
-            if (applicantmetrics != null && applicantmetrics.Count() >= 0)
-            {
-                var validmetrics = applicantmetrics.Where(x=> x.MaximumScore != 0 && x.EvaluationCode!=null && x.EvaluationDescription!=null).ToList();
-                foreach (ApplicantEvaluationMetrics metrics in validmetrics)
-                {
-                        if (metrics.ID == 0)
-                        {
-                            db.ApplicantEvaluationMetrics.Add(metrics);
-                        }
-                        else
-                        {
-                        metrics.ID = 0;
-                        db.ApplicantEvaluationMetrics.Add(metrics);
-                        //db.Entry(metrics).State = System.Data.Entity.EntityState.Modified;
-                        }
-                        db.SaveChanges();
-                }
-            }
-            if (!ModelState.IsValid)
-            {
-                return View(position);
-            }
+            var status = UpdateApplicantMetrics(applicantmetrics);
+           
+            //if (!ModelState.IsValid)
+            //{
+            //    ModelState.AddModelError("Title", "Error");
+            //    return View(position);
+            //    ViewBag.ErrorMessage = "Error";
+            //}
             // try
             // {
             using (var db = new TalentContext())
@@ -283,40 +268,7 @@ namespace TalentAcquisition.Controllers
                 db.OfficePositions.Add(position);
                 db.Entry(position).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                if (requirements != null)
-                {
-                    List<BusinessLogic.UpdatedDomain.JobRequirement> selectedrequirements = requirements.Where(x => x.QualificationCode != null && x.QualificationType != null).ToList();
-
-                    foreach (var requirement in selectedrequirements)
-                    {
-                        if (requirement.ID == 0)
-                        {
-                            requirement.OfficePositionID = position.OfficePositionID;
-                            // requirement.OfficePosition = position; 
-                            db.JobRequirements.Add(requirement);
-                            //db.Entry(requirement).State = System.Data.Entity.EntityState.Added;
-                        }
-                        else
-                        {
-                            db.JobRequirements.Add(requirement);
-                            db.Entry(requirement).State = System.Data.Entity.EntityState.Modified;
-                        }
-                        db.SaveChanges();
-                    }
-                    var list = db.OfficePositions.Include("JobRequirements").Where(x => x.OfficePositionID == id)
-                        .FirstOrDefault().JobRequirements;
-                    var toberemoved = new List<BusinessLogic.UpdatedDomain.JobRequirement>();
-                    foreach (var item in list)
-                    {
-                        if (!selectedrequirements.Where(x => x.ID == item.ID).Any())
-                        {
-                            toberemoved.Add(item);
-                            //db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                    }
-                    db.JobRequirements.RemoveRange(toberemoved);
-                    db.SaveChanges();
-                }
+                var action = UpdateJobRequirements(requirements,position.OfficePositionID);
                 //db.SaveChanges();
                 //Insert Logic to prevent adding the same role title 2 or more times to a single department 
             }
@@ -421,6 +373,106 @@ namespace TalentAcquisition.Controllers
                 action = true;
             }
             return Json(action, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region HelperMethods
+        public bool UpdateApplicantMetrics(IEnumerable<ApplicantEvaluationMetrics> applicantmetrics)
+        {
+            bool status = false;
+            try
+            {
+                if (applicantmetrics != null && applicantmetrics.Count() >= 0)
+                {
+                    var validmetrics = applicantmetrics.Where(x => x.MaximumScore != 0 && x.EvaluationCode != null && x.EvaluationDescription != null).ToList();
+                    foreach (ApplicantEvaluationMetrics metrics in validmetrics)
+                    {
+                        if (metrics.ID == 0)
+                        {
+                            db.ApplicantEvaluationMetrics.Add(metrics);
+                        }
+                        else
+                        {        
+                            var met = db.ApplicantEvaluationMetrics.Find(metrics.ID);
+                            if (met == null)
+                            {
+                                var count = db.ApplicantEvaluationMetrics.Where(x => x.OfficePositionID == metrics.OfficePositionID && x.EvaluationCode == metrics.EvaluationCode).Count();
+                                if (count < 1)
+                                {
+                                    metrics.ID = 0;
+                                    db.ApplicantEvaluationMetrics.Add(metrics);
+                                }                  
+                            }
+                            else
+                            {
+                                //var count = db.ApplicantEvaluationMetrics.Where(x => x.OfficePositionID == metrics.ID && x.EvaluationCode == metrics.EvaluationCode).Count();
+                                //if (count < 1)
+                                //{
+                                //    db.ApplicantEvaluationMetrics.Add(metrics);
+                                //}  
+                                met.MaximumScore = metrics.MaximumScore;
+                                met.EvaluationCode = metrics.EvaluationCode;
+                                met.EvaluationDescription = metrics.EvaluationDescription;
+                                //db.ApplicantEvaluationMetrics.Add(metrics);
+                                db.Entry(met).State = System.Data.Entity.EntityState.Modified;
+                            }     
+                        }
+                        db.SaveChanges();
+                    }
+                    status = true;
+                }
+            }
+            catch
+            {
+                status = false;
+            }
+            return status;
+        }
+        public bool UpdateJobRequirements(IEnumerable<JobRequirement> requirements,int officepositionid)
+        {
+            bool status = false;
+            try
+            {
+                if (requirements != null)
+                {
+                    List<BusinessLogic.UpdatedDomain.JobRequirement> selectedrequirements = requirements.Where(x => x.QualificationCode != null && x.QualificationType != null).ToList();
+
+                    foreach (var requirement in selectedrequirements)
+                    {
+                        if (requirement.ID == 0)
+                        {
+                            requirement.OfficePositionID = officepositionid;
+                            // requirement.OfficePosition = position; 
+                            db.JobRequirements.Add(requirement);
+                            //db.Entry(requirement).State = System.Data.Entity.EntityState.Added;
+                        }
+                        else
+                        {
+                            db.JobRequirements.Add(requirement);
+                            db.Entry(requirement).State = System.Data.Entity.EntityState.Modified;
+                        }
+                        db.SaveChanges();
+                    }
+                    var list = db.OfficePositions.Include("JobRequirements").Where(x => x.OfficePositionID == officepositionid)
+                        .FirstOrDefault().JobRequirements;
+                    var toberemoved = new List<BusinessLogic.UpdatedDomain.JobRequirement>();
+                    foreach (var item in list)
+                    {
+                        if (!selectedrequirements.Where(x => x.ID == item.ID).Any())
+                        {
+                            toberemoved.Add(item);
+                            //db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                    }
+                    db.JobRequirements.RemoveRange(toberemoved);
+                    db.SaveChanges();
+                }
+                status = true;
+            }
+            catch
+            {
+                status = false;
+            }
+            return status;
         }
         #endregion
     }

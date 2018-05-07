@@ -125,35 +125,14 @@
                                 Applicant Profile
                             </div>
                             <div class="panel-body">
-                                <div class="row body-content">
-                                    <div class="col-xs-4 container"><img src="~/Uploads/passport.png" width="150" class="pull-left" /></div>
-                                    <div class="col-xs-4 col-md-12">
-                                        <h5><b>Name: </b>Jide Kosoko</h5>
-                                        <h5><b>Age: </b>25</h5>
-                                        <h5><b>Highest Qualification: </b> B.Eng</h5>
-                                        <h5><b>Position Applied For: </b> Head  Of Automation </h5>
-                                        <h5><a href="~/Uploads/Resume.pdf" target="_blank"><img src="~/Assets/Icons/Books.png" height="15" /> Resume</a></h5>
-                                    </div>   
-                                    <div class="col-xs-4 col-md-12">
-                                        <h5><b>Skills</b></h5>
-                                    </div>   
-                                    <div class="col-xs-6 col-md-12">
-                                        <h5><b>Qualifications</b></h5>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
-                                    </div>  
-                                    <div class="col-xs-6 col-md-12">
-                                        <h5><b>Work Experience</b></h5>
-                                    </div>                      
-                                </div>
+                                @Html.Action("_GetApplicantInterviewView", "Application",new {id=Model.InterviewID, officeid = ViewBag.OfficeID })
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
-                @using (Html.BeginForm("_submitcandidateevaluationform", "Application", FormMethod.Post))
+                @using (Html.BeginForm("_submitcandidateevaluationform", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(model => model.EmployeeID)
@@ -249,6 +228,8 @@
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.RecommendForStage2, htmlAttributes: new { @class = "control-label" })
                                                             <div style="display:inline-block">
+                                                                @*<input type="radio" name="RecommendForStage2" />
+                                                                <input type="radio" name="RecommendForStage2" />*@
                                                                 @Html.CheckBoxFor(model => model.RecommendForStage2, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                                 @Html.ValidationMessageFor(model => model.RecommendForStage2, "", new { @class = "text-danger" })
                                                             </div>
@@ -318,12 +299,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @*<div class="col-md-12">
-                                                    <h6>
+                                                    <div class="col-md-12">
+                                                    @*<h6>
                                                         Based on your Assesment of this candidate, do you think that this candidate should be offered a Job?
                                                     </h6>
-                                                    <h5 class=""> Yes <input type="radio" value="true" name="Recommendation" id="Recommendation" /><span> No <input type="radio" value="false" name="Recommendation" id="Recommendation" /></span></h5>
-                                                </div>*@
+                                                    <h5 class=""> Yes <input type="radio" value="true" name="Recommendation" id="Recommendation" /><span> No <input type="radio" value="false" name="Recommendation" id="Recommendation" /></span></h5>*@
+                                                </div>
                                                     <br />
                                                 </div>
                                                 <div class="row">
@@ -369,15 +350,15 @@
                                     Evaluation Areas
                                 </div>
                                 <div class="panel-body">
-                                    <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                                    @*<a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>*@
                                     <div id="evaluations">
-                                        @Html.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID })
+                                        @Html.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID,officeid=ViewBag.OfficeID })
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row col-xs-12" style="margin-left:-2em">
-                            <input type="submit" value="Save" class="btn btn-default btn-primary col-md-4 col-xs-12" />
+                            <input type="button" value="Save" class="btn btn-default btn-primary col-md-4 col-xs-12" id="submitjob" />
                         </div>
                     </div>
                 }
@@ -385,18 +366,18 @@
         </div>     
     </div>
 </section>
-<div id="blackview" class="hide">
+@*<div id="blackview" class="hide">
     <div class="modal-content">
         <div class="loader"></div>
     </div>
-</div>
-<div id="divEdit" style="display:none">
+</div>*@
+@*<div id="divEdit" style="display:none">
     @using (Html.BeginForm("_AddorUpdateEvaluation", "Application", FormMethod.Post,new { @class = "form", @id = "form" }))
     {
         @Html.Action("_NewEvaluation",new { aid=Model.InterviewID});
     }
 
-</div>
+</div>*@
 <style>
         #blackview {
         position: fixed; /* Stay in place */
@@ -413,28 +394,127 @@
 @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>*@
 @{
-    Dictionary<string,string> dict = ViewBag.Dictionary;
+  //  Dictionary<string,string> dict = ViewBag.Dictionary;
 }
 
 @section Scripts{
 <script type="text/javascript">
-    var  stageid=@Model.StageID;
-    var collection = @Html.Raw(Json.Encode(dict));
-    $(function () {
-        //alert(collection["PQ"]);
-        //$.each(collection, function (key, value) {
-        //   // console.log(key);
-        //   // console.log(value);
+    @*var  stageid=@Model.StageID;
+    var collection = @Html.Raw(Json.Encode(dict));*@
+    //alert(collection["PQ"]);
+    //$.each(collection, function (key, value) {
+    //   // console.log(key);
+    //   // console.log(value);
+    //});
+    //$("#dcode").change(function(){
+    //    //alert("valuechanged");
+    //    var newval= $(this).val();
+    //    //alert(collection[newval]);
+    //    $("#deval").val(collection[newval]);
+    //    $("#EvaluationDescription").val(collection[newval])
+    //});
 
-        //});
-        $("#dcode").change(function(){
-            //alert("valuechanged");
-            var newval= $(this).val();
-            //alert(collection[newval]);
-            $("#deval").val(collection[newval]);
-            $("#EvaluationDescription").val(collection[newval])
+    $(function () {
+        $("#submitjob").on("click", function () {
+            var validated = ValidateForms();
+            if (validated) {
+                var answer = confirm("Please Confirm your Applicant Recommendation!");
+                if (answer)
+                  $("#form").submit();
+            }
+            else {
+                alert("Please Fill All Fields Properly");
+            }
         });
-            var initDialog = function (type) {
+        var ValidateForms = function () {
+
+            return true;
+        }
+
+        $("#reqjob").on("click", function () {
+            //$("#editform").attr('url').set();
+            $("#form").submit();
+
+        });
+
+        $("#form").submit(function (e) {
+           // e.preventDefault();
+            var form = $("#form");
+            alert(form.serialize().toString());
+            $.ajax(
+                    {
+                         type: "post",
+                          url: form.attr("action"),
+                          data: form.serialize(),
+                          success: function (response) {
+
+                                },
+                                error: function (error) {
+                                    // alert('failed');
+                                }
+                            });
+        });
+
+            $("#RecommendForStage2").change(function() {
+                if(this.checked) {
+                    $("#RecommendForStage3").attr("disabled",true);
+                }
+                else{
+                    $("#RecommendForStage3").attr("disabled",false);
+                }
+            });
+
+            $("#RecommendForStage3").change(function() {
+                if(this.checked) {
+                    $("#RecommendForStage2").attr("disabled",true);
+                }
+                else{
+                    $("#RecommendForStage2").attr("disabled",false);
+                }
+            });
+
+
+        });
+    </script>
+}
+@*
+                //$("a#additem").on("click", function () {
+                //    initDialog("Add");
+                //    $("#divEdit").dialog("open");
+                //    return false;
+                //});
+
+                //$("a#deleteitem").on("click", function () {
+                //    var row = $(this).closest('tr');
+                //    var id = row.find("td:eq(0)").html().trim();
+                //    var answer = confirm("You are about to delete this Entry." + id + "Continue?");
+                //    if (answer)
+                //        DeleteEvaluation(id);
+                //        //alert(id);
+                //    return false;
+                //});
+    function DeleteEvaluation(eid) {
+            $.ajax(
+                            {
+                                type: "POST",
+                                url: "@(Url.Action("_DeleteEvaluation", "Application"))",
+                                data: {id:eid},
+                                success: function (response) {
+                                    $('#evaluations').load("@(Url.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID }))");
+                                },
+                                error: function (error) {
+                                    alert('failed');
+                                }
+                            });
+        }
+                //$("#EvaluationNo").attr("disabled", true);
+                //$("#EmployeeID").attr("disabled", true);
+                //$("#InterviewID").attr("disabled", true);
+                //$("#StageID").attr("disabled", true);
+
+*@
+
+@*var initDialog = function (type) {
                 var title = type;
                 $("#divEdit").dialog({
                     title: type + ' Evaluation',
@@ -468,55 +548,4 @@
             }
         }
     });
-            };
-            $("#RecommendForStage2").change(function() {
-                if(this.checked) {
-                    $("#RecommendForStage3").attr("disabled",true);
-                }
-                else{
-                    $("#RecommendForStage3").attr("disabled",false);
-                }
-            });
-            $("#RecommendForStage3").change(function() {
-                if(this.checked) {
-                    $("#RecommendForStage2").attr("disabled",true);
-                }
-                else{
-                    $("#RecommendForStage2").attr("disabled",false);
-                }
-            });
-            $("a#additem").on("click", function () {
-                initDialog("Add");
-                $("#divEdit").dialog("open");
-                return false;
-            });
-            $("a#deleteitem").on("click", function () {
-                var row = $(this).closest('tr');
-                var id = row.find("td:eq(0)").html().trim();
-                var answer = confirm("You are about to delete this Entry." + id + "Continue?");
-                if (answer)
-                    DeleteEvaluation(id);
-                    //alert(id);
-                return false;
-            });
-            function DeleteEvaluation(eid) {
-                $.ajax(
-                                {
-                                    type: "POST",
-                                    url: "@(Url.Action("_DeleteEvaluation", "Application"))",
-                                    data: {id:eid},
-                                    success: function (response) {
-                                        $('#evaluations').load("@(Url.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID }))");
-                                    },
-                                    error: function (error) {
-                                        alert('failed');
-                                    }
-                                });
-            }
-            //$("#EvaluationNo").attr("disabled", true);
-            //$("#EmployeeID").attr("disabled", true);
-            //$("#InterviewID").attr("disabled", true);
-            //$("#StageID").attr("disabled", true);
-        });
-    </script>
-}
+            };*@

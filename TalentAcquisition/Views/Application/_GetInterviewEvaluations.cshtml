@@ -4,6 +4,7 @@
 @{ 
     var approvedno= Model.Where(x => x.RecommendForHire == true).Count();
     var totalno = Model.Count();
+    
 }
 <script>
     var approvedno=@approvedno;

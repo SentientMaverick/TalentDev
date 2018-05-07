@@ -23,10 +23,10 @@
     $(function () {
         $("a#addappmetric").on("click", function () {
             newcategoryid += 1;
-            alert(newcategoryid);
+            //alert(newcategoryid);
             var url = insertcategory + "?id=" + newcategoryid + "&jobid=" + jobID;
             $.get(url, {}, function (response) {
-                alert(response);
+               // alert(response);
                 $("#appmetricslist").append(response);
             });
         });
@@ -53,13 +53,15 @@
                 {
                     int c = i + 1;
                     <tr class="appmetric">
-                        @Html.HiddenFor(it => it[i].ID)
+                        
                         <td>@c</td>
+                        <td class="hidden">@Html.DisplayFor(it=>it[i].ID)</td>
                         <td>@Html.EditorFor(it => it[i].EvaluationCode, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
                         <td>@Html.EditorFor(it => it[i].EvaluationDescription, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
                         <td>@Html.EditorFor(it => it[i].MaximumScore, new { htmlAttributes = new { @class = "form-control input-sm" } })</td>
                         <td>@Html.HiddenFor(it => it[i].OfficePositionID)</td>
                         <td><a id="deleteappmetric" href="javascript:void(0)"><img src="~/Assets/Icons/Delete.png" height="15" /></a></td>
+                        <td class="hidden">@Html.HiddenFor(it => it[i].ID)</td>
                     </tr>
                 }
             }
@@ -73,16 +75,16 @@
      $(function () {
          $("a#deleteappmetric").on("click", function () {
              var row= $(this).closest('tr');
-             var id= row.find("td:eq(0)").html().trim();
-             alert(id);
+             var id= row.find("td:eq(1)").html().trim();
+             //alert(id);
              var url=deleteurl+"?id="+id;
              if(id==0)
              {
                      $(this).hide('slow').closest('tr').remove();
              }
              else{
-                 $.get(url,{},function(){
-                     $(this).hide('slow').closest('tr').remove();
+                 $.get(url,{},function(response){
+                     row.hide('slow').closest('tr').remove();
                  });
              }
              //alert("item removed");
