@@ -123,6 +123,12 @@ namespace TalentAcquisition.Controllers
                 if(guide.First().WelcomeMessage==null && guide.First().TemplateID != null)
                 {
                     guide.First().WelcomeMessage = db.OnboardingTemplates.Find(guide.First().TemplateID).WelcomeMessage;
+                   
+                }
+                if (guide.First().CompletedActivities.Count() < 0)
+                {
+                    guide.First().CompletedActivities = OnboardingUtilityHelper.ConvertToGuideActivities(db.OnboardingTemplates.Find(guide.First().TemplateID).CompletedActivities.ToList(), guide.First().ID);
+                    db.SaveChanges();
                 }
                 if (guide.First().previewurl == null)
                 {

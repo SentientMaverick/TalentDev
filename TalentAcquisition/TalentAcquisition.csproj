@@ -192,10 +192,13 @@
     <Compile Include="Filters\AuthorizeApplicantAttribute.cs" />
     <Compile Include="Filters\AuthorizeEmployeeAttribute.cs" />
     <Compile Include="Filters\AuthorizeRolesAttribute.cs" />
+    <Compile Include="Helper\IUrlHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\OnboardingUtilityHelper.cs" />
+    <Compile Include="Helper\UrlHelperAzure.cs" />
+    <Compile Include="Helper\UrlHelperLocal.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntityManager\ApplicationManager.cs" />
     <Compile Include="Models\EntityManager\AppManager.cs" />

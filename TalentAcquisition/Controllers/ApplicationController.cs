@@ -327,14 +327,20 @@ namespace TalentAcquisition.Controllers
             {
                 using (var db = new TalentContext())
                 {
-                    foreach(var evaluation in evaluations)
+
+                    foreach (var evaluation in evaluations)
                     {
                         if (evaluation.ID == 0)
                         {
                             db.Evaluations.Add(evaluation);
-                            db.SaveChanges();
                         }
+                        else
+                        {
+                           db.Entry(evaluation).State = System.Data.Entity.EntityState.Modified;
+                        }
+                        db.SaveChanges();
                     }
+
                     // interviewevaluation.EvaluationNo = "TR" + String.Format("{0:D6}", interviewid + db.InterviewEvaluations.Where(x => x.InterviewID == interviewevaluation.InterviewID).Count());
                     if (interviewevaluation.ID == 0)
                     {
@@ -389,7 +395,7 @@ namespace TalentAcquisition.Controllers
         {
             ViewBag.stageid = stageid;
             var applicantmetrics = db.ApplicantEvaluationMetrics.Where(x => x.OfficePositionID == officeid);
-            ViewBag.ApplicantMetrics = applicantmetrics;
+           // ViewBag.ApplicantMetrics = applicantmetrics;
             var evaluations = new List<Evaluation>();
             using (var db = new TalentContext())
             {
@@ -405,12 +411,14 @@ namespace TalentAcquisition.Controllers
                             InterviewEvaluationID = id
                         });
                     }
-
+                    db.Evaluations.AddRange(evaluations);
+                    //db.SaveChanges();
                 }
                 else
                 {
                     evaluations = evaluationss;
                 }
+                
             }
             
 
