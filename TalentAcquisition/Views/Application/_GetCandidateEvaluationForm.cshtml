@@ -144,7 +144,7 @@
                     @Html.HiddenFor(model => model.Score3)
                     <div class="container">
                         
-                        <span>@ViewBag.Message</span>
+                        <span class="alert-success">@ViewBag.Message</span>
                         <div class="row" style="font-size:80%">
                             <style>
                                 select {
@@ -176,7 +176,7 @@
                             </style>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    Interview Evaluation Summary
+                                    Interview Evaluation
                                 </div>
                                 <div class="panel-body" style="margin-bottom:-1.5em">
                                     <div class="form-horizontal">
@@ -224,7 +224,7 @@
                                             </div>*@
                                                 @if (Model.StageID < 2)
                                                 {
-                                                    <div class="col-md-6 col-xs-6">
+                                                    <div class="col-md-6 col-xs-6 hidden">
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.RecommendForStage2, htmlAttributes: new { @class = "control-label" })
                                                             <div style="display:inline-block">
@@ -238,7 +238,7 @@
                                                 }
                                                 @if (Model.StageID < 3)
                                                 {
-                                                    <div class="col-md-6 col-xs-6">
+                                                    <div class="col-md-6 col-xs-6 hidden">
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.RecommendForStage3, htmlAttributes: new { @class = "control-label" })
                                                             <div style="display:inline-block">
@@ -251,7 +251,7 @@
                                                 <div class="col-md-12 col-xs-12">
                                                     <div class="form-group">
                                                         @*<p><span class="control-label">Recommend For Hire</span></p>*@
-                                                        <label class="control-label">Recommend For Hire</label>
+                                                        <label class="control-label">Recommend For Next Stage</label>
                                                           <div style="display:inline-block">
                                                                 Yes @Html.RadioButtonFor(model => model.RecommendForHire, true, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                                                 <span class="pull-right">   No @Html.RadioButtonFor(model => model.RecommendForHire, false, new { htmlAttributes = new { @class = "form-control input-sm" } })</span>
@@ -304,7 +304,7 @@
                                                         Based on your Assesment of this candidate, do you think that this candidate should be offered a Job?
                                                     </h6>
                                                     <h5 class=""> Yes <input type="radio" value="true" name="Recommendation" id="Recommendation" /><span> No <input type="radio" value="false" name="Recommendation" id="Recommendation" /></span></h5>*@
-                                                </div>
+                                                    </div>
                                                     <br />
                                                 </div>
                                                 <div class="row">
@@ -352,7 +352,7 @@
                                 <div class="panel-body">
                                     @*<a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>*@
                                     <div id="evaluations">
-                                        @Html.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID,officeid=ViewBag.OfficeID })
+                                        @Html.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID,officeid=ViewBag.OfficeID,maxscores= ViewBag.Dictionary })
                                     </div>
                                 </div>
                             </div>
@@ -394,14 +394,17 @@
 @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>*@
 @{
-  //  Dictionary<string,string> dict = ViewBag.Dictionary;
+  Dictionary<string,int> dict = ViewBag.Dictionary;
+}
+@{ 
+    bool status = ViewBag.Status;
 }
 
 @section Scripts{
 <script type="text/javascript">
-    @*var  stageid=@Model.StageID;
-    var collection = @Html.Raw(Json.Encode(dict));*@
-    //alert(collection["PQ"]);
+    @*var  stageid=@Model.StageID;*@
+    var collection = @Html.Raw(Json.Encode(dict));
+    //alert(collection["AQ"]);
     //$.each(collection, function (key, value) {
     //   // console.log(key);
     //   // console.log(value);
@@ -413,8 +416,35 @@
     //    $("#deval").val(collection[newval]);
     //    $("#EvaluationDescription").val(collection[newval])
     //});
-
     $(function () {
+        //if(status){
+        //    function Redirect() {
+        //        window.location="http://localhost:54105/Admin/Dashboard";
+        //    }
+        //    document.write("You will be redirected to main page in 5 sec.");
+        //    setTimeout('Redirect()', 5000);
+        //}
+        //$(".score").keyup(function () {
+        //    alert("changed value");
+        //});
+        //alert(collection["AQ"]);
+        
+        $(".score").on("keyup", function(e) {
+            var value = $(this).val();
+            if(value!=""){
+                if(value!=null){
+                    var maxvalue=collection["AQ"];
+                    if(value==0){
+                        //alert("The value For this Metric cannot be zero");
+                    }
+                    else if(value>maxvalue){
+                        alert("The Maximum value For this Metric is "+ maxvalue);
+                        $(this).val(0);
+                    }
+                  //alert(value);
+                }
+            }           
+        });
         $("#submitjob").on("click", function () {
             var validated = ValidateForms();
             if (validated) {
@@ -438,23 +468,25 @@
         });
 
         $("#form").submit(function (e) {
-           // e.preventDefault();
+            e.preventDefault();
             var form = $("#form");
-            alert(form.serialize().toString());
+           // alert(form.serialize().toString());
             $.ajax(
                     {
                          type: "post",
                           url: form.attr("action"),
                           data: form.serialize(),
                           success: function (response) {
-
+                              alert("Success");
+                              alert("You will be redirected to main page");
+                              window.location = "http://localhost:54105/Admin/Dashboard";
+                              //setTimeout('Redirect()', 1000);
                                 },
                                 error: function (error) {
                                     // alert('failed');
                                 }
                             });
         });
-
             $("#RecommendForStage2").change(function() {
                 if(this.checked) {
                     $("#RecommendForStage3").attr("disabled",true);
@@ -472,8 +504,6 @@
                     $("#RecommendForStage2").attr("disabled",false);
                 }
             });
-
-
         });
     </script>
 }

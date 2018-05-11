@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Email\ConfirmInterviewEmail.cs" />
     <Compile Include="Email\NotifyOnboardingEmail.cs" />
+    <Compile Include="Email\SendJobOfferEmail.cs" />
     <Compile Include="Interfaces\IEmailMessaging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

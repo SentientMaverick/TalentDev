@@ -265,6 +265,10 @@
     <Compile Include="Migrations\201805031200054_UpdatedMetricOfficeAndInterviewModel.Designer.cs">
       <DependentUpon>201805031200054_UpdatedMetricOfficeAndInterviewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805100928244_UpdatedInterviewModelandAppStatus.cs" />
+    <Compile Include="Migrations\201805100928244_UpdatedInterviewModelandAppStatus.Designer.cs">
+      <DependentUpon>201805100928244_UpdatedInterviewModelandAppStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -390,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805031200054_UpdatedMetricOfficeAndInterviewModel.resx">
       <DependentUpon>201805031200054_UpdatedMetricOfficeAndInterviewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805100928244_UpdatedInterviewModelandAppStatus.resx">
+      <DependentUpon>201805100928244_UpdatedInterviewModelandAppStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

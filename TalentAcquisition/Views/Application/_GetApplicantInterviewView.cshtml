@@ -3,15 +3,15 @@
 <div class="row body-content">
     <div class="col-xs-4 container"><img src="~/Uploads/passport.png" width="200" class="pull-left" /></div>
     <div class="col-xs-4 col-md-12">
-        <h5><b>Name: </b>@Model.Name</h5>
-        <h5><b>Age: </b>@Model.Age</h5>
-        <h5><b>Highest Qualification: </b> @Model.HighestQualification</h5>
-        <h5><b>Position Applied For: </b> @Model.PositionAppliedFor</h5>
+        <h6><b>Name: </b>@Model.Name</h6>
+        <h6><b>Age: </b>@Model.Age</h6>
+        <h6><b>Highest Qualification: </b><br/> @Model.HighestQualification</h6>
+        <h6><b>Position Applied For: </b><br/> @Model.PositionAppliedFor</h6>
         <h5><a href="~/Uploads/Resume.pdf" target="_blank"><img src="~/Assets/Icons/Books.png" height="15" /> Resume</a></h5>
     </div>
     <div class="col-xs-4 col-md-12">
         <h5><b>Skills</b></h5>
-        <ul>
+        <ul style="padding-left:0">
             @foreach (var skill in Model.skills)
             {
                 <li>@skill</li>

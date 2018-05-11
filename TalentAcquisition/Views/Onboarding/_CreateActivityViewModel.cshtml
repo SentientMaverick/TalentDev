@@ -21,7 +21,7 @@
 </script>
 @using (Html.BeginForm("_CreateActivityViewModel","Onboarding", FormMethod.Post, new { @class = "form", @id = "form" }))
 {
-    @Html.AntiForgeryToken();
+            @Html.AntiForgeryToken();
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -83,18 +83,27 @@
 }
 
 <script type="text/javascript">
-    var date = new Date();
-    $("#DueDate").datepicker({
-        minDate: 2,
-        maxDate: "+1M"
-        //pickTime: false,
-       //// daysOfWeekDisabled: [0],
-       // format: 'dd/mm/yyyy',
-        //language: 'en',
-        //startDate: '+2d',
-       // "startDate":date,
-       // endDate: date
+    $(function () {
+        //var date = new Date();
+       // $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+        $("#DueDate").datepicker({
+            minDate: 2,
+            maxDate: "+1M"
+            //pickTime: false,
+            //// daysOfWeekDisabled: [0],
+            // format: 'dd/mm/yyyy',
+            //language: 'en',
+            //startDate: '+2d',
+            // "startDate":date,
+            // endDate: date
+        });
+
+        //$("#DueDate").datetimepicker({
+        //});
+
     });
+</script>
+<script>
     $(function () {
         var form = $("#form");
         form.submit(function(e) {
@@ -116,6 +125,6 @@
            }
             
         });
-    });;
+    });
 </script>
 

@@ -18,10 +18,12 @@ namespace TalentAcquisition.Core.Domain
         public int JobApplicationID { get; set; }
         public int OfficePositionID { get; set; }
         public string SchedulingFinalNote { get; set; }
+        public string JobOfferMessage { get; set; }
         public DateTime ProposedDate1 { get; set; }
         public DateTime ProposedDate2 { get; set; }
         public DateTime? ScheduledDate { get; set; }
         public string Venue { get; set; }
+        public string Time { get; set; }
         public virtual InterviewDetail InterviewDetails {get;set;}
         public virtual ICollection<Employee> TeamMembers { get; set; }
         public virtual ICollection<InterviewEvaluation> InterviewEvaluations { get; set; }

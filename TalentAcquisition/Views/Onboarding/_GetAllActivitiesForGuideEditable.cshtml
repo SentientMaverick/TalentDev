@@ -1,0 +1,100 @@
+﻿@model TalentAcquisition.Models.ViewModel.SelectedActivityViewModel
+<style>
+    .panel-heading {
+        padding: 0.5em;
+    }
+
+        .panel-heading h4 {
+            padding: 0px;
+        }
+</style>
+
+<div class="col-md-12">
+    <div class="panel-group">
+        <div class="row" id="selectedactivities">
+            @foreach (var item in Model.Activities)
+            {
+                <div class="container">
+                    <div class="panel panel-default" id="activitypanel" style="margin-top:1em">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                @if (item.Checked)
+                                {
+                                    <img src="~/Assets/Icons/OK.png" class="pull-right" height="15" />
+                                }
+                                   <a data-toggle="collapse" href="#@item.ID" style="text-decoration:none">@item.Title</a>
+                                @Html.HiddenFor(modelItem => item.ID)
+                           </h4>
+                        </div>
+                        <div id="@item.ID" class="panel-collapse collapse in">
+                            <p id="ID" class="hidden">@item.ID</p>
+                            <div class="panel-body">
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @item.DueDate.ToShortDateString()
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12" style="margin-top:1em">
+                                        @Html.DisplayFor(modelItem => item.Body, new { @class = "form-control", rows = "8", cols = "5" })
+                                        @Html.ValidationMessageFor(modelItem => item.Body, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <a href="~/Uploads/Resume.pdf" target="_blank"><img src="~/Assets/Icons/Box-Incoming.png" height="15" /> Document1 Name</a>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <a href="~/Uploads/Resume.pdf" target="_blank"><img src="~/Assets/Icons/Box-Incoming.png" height="15" /> Document2 Name</a>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <a href="javascript:void(0)" id="activateupload"><img src="~/Assets/Icons/Box-Outgoing.png" height="15" /> Upload File</a>
+                                    </div>
+                                        <div class="col-md-12">
+                                         @using (Html.BeginForm("UploadFile", "Onboarding", FormMethod.Post, new { enctype = "multipart/form-data",id="form" }))
+                                            {
+                                                <div class="hidden row" id="uploadcontainer">
+                                                    <br/>
+                                                    <p>@Html.TextBox("file", "", new { type = "file",id="file" })
+                                                    <input type="button" id="uploadbtn" value="Upload" class="btn btn-primary input-sm" /></p>     
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="form-group row" style="padding:0">
+                                    <div class="col-md-10">
+                                        @if (item.Checked)
+                                        {
+                                            <input type="button" id="markactivity" value="Mark as Complete" disabled class="btn btn-default btn-success input-sm disabled" />
+                                        }
+                                        else
+                                        {
+                                            <input type="button" id="markactivity" value="Mark as Complete" class="btn btn-default btn-success input-sm" />
+                                        }
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<script>
+    $("#activateupload").on("click", function (e) {
+        var x = $(this).closest("#activitypanel");
+        var y = x.find("div#uploadcontainer");
+        y.removeClass("hidden", 300).slideDown(1100);
+    });
+    $("#uploadbtn").on("click", function (e) {
+        var x = $(this).closest("#form");
+        x.submit();
+    });
+</script>
+
+

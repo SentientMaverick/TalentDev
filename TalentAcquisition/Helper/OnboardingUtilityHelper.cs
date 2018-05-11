@@ -41,6 +41,7 @@ namespace TalentAcquisition.Helper
                 activitymodel.Title = activity.Name;
                 activitymodel.Body = activity.Description;
                 activitymodel.DueDate = activity.DueDate;
+                activitymodel.Checked = activity.HasTaskBeenCompleted;
                 activities.Add(activitymodel);
             }
             return activities;

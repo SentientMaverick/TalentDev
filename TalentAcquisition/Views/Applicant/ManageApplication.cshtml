@@ -6,9 +6,8 @@
 }
 <div class="mainbody">
 <div class="container body-content">
-    <h2>Manage Requisitions</h2>
     <div class="col-md-4">
-            <ul class="" style="margin-top:-60px">
+            <ul class="" style="margin-top:-20px">
                @Html.Partial("_ApplicantSideBar")
             </ul>
         </div>
@@ -18,12 +17,12 @@
                 <div class="panel-group">
                     @if (Equals(Model.ApplicationStatus.ToString(), "Interview"))
                     {
-                        <h3>Interview</h3>
+                        //<h3>Interview</h3>
                         @Html.Action("_GetInterview", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
                     }
                     @if (Equals(Model.ApplicationStatus.ToString(), "JobOffer"))
                     {
-                        <h3>Job Offer</h3>
+                        //<h3>Job Offer</h3>
                         @Html.Action("_GetJobOffer", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
                     }
                 </div>

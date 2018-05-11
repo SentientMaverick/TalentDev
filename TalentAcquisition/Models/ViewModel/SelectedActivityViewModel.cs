@@ -30,6 +30,7 @@ namespace TalentAcquisition.Models.ViewModel
         public int OnboardActivityID { get; set; }
         public ActivityType Type { get; set; }
         public int WelcomeGuideID { get; set; }
+        public bool Checked { get; set; }
         public int OnboardingTemplateID { get; set; }
         [Required]
         public DateTime DueDate { get; set; }

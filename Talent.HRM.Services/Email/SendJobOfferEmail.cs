@@ -6,24 +6,22 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 using Talent.HRM.Services.Interfaces;
-using System.Security.Policy;
 
 namespace Talent.HRM.Services.Email
 {
-     public class NotifyOnboardingEmail: IEmailMessaging
+   public class SendJobOfferEmail: IEmailMessaging
     {
-        public NotifyOnboardingEmail(string applicantemail, string applicantname, string jobtitle, string joburl)
+        public SendJobOfferEmail(string applicantemail, string applicantname, string jobtitle,string message)
         {
             Applicantemail = applicantemail;
             Applicantname = applicantname;
             Jobtitle = jobtitle;
-            Joburl = joburl;
         }
 
         public string Applicantemail { get; set; }
         public string Applicantname { get; set; }
         public string Jobtitle { get; set; }
-        public string Joburl { get; set; }
+        public string Message { get; set; }
         public void SendEmail(string to, string from)
         {
 
@@ -35,8 +33,8 @@ namespace Talent.HRM.Services.Email
                 MailMessage mailMessage = new MailMessage("info@talenthrm.net", this.Applicantemail);
                 mailMessage.Subject = "Start Onboarding Process";
                 mailMessage.IsBodyHtml = true;
-                mailMessage.Body = "Hello, \n\n Dear Applicant "+this.Applicantname+ ",Congratulations! \n\n Please be informed that you have been selected for the position of " 
-                    + this.Jobtitle + ". Click on the <a href ='"+ this.Joburl+ "'> Link </a> on the portal to start the onboarding process . \n\nBest Regards.";
+                mailMessage.Body = "Hello, \n\n Dear Applicant " + this.Applicantname + ",Congratulations! \n\n Please be informed that you have been offered the position of "
+                    + this.Jobtitle + ". \n\n"+ this.Message+ ". \n\n Best Regards.";
                 //mailMessage.CC.Add("adgarba@erpschoolafrica.com");
                 //mailMessage.Bcc.Add("info@codeware.com.ng");
                 SmtpClient smtpClient = new SmtpClient();

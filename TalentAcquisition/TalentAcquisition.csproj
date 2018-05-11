@@ -208,6 +208,7 @@
     <Compile Include="Models\ViewModel\CheckModel.cs" />
     <Compile Include="Models\ViewModel\EmployeePortalView.cs" />
     <Compile Include="Models\ViewModel\AdminView .cs" />
+    <Compile Include="Models\ViewModel\OfferJobViewModel.cs" />
     <Compile Include="Models\ViewModel\PublicPortalView.cs" />
     <Compile Include="Models\ViewModel\SelectedActivityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Assets\Icons\Light-Bulb.png" />
     <Content Include="Assets\Icons\Man-Suit-2.png" />
     <Content Include="Assets\Icons\Office-Building.png" />
+    <Content Include="Assets\Icons\OK.png" />
     <Content Include="Assets\Icons\Organogram-2.png" />
     <Content Include="Assets\Icons\Piechart.png" />
     <Content Include="Assets\Icons\Presentation-.png" />
@@ -742,9 +744,15 @@
     <Content Include="Views\Role\_GetApplicantMetrics.cshtml" />
     <Content Include="Views\Role\_NewApplicantMetric.cshtml" />
     <Content Include="Views\Application\_GetApplicantInterviewView.cshtml" />
+    <Content Include="Views\Onboarding\_GetAllActivitiesForGuide.cshtml" />
+    <Content Include="Views\Onboarding\_GetAllActivitiesForGuideEditable.cshtml" />
+    <Content Include="Views\Onboarding\SecuredGuide.cshtml" />
+    <Content Include="Views\Applicant\_GetJobOffer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\documents\" />
+    <Folder Include="Uploads\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

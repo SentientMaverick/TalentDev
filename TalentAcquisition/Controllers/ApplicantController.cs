@@ -463,7 +463,6 @@ namespace TalentAcquisition.Controllers
             return View();
             //return View("Home/Index");
         }
-
         public ActionResult _GetInterview(int requisitionid, int applicationid)
         {
             var interview = new Interview();
@@ -486,18 +485,34 @@ namespace TalentAcquisition.Controllers
             }
             return RedirectToAction("manage_application/"+data.JobApplicationID);
         }
-        public ActionResult _GetJobOffer()
+        public ActionResult _GetJobOffer(int requisitionid, int applicationid)
         {
-            SetUserSessionID();
-            var applicantid = (int)TempData["userid"];
-            var applicant = new JobSeeker();
+            var interview = new Interview();
             using (var db = new TalentContext())
             {
-                ViewBag.Links = "Hide";
-                //applicant = db.Applicants.Include("Schools").Include("Certifications").Include("WorkExperiences").FirstOrDefault(x => x.ID == applicantid);
+                interview = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid).FirstOrDefault();
             }
-            return PartialView(applicant);
+            return PartialView(interview);
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Applicant/_SubmitJobOfferResponse")]
+        public ActionResult _SubmitJobOfferResponse(bool response,Interview data)
+        {
+            using (var db = new TalentContext())
+            {
+                var application = db.JobApplications.Find(data.JobApplicationID);
+                if (response)
+                {
+                   application.ApplicationStatus = ApplicationStatus.JobOfferAccepted;
+                }
+                else
+                {
+                   application.ApplicationStatus = ApplicationStatus.JobOfferRejected;
+                }
+                db.SaveChanges();
+            }
+            return RedirectToAction("manage_application/" + data.JobApplicationID);
+        }
     }
 }

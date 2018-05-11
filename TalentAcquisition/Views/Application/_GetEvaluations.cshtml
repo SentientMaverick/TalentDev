@@ -2,6 +2,12 @@
 @{
     int stage = (int)ViewBag.stageid;
 }
+@{
+    Dictionary<string, int> maxscores = ViewBag.maxscores;
+}
+<script>
+   
+</script>
 <style>
     #evaluationlist input, #evaluationlist select {
         border: none;
@@ -21,29 +27,32 @@
             Evaluation Description
         </th>
         <th>
-            Stage 1 Score
-        </th>
-        <th>
+            Stage Score
+        </th> 
             @if (stage >= 2)
             {
-              <p>Stage 2 Score</p>
-            }     
-        </th>
-        <th>
+                <th>
+                    <p>Stage 2 Score</p>
+                </th>
+            }          
             @if (stage == 3)
             {
-                <p>Stage 3 Score</p>
-            }      
+                <th>
+                    <p>Stage 3 Score</p>
+                </th>
+            }             
+        <th>
+            Maximum Score
         </th>
         <th></th>
     </tr>
 
    @for (var i = 0; i < Model.Count(); i++)
-    {
+   {
 @*@foreach (var item in Model) {*@
     <tr id="evaluationlist">
         <td class="hidden">
-        @Html.DisplayFor(it => it[i].ID)
+        @Html.HiddenFor(it => it[i].ID)
         </td>
         <td>
             @Html.DisplayFor(it => it[i].EvaluationCode)
@@ -55,7 +64,7 @@
         <td class="hidden">@Html.HiddenFor(it => it[i].EvaluationDescription)</td>
         <td class="hidden">@Html.HiddenFor(it => it[i].InterviewEvaluationID)</td>
         <td>
-            @Html.EditorFor(it => it[i].Score1, new { htmlAttributes = new { @class = "form-control input-sm col-md-4" } })
+            @Html.EditorFor(it => it[i].Score1, new { htmlAttributes = new { @class = "form-control input-sm col-md-4 score" } })
         </td>
         @if (stage >= 2)
         {
@@ -69,6 +78,12 @@
                 </td>
             }
         }
+        <td>
+            @*@{ 
+                string code = Model[i].EvaluationCode;
+            }*@
+                @maxscores[Model[i].EvaluationCode]
+        </td>
         @*<td>
             <a href="javascript:void(0)" id="deleteitem">Delete</a>
         </td>*@

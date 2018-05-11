@@ -1,4 +1,5 @@
-﻿<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+﻿@model TalentAcquisition.Models.ViewModel.OfferJobViewModel
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <style>
     .onboarding{
         min-height:200px;
@@ -14,7 +15,7 @@
     $("#advance").prop("disabled", true);
    // $("#onboardcandidate").prop("disabled", true);
     $(function () {
-      // $("#onboardcandidate").addClass("hidden");
+       // $("#onboardcandidate").addClass("hidden");
         $("#onboardcandidate").on("click", function () {
             e.preventDefault();
             e.stopPropagation();
@@ -29,6 +30,7 @@
         $("#form").submit(function (e) {
             e.preventDefault();
             //e.stopPropagation();
+            //alert(form.serialize().toString());
             $.ajax(
             {
                 type: "POST",
@@ -55,47 +57,64 @@
             <div class="panel-body">
             @using (Html.BeginForm("_submitoffermessage", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
             {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="requisitionid" value="@ViewBag.requisitionid" />
+                <input type="hidden" name="applicationid" value="@ViewBag.applicationid" />
                 <textarea class="form-control" id="OfferMessage" name="OfferMessage" rows="5" cols="40"></textarea>
                  <div class="row container">
                      <br/>
-                    <input type="button" id="sendJobOffer" class="btn btn-primary input-sm" value="Send Offer" />
-                    <a class="btn btn-default btn-primary btn-sm pull-right"
-                        href="@(Url.Action("_confirmapplicantonboarding", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))" id="onboardcandidate" name="onboardcandidate">Onboard Candidate</a>
-                 </div>
+                     @if (Model.OfferAccepted)
+                     {
+                        <a class="btn btn-default btn-primary btn-sm pull-right"
+                           href="@(Url.Action("_confirmapplicantonboarding", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))" id="onboardcandidate" name="onboardcandidate">Onboard Candidate</a>
+                     }
+                     else
+                     {
+                        <input type="button" id="sendJobOffer" class="btn btn-primary input-sm" value="Send Offer" />
+                     }
+                    </div>
             }                  
             </div>
         </div>
-        <div class="panel panel-primary" style="margin-top:-1.2em;">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Interview Summary
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td></td>
-                                <td>Name</td>
-                                <td>Strength</td>
-                                <td>Weakness</td>
-                                <td colspan="3">Score</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Frank Oliver</td>
-                                <td>Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!</td>
-                                <td>Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!</td>
-                                <td>12</td>
-                                <td>12</td>
-                                <td>12</td>
-                            </tr>
-                        </tbody>   
-                    </table>
-                </div>
+            <div class="panel-body" style="margin-bottom:-1.5em">
+                 @Html.Action("_GetInterviewEvaluations", "Application", new { interviewid = ViewBag.interviewid })
             </div>
         </div>
+       @* <div class="panel panel-primary" style="margin-top:-1.2em;">
+    <div class="panel-heading">
+        Interview Summary
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Name</td>
+                        <td>Strength</td>
+                        <td>Weakness</td>
+                        <td colspan="3">Score</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Frank Oliver</td>
+                        <td>Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!</td>
+                        <td>Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!</td>
+                        <td>12</td>
+                        <td>12</td>
+                        <td>12</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        </div>*@
             </div>
             @*<div class="col-md-3 onboarding">
                 <h4 class="padding">Proceed To Onboarding</h4>

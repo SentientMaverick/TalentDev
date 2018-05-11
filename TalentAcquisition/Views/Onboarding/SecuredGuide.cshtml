@@ -20,28 +20,69 @@
                 e.preventDefault();
             }
         });
-        //$('input#markactivity').on('click', function (e) {
-        //    alert("Activity  Marked");
-        //});
-        var mainurl = "";
+        var mainurl = "/Onboarding/_MarkActivityAsCompleted";
+        var uploadurl="/Onboarding/UploadFile";
         $("input#markactivity").click(function (e) {
-            //alert("Activity  Marked");
             var row = $(this).closest("#activitypanel");
             var header = row.find(".panel-heading .panel-title");
             $(this).attr("disabled", true);
-            header.append("<img src='/Assets/Icons/OK.png' class='pull-right' height='15' />");
-            //var id = row.find("#ID").html().trim();
-            //alert(id);
-          //  url=mainurl + "?id="+id+"&templateid="+templateid;
-            //alert(url);
-               @*$("#dynamicholder").load("@(Url.Action("_CreateActivityViewModel","Onboarding",new {id=1}))");*@
-            //alert($("#dynamicholder").html());
+            var id = row.find("#ID").html().trim();
+           // alert(id);
+            url=mainurl + "?id="+id;
+           //alert(url);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {}, // serializes the form's elements. data: form.serialize(),
+                success: function (data) {
+                    header.append("<img src='/Assets/Icons/OK.png' class='pull-right' height='15' />");
+                    $('#selectedactivities').append(data);
+                }
+            });
                //$.get(url,{},function(data,status,jqXHR) {
                //    // alert(data);
+               //    header.append("<img src='/Assets/Icons/OK.png' class='pull-right' height='15' />");
                //    $('#selectedactivities').append(data);
                //});
-
         });
+        $("#form").submit(function (e) {
+            e.preventDefault();
+
+            if (window.FormData !== undefined) {
+                var fileUpload = $("#file").get(0);
+                var files = fileUpload.files;
+                alert(files[0].name);
+                // Create FormData object  
+                var fileData = new FormData();
+               // fileData.append("file", files[0].name);
+                alert("yay");
+                // Looping over all files and add it to FormData object  
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                //           fileData.append('username', 'Manas');
+                $.ajax({
+                    type: "POST",
+                    url:uploadurl ,
+                    contentType: false, // Not to set any content header  
+                    processData: false, // Not to process data 
+                    data: fileData, // serializes the form's elements. data: form.serialize(),
+                    dataType:'json',
+                    success: function (data) {
+                        alert("yay");
+                        var x = $(this).closest("#activitypanel");
+                        var y = x.find("div#uploadcontainer");
+                        y.slideUp(300).addClass("hidden");
+                    }
+                });
+            }
+            //$.post($(this).attr("action"), $(this).serialize(), function () {
+            //    var x = $(this).closest("#activitypanel");
+            //    var y = x.find("div#uploadcontainer");
+            //    y.slideUp(300).addClass("hidden");
+            //});
+        });
+
     });
 </script>
 }
@@ -90,7 +131,7 @@
                         <h5 class="text-center">@Model.StartDate.ToShortDateString()</h5>
                     </div>
                     <div class="col-md-3">
-                        <h3 class="text-center"  style="font-size:95%">Status</h3>
+                        <h3 class="text-center" style="font-size:95%">Status</h3>
                         <h5 class="text-center">@Model.Status</h5>
                     </div>
                 </div>
@@ -104,14 +145,14 @@
                     border: none;
                     outline: none;
                     box-shadow: none;
-                    background-color:none;
+                    background-color: none;
                 }
 
                 #cres {
                     border: none;
-                    background-color:rgba(255,255,255,0.2);
-                    margin-bottom:0em;
-                    padding:0;
+                    background-color: rgba(255,255,255,0.2);
+                    margin-bottom: 0em;
+                    padding: 0;
                 }
             </style>
             <ul class="nav nav-tabs" id="">
@@ -153,7 +194,7 @@
             <div id="extrainfo" class="tab-pane fade">
             </div>
             <section class="container body-content">
-                
+
                 <div class="hidden">
                     <dl class="dl-horizontal">
                         <dt>
@@ -243,5 +284,6 @@
         </div>
     </div>
 </div>
+
 
 

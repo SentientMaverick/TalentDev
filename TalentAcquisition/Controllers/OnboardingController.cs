@@ -9,6 +9,8 @@ using TalentAcquisition.Models.ViewModel;
 using Talent.HRM.Services.Email;
 using Talent.HRM.Services.Interfaces;
 using TalentAcquisition.Helper;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace TalentAcquisition.Controllers
 {
@@ -125,7 +127,8 @@ namespace TalentAcquisition.Controllers
                     guide.First().WelcomeMessage = db.OnboardingTemplates.Find(guide.First().TemplateID).WelcomeMessage;
                    
                 }
-                if (guide.First().CompletedActivities.Count() < 0)
+                int activitycount = guide.First().CompletedActivities.Count();
+                if (activitycount <= 0)
                 {
                     guide.First().CompletedActivities = OnboardingUtilityHelper.ConvertToGuideActivities(db.OnboardingTemplates.Find(guide.First().TemplateID).CompletedActivities.ToList(), guide.First().ID);
                     db.SaveChanges();
@@ -159,13 +162,29 @@ namespace TalentAcquisition.Controllers
             return RedirectToAction("Onboarding","Admin");
         }
         [Route("Onboarding/preview/{guideurl}")]
-        [Route("Onboarding/Applicant/{guideurl}")]
         public ActionResult PreviewGuide(string guideurl)
         {
             var guide = new WelcomeGuide();
             using (var db = new TalentContext())
             {
               var  _guide = db.WelcomeGuides.Where(x => x.previewurl == guideurl).First();
+                if (_guide == null)
+                {
+                    return HttpNotFound();
+                }
+                guide = _guide;
+            }
+            return View(guide);
+        }
+
+        [Authorize]
+        [Route("Onboarding/Applicant/{guideurl}")]
+        public ActionResult SecuredGuide(string guideurl)
+        {
+            var guide = new WelcomeGuide();
+            using (var db = new TalentContext())
+            {
+                var _guide = db.WelcomeGuides.Where(x => x.previewurl == guideurl).First();
                 if (_guide == null)
                 {
                     return HttpNotFound();
@@ -274,14 +293,57 @@ namespace TalentAcquisition.Controllers
             var activitylist = new List<CompletedActivity>();
             activitylist = db.CompletedActivities.Where(x => x.WelcomeGuideID == id).ToList();
             activities.Activities.AddRange(OnboardingUtilityHelper.ConvertToActivityModelList(activitylist));
-            return PartialView("_GetAllActivitiesForTemplate", activities);
+            return PartialView(activities);
+        }
+        public ActionResult _GetAllActivitiesForGuideEditable(int id)
+        {
+            var activities = new SelectedActivityViewModel();
+            var activitylist = new List<CompletedActivity>();
+            activitylist = db.CompletedActivities.Where(x => x.WelcomeGuideID == id).ToList();
+            activities.Activities.AddRange(OnboardingUtilityHelper.ConvertToActivityModelList(activitylist));
+            return PartialView(activities);
+        }
+        [HttpPost]
+        public async Task<JsonResult> _MarkActivityAsCompleted(int id)
+       // public JsonResult _MarkActivityAsCompleted(int id)
+        {
+            bool action = false;
+            var activity = db.CompletedActivities.Where(x => x.ID == id);
+            if (activity != null)
+            {
+                //activity.First().HasTaskBeenCompleted = true;
+                await db.SaveChangesAsync();
+                //db.SaveChanges();
+                action = true;
+            }
+            return Json(action,JsonRequestBehavior.AllowGet);
         }
         public JsonResult _NotifyApplicant(int id)
         {
             var guide = db.WelcomeGuides.Find(id);
-            _messaging = new NotifyOnboardingEmail("ayandaoluwatosin@gmail.com", guide.Name, guide.Position,Url.Action("Applicant","Onboarding",new {guideurl=guide.previewurl }));
+            _messaging = new NotifyOnboardingEmail("ayandaoluwatosin@gmail.com", guide.Name, guide.Position,"http://localhost:54105"+"/Onboarding/Applicant/"+guide.previewurl);
             _messaging.SendEmailToApplicant();
             return Json(true,JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public async Task<JsonResult> UploadFile(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Uploads/documents"), _FileName);
+                    file.SaveAs(_path);
+                }
+            }
+            catch
+            {
+                
+            }
+            await db.SaveChangesAsync();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

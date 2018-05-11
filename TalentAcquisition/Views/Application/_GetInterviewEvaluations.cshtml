@@ -28,16 +28,17 @@
                 @Html.DisplayNameFor(model => model.EvaluationNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Score1)
+               Stage Average Score
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Score2)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Score3)
-            </th>
+            </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.RecommendForHire)
+                @*@Html.DisplayNameFor(model => model.RecommendForHire)*@
+                Recommend For Next Stage
             </th>
             <th></th>
         </tr>
@@ -54,17 +55,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Score1)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Score2)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Score3)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.RecommendForHire)
                 </td>
                 <td>
-                    <a target="_blank" href="@(Url.Action("_getcandidateevaluationform", "Application", new { interviewid = item.InterviewID, employeeid = item.EmployeeID }))">Edit</a>
+                    <a target="_blank" href="@(Url.Action("_getcandidateevaluationform", "Application", new { interviewid = item.InterviewID, employeeid = item.EmployeeID }))">View</a>
                     @*@Html.ActionLink("Edit", "_getcandidateevaluationform", new { id = item.ID }|) *@ 
                     @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
                 </td>

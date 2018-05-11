@@ -55,7 +55,7 @@
                     <ul class="nav nav-tabs" id="cres">                       
                         <li class="active"><a data-toggle="tab" href="#home"><img src="~/Assets/Icons/Diploma.png" height="15" /> Welcome Message</a></li>
                         <li><a data-toggle="tab" href="#activities"><img src="~/Assets/Icons/Piechart.png" height="15" /> Activities</a></li>
-                        <li><a data-toggle="tab" href="#extrainfo"><img src="~/Assets/Icons/Toolbox.png" height="15"/> Resources</a></li>
+                        <li><a data-toggle="tab" href="#extrainfo"><img src="~/Assets/Icons/Books.png" height="15"/> Resources</a></li>
                         <li><a data-toggle="tab" href="#people"><img src="~/Assets/Icons/Man-Suit-2.png" height="15" /> People</a></li>
                     </ul>
                    
@@ -71,7 +71,7 @@
                             <div id="home" class="tab-pane fade in active">
                                 <div class="row container">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.WelcomeMessage, htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <br/>
                                         <div class="col-md-12" style="margin-top:2em">
                                             @Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "10", cols = "5" })
                                             @Html.ValidationMessageFor(model => model.WelcomeMessage, "", new { @class = "text-danger" })
@@ -80,10 +80,11 @@
                                 </div>
                             </div>
                             <div id="activities" class="tab-pane fade">
-                                <div class="row body-content">
-                                    <div class="col-md-10">
+                                <div class="row">
+                                    <div class="row container"><a class="btn btn-primary btn-sm pull-right" id="addactivity">
+                                        <img src="~/Assets/Icons/File-Plus.png" height="15" /></a>
+                                    </div>                                  
                                         @Html.Action("_GetAllActivitiesForGuide", new { id = Model.ID })
-                                    </div> 
                                 </div>
                             </div>
                             <div id="extrainfo" class="tab-pane fade">
@@ -167,23 +168,68 @@
         </div>
     </div>
 </section>
-
-<script>
-    $(function () {
-        var form = $("#frm");
-        $("#sendemail").click(function () {
-            //form.submit();
-            var url = "@(Url.Action("_NotifyApplicant", "Onboarding",new {id=Model.ID }))";
-            $.ajax({
-                type: "GET",
-                url: url,
-                data: {}, // serializes the form's elements. data: form.serialize(),
-                success: function (data) {
-                    alert(data); 
-                }
+@Scripts.Render("~/bundles/jqueryval")
+@section Scripts{
+    <script type="text/javascript">
+        var mainurl = "@(Url.Action("_CreateActivityViewModel","Onboarding"))";
+        var deleteurl = "@(Url.Action("_DeleteActivity","Onboarding"))";
+        var editurl = "@(Url.Action("_CreateActivityViewModel", "Onboarding"))";
+        var templateid=@Model.TemplateID;
+        $(function () {
+            var form = $("#frm");
+            $("#sendemail").click(function () {
+                var url = "@(Url.Action("_NotifyApplicant", "Onboarding",new {id=Model.ID }))";
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {}, // serializes the form's elements. data: form.serialize(),
+                    success: function (data) {
+                        alert("Successful");
+                    }
+                });
             });
-        });
+            $("a#editactivity").click(function () {
+                var row = $(this).closest('tr');
+                var id = row.find("td:eq(0)").html().trim();
+                url=editurl + "?id="+id;
+            });
+            $("a#addactivity").click(function () {
+                //var row = $(this).closest('tr');
+                //var id = row.find("td:eq(0)").html().trim();
+                //alert(id);
+                url=mainurl + "?id="+5+"&templateid="+templateid;
+                $.get(url,{},function(data,status,jqXHR) {
+                    // alert(data);
+                    $('#selectedactivities').append('<br/>'+data);
+                });
+
+            });
+            $("a#deleteactivity").click(function () {
+                var row = $(this).closest('#activitypanel');
+                var id = row.find("#item_ID").val().trim();
+                alert(id);
+                url=deleteurl + "?id="+id;
+                $.get(url,{},function(data,status,jqXHR) {
+                    row.hide('slow').html("");
+                });
+            });
+       });
+    </script>
+}
+@*<script>
+    $(function () {
         
+        var editurl = "@(Url.Action("_CreateActivityViewModel", "Onboarding"))";
+        $(function () {
+            $("a#editactivity").click(function () {
+                var row = $(this).closest('tr');
+                var id = row.find("td:eq(0)").html().trim();
+                //alert(id);
+                url = editurl + "?id=" + id + "&templateid=" + templateid;
+            });
+
+        });
     });
-</script>
+</script>*@
+
 

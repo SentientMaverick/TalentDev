@@ -90,17 +90,20 @@ namespace TalentAcquisition.Controllers
         [Route("Application/OfferJobPage/{requisitionid:int}")]
         public ActionResult OfferJobPage(int requisitionid, int applicationid)
         {
+            var model = new OfferJobViewModel();
             var req = db.JobApplications.Find(applicationid);
-            ViewBag.OfferAccepted = false;
+            
             if (req.ApplicationStatus <= ApplicationStatus.JobOffer)
                 req.ApplicationStatus = ApplicationStatus.JobOffer;
             if (req.ApplicationStatus == ApplicationStatus.JobOfferAccepted)
-                ViewBag.OfferAccepted = true;
+                model.OfferAccepted = true;
+            var Interview = db.Interviews
+                .Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
             db.SaveChanges();
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;
-            ViewBag.interviewid = requisitionid;
-            return PartialView();
+            ViewBag.interviewid = Interview.First().InterviewID;
+            return PartialView(model);
         } 
         #endregion
         #region FormsAndPartialViews
@@ -288,21 +291,21 @@ namespace TalentAcquisition.Controllers
             ViewBag.teamMembers = teamMembers;
             return PartialView(interviewdetail);
         }
-        public ActionResult _GetCandidateEvaluationForm(int interviewid, int employeeid)
+        public ActionResult _GetCandidateEvaluationForm(int interviewid, int employeeid,string status)
         {
             var interviewevaluation = new InterviewEvaluation();
-
+            var dictionary = new Dictionary<string, int>();
             using (var db = new TalentContext())
             {
                 var categories = db.EvaluationCategories.Where(x => x.InterviewID == interviewid).ToList();
                 var officeid = db.Interviews.Where(x => x.InterviewID == interviewid).First().OfficePositionID;
                 ViewBag.OfficeID = officeid;
-                var dictionary = new Dictionary<string, string>();
-                foreach (var item in categories)
+                var evaluationss = db.ApplicantEvaluationMetrics.Where(x => x.OfficePositionID == officeid);
+                
+                foreach (var item in evaluationss)
                 {
-                    dictionary[item.EvaluationCode] = item.EvaluationDescription;
+                    dictionary[item.EvaluationCode] = item.MaximumScore;
                 }
-                ViewBag.Dictionary = dictionary;
                 var existinginterviewevaluation = db.InterviewEvaluations.Where(x => x.InterviewID == interviewid && x.EmployeeID == employeeid);
                 if (existinginterviewevaluation.Any())
                 {
@@ -317,6 +320,13 @@ namespace TalentAcquisition.Controllers
                     interviewevaluation.StageID = 1;
                 }
             }
+            ViewBag.Status = false;
+            if (status == "success")
+            {
+                ViewBag.Message = "Successfully Saved Evaluation";
+                ViewBag.Status = true;
+            }
+            ViewBag.Dictionary = dictionary;
             return PartialView(interviewevaluation);
         }
         [HttpPost]
@@ -336,7 +346,8 @@ namespace TalentAcquisition.Controllers
                         }
                         else
                         {
-                           db.Entry(evaluation).State = System.Data.Entity.EntityState.Modified;
+                            db.Evaluations.Add(evaluation);
+                            db.Entry(evaluation).State = System.Data.Entity.EntityState.Modified;
                         }
                         db.SaveChanges();
                     }
@@ -353,8 +364,10 @@ namespace TalentAcquisition.Controllers
                         db.SaveChanges();
                     }
                 }
-                ViewBag.Message = "Successful";
-                return RedirectToAction("Dashboard", "Admin");
+                
+               // return PartialView("_getcandidateevaluationform",interviewevaluation);
+                return RedirectToAction("_getcandidateevaluationform", "Application", new { interviewid = interviewevaluation.InterviewID, employeeid = interviewevaluation.EmployeeID,status="successful" });
+                //              return RedirectToAction("Dashboard", "Admin");
             }
             // return PartialView(interviewevaluation);
             return RedirectToAction("_getcandidateevaluationform", "Application", new { interviewid = interviewevaluation.InterviewID, employeeid = interviewevaluation.EmployeeID });
@@ -391,9 +404,10 @@ namespace TalentAcquisition.Controllers
             }
             return PartialView(interviewevaluations);
         }
-        public ActionResult _GetEvaluations(int id,int stageid,int officeid)
+        public ActionResult _GetEvaluations(int id,int stageid,int officeid, Dictionary<string, int> maxscores)
         {
             ViewBag.stageid = stageid;
+            ViewBag.maxscores = maxscores;
             var applicantmetrics = db.ApplicantEvaluationMetrics.Where(x => x.OfficePositionID == officeid);
            // ViewBag.ApplicantMetrics = applicantmetrics;
             var evaluations = new List<Evaluation>();
@@ -412,7 +426,7 @@ namespace TalentAcquisition.Controllers
                         });
                     }
                     db.Evaluations.AddRange(evaluations);
-                    //db.SaveChanges();
+                    db.SaveChanges();
                 }
                 else
                 {
@@ -507,7 +521,7 @@ namespace TalentAcquisition.Controllers
             evaluation = db.EvaluationCategories.Where(x => x.InterviewID == interviewid).ToList();
             return PartialView(evaluation);
         }
-        //[HttpPost]
+        [HttpPost]
         //[ValidateAntiForgeryToken]
         public JsonResult _SubmitCategoriesForm(IEnumerable<EvaluationCategory> submittedcategories)
         {
@@ -571,6 +585,35 @@ namespace TalentAcquisition.Controllers
                     db.SaveChanges();
                 }
                 action = true;
+            }
+            return Json(action, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult _SubmitOfferMessage(int applicationid, int requisitionid,string message)
+        {
+            bool action = false;
+            try
+            {
+                var interview = db.Interviews.Where(x => x.JobApplicationID == applicationid);
+                interview.First().JobOfferMessage = message;
+                db.SaveChanges();
+                var applicant = db.JobApplications.Include("JobSeeker").Where(x => x.JobApplicationID == applicationid).First().JobSeeker;
+                string applicantemail, jobtitle;
+                using (ApplicationDbContext context = new ApplicationDbContext())
+                {
+                    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                    applicantemail = UserManager.FindById(applicant.UserId).Email;
+                }
+                jobtitle = db.JobRequisitions.Find(requisitionid).JobTitle;               
+               // _messaging = new SendJobOfferEmail(applicantemail, applicant.FullName, jobtitle);
+                _messaging = new SendJobOfferEmail("ayandaoluwatosin@gmail.com", applicant.FullName, jobtitle,message);
+                _messaging.SendEmailToApplicant();
+                action = true;
+            }
+            catch
+            {
+
             }
             return Json(action, JsonRequestBehavior.AllowGet);
         }

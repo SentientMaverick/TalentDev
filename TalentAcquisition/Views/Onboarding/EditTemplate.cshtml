@@ -20,90 +20,98 @@
     <div class="row">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <p class="">Onboarding Template</p>
+                <p class="panel-title">
+                    <a data-toggle="collapse" href="#main" style="text-decoration:none">Onboarding Template</a>
+                </p>        
             </div>
-            <div class="panel-body">
+            <div id="main" class="panel-collapse collapse in">
+                <div class="panel-body">
 
-                @using (Html.BeginForm())
-                {
-                    <input type="submit" value="Save Template" class="btn btn-default input-sm btn-primary" />
-                    <hr/>
-                    @Html.AntiForgeryToken()
-                    <div class="form-horizontal" style="font-size:90%">
-                        <style>
-                            label {
-                                font-size: 90%;
-                            }
-                        </style>
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "col-md-4" })
-                                    <div class="col-md-8">
-                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    @using (Html.BeginForm())
+                    {
+                        <input type="submit" value="Save Template" class="btn btn-default input-sm btn-primary" />
+                        <hr />
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal" style="font-size:90%">
+                            <style>
+                                label {
+                                    font-size: 90%;
+                                }
+                            </style>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8" style="margin-left:-4em">
+                                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "col-md-4" })
-                                    <div class="col-md-8" style="margin-left:-4em">
-                                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-                                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "2", cols = "5" })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-md-2" })
-                            <div class="col-md-10">
-                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "2", cols = "5" })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.WelcomeMessage, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10" style="margin-top:2em">
-                                @Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "8", cols = "5" })
-                                @Html.ValidationMessageFor(model => model.WelcomeMessage, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WelcomeMessage, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10" style="margin-top:2em">
+                                    @Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "8", cols = "5" })
+                                    @Html.ValidationMessageFor(model => model.WelcomeMessage, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group hidden">
-                            @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group hidden">
-                            @Html.LabelFor(model => model.DateEdited, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DateEdited, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateEdited, "", new { @class = "text-danger" })
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.DateEdited, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.DateEdited, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.DateEdited, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
-                }
+                        </div>
+                    }
+                </div>
             </div>
         </div>
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <p class="">Onboarding Activities</p>
+                <p class="panel-title">
+                    <a data-toggle="collapse" href="#activities" style="text-decoration:none">Onboarding Activities</a>
+                </p>  
             </div>
-            <div class="panel-body">
-                <div class="col-md-9" id="dvright">
-                    <br />
-                    @Html.Action("_GetAllActivitiesForTemplate", "Onboarding", new { id = Model.ID })
-                    <br />
-                </div>
-                <div class="col-md-3" id="activitylist">
-                    @Html.Action("_GetAllActivities", "Onboarding")
+            <div id="activities" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="col-md-9" id="dvright">
+                        <br />
+                        @Html.Action("_GetAllActivitiesForTemplate", "Onboarding", new { id = Model.ID })
+                        <br />
+                    </div>
+                    <div class="col-md-3" id="activitylist">
+                        @Html.Action("_GetAllActivities", "Onboarding")
+                    </div>
                 </div>
             </div>
         </div>
@@ -114,10 +122,17 @@
     <script type="text/javascript">
         var mainurl = "@(Url.Action("_CreateActivityViewModel","Onboarding"))";
         var deleteurl = "@(Url.Action("_DeleteActivity","Onboarding"))";
+        var editurl = "@(Url.Action("_CreateActivityViewModel", "Onboarding"))";
         var templateid=@Model.ID;
         $(function () {
-            $("a#addactivity").click(function () {
+            $("a#editactivity").click(function () {
+                var row = $(this).closest('tr');
+                var id = row.find("td:eq(0)").html().trim();
+                //alert(id);
+                url=editurl + "?id="+id+"&templateid="+templateid;
+            });
 
+            $("a#addactivity").click(function () {
                 var row = $(this).closest('tr');
                 var id = row.find("td:eq(0)").html().trim();
                 //alert(id);
@@ -129,7 +144,7 @@
                     // alert(data);
                     $('#selectedactivities').append(data);
                 });
-            
+
             });
 
             $("a#deleteactivity").click(function () {

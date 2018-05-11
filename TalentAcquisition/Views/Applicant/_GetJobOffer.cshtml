@@ -1,0 +1,40 @@
+﻿@model TalentAcquisition.Core.Domain.Interview
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse4">Job Offer Details</a>
+            </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+            <div class="panel-body">
+                
+                @if (Model.JobOfferMessage== null)
+                {
+                    <form class="form-horizontal" action="/Applicant/_SubmitJobOfferResponse" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.InterviewID)
+                        @Html.HiddenFor(model => model.JobApplicationID)
+                        @Html.HiddenFor(model => model.JobRequisitionID)
+                        @Html.HiddenFor(model => model.OfficePositionID)
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="container">
+                                    <p class="text-justify">@Html.DisplayFor(model=>model.JobOfferMessage)</p>
+                                </div>
+                                <h5> Would you like to Accept the Offer?</h5>
+                                <h4>Yes<input type="radio" value="true" name="response" /><span class="pull-right">No <input type="radio" value="false" name="response" /></span></h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4">
+                                <input type="submit" value="Submit Selection" class="btn btn-default btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
