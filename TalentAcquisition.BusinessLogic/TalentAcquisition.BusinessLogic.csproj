@@ -82,6 +82,7 @@
     <Compile Include="Domain\Department.cs" />
     <Compile Include="Domain\Employee.cs" />
     <Compile Include="Domain\Interview.cs" />
+    <Compile Include="Domain\InterviewConfiguration.cs" />
     <Compile Include="Domain\InterviewDetails.cs" />
     <Compile Include="Domain\JobApplication.cs" />
     <Compile Include="Domain\JobRequisition.cs" />

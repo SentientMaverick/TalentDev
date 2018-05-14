@@ -12,7 +12,7 @@ namespace TalentAcquisition.Core.Domain
     {
         public JobApplication()
         {
-
+            Interviews = new HashSet<Interview>();
         }
         public int JobApplicationID { get; set; }
         public int JobSeekerID { get; set; }
@@ -21,6 +21,6 @@ namespace TalentAcquisition.Core.Domain
         public ApplicationStatus? ApplicationStatus { get; set; }
         public virtual JobSeeker JobSeeker { get; set; }
         public virtual JobRequisition JobRequisition { get; set; }
-
+        public virtual ICollection<Interview> Interviews { get; set; }
     }
 }
