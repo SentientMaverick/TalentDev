@@ -21,13 +21,10 @@
             
             width:70%;
         }*/
-        label{
-            font-size:90%;
-        }
-       .form-horizontal .form-group {
-    margin-bottom: 5px !important;
-    margin-top: 5px !important;
-}
+        /*label{
+            font-size:70%;
+        }*/
+      
     </style>
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.InterviewID);
@@ -37,7 +34,9 @@
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <label class="col-sm-5">Venue</label>
+                <div class="col-sm-5">
+                    Venue
+                </div>
                 <div class="col-sm-7">
                     <input type="text" value="" required id="Venue" name="Venue" class="form-control" />
                 </div>
@@ -45,7 +44,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <label class="col-sm-5">Chosen Date</label>
+                <div class="col-sm-5">Chosen Date</div>
                 <div class="col-sm-7">
                     <input type="text" value="@Model.ScheduledDate" data-date-format="DD-MM-YYYY" id="ScheduledDate" name="ScheduledDate" class="form-control" />
                 </div>
@@ -53,22 +52,31 @@
         </div>
         <div class="form-group">
                 <div class="col-sm-12">
-                    <label class="col-sm-5">Scheduled Time</label>
+                    <div class="col-sm-5">Scheduled Time</div>
                     <div class="col-sm-7">
                         <input type="text" value="" id="Time" name="Time" class="form-control" />
                     </div>
                 </div>
+            </div>
+        <div class="form-group"> 
+            <div class="col-sm-12">
+                @*@Html.Label("Final Details", htmlAttributes: new { @class = "control-label col-md-4" })*@
+                <div class="col-sm-5">Additional Details</div>
+                <div class="col-sm-7">
+                    <textarea name="SchedulingFinalNote" id="SchedulingFinalNote" rows="4" class="form-control" value="" placeholder="">@Model.SchedulingFinalNote</textarea>
+                    @Html.ValidationMessage("FinalInformation", "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <div class="col-sm-12">
-                    @*@Html.Label("Final Details", htmlAttributes: new { @class = "control-label col-md-4" })*@
-                    <label class="col-sm-5">Additional Details</label>
+                       <label class="col-sm-5">Additional Details</label>
                     <div class="col-sm-7">
                         <textarea name="SchedulingFinalNote" id="SchedulingFinalNote" rows="4" class="form-control" value="" placeholder="">@Model.SchedulingFinalNote</textarea>
                         @Html.ValidationMessage("FinalInformation", "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
                 <div class="col-sm-12">
                     <label class="col-sm-5"></label>

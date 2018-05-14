@@ -2,31 +2,25 @@
 <section class="mainbody" style="color:black">
     <section class="container body-content">
             <div class="row">
-                <div class="col-md-8 style="font-size:100%;line-height:1.5em;padding:0.2em">
-                    <dt>
+                <div class="col-md-10" style="font-size:100%;line-height:1.5em;padding:0.2em">
+                    @*<dt>
                         @Html.DisplayNameFor(model => model.FirstName)
                     </dt>
 
                     <dd>
                         @Html.DisplayFor(model => model.FirstName)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.LastName)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.DateOfBirth)
-                    </dt>
-
-                    <dd>
-                        @Model.DateOfBirth.ToString("dd/MM/yyyy")
-                    </dd>
-                    <dt>
+                    </dd>*@
+                    <h5>
+                        <b>Firstname</b>: @Html.DisplayFor(model => model.FirstName)<span style="margin-left: 3em;"><b>Lastname</b>: @Html.DisplayFor(model => model.LastName) </span><span style="margin-left: 3em;"><b>Date of Birth</b>: @Model.DateOfBirth.ToString("dd/MM/yyyy") </span>
+                    </h5>
+                    <br />
+                    
+                    
+                    <h5>
+                        <strong>Primary Address</strong>: @Html.DisplayFor(model => model.Address)<span style="margin-left: 12em;"><b>Phone Number</b>: @Html.DisplayFor(model => model.PhoneNumber) </span>
+                    </h5>
+                                    
+                    @*<dt>
                         @Html.DisplayNameFor(model => model.Address)
                     </dt>
 
@@ -40,10 +34,10 @@
 
                     <dd>
                         @Html.DisplayFor(model => model.PhoneNumber)
-                    </dd>
+                    </dd>*@
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <img src="~/Uploads/passport.png" width="100" height="100" />
                 </div>
             </div>

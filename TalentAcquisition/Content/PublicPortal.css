@@ -91,7 +91,7 @@ footer{
          margin:0 auto;
         padding-top:2em;
      }
-     .registrationform input,label{
+     .registrationform input,.registrationform label{
         padding:1em;
         font-size:120%;
      }
@@ -151,7 +151,7 @@ footer{
      .searcharea input,select{
          display:inline-block;
          float:left;
-         margin:1em;
+         margin-bottom:5px !important;
      }
 
      .modal {
