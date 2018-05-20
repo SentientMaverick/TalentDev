@@ -60,9 +60,18 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
+    function LoadScheduleInterviewForm() {
+        var url = "/Application/_GetFinalizeInterviewForm?requisitionid=" + id1 + "&applicationid=" + id2;
+        //alert(url);
+        // $("#interviewteam").load(url);
+        $.get(url, {}, function (data, status, jqXHR) {
+            $("#finalizeinterview").append(data);
+        });
+    }
     $(function () {
         var form = $("#teamform");
         form.submit(function (e) {
+            e.preventDefault();
             var input1 = $("#TeamMember1ID");
             var input2 = $("#TeamMember2ID");
             var input3 = $("#TeamMember3ID");
@@ -71,25 +80,29 @@
 
                 alert("Please fill all the fields before submitting the form");
             }
-            if ((input1.val() == input2.val()) || (input1.val() == input3.val())
+            else if ((input1.val() == input2.val()) || (input1.val() == input3.val())
                 || (input1.val() == input4.val()) || (input2.val() == input3.val())
-                || (input2.val() == input4.val()) || (input3.val() == input4.val())) {
-
+                || (input2.val() == input4.val()) || (input3.val() == input4.val()))
+            {
                 alert("You cannot choose the same employee twice! Please ensure 4 different Employees are chosen!");
             }
-            e.preventDefault();
-            $.ajax({
-                type:"POST",
-                url:form.attr("action"),
-                data:form.serialize(),
-                success: function (data) {
-                    if (data)
-                        alert("Success");
-                },
-                error:function(error){
-                    alert("Error");
-                }
-            });
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr("action"),
+                    data: form.serialize(),
+                    success: function (data) {
+                        if (data)
+                            alert("Success");
+                        LoadScheduleInterviewForm();
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+            }
+            
+
         });
 
         $("#form").validate({
