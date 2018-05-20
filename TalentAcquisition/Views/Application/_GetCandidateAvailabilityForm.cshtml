@@ -80,6 +80,29 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
+    var id1=@ViewBag.requisitionid;
+    var id2=@ViewBag.applicationid;
+    var id3=0;
+
+    function LoadInterviewForm() {
+        @*$("#interviewteam").load("@(Url.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))");*@
+        @*var url= "@(Url.Action("_GetChooseInterviewTeamForm","Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))";*@
+        var url="/Application/_GetChooseInterviewTeamForm?requisitionid="+id1 +"&applicationid="+id2;
+        //alert(url);
+       // $("#interviewteam").load(url);
+        $.get(url,{}, function (data, status, jqXHR) {
+            $("#interviewteam").append(data);
+           });
+    }
+
+    function LoadScheduleInterviewForm() {
+        var url="/Application/_GetFinalizeInterviewForm?requisitionid="+id1 +"&applicationid="+id2;
+        //alert(url);
+        // $("#interviewteam").load(url);
+        $.get(url,{}, function (data, status, jqXHR) {
+            $("#finalizeinterview").append(data);
+        });
+    }
     $(function () {
         var form = $("#form");
         form.submit(function (e) {
@@ -97,6 +120,7 @@
                 success: function (data) {
                     if (data)
                         alert("Success");
+                    LoadInterviewForm();
                 },
                 error:function(error){
                     alert("Error");

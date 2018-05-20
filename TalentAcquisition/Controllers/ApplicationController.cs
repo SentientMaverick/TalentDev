@@ -127,6 +127,7 @@ namespace TalentAcquisition.Controllers
             db.SaveChanges();
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;
+            ViewBag.interviewcount = InterviewExistingCheck.Count();
 
             return PartialView(interview);
         }

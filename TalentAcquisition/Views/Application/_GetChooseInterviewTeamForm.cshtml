@@ -60,6 +60,16 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
+    var id1=@ViewBag.requisitionid;
+    var id2=@ViewBag.applicationid;
+    function LoadScheduleInterviewForm() {
+        var url="/Application/_GetFinalizeInterviewForm?requisitionid="+id1 +"&applicationid="+id2;
+        //alert(url);
+        // $("#interviewteam").load(url);
+        $.get(url,{}, function (data, status, jqXHR) {
+            $("#finalizeinterview").append(data);
+        });
+    }
     $(function () {
         var form = $("#teamform");
         form.submit(function (e) {
