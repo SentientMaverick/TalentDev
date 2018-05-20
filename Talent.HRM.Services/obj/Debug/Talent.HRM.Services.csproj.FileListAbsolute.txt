@@ -12,4 +12,3 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\Talen
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.pdb
-C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.csprojResolveAssemblyReference.cache

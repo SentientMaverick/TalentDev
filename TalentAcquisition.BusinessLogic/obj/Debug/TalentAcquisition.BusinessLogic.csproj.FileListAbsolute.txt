@@ -96,4 +96,3 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.pdb
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.csprojResolveAssemblyReference.cache
