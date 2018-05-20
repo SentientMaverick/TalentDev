@@ -273,9 +273,9 @@
     <Compile Include="Migrations\201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.Designer.cs">
       <DependentUpon>201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805201251038_UpdateJobApplicationModel.cs" />
-    <Compile Include="Migrations\201805201251038_UpdateJobApplicationModel.Designer.cs">
-      <DependentUpon>201805201251038_UpdateJobApplicationModel.cs</DependentUpon>
+    <Compile Include="Migrations\201805201302497_updatedapplicationmodel.cs" />
+    <Compile Include="Migrations\201805201302497_updatedapplicationmodel.Designer.cs">
+      <DependentUpon>201805201302497_updatedapplicationmodel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -409,8 +409,8 @@
     <EmbeddedResource Include="Migrations\201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.resx">
       <DependentUpon>201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805201251038_UpdateJobApplicationModel.resx">
-      <DependentUpon>201805201251038_UpdateJobApplicationModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805201302497_updatedapplicationmodel.resx">
+      <DependentUpon>201805201302497_updatedapplicationmodel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
