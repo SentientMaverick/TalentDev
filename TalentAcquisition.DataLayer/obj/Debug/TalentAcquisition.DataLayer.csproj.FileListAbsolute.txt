@@ -77,3 +77,4 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Deb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.csproj.GenerateResource.Cache
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.pdb
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.m1.resources

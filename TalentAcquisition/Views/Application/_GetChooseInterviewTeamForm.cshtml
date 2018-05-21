@@ -61,7 +61,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
     function LoadScheduleInterviewForm() {
-        var url = "/Application/_GetFinalizeInterviewForm?requisitionid=" + id1 + "&applicationid=" + id2;
+        var url = "/Application/_GetFinalizeInterviewForm?requisitionid=" + id1 + "&applicationid=" + id2 + "&interviewid=" + interview;
         //alert(url);
         // $("#interviewteam").load(url);
         $.get(url, {}, function (data, status, jqXHR) {

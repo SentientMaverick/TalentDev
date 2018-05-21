@@ -28,7 +28,6 @@ namespace TalentAcquisition.Controllers
         {
             return View("Error");
         }
-
         [HttpPost]
         /// [ChildActionOnly]
         [Route("Application/UpdatePage/{applicationid:int}")]
@@ -110,21 +109,45 @@ namespace TalentAcquisition.Controllers
         public ActionResult _GetCandidateAvailabilityForm(int requisitionid, int applicationid)
         {
             var interview = new Interview();
-            var InterviewExistingCheck = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
-            if (InterviewExistingCheck.Any())
+            var LastInterview = new Interview();
+            //var InterviewExistingCheck = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
+            //if (InterviewExistingCheck.Any())
+            //{
+            //    interview = InterviewExistingCheck.FirstOrDefault();
+            //}
+            //else
+            //{
+            //    interview = new Interview() { JobRequisitionID = requisitionid, JobApplicationID = applicationid, ProposedDate1 = DateTime.Now, ProposedDate2 = DateTime.Now };
+            //    db.Interviews.Add(interview);
+            //}
+
+            var Interviews = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
+            if (Interviews.Count() > 0)
             {
-                interview = InterviewExistingCheck.FirstOrDefault();
+                if (Interviews.Count() == 1)
+                {
+                    LastInterview = Interviews.FirstOrDefault();
+                }
+                else
+                {
+                    LastInterview = Interviews.OrderByDescending(o=>o.InterviewID).First();
+                }
+            }
+            if (LastInterview.InterviewEvaluations.Count() > 0)
+            {
+                interview = new Interview() { JobRequisitionID = requisitionid, JobApplicationID = applicationid, ProposedDate1 = DateTime.Now.AddDays(2), ProposedDate2 = DateTime.Now.AddDays(2) };
+                db.Interviews.Add(interview);
             }
             else
             {
-                interview = new Interview() { JobRequisitionID = requisitionid, JobApplicationID = applicationid, ProposedDate1 = DateTime.Now, ProposedDate2 = DateTime.Now };
-                db.Interviews.Add(interview);
+                interview = LastInterview;
             }
+            
             interview.JobApplicationID = applicationid;
             interview.JobRequisitionID = requisitionid;
             //interview.OfficePositionID = db.JobApplications.Where(o => o.JobRequisitionID == interview.JobRequisitionID).FirstOrDefault().JobApplicationID;
             interview.OfficePositionID = db.JobRequisitions.Where(o => o.JobRequisitionID == interview.JobRequisitionID).FirstOrDefault().OfficePositionID;
-            db.SaveChanges();
+           // db.SaveChanges();
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;
 
@@ -137,8 +160,8 @@ namespace TalentAcquisition.Controllers
             {
                 using (var db = new TalentContext())
                 {
-                    var InterviewExistingCheck = db.Interviews.Where(o => o.JobRequisitionID == interview.JobRequisitionID && o.JobApplicationID == interview.JobApplicationID);
-                    if (InterviewExistingCheck.Any())
+                    //var InterviewExistingCheck = db.Interviews.Where(o => o.JobRequisitionID == interview.JobRequisitionID && o.JobApplicationID == interview.JobApplicationID);
+                    if (interview.InterviewID!=0)
                     {
                         db.Interviews.Add(interview);
                         db.Entry(interview).State = System.Data.Entity.EntityState.Modified;
@@ -157,19 +180,23 @@ namespace TalentAcquisition.Controllers
                     action = true;
                 }
             }
-            return Json(action, JsonRequestBehavior.AllowGet);
+            var response = new Dictionary<string, dynamic>();
+            response.Add("action", (bool)action);
+            response.Add("interviewid", (int)interview.InterviewID);
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult _GetChooseInterviewTeamForm(int requisitionid, int applicationid)
+        public ActionResult _GetChooseInterviewTeamForm(int requisitionid, int applicationid,int interviewid)
         {
 
             var interviewdetail = new InterviewDetail();
             var allEmployees = new List<Employee>();
             using (var db = new TalentContext())
             {
-                var interview = new Interview();
-                interview = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid).FirstOrDefault();
-                interviewdetail.InterviewID = interview.InterviewID;
-                interviewdetail.Interview = interview;
+               // var interview = new Interview();
+              //  interview = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid).FirstOrDefault();
+               // interview = db.Interviews.Where(o => o.InterviewID==interviewid).FirstOrDefault();
+                interviewdetail.InterviewID = interviewid;
+                //interviewdetail.Interview = interview;
                 //for the Interview Team we add
                 //--One person from the HR Department
                 //--The Head of Department for the position
@@ -233,14 +260,14 @@ namespace TalentAcquisition.Controllers
             //}
             return Json(action, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult _GetFinalizeInterviewForm(int requisitionid, int applicationid)
+        public ActionResult _GetFinalizeInterviewForm(int requisitionid, int applicationid, int interviewid)
         {
             var interview = new Interview();
             //var interviewdetail = new InterviewDetail();
             var teamMembers = new List<Employee>();
             using (var db = new TalentContext())
             {
-                interview = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid).FirstOrDefault();
+                interview = db.Interviews.Where(o=>o.InterviewID==interviewid).FirstOrDefault();
                 var interviewdetail = db.InterviewDetails.Where(o => o.Interview.InterviewID == interview.InterviewID).FirstOrDefault();
                 if (interviewdetail != null)
                 {

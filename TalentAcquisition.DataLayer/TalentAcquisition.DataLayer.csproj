@@ -269,6 +269,10 @@
     <Compile Include="Migrations\201805100928244_UpdatedInterviewModelandAppStatus.Designer.cs">
       <DependentUpon>201805100928244_UpdatedInterviewModelandAppStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805201803064_m1.cs" />
+    <Compile Include="Migrations\201805201803064_m1.Designer.cs">
+      <DependentUpon>201805201803064_m1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -397,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805100928244_UpdatedInterviewModelandAppStatus.resx">
       <DependentUpon>201805100928244_UpdatedInterviewModelandAppStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805201803064_m1.resx">
+      <DependentUpon>201805201803064_m1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
