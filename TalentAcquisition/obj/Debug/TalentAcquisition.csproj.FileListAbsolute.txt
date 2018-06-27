@@ -376,7 +376,6 @@ C:\repos\TalentDev\TalentAcquisition\bin\zh-Hant\Humanizer.resources.dll
 C:\repos\TalentDev\TalentAcquisition\obj\Debug\TalentAcquisition.csprojResolveAssemblyReference.cache
 C:\repos\TalentDev\TalentAcquisition\obj\Debug\TalentAcquisition.dll
 C:\repos\TalentDev\TalentAcquisition\obj\Debug\TalentAcquisition.pdb
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\csc.exe
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -388,10 +387,12 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\System
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\System.Reflection.Metadata.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\vbc.exe
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\VBCSCompiler.exe
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\TalentAcquisition.dll.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\TalentAcquisition.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\TalentAcquisition.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Antlr3.Runtime.dll
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\AutoMapper.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\EntityFramework.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\EntityFramework.SqlServer.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Humanizer.dll
@@ -411,6 +412,7 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Owi
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Newtonsoft.Json.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Owin.dll
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.ValueTuple.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.Web.Helpers.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.Web.Mvc.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.Web.Optimization.dll
@@ -422,10 +424,15 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Talent.HRM.Se
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\TalentAcquisition.BusinessLogic.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\TalentAcquisition.DataLayer.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\WebGrease.dll
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.WindowsAzure.Storage.dll
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Azure.KeyVault.Core.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Talent.HRM.Services.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\TalentAcquisition.BusinessLogic.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\TalentAcquisition.DataLayer.pdb
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\AutoMapper.pdb
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\AutoMapper.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.ValueTuple.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.Web.Helpers.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.Web.Mvc.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\System.Web.Optimization.xml
@@ -449,6 +456,9 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Owi
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.WindowsAzure.Storage.pdb
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.WindowsAzure.Storage.xml
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\Microsoft.Azure.KeyVault.Core.xml
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\af\Humanizer.resources.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\ar\Humanizer.resources.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\bg\Humanizer.resources.dll

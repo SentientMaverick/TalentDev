@@ -20,7 +20,8 @@ namespace TalentAcquisition.Controllers
     {
         #region Fields
         TalentContext db = new TalentContext();
-        IEmailMessaging _messaging; 
+        IEmailMessaging _messaging;
+        private OfferLetterViewModel letter;
         #endregion
         #region Views
         // GET: Application
@@ -65,8 +66,32 @@ namespace TalentAcquisition.Controllers
                 req.ApplicationStatus = ApplicationStatus.Interview;
             db.SaveChanges();
 
+            var interview = new Interview();
+            var Interviews = db.Interviews.Where(o => o.JobRequisitionID == requisitionid 
+                    && o.JobApplicationID == applicationid && o.HasInterviewBeenCompleted==false);
+
+            ViewBag.interviewid = 0;
+            ViewBag.Status = false;
+            if (Interviews.Count() > 0)
+            {
+                if (Interviews.Count() == 1)
+                {
+                   interview = Interviews.FirstOrDefault();
+                }
+                else
+                {
+                    interview = Interviews.OrderByDescending(o => o.InterviewID).First();
+                }
+                ViewBag.interviewid = interview.InterviewID;
+               // ViewBag.Status = interview.HasInterviewBeenCompleted;
+                if (!String.IsNullOrEmpty(interview.Venue))
+                {
+                    ViewBag.Status = true;
+                }
+            }
+
             ViewBag.applicationid = applicationid;
-            ViewBag.requisitionid = requisitionid;
+            ViewBag.requisitionid = requisitionid; 
             return PartialView();
         }
         [Route("Application/EvaluationPage/{requisitionid:int}")]
@@ -96,9 +121,9 @@ namespace TalentAcquisition.Controllers
                 req.ApplicationStatus = ApplicationStatus.JobOffer;
             if (req.ApplicationStatus == ApplicationStatus.JobOfferAccepted)
                 model.OfferAccepted = true;
+            db.SaveChanges();
             var Interview = db.Interviews
                 .Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
-            db.SaveChanges();
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;
             ViewBag.interviewid = Interview.First().InterviewID;
@@ -106,20 +131,10 @@ namespace TalentAcquisition.Controllers
         } 
         #endregion
         #region FormsAndPartialViews
-        public ActionResult _GetCandidateAvailabilityForm(int requisitionid, int applicationid)
+        public ActionResult _GetCandidateAvailabilityForm(int requisitionid, int applicationid,int interviewid)
         {
             var interview = new Interview();
             var LastInterview = new Interview();
-            //var InterviewExistingCheck = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
-            //if (InterviewExistingCheck.Any())
-            //{
-            //    interview = InterviewExistingCheck.FirstOrDefault();
-            //}
-            //else
-            //{
-            //    interview = new Interview() { JobRequisitionID = requisitionid, JobApplicationID = applicationid, ProposedDate1 = DateTime.Now, ProposedDate2 = DateTime.Now };
-            //    db.Interviews.Add(interview);
-            //}
 
             var Interviews = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
             if (Interviews.Count() > 0)
@@ -140,7 +155,15 @@ namespace TalentAcquisition.Controllers
             }
             else
             {
-                interview = LastInterview;
+                if (interviewid == 0)
+                {
+                    interview = new Interview() { JobRequisitionID = requisitionid, JobApplicationID = applicationid, ProposedDate1 = DateTime.Now.AddDays(2), ProposedDate2 = DateTime.Now.AddDays(2) };
+                    db.Interviews.Add(interview);
+                }
+                else
+                {
+                    interview = LastInterview;
+                }
             }
             
             interview.JobApplicationID = applicationid;
@@ -292,8 +315,26 @@ namespace TalentAcquisition.Controllers
                 {
                     var interview = db.Interviews.Find(data.InterviewID);
                     interview.SchedulingFinalNote = data.SchedulingFinalNote;
+                    interview.ScheduledDate = data.ScheduledDate;
+                    interview.Venue = data.Venue;
+                    interview.Time = data.Time;
                     db.Entry(interview).State = System.Data.Entity.EntityState.Modified;
                     //db.Interviews.Add(interview);
+                    db.SaveChanges();
+                    var interviewdetail = db.InterviewDetails.Where(o => o.Interview.InterviewID == interview.InterviewID).FirstOrDefault();
+                    var interviewevaluations = new List<InterviewEvaluation>();
+                    int[] employeeids = new int[4] { interviewdetail.TeamMember1ID, interviewdetail.TeamMember2ID, interviewdetail.TeamMember3ID, interviewdetail.TeamMember4ID };
+                    foreach (var item in employeeids)
+                    {
+                        var tempeval = new InterviewEvaluation
+                        {
+                         EvaluationNo = "TR" + String.Format("{0:D6}", data.InterviewID + item),
+                         InterviewID = data.InterviewID,
+                         EmployeeID = item
+                        };
+                        interviewevaluations.Add(tempeval);
+                    }
+                    db.InterviewEvaluations.AddRange(interviewevaluations);
                     db.SaveChanges();
                 }
                 action = true;
@@ -615,15 +656,16 @@ namespace TalentAcquisition.Controllers
             }
             return Json(action, JsonRequestBehavior.AllowGet);
         }
+        [ValidateInput(false)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult _SubmitOfferMessage(int applicationid, int requisitionid,string message)
+        public JsonResult _SubmitOfferMessage(int applicationid, int requisitionid,string finalmessage, OfferLetterViewModel offerdetails)
         {
             bool action = false;
             try
             {
                 var interview = db.Interviews.Where(x => x.JobApplicationID == applicationid);
-                interview.First().JobOfferMessage = message;
+                interview.First().JobOfferMessage = finalmessage;
                 db.SaveChanges();
                 var applicant = db.JobApplications.Include("JobSeeker").Where(x => x.JobApplicationID == applicationid).First().JobSeeker;
                 string applicantemail, jobtitle;
@@ -634,7 +676,7 @@ namespace TalentAcquisition.Controllers
                 }
                 jobtitle = db.JobRequisitions.Find(requisitionid).JobTitle;               
                // _messaging = new SendJobOfferEmail(applicantemail, applicant.FullName, jobtitle);
-                _messaging = new SendJobOfferEmail("ayandaoluwatosin@gmail.com", applicant.FullName, jobtitle,message);
+                _messaging = new SendJobOfferEmail("ayandaoluwatosin@gmail.com", applicant.FullName, jobtitle,finalmessage);
                 _messaging.SendEmailToApplicant();
                 action = true;
             }
@@ -653,7 +695,57 @@ namespace TalentAcquisition.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("onboarding", "Admin", new { requisitionid = requisitionid, applicationid = applicationid });
-        } 
+        }
+        public ActionResult _GetAllInterviewsForApplication(int requisitionid, int applicationid)
+        {
+            var req = db.JobApplications.Find(applicationid);
+            var userid = User.Identity.GetUserId();
+            var Interviews = db.Interviews
+                .Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid).ToList();
+            ViewBag.applicationid = applicationid;
+            ViewBag.requisitionid = requisitionid;
+            ViewBag.interviewid = Interviews.First().InterviewID;
+            return PartialView(Interviews);
+        }
+        [HttpPost]
+        public ActionResult _EmployeeOfferLetter(OfferLetterViewModel offerdetails)
+        {
+            letter=offerdetails;
+            string message = _getletterhtml(offerdetails).ToString();
+            return View(offerdetails);
+        }
+        //[ChildActionOnly]
+        public JsonResult _MarkInterviewAsComplete(int id)
+        {
+            var action = false;
+            var interview = db.Interviews.Find(id);
+            if (interview != null)
+            {
+                interview.HasInterviewBeenCompleted = true;
+                db.Entry(interview).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                action = true;
+            }
+             return Json(action,JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult _AcceptApplicationJobOffer(int id)
+        {
+            var action = false;
+            var req = db.JobApplications.Find(id);
+            if (req != null)
+            {
+                req.ApplicationStatus = ApplicationStatus.JobOfferAccepted;
+                db.Entry(req).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                action = true;
+            }
+            return Json(action, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult _getletterhtml(OfferLetterViewModel offerdetails)
+        {
+            var letter = PartialView("_EmployeeOfferLetter", offerdetails);
+            return Json(letter,JsonRequestBehavior.AllowGet);
+        }
         #endregion
         #region Helper Methods
         private void SendEmailToApplicant(string applicantemail="ayandaoluwatosin@gmail.com",string applicantname="",string emailtype="")

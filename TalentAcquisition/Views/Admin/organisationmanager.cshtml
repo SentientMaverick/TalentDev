@@ -34,6 +34,46 @@
                             <p class="">Organisation and Departments Mangement</p>
                         </div>
                         <div class="panel-body">
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Organisational Administration<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>Departments<span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                <li>
+                                                    <a href="@Url.Action("manage_departments/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i> Add New</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("manage_departments", "Admin")"><i class="fa fa-gears fa-fw"></i>  Manage All</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-university fa-fw"></i>Specializations<span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                <li>
+                                                    <a href="@Url.Action("manage_industries/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i>Add New</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("manage_industries", "Admin")"><i class="fa fa-gears fa-fw"></i>Manage All</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-database fa-fw"></i> Office Positions<span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                <li>
+                                                    <a href="@Url.Action("manage_officeposition/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i>Add New</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("manage_officeposition", "Admin")"><i class="fa fa-gears fa-fw"></i>Manage All</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

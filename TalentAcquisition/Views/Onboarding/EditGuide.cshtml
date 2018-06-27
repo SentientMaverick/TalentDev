@@ -4,7 +4,8 @@
     ViewBag.Title = "Customize Guide";
     Layout = "~/Views/Shared/_NormalLayout.cshtml";
 }
-
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>
 <p style="font-family: 'Fira Mono';font-size: 22px;">Onboarding</p>
 <ol class="breadcrumb">
     <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
@@ -32,15 +33,48 @@
                 
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "frm", id = "frm" }))
                 {
-                    <a href="">
-                        <img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="submit" value="Update Guide" class="btn btn-default input-sm" style="outline:none;border:none" />
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model=>model.Status)
+                    <input type="hidden" value="" id="newStatus" name="newStatus" />
+                    <a href="javascript:void(0)" id="updateguide">
+                        <img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="button"  value="Update Guide" class="btn btn-default input-sm" style="outline:none;border:none" />
                     </a>
+
+                    if (Model.Status.ToString() == "Review")
+                    {
+                        <a href="javascript:void(0)" id="publishguide">
+                            <img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="button" value="Publish Guide" class="btn btn-default input-sm" style="outline:none;border:none" />
+                        </a>
                     <a href="javascript:void(0)" id="sendemail">
                         <img src="~/Assets/Icons/Envelope-Refresh.png" width="20" />  Send To Applicant
-                    </a> 
-                    <a href="/Onboarding/Preview/@Model.previewurl" id="sendemail" target="_blank">
-                      <span class="pull-right"><img src="~/Assets/Icons/Presentation-.png" width="20" />  Preview</span>
                     </a>
+                    
+                        <a href="/Onboarding/Preview/@Model.previewurl" id="" target="_blank">
+                            <span class="pull-right"><img src="~/Assets/Icons/Presentation-.png" width="20" />  Preview</span>
+                        </a>
+                    }
+                    else if (Model.Status.ToString() == "Submitted")
+                    {
+                        <a href="javascript:void(0)" id="completeguide">
+                            <img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="button" value="Approve Update To Employee" class="btn btn-default input-sm" style="outline:none;border:none" />
+                        </a>
+                    }
+                    else if (Model.Status.ToString() == "Completed")
+                    {
+                        <a href="javascript:void(0)" id="convertapplicant">
+                            <img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="button" value="Convert to Employee" class="btn btn-default input-sm" style="outline:none;border:none" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0)" id="closeguide">
+                            <img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="button" value="Archive Record" class="btn btn-default input-sm" style="outline:none;border:none" />
+                        </a>
+                        <a href="/Onboarding/Progress/@Model.previewurl" target="_blank">
+                            <span class="pull-right"><img src="~/Assets/Icons/Presentation-.png" width="20" />  Progress</span>
+                        </a>
+                    }
                     <hr />
                     <style>
                          #cres li a{
@@ -59,7 +93,6 @@
                         <li><a data-toggle="tab" href="#people"><img src="~/Assets/Icons/Man-Suit-2.png" height="15" /> People</a></li>
                     </ul>
                    
-                    @Html.AntiForgeryToken()
                     <div class="form-horizontal" style="font-size:90%;min-height:400px">
                         @Html.HiddenFor(model=>model.previewurl)
                         <style>
@@ -73,15 +106,26 @@
                                     <div class="form-group">
                                        <br/>
                                         <div class="col-md-12" style="margin-top:2em">
-                                            @Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "10", cols = "5" })
-                                            @Html.ValidationMessageFor(model => model.WelcomeMessage, "", new { @class = "text-danger" })
+                                            @if (Model.Status.ToString() == "Review")
+                                            {
+                                                @Html.TextArea("WelcomeMessage", WebUtility.HtmlDecode(Model.WelcomeMessage), new { @class = "form-control ckeditor", rows = "8", cols = "5" })
+                                                @*@Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "10", cols = "5" })*@
+                                                @Html.ValidationMessageFor(model => model.WelcomeMessage, "", new { @class = "text-danger" })
+                                            }
+                                            else
+                                            {
+                                                <div class="body-content container">
+                                                    @Html.Raw(WebUtility.HtmlDecode(Model.WelcomeMessage))
+                                                </div>
+                                                 @*@Html.DisplayFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "10", cols = "5" })*@
+                                            }
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div id="activities" class="tab-pane fade">
                                 <div class="row">
-                                    <div class="row container"><a class="btn btn-primary btn-sm pull-right" id="addactivity">
+                                    <div class="col-md-12 container"><a class="btn btn-primary btn-sm pull-right" id="addactivity">
                                         <img src="~/Assets/Icons/File-Plus.png" height="15" /></a>
                                     </div>                                  
                                         @Html.Action("_GetAllActivitiesForGuide", new { id = Model.ID })
@@ -171,11 +215,34 @@
 @Scripts.Render("~/bundles/jqueryval")
 @section Scripts{
     <script type="text/javascript">
-        var mainurl = "@(Url.Action("_CreateActivityViewModel","Onboarding"))";
+        var mainurl = "@(Url.Action("_CreateGuideActivityViewModel","Onboarding"))";
         var deleteurl = "@(Url.Action("_DeleteActivity","Onboarding"))";
         var editurl = "@(Url.Action("_CreateActivityViewModel", "Onboarding"))";
         var templateid=@Model.TemplateID;
+        var guideid=@Model.ID;
         $(function () {
+
+            $("#updateguide").click(function(){
+                $("#frm").submit();
+            });
+
+            $("#publishguide").click(function(){
+                // alert($("#Status").val());
+                $("#newStatus").val(1);
+                //alert($("#newStatus").val());
+                //alert("");
+                //$("#Status").val()="Published";
+                //alert($("#Status").val());
+                $("#frm").submit();
+            });
+            $("#completeguide").click(function(){
+                $("#newStatus").val(3);
+                $("#frm").submit();
+            });
+            $("#closeguide").click(function(){
+                $("#newStatus").val(4);
+                $("#frm").submit();
+            });
             var form = $("#frm");
             $("#sendemail").click(function () {
                 var url = "@(Url.Action("_NotifyApplicant", "Onboarding",new {id=Model.ID }))";
@@ -197,9 +264,9 @@
                 //var row = $(this).closest('tr');
                 //var id = row.find("td:eq(0)").html().trim();
                 //alert(id);
-                url=mainurl + "?id="+5+"&templateid="+templateid;
+                url=mainurl + "?id="+5+"&templateid="+ templateid + "&guideid="+ guideid;
                 $.get(url,{},function(data,status,jqXHR) {
-                    // alert(data);
+                    //alert(data);
                     $('#selectedactivities').append('<br/>'+data);
                 });
 
@@ -207,7 +274,7 @@
             $("a#deleteactivity").click(function () {
                 var row = $(this).closest('#activitypanel');
                 var id = row.find("#item_ID").val().trim();
-                alert(id);
+               // alert(id);
                 url=deleteurl + "?id="+id;
                 $.get(url,{},function(data,status,jqXHR) {
                     row.hide('slow').html("");

@@ -26,6 +26,7 @@ namespace TalentAcquisition.Helper
             activity.Name = activitymodel.Title;
             activity.Description = activitymodel.Body;
             activity.DueDate = activitymodel.DueDate;
+            activity.WelcomeGuideID = activitymodel.WelcomeGuideID;
             return activity;
         }
 

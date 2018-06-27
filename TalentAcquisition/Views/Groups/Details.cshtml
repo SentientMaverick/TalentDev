@@ -1,0 +1,46 @@
+﻿@model TalentAcquisition.Core.Domain.Group
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">User Groups List</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">User Groups</li>
+    <li class="active">Details</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Group Details</p>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

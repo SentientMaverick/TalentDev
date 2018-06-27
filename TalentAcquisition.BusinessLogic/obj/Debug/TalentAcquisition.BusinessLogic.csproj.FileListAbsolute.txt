@@ -77,7 +77,6 @@ C:\repos\TalentDev\TalentAcquisition.BusinessLogic\bin\Microsoft.CodeDom.Provide
 C:\repos\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.csprojResolveAssemblyReference.cache
 C:\repos\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.dll
 C:\repos\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.pdb
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\csc.exe
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -89,11 +88,12 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\System.Reflection.Metadata.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\vbc.exe
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\VBCSCompiler.exe
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\TalentAcquisition.BusinessLogic.dll.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\TalentAcquisition.BusinessLogic.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\TalentAcquisition.BusinessLogic.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.pdb
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.BusinessLogic\obj\Debug\TalentAcquisition.BusinessLogic.csprojResolveAssemblyReference.cache

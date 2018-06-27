@@ -16,6 +16,7 @@ namespace Talent.HRM.Services.Email
             Applicantemail = applicantemail;
             Applicantname = applicantname;
             Jobtitle = jobtitle;
+            Message = message;
         }
 
         public string Applicantemail { get; set; }
@@ -31,10 +32,11 @@ namespace Talent.HRM.Services.Email
             try
             {
                 MailMessage mailMessage = new MailMessage("info@talenthrm.net", this.Applicantemail);
-                mailMessage.Subject = "Start Onboarding Process";
+                mailMessage.Subject = "Employment Letter";
                 mailMessage.IsBodyHtml = true;
-                mailMessage.Body = "Hello, \n\n Dear Applicant " + this.Applicantname + ",Congratulations! \n\n Please be informed that you have been offered the position of "
-                    + this.Jobtitle + ". \n\n"+ this.Message+ ". \n\n Best Regards.";
+                //mailMessage.Body = "Hello, \n\n Dear Applicant " + this.Applicantname + ",Congratulations! \n\n Please be informed that you have been offered the position of "
+                //    + this.Jobtitle + ". \n\n"+ this.Message+ ". \n\n Best Regards.";
+                mailMessage.Body = this.Message;
                 //mailMessage.CC.Add("adgarba@erpschoolafrica.com");
                 //mailMessage.Bcc.Add("info@codeware.com.ng");
                 SmtpClient smtpClient = new SmtpClient();

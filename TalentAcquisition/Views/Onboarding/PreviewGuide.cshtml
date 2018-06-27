@@ -142,7 +142,7 @@
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
                 <div class="row col-md-8 col-md-offset-2 body-content">
-                    <p>@Model.WelcomeMessage</p>
+                    @Html.Raw(WebUtility.HtmlDecode(Model.WelcomeMessage))
                 </div>
             </div>
             <div id="activities" class="tab-pane fade">

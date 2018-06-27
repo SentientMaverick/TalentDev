@@ -76,6 +76,60 @@ namespace TalentAcquisition.Controllers
             }
             return View();
         }
+        [Route("Admin/Trainings")]
+        public ActionResult Trainings()
+        {
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
+        [Route("Admin/Performance")]
+        public ActionResult Performance()
+        {
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
+        [Route("Admin/LeaveManager")]
+        public ActionResult LeaveManager()
+        {
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
+        [Route("Admin/Settings")]
+        public ActionResult Settings()
+        {
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
+        [Route("Admin/expensemanager")]
+        public ActionResult expensemanager()
+        {   
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
+        [Route("Admin/complaintmanager")]
+        public ActionResult complaintmanager()
+        {
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
         [Route("Admin/organisationmanager")]
         public ActionResult organisationmanager()
         {

@@ -17,6 +17,9 @@ using System.Net;
 using TalentAcquisition.Core.Domain;
 using System.Data.SqlTypes;
 using TalentAcquisition.BusinessLogic.Domain;
+using System.IO;
+using Talent.HRM.Services.Interfaces;
+using Talent.HRM.Services.FileManger;
 
 namespace TalentAcquisition
 {
@@ -24,6 +27,7 @@ namespace TalentAcquisition
     public class AppManager : Controller
     {
         #region FieldVariables
+        IFileHelper helper;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         public ApplicationSignInManager SignInManager
@@ -54,6 +58,8 @@ namespace TalentAcquisition
                 _userManager = value;
             }
         }
+
+        public string Serverpath { get; internal set; }
 
         #endregion
 
@@ -180,7 +186,7 @@ namespace TalentAcquisition
             return View("Signup",model);
         }
 
-        public ActionResult EmployeeRegistration(Employee employee, string UserEmail)
+        public async  Task<ActionResult> EmployeeRegistration(Employee employee, string UserEmail, HttpPostedFileBase ImageData)
         {
             if (ModelState.IsValid)
             {
@@ -212,10 +218,25 @@ namespace TalentAcquisition
                             {
                                 employee.UserId = user.Id;
                                 //user.LockoutEnabled = true;
+                                if (ImageData!=null)
+                                {
+                                    string extension = Path.GetExtension(ImageData.FileName);
+                                    string fname = employee.FullName.Replace(' ','_') + "_img" + extension;
+                                    // Get the complete folder path and store the file inside it. 
+                                    //HttpContext.Current.Server.MapPath()
+                                    var  serverpath= this.Serverpath;
+                                    helper = new AzureFileHelper();
+                                    var status= await helper.UploadSingleFileAsync(ImageData,fname,serverpath);
+                                    if (status)
+                                    {
+                                        employee.PassportDetails = fname;
+                                    }
+                                }
                                 db.Employees.Add(employee);
                                 db.SaveChanges();
                             }
-                            dbtransact.Commit();
+                            db.SaveChanges();
+                            dbtransact.Commit();  
                             ViewBag.Message = "Successfully Created Employee Record.";
                         }
                         catch
@@ -226,9 +247,9 @@ namespace TalentAcquisition
                         }
                     }
                 }
-                return View("Employees/Create");
+                return RedirectToAction("Personnel/Create","Admin");
             }
-           return View("Employees/Create",employee);
+           return RedirectToAction("Personnel/Create","Admin",employee);
         }
         #endregion
         #region HelperMethods

@@ -8,7 +8,18 @@
             padding: 0px;
         }
 </style>
-
+@{ 
+    var count = Model.Activities.Where(x => x.Checked == true).Count();
+    var totalcount = Model.Activities.Count();
+}
+<script>
+    $("#submitprop").attr("disabled", true);
+    var count=@count;
+    var totalcount=@totalcount;
+    if(count==totalcount){
+        $("#submitprop").attr("disabled", false);
+    } 
+</script>
 <div class="col-md-12">
     <div class="panel-group">
         <div class="row" id="selectedactivities">
@@ -37,30 +48,38 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12" style="margin-top:1em">
-                                        @Html.DisplayFor(modelItem => item.Body, new { @class = "form-control", rows = "8", cols = "5" })
+                                        @Html.Raw(WebUtility.HtmlDecode(item.Body))
+                                        @*@Html.DisplayFor(modelItem => item.Body, new { @class = "form-control", rows = "8", cols = "5" })*@
                                         @Html.ValidationMessageFor(modelItem => item.Body, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-12">
+                                    @*<div class="col-md-12">
                                         <a href="~/Uploads/Resume.pdf" target="_blank"><img src="~/Assets/Icons/Box-Incoming.png" height="15" /> Document1 Name</a>
                                     </div>
                                     <div class="col-md-12">
                                         <a href="~/Uploads/Resume.pdf" target="_blank"><img src="~/Assets/Icons/Box-Incoming.png" height="15" /> Document2 Name</a>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <a href="javascript:void(0)" id="activateupload"><img src="~/Assets/Icons/Box-Outgoing.png" height="15" /> Upload File</a>
-                                    </div>
+                                    </div>*@
+                                    @if (!item.Checked)
+                                    {
                                         <div class="col-md-12">
-                                         @using (Html.BeginForm("UploadFile", "Onboarding", FormMethod.Post, new { enctype = "multipart/form-data",id="form" }))
+                                            <a href="javascript:void(0)" id="activateupload"><img src="~/Assets/Icons/Box-Outgoing.png" height="15" /> Upload File</a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            @using (Html.BeginForm("UploadFile", "Onboarding", FormMethod.Post, new { enctype = "multipart/form-data", id = "form" }))
                                             {
                                                 <div class="hidden row" id="uploadcontainer">
-                                                    <br/>
-                                                    <p>@Html.TextBox("file", "", new { type = "file",id="file" })
-                                                    <input type="button" id="uploadbtn" value="Upload" class="btn btn-primary input-sm" /></p>     
-                                                </div>
+                                                    <br />
+                                                    <p id="intid" class="hidden">@item.ID</p>
+                                                    <p>
+                                                        @Html.TextBox("file", "", new { type = "file", id = "file" })
+                                                    <input type="button" id="uploadbtn" value="Upload" class="btn btn-primary input-sm" />
+                                                </p>
+                                            </div>
                                             }
                                         </div>
+                                    }
+                                    
                                     </div>
                             </div>
                             <div class="panel-footer">

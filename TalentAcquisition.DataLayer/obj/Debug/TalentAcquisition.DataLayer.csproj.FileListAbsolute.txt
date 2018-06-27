@@ -1,4 +1,3 @@
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\csc.exe
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -10,6 +9,7 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\ros
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\System.Reflection.Metadata.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\vbc.exe
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\VBCSCompiler.exe
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\TalentAcquisition.DataLayer.dll.config
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\TalentAcquisition.DataLayer.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\bin\TalentAcquisition.DataLayer.pdb
@@ -74,7 +74,13 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Deb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedEvaluationCategoryAndInterviewModel.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedMetricOfficeAndInterviewModel.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedInterviewModelandAppStatus.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.m1.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.noupdate.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.updatedInterviewModel.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedpassportdetailstopersonmodel.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedNextOfKinDetailsToEmployeeModel.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedIdentityModels.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedGrievanceModelsToContext.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.csproj.GenerateResource.Cache
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.pdb
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.m1.resources

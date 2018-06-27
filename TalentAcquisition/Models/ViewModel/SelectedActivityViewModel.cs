@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TalentAcquisition.BusinessLogic.UpdatedDomain;
 
 namespace TalentAcquisition.Models.ViewModel
@@ -26,6 +27,7 @@ namespace TalentAcquisition.Models.ViewModel
         [Required]
         public string Title { get; set; }
         [Required]
+        [AllowHtml]
         public string Body { get; set; }
         public int OnboardActivityID { get; set; }
         public ActivityType Type { get; set; }

@@ -1,0 +1,42 @@
+﻿@model TalentAcquisition.Models.ViewModel.AssignToGroupViewModel
+
+@{
+    ViewBag.Title = "AssignRoleToGroup";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Edit Groups Permissions</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Edit Groups Permissions</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Edit Group Priviledges</p>
+            </div>
+            <div class="panel-body">
+               @using (Html.BeginForm())
+               {
+                @Html.AntiForgeryToken()
+                    <div>
+                        <p>Group Name: @Model.Group.Name</p>
+                    </div>
+                    @Html.HiddenFor(x => x.Group)
+
+                    for (int i = 0; i < Model.Priviledges.Count(); i++)
+                    {
+                        <p>@Html.CheckBoxFor(it => it.Priviledges[i].Selected) @Html.DisplayFor(it => it.Priviledges[i].Name) @Html.HiddenFor(it => it.Priviledges[i].Name)</p>
+                    }
+                    <input type="submit" value="Save Changes" />
+               }
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

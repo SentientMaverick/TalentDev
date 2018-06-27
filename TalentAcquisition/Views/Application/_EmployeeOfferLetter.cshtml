@@ -1,0 +1,90 @@
+﻿@model TalentAcquisition.Models.ViewModel.OfferLetterViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hire To Retire</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Fira Mono' rel='stylesheet'>
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link href="~/Assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">*@
+
+</head>
+<body>
+       <div class="container body-content">
+                    <div class="row">
+                        <div style="padding-top:2em;"></div>
+                        <div class="text-justify">
+                            <h1>Employment Offer Letter</h1>
+                            <h4>Employer/Company Details:</h4>
+                            <p>Date: @DateTime.Now.ToShortDateString()</p>
+                            <h4>Applicant's Details:</h4>
+                            <p>
+                                Dear Mr.   <br />
+
+                                Further to the interview we had with you, we would like to offer you the position of <span style="border-bottom:1px solid black">@Model.position</span>with effect from 
+                                <span class="Underline">@Model.employmentdate.ToShortDateString()</span> subject to your accepting and signing our Contract of Employment.
+                            </p>
+
+                            <p>
+                                We would like to confirm the terms of our offer as discussed during the interview:
+                                <br />
+
+                                Place of Employment: E.g. Head Office, Regional office location or another country
+                                <br />
+
+                                Salary: E.g. $80 000 per annum, payable weekly/monthly etc.
+                                <br />
+
+                                Vacation: Number of weeks/days paid leave per year
+                                <br />
+
+                                Bonus / Incentives: Outline of the bonus and/or incentive structure
+                                <br />
+
+                                Allowances: E.g. Amount allowed for automobile, entertaining, out of pocket expenses etc.
+                                <br />
+
+                                Benefits: E.g. Any Company contributions towards medical insurance or retirement funds not covered in the salary
+                                <br />
+                            </p>
+                            @*@Html.Raw(HtmlUtility.SanitizeHtml(@Model.offermessage))*@
+                            @Html.Raw(WebUtility.HtmlDecode(Model.offermessage))
+                            @*@Model.offermessage*@
+                            <p>
+                                Please confirm your acceptance of this offer by signing this letter and returning it to our offices by close of business on <span>@Model.employmentdate.ToShortDateString()</span> ___________________20____. A copy of this letter is enclosed for your records.
+
+                                Please note that by signing this offer of employment you confirm your ability to perform the job as per the job description discussed during your interview and which will be reflected in your Contract of Employment.
+                            </p>
+                            <p>
+                                We look forward to working with you.
+
+                                Yours faithfully
+                            </p>
+                            <div class="row">
+                                <div class="pull-left col-md-4"><span class="Underline">Philip Mayor
+                                    <br /><i>Managing Director</i></span><br/>
+                                    <b>Name and Title of Employer</b>
+                                </div>
+                                <p class="pull-right  col-md-4">
+                                    <br />
+                                    ____________________________<br/>
+                                    <b>Name of Applicant</b>
+                                </p>
+                            </div>
+                            <br/><br/>
+                        </div>
+                    </div>
+                </div>
+</body>
+</html>
+

@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Performance";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+<p style="font-size: 22px;">Performance</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Performance</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Performance Management</p>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>@Html.ActionLink("Employee Self Appraisal", "Appraisal/Personal", "Performance")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Manage Employee Appraisal ", "Appraisal/Manage", "Performance")</li>
+                        <li>@Html.ActionLink("Supervisor Appraisal ", "Appraisal/Supervisor", "Performance")</li>
+                        <li>@Html.ActionLink("Setup Appraisal Grade", "Appraisal/Grade", "Performance")</li>
+                        <li>@Html.ActionLink("Setup Appraisal Category", "Appraisal/Category", "Performance")</li>
+                        <li>@Html.ActionLink("Manage Appraisal Template", "Appraisal/Templates", "Performance")</li>
+                        <li>@Html.ActionLink("Setup New Appraisal Template", "Appraisal/Template/Create", "Performance")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
