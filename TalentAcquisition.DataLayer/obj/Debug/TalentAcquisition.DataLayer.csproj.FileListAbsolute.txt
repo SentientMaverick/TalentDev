@@ -74,10 +74,8 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Deb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedEvaluationCategoryAndInterviewModel.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedMetricOfficeAndInterviewModel.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedInterviewModelandAppStatus.resources
-<<<<<<< HEAD
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedRelationshipBetweenJobApplicationAndInterview.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.updatedapplicationmodel.resources
-=======
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.m1.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.noupdate.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.updatedInterviewModel.resources
@@ -85,7 +83,6 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Deb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedNextOfKinDetailsToEmployeeModel.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedIdentityModels.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedGrievanceModelsToContext.resources
->>>>>>> EmployeeFeatureBranch
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.csproj.GenerateResource.Cache
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.pdb

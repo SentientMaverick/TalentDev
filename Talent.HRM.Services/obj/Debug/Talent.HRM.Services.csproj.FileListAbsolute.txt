@@ -1,17 +1,5 @@
-C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.dll
-C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.pdb
-C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.csprojResolveAssemblyReference.cache
-C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.dll
-C:\Users\User\Desktop\Projects\CodeWare-TalentHRM\Hire2Retire\TalentSystem\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.pdb
-C:\repos\TalentDev\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.dll
-C:\repos\TalentDev\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.pdb
-C:\repos\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.csprojResolveAssemblyReference.cache
-C:\repos\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.dll
-C:\repos\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\Talent.HRM.Services.pdb
-<<<<<<< HEAD
-=======
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\Microsoft.Data.Edm.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\Microsoft.Data.OData.dll
@@ -52,6 +40,6 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\ko\Sy
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\ru\System.Spatial.resources.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\zh-Hans\System.Spatial.resources.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\bin\Debug\zh-Hant\System.Spatial.resources.dll
->>>>>>> EmployeeFeatureBranch
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.pdb
+C:\Users\User\Desktop\Projects\Git\TalentDev\Talent.HRM.Services\obj\Debug\Talent.HRM.Services.csprojResolveAssemblyReference.cache

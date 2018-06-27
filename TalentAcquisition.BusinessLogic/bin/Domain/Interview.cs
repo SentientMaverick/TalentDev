@@ -29,7 +29,6 @@ namespace TalentAcquisition.Core.Domain
         public virtual JobApplication JobApplication { get; set; }
         public virtual InterviewDetail InterviewDetails {get;set;}
         public virtual ICollection<Employee> TeamMembers { get; set; }
-        public virtual JobApplication JobApplication { get; set; }
         public virtual ICollection<InterviewEvaluation> InterviewEvaluations { get; set; }
     }
 

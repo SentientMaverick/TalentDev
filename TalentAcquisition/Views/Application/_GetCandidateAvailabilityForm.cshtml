@@ -82,29 +82,24 @@
 <script type="text/javascript">
     var id1=@ViewBag.requisitionid;
     var id2=@ViewBag.applicationid;
-<<<<<<< HEAD
     var id3=0;
 
     function LoadInterviewForm() {
         @*$("#interviewteam").load("@(Url.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))");*@
         @*var url= "@(Url.Action("_GetChooseInterviewTeamForm","Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))";*@
         var url="/Application/_GetChooseInterviewTeamForm?requisitionid="+id1 +"&applicationid="+id2;
-=======
-    var interview=0;
-
+        var interview=0;
+    }
     function LoadInterviewTeamForm() {
         @*$("#interviewteam").load("@(Url.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))");*@
         @*var url= "@(Url.Action("_GetChooseInterviewTeamForm","Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))";*@
         var url="/Application/_GetChooseInterviewTeamForm?requisitionid="+id1 +"&applicationid="+id2+"&interviewid="+interview;
->>>>>>> EmployeeFeatureBranch
         //alert(url);
-       // $("#interviewteam").load(url);
+        // $("#interviewteam").load(url);
         $.get(url,{}, function (data, status, jqXHR) {
             $("#interviewteam").append(data);
-           });
+        });
     }
-
-<<<<<<< HEAD
     function LoadScheduleInterviewForm() {
         var url="/Application/_GetFinalizeInterviewForm?requisitionid="+id1 +"&applicationid="+id2;
         //alert(url);
@@ -113,8 +108,6 @@
             $("#finalizeinterview").append(data);
         });
     }
-=======
->>>>>>> EmployeeFeatureBranch
     $(function () {
         var form = $("#form");
         form.submit(function (e) {
@@ -125,24 +118,23 @@
                
                 //input1.closest("span").append("Enter Date").show();
             }
-<<<<<<< HEAD
-            e.preventDefault();
-            $.ajax({
-                type:"POST",
-                url:form.attr("action"),
-                data:form.serialize(),
-                success: function (data) {
-                    if (data)
-                        alert("Success");
-                    LoadInterviewForm();
-                },
-                error:function(error){
-                    alert("Error");
-                }
-            });
-=======
             else
             {
+                e.preventDefault();
+                //$.ajax({
+                //    type:"POST",
+                //    url:form.attr("action"),
+                //    data:form.serialize(),
+                //    success: function (data) {
+                //        if (data)
+                //            alert("Success");
+                //        LoadInterviewForm();
+                //    },
+                //    error:function(error){
+                //        alert("Error");
+                //    }
+                //});
+
                 $("#changedates").attr("disabled",true);
                 $.ajax({
                     type:"POST",
@@ -160,7 +152,6 @@
                     }
                 });
             }
->>>>>>> EmployeeFeatureBranch
         });
 
         $("#form").validate({  
