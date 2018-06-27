@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Job Application";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    int pagenum =0;
+    int pagenum =1;
     int progressnum = (int)Model.ApplicationStatus;
     int requisitionidglobal = Model.JobRequisitionID;
     int applicationidglobal = Model.JobApplicationID;
@@ -98,8 +98,8 @@
 </style>
 @section Scripts{
     <script type="text/javascript">
-        @*var pageid = @pagenum;*@
-        var pageid = 1;
+        //var pageid = @progressnum;
+        var pageid =1;
         var applicantprogress=@progressnum;
         var requisitionid=@requisitionidglobal;
         var applicationid=@applicationidglobal;
@@ -113,9 +113,21 @@
                     UpdateApplication();
                 return false;
             });
+            $("#reverse").on("click", function () {
+                //alert("back");
+                ReviewApplication();
+                return false;
+            });
         });
 
         function UpdateApplication() {
+            UpdateDisplay(pageid);
+            UpdateBanner(pageid);
+            pageid =pageid + 1;
+        };
+
+        function ReviewApplication() {
+            pageid =pageid - 2;
             UpdateDisplay(pageid);
             UpdateBanner(pageid);
             pageid =pageid + 1;
@@ -185,9 +197,12 @@
             </ol>
         </div>
         <div class="container">
-            <div class="col-md-6 col-sm-3">
-                <button id="advance" name="advance" class="btn-success btn btn-sm">Advance To Next Stage</button>
-            </div>
+            <div class="col-md-12 col-sm-3">
+                <div class="col-md-3 pull-right">
+                    <button id="reverse" name="reverse" class="btn-success btn btn-sm  pull-left">Prev Stage</button>
+                    <button id="advance" name="advance" class="btn-success btn btn-sm  pull-right">Advance To Next Stage</button>
+                </div>
+             </div>
         </div>
     </div>
 <!--Dynamic Body Content-->

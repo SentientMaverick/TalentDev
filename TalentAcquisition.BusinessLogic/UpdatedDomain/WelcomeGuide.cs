@@ -9,7 +9,8 @@ namespace TalentAcquisition.BusinessLogic.UpdatedDomain
 {
     public enum Status
     {
-        Review,Published,Incomplete,Complete
+        Review,Published,Submitted,Complete,
+        Closed
     }
     public class WelcomeGuide
     {

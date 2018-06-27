@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.OnboardingTemplate>
-
+@using Humanizer
 <table class="table table-striped" style="font-size:90%">
     <tr>
         <th>
@@ -26,10 +26,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
+            @item.DateCreated.Humanize()
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateEdited)
+            @item.DateEdited.Humanize()
         </td>
         <td>
             @Html.ActionLink("Edit", "Template/Customize/"+ item.ID, "Onboarding", new { title=item.Title }) |

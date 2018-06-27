@@ -10,7 +10,8 @@ namespace TalentAcquisition.BusinessLogic.Domain
         public Skill()
         {
             JobRequisitions = new HashSet<JobRequisition>();
-            JobSeekers = new HashSet<JobSeeker>(); 
+            JobSeekers = new HashSet<JobSeeker>();
+            Employees = new HashSet<Employee>();
         }
 
         [Key]
@@ -20,6 +21,7 @@ namespace TalentAcquisition.BusinessLogic.Domain
         public virtual Industry Industry { get; set; }
         public virtual ICollection<JobRequisition> JobRequisitions { get; set; }
         public virtual ICollection<JobSeeker> JobSeekers { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
         //public virtual JobSeeker JobSeeker { get; set; }
         //public virtual JobRequisition JobRequisition { get; set; }
     }

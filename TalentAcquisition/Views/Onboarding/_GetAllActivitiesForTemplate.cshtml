@@ -36,12 +36,13 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    @item.DueDate.ToShortDateString()
+                                  <p><span class="glyphicon glyphicon-calendar"></span><b>Due Date</b> :   @item.DueDate.ToShortDateString()</p>  
                                 </div>
                             </div>
                                 <div class="form-group">
                                     <div class="" style="margin-top:1em">
-                                        @Html.DisplayFor(modelItem => item.Body, new { @class = "form-control", rows = "8", cols = "5" })
+                                        @Html.Raw(WebUtility.HtmlDecode(item.Body))
+                                        @*@Html.DisplayFor(modelItem => item.Body, new { @class = "form-control", rows = "8", cols = "5" })*@
                                         @Html.ValidationMessageFor(modelItem => item.Body, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppManager.cs" />
+    <Compile Include="IdentityManager.cs" />
     <Compile Include="JobsContext.cs" />
     <Compile Include="LoginContext.cs" />
     <Compile Include="Migrations\201801021312577_InitialCreate.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="Migrations\201805100928244_UpdatedInterviewModelandAppStatus.Designer.cs">
       <DependentUpon>201805100928244_UpdatedInterviewModelandAppStatus.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Migrations\201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.cs" />
     <Compile Include="Migrations\201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.Designer.cs">
       <DependentUpon>201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.cs</DependentUpon>
@@ -276,6 +278,35 @@
     <Compile Include="Migrations\201805201302497_updatedapplicationmodel.cs" />
     <Compile Include="Migrations\201805201302497_updatedapplicationmodel.Designer.cs">
       <DependentUpon>201805201302497_updatedapplicationmodel.cs</DependentUpon>
+=======
+    <Compile Include="Migrations\201805201803064_m1.cs" />
+    <Compile Include="Migrations\201805201803064_m1.Designer.cs">
+      <DependentUpon>201805201803064_m1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805221548393_noupdate.cs" />
+    <Compile Include="Migrations\201805221548393_noupdate.Designer.cs">
+      <DependentUpon>201805221548393_noupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805230841474_updatedInterviewModel.cs" />
+    <Compile Include="Migrations\201805230841474_updatedInterviewModel.Designer.cs">
+      <DependentUpon>201805230841474_updatedInterviewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805312322357_addedpassportdetailstopersonmodel.cs" />
+    <Compile Include="Migrations\201805312322357_addedpassportdetailstopersonmodel.Designer.cs">
+      <DependentUpon>201805312322357_addedpassportdetailstopersonmodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806180938486_AddedNextOfKinDetailsToEmployeeModel.cs" />
+    <Compile Include="Migrations\201806180938486_AddedNextOfKinDetailsToEmployeeModel.Designer.cs">
+      <DependentUpon>201806180938486_AddedNextOfKinDetailsToEmployeeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806241629027_AddedIdentityModels.cs" />
+    <Compile Include="Migrations\201806241629027_AddedIdentityModels.Designer.cs">
+      <DependentUpon>201806241629027_AddedIdentityModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806261248218_AddedGrievanceModelsToContext.cs" />
+    <Compile Include="Migrations\201806261248218_AddedGrievanceModelsToContext.Designer.cs">
+      <DependentUpon>201806261248218_AddedGrievanceModelsToContext.cs</DependentUpon>
+>>>>>>> EmployeeFeatureBranch
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -406,11 +437,34 @@
     <EmbeddedResource Include="Migrations\201805100928244_UpdatedInterviewModelandAppStatus.resx">
       <DependentUpon>201805100928244_UpdatedInterviewModelandAppStatus.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.resx">
       <DependentUpon>201805141402044_UpdatedRelationshipBetweenJobApplicationAndInterview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805201302497_updatedapplicationmodel.resx">
       <DependentUpon>201805201302497_updatedapplicationmodel.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201805201803064_m1.resx">
+      <DependentUpon>201805201803064_m1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805221548393_noupdate.resx">
+      <DependentUpon>201805221548393_noupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805230841474_updatedInterviewModel.resx">
+      <DependentUpon>201805230841474_updatedInterviewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805312322357_addedpassportdetailstopersonmodel.resx">
+      <DependentUpon>201805312322357_addedpassportdetailstopersonmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806180938486_AddedNextOfKinDetailsToEmployeeModel.resx">
+      <DependentUpon>201806180938486_AddedNextOfKinDetailsToEmployeeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806241629027_AddedIdentityModels.resx">
+      <DependentUpon>201806241629027_AddedIdentityModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806261248218_AddedGrievanceModelsToContext.resx">
+      <DependentUpon>201806261248218_AddedGrievanceModelsToContext.cs</DependentUpon>
+>>>>>>> EmployeeFeatureBranch
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Settings</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Settings</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Basic Settings</p>
+            </div>
+            <div class="panel-body">
+                <ul>              
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Job Requisition Management", "Job", "Settings")</li>
+                        <li>@Html.ActionLink("Onboarding", "Onboarding", "Settings")</li>
+                        <li>@Html.ActionLink("Expense Management", "Expenses", "Settings")</li>
+                        <li>@Html.ActionLink("Personnel Management", "Personnel", "Settings")</li>
+                        <li>@Html.ActionLink("Leave Management", "Leave", "Settings")</li>
+                        <li>@Html.ActionLink("Performance Management", "Performance", "Settings")</li>
+                        <li>@Html.ActionLink("Trainings", "Trainings", "Settings")</li>
+                    }
+                </ul>
+            </div>  
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Rights and Priviledge Settings</p>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Permissions List", "All", "Permissions")</li>
+                        <li>@Html.ActionLink("Groups List", "All", "Groups")</li> 
+                        <li>@Html.ActionLink("Add User To Group", "Groups/AddUser", "Permissions")</li>
+                    }
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                    <li>@Html.ActionLink("Create New User Permission", "Create", "Permissions")</li>
+                    <li>@Html.ActionLink("Create New Permission Groups", "Create", "Groups")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">File Settings</p>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    @if (User.IsInRole("SuperAdmin") | User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("File Storage", "Storage", "Settings")</li>
+                    }
+                </ul>
+            </div>
+         </div>
+    </div>
+</section>
+
+
+

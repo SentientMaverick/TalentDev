@@ -4,6 +4,8 @@
     ViewBag.Title = "Edit Template";
     Layout = "~/Views/Shared/_NormalLayout.cshtml";
 }
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>
 <p style="font-family: 'Fira Mono';font-size: 22px;">Onboarding</p>
 <ol class="breadcrumb">
     <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
@@ -69,8 +71,9 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.WelcomeMessage, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10" style="margin-top:2em">
-                                    @Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control", rows = "8", cols = "5" })
+                                <div class="col-md-12" style="margin-top:2em">
+                                    @Html.TextArea("htmlMessage", WebUtility.HtmlDecode(Model.WelcomeMessage), new { @class = "form-control ckeditor", rows = "8", cols = "5" })
+                                    @Html.TextAreaFor(model => model.WelcomeMessage, new { @class = "form-control hidden", rows = "8", cols = "5" })
                                     @Html.ValidationMessageFor(model => model.WelcomeMessage, "", new { @class = "text-danger" })
                                 </div>
                             </div>

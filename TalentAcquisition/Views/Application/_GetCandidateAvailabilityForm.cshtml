@@ -70,7 +70,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-4 col-md-8">
-                    <input type="submit" value="Send Proposed Date" class="btn btn-success" />
+                    <input id="changedates" type="submit" value="Send Proposed Date" class="btn btn-success" />
                 </div>
             </div>
         </div>
@@ -82,12 +82,21 @@
 <script type="text/javascript">
     var id1=@ViewBag.requisitionid;
     var id2=@ViewBag.applicationid;
+<<<<<<< HEAD
     var id3=0;
 
     function LoadInterviewForm() {
         @*$("#interviewteam").load("@(Url.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))");*@
         @*var url= "@(Url.Action("_GetChooseInterviewTeamForm","Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))";*@
         var url="/Application/_GetChooseInterviewTeamForm?requisitionid="+id1 +"&applicationid="+id2;
+=======
+    var interview=0;
+
+    function LoadInterviewTeamForm() {
+        @*$("#interviewteam").load("@(Url.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))");*@
+        @*var url= "@(Url.Action("_GetChooseInterviewTeamForm","Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))";*@
+        var url="/Application/_GetChooseInterviewTeamForm?requisitionid="+id1 +"&applicationid="+id2+"&interviewid="+interview;
+>>>>>>> EmployeeFeatureBranch
         //alert(url);
        // $("#interviewteam").load(url);
         $.get(url,{}, function (data, status, jqXHR) {
@@ -95,6 +104,7 @@
            });
     }
 
+<<<<<<< HEAD
     function LoadScheduleInterviewForm() {
         var url="/Application/_GetFinalizeInterviewForm?requisitionid="+id1 +"&applicationid="+id2;
         //alert(url);
@@ -103,15 +113,19 @@
             $("#finalizeinterview").append(data);
         });
     }
+=======
+>>>>>>> EmployeeFeatureBranch
     $(function () {
         var form = $("#form");
         form.submit(function (e) {
+            e.preventDefault();
             var input1 = $("#ProposedDate1");
             var input2 = $("#ProposedDate2");
             if ((input1.val() == "") || (input1.val() == "")) {
                
                 //input1.closest("span").append("Enter Date").show();
             }
+<<<<<<< HEAD
             e.preventDefault();
             $.ajax({
                 type:"POST",
@@ -126,6 +140,27 @@
                     alert("Error");
                 }
             });
+=======
+            else
+            {
+                $("#changedates").attr("disabled",true);
+                $.ajax({
+                    type:"POST",
+                    url:form.attr("action"),
+                    data:form.serialize(),
+                    success: function (data) {
+                        if (data.action){
+                            alert("Success");
+                            interview=data.interviewid;
+                            LoadInterviewTeamForm();
+                        }
+                    },
+                    error:function(error){
+                        alert("Error");
+                    }
+                });
+            }
+>>>>>>> EmployeeFeatureBranch
         });
 
         $("#form").validate({  

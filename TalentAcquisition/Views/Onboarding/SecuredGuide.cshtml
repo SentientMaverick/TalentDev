@@ -13,7 +13,7 @@
     </script>
 <script type="text/javascript">
    // $("#advance").prop("disabled", true);
-
+    var guideid = @Model.ID;
     $(function () {
         $('.panel-heading a').on('click', function (e) {
             if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
@@ -47,7 +47,10 @@
         });
         $("#form").submit(function (e) {
             e.preventDefault();
-
+            var id = $(this).find("#intid");
+            var spurl = uploadurl + "?id=" + id.html().trim();
+            //var spurl = uploadurl + "?id=" + 2;
+            alert(spurl);
             if (window.FormData !== undefined) {
                 var fileUpload = $("#file").get(0);
                 var files = fileUpload.files;
@@ -60,16 +63,16 @@
                 for (var i = 0; i < files.length; i++) {
                     fileData.append(files[i].name, files[i]);
                 }
-                //           fileData.append('username', 'Manas');
+                //fileData.append('username', 'Manas');
                 $.ajax({
                     type: "POST",
-                    url:uploadurl ,
+                    url:spurl ,
                     contentType: false, // Not to set any content header  
                     processData: false, // Not to process data 
                     data: fileData, // serializes the form's elements. data: form.serialize(),
-                    dataType:'json',
+                   // dataType:'json',
                     success: function (data) {
-                        alert("yay");
+                        alert(data);
                         var x = $(this).closest("#activitypanel");
                         var y = x.find("div#uploadcontainer");
                         y.slideUp(300).addClass("hidden");
@@ -82,7 +85,13 @@
             //    y.slideUp(300).addClass("hidden");
             //});
         });
-
+        $('#submitprop').click(function (e) {  
+        $.get("/Onboarding/_SubmitAsCompletedOnboarding", { id: guideid }, function (data) {
+                if (data) {
+                    alert("Succcessfully Completed Onboarding");
+                }
+            });
+        });
     });
 </script>
 }
@@ -135,6 +144,15 @@
                         <h5 class="text-center">@Model.Status</h5>
                     </div>
                 </div>
+                <div class="row">
+                    @if (Model.Status.ToString() == "Published")
+                    {
+                        <div class="col-md-4 pull-right">
+                            <input type="button" id="submitprop" name="submitprop" value="Submit Onboarding" class="btn btn-primary" />
+                        </div>
+                    }
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -183,7 +201,7 @@
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
                 <div class="row col-md-8 col-md-offset-2 body-content">
-                    <p>@Model.WelcomeMessage</p>
+                    <p>@Html.Raw(WebUtility.HtmlDecode(Model.WelcomeMessage))</p>
                 </div>
             </div>
             <div id="activities" class="tab-pane fade">

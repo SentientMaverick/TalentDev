@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Complaint Manager";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+    <p style="font-size: 22px;">Complaint Management</p>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+        @*<li><a href="#">Private</a></li>*@
+        @*<li><a href="#">Pictures</a></li>*@
+        <li class="active">Complaint Management</li>
+    </ol>
+    <section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Complaint Management</p>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>@Html.ActionLink("Register Grievance Complaint", "Grievance/Create", "Complaint")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Setup Grievance Actions", "Grievance/Action", "Complaint")</li>
+                        <li>@Html.ActionLink("Setup Grievance Types", "Grievance/Type", "Complaint")</li>
+                        <li>@Html.ActionLink("Manage Grievance Complaints", "Grievance/Manage", "Complaint")</li>
+                        <li>@Html.ActionLink("Setup Indiscipline Types", "Indiscipline/Type", "Complaint")</li>
+                        <li>@Html.ActionLink("Setup Disciplinary Case (Misconduct)", "Disciplinary/Case", "Complaint")</li>
+                        <li>@Html.ActionLink("Manage Disciplinary Cases", "Disciplinary/Manage", "Complaint")</li>
+                        @*<li>@Html.ActionLink("Supervisor Appraisal ", "Appraisal/Supervisor", "Complaint")</li>
+                        <li>@Html.ActionLink("Setup Appraisal Grade", "Appraisal/Grade", "Complaint")</li>
+                        <li>@Html.ActionLink("Setup Appraisal Category", "Appraisal/Category", "Complaint")</li>
+                        <li>@Html.ActionLink("Appraisal Template", "Appraisal/Template", "Complaint")</li>
+                        <li>@Html.ActionLink("Create Appraisal Template", "Appraisal/Template/Create", "Complaint")</li>*@
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+

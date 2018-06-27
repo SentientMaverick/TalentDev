@@ -24,6 +24,9 @@ namespace TalentAcquisition.Core.Domain
         public DateTime? ScheduledDate { get; set; }
         public string Venue { get; set; }
         public string Time { get; set; }
+        public bool HasInterviewBeenCompleted { get; set; }
+        public int? StageID { get; set; }
+        public virtual JobApplication JobApplication { get; set; }
         public virtual InterviewDetail InterviewDetails {get;set;}
         public virtual ICollection<Employee> TeamMembers { get; set; }
         public virtual JobApplication JobApplication { get; set; }

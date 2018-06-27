@@ -1,0 +1,71 @@
+﻿@model List<TalentAcquisition.Core.Domain.Interview>
+@{ 
+    var i = 1;
+}
+@{
+    var approvedno = Model.Where(x => x.HasInterviewBeenCompleted == true).Count();
+    var totalno = Model.Count();
+
+}
+<script>
+    var approvednos=@approvedno;
+    var totalnos=@totalno;
+    $(".completestage").prop("disabled", true);
+    if(totalnos==approvednos){
+        $("#advance").prop("disabled", false);
+    }
+    $(function () {
+
+    });
+</script>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Interview Evaluation Summary - Stage @i
+        </div>
+        <div class="panel-body" style="margin-bottom:-1.5em">
+            @*<a id="additem" target="_blank" href="@(Url.Action("_getcandidateevaluationform", "Application", new { interviewid = ViewBag.interviewid, employeeid = ViewBag.jobseekerid }))" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>*@
+            @*<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Evaluation</button>*@
+            @Html.Action("_GetInterviewEvaluations", "Application", new { interviewid = item.InterviewID })
+        </div>
+        <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (!item.HasInterviewBeenCompleted)
+                        {
+                            if (i < 3)
+                            {
+                            <a class="btn btn-primary btn-sm completestage" id="@item.InterviewID" href="javascript:void(0)">Proceed To Next Stage</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary btn-sm completestage" id="@item.InterviewID" href="javascript:void(0)">Complete Stage</a>
+                            }
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary btn-sm" disabled href="javascript:void(0)">Stage Completed</a>
+                        }
+                    </div>
+                </div>
+            </div>
+    </div>
+    i++;
+}
+<script>
+        $(".completestage").on("click", function (event) {
+            var id = event.target.id;
+            $(this).attr("disabled", true);
+            var url = "/Application/_MarkInterviewAsComplete?id=" + id;
+            //alert(url);
+            $.get(url, {}, function(status) {
+                alert(status);
+                approvednos++;
+                if(totalnos==approvednos){
+                    $("#advance").prop("disabled", false);
+                }
+            });
+        });
+</script>

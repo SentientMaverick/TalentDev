@@ -8,6 +8,8 @@
             padding: 0px;
         }
 </style>
+@*<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>*@
 <script type="text/javascript">
    // $("#advance").prop("disabled", true);
 
@@ -33,13 +35,36 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                <input type="datetime" data-date-format="DD/MM/YYYY" name="DueDate" id="DueDate" value="" class="form-control" />
+                                <input type="datetime" data-date-format="DD/MM/YYYY" name="DueDate" id="DueDate" value="" class="form-control input-sm" />
                             </div>
                         </div>
+                        <hr/>
                         <div class="form-group">
-                            <div class="" style="margin-top:0.5em">
-                                @Html.TextAreaFor(model=>model.Body, new { @class = "form-control", rows = "8", cols = "5" })
+                            <div class="col-md-12" style="margin-top:0.5em">
+                                @Html.TextArea("htmlBody", WebUtility.HtmlDecode(Model.Body), new { @class = "form-control", rows = "8", cols = "5" })
+                                @Html.TextAreaFor(model=>model.Body, new { @class = "form-control hidden", rows = "8", cols = "5" })
                                 @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                                <script>
+                                    var myToolbar = [
+                                                       ['Bold'],
+                                                       ['Styles'],
+                                                       ['Link', 'Anchor']
+                                    ];
+                                    var config =
+                                   {
+                                       toolbar_mySimpleToolbar: myToolbar,
+                                       toolbar: 'mySimpleToolbar'
+                                   };
+                                    var config3 = { height: 250, width: 390 };
+                                    var config4 = { toolbar: 'Basic' };
+                                    config.filebrowserUploadMethod = 'form';
+                                  // $('#Body').ckeditor(config);
+                                    config.filebrowserUploadMethod = 'form';
+                                    CKEDITOR.replace('htmlBody', {
+                                            UploadUrl: '/Onboarding/CKEditorUpload/',
+                                            filebrowserUploadUrl: '/Onboarding/CKEditorUpload/'
+                                        });
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -85,8 +110,10 @@
 <script type="text/javascript">
     $(function () {
         //var date = new Date();
-       // $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+        // $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+
         $("#DueDate").datepicker({
+            dateFormat: 'dd/mm/yy',
             minDate: 2,
             maxDate: "+1M"
             //pickTime: false,
@@ -109,6 +136,8 @@
         form.submit(function(e) {
             e.preventDefault();
             e.stopPropagation();
+            var data = CKEDITOR.instances.htmlBody.getData();
+            $("#Body").val(data);
             if (e.isDefaultPrevented()) {
                 $.ajax({
                     type: "POST",
@@ -117,13 +146,13 @@
                     success: function (response) {
                         //alert(response);
                         $('#dvright').load("@(Url.Action("_GetAllActivitiesForTemplate", "Onboarding", new { id = Model.OnboardingTemplateID }))");
-                    },
+                      },
                     error: function (error) {
                         alert('failed');
                     }
                 });
            }
-            
+
         });
     });
 </script>

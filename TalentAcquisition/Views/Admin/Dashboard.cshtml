@@ -34,13 +34,6 @@
 </style>
 <section class="mainbody">
     <div class="container">
-        @*<div class="col-md-4 adminsidebar">
-            <div class="container">
-                <ul class="nav">
-                    @Html.Partial("_AdminDashboardSidebar")
-                </ul>
-            </div>
-        </div>*@
         <div class="col-md-4">
             @Html.Partial("_AdminDashboardSidebar")
         </div>
@@ -82,16 +75,22 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-md-6 icon">
-                            <img src="~/Assets/Icons/Coin-Dollar.png" />
-                            <h4>Expense Management</h4>
+                            <a href="@Url.Action("expensemanager")">
+                                <img src="~/Assets/Icons/Coin-Dollar.png" />
+                                <h4>Expense Management</h4>
+                            </a>                          
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
-                            <img src="~/Assets/Icons/Engineer.png" />
-                            <h4>Trainings</h4>
+                            <a href="@Url.Action("trainings")">
+                                <img src="~/Assets/Icons/Engineer.png" />
+                                <h4>Trainings</h4>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
-                            <img src="~/Assets/Icons/Support.png" />
-                            <h4>Complaint/Query Management</h4>
+                            <a href="@Url.Action("complaintmanager")">
+                                <img src="~/Assets/Icons/Support.png" />
+                                <h4>Complaint-Indiscipline Management</h4>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
                             <img src="~/Assets/Icons/Bank.png" />
@@ -112,12 +111,16 @@
                             </a>  
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
-                            <img src="~/Assets/Icons/Bullish.png" />
-                            <h4>Employee Performance</h4>
+                            <a href="@Url.Action("performance")">
+                                <img src="~/Assets/Icons/Bullish.png" />
+                                <h4>Employee Performance</h4>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-6 icon">
-                            <img src="~/Assets/Icons/Hammer.png" />
-                            <h4>Settings</h4>
+                            <a href="@Url.Action("settings")">
+                                <img src="~/Assets/Icons/Hammer.png" />
+                                <h4>Settings</h4>
+                            </a>
                         </div>
                     </div>
                 </div>

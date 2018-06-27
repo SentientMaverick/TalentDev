@@ -22,5 +22,9 @@ namespace TalentAcquisition.Core.Domain
         public virtual JobSeeker JobSeeker { get; set; }
         public virtual JobRequisition JobRequisition { get; set; }
         public virtual ICollection<Interview> Interviews { get; set; }
+<<<<<<< HEAD
+=======
+
+>>>>>>> EmployeeFeatureBranch
     }
 }

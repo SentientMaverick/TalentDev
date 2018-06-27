@@ -11,6 +11,8 @@ using Talent.HRM.Services.Interfaces;
 using TalentAcquisition.Helper;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net;
+using Talent.HRM.Services.FileManger;
 
 namespace TalentAcquisition.Controllers
 {
@@ -18,6 +20,12 @@ namespace TalentAcquisition.Controllers
     {
         private TalentContext db = new TalentContext();
         private IEmailMessaging _messaging;
+        private IFileHelper _helper;
+        const string filesavepath = "~/Uploads/Ckeditor";
+       // const string baseUrl = @"http://localhost:54105/Uploads/Ckeditor/";
+        const string baseUrl = @"/Uploads/Ckeditor/";
+        const string scriptTag = "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction({0}, '{1}', '{2}')</script>";
+
         // GET: Onboarding
         public ActionResult Index()
         {
@@ -64,13 +72,17 @@ namespace TalentAcquisition.Controllers
             template = db.OnboardingTemplates.Find(id);
             return View(template);
         }
+        [ValidateInput(false)]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("Onboarding/Template/Customize/{id:int}")]
-        public ActionResult EditTemplate(int id,OnboardingTemplate template)
+        public ActionResult EditTemplate(int id,OnboardingTemplate template,string htmlMessage)
         {
+            string htmlEncoded = WebUtility.HtmlEncode(htmlMessage);
             if (ModelState.IsValid)
             {
                 template.DateEdited = DateTime.Now;
+                template.WelcomeMessage = htmlEncoded;
                 db.OnboardingTemplates.Add(template);
                 db.Entry(template).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -81,10 +93,12 @@ namespace TalentAcquisition.Controllers
         //[Route("Onboarding/Guide/Create/applicant/{applicantid:int}")]
         [Route("Onboarding/Guide/Create/applicant")]
         [Route("Onboarding/Guide/Create/applicant/{applicantid:int}")]
-        public ActionResult CreateGuide(int? applicantid=0)
+        public ActionResult CreateGuide(int? applicantid=0,string name="",string position="")
         {
             WelcomeGuide guide = new WelcomeGuide();
             guide.DateCreated = DateTime.Now;
+            guide.Name = name;
+            guide.Position = position;
             guide.StartDate = DateTime.Now.AddDays(7);
             guide.JobSeekerID = applicantid;
             ViewBag.Templates = db.OnboardingTemplates.ToList();
@@ -109,10 +123,17 @@ namespace TalentAcquisition.Controllers
                 guide.Status = Status.Review;
                 db.WelcomeGuides.Add(guide);
                 db.SaveChanges();
-                var activities = db.CompletedActivities.Where(x => x.OnboardingTemplateID == guide.ID).ToList();
-                var guideactivities = OnboardingUtilityHelper.ConvertToGuideActivities(activities,guide.ID);
-                db.CompletedActivities.AddRange(guideactivities);
-                db.SaveChanges();
+
+                if (guide.TemplateID != null)
+                {
+                    guide.WelcomeMessage = db.OnboardingTemplates.Find(guide.TemplateID).WelcomeMessage;
+                    var activities = db.CompletedActivities.Where(x => x.OnboardingTemplateID == guide.ID).ToList();
+                    var guideactivities = OnboardingUtilityHelper.ConvertToGuideActivities(activities, guide.ID);
+                    //guide.CompletedActivities = OnboardingUtilityHelper.ConvertToGuideActivities(db.OnboardingTemplates.Find(guide.TemplateID).CompletedActivities.ToList(), guide.ID);
+                    guide.previewurl = Guid.NewGuid().ToString();
+                    db.CompletedActivities.AddRange(guideactivities);
+                    db.SaveChanges();
+                }
             }
             return RedirectToAction("Guide/Customize/" + guide.Name + "/" + guide.ID, "Onboarding");
         }
@@ -122,22 +143,6 @@ namespace TalentAcquisition.Controllers
             using (var db = new TalentContext())
              {
               var guide = db.WelcomeGuides.Include("CompletedActivities").Where(x => x.ID == id);
-                if(guide.First().WelcomeMessage==null && guide.First().TemplateID != null)
-                {
-                    guide.First().WelcomeMessage = db.OnboardingTemplates.Find(guide.First().TemplateID).WelcomeMessage;
-                   
-                }
-                int activitycount = guide.First().CompletedActivities.Count();
-                if (activitycount <= 0)
-                {
-                    guide.First().CompletedActivities = OnboardingUtilityHelper.ConvertToGuideActivities(db.OnboardingTemplates.Find(guide.First().TemplateID).CompletedActivities.ToList(), guide.First().ID);
-                    db.SaveChanges();
-                }
-                if (guide.First().previewurl == null)
-                {
-                    guide.First().previewurl = Guid.NewGuid().ToString();
-                    db.SaveChanges();
-                }
                 if (guide == null)
                 {
                     return HttpNotFound();
@@ -145,9 +150,11 @@ namespace TalentAcquisition.Controllers
                 return View(guide.First());
             }
         }
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
         [Route("Onboarding/Guide/Customize/{applicant}/{id:int}")]
         [HttpPost]
-        public ActionResult EditGuide(int id,WelcomeGuide guide)
+        public ActionResult EditGuide(int id,WelcomeGuide guide,int? newStatus)
         {
             if (!ModelState.IsValid)
             {
@@ -155,12 +162,37 @@ namespace TalentAcquisition.Controllers
             }
             using (var db=new TalentContext())
             {
+                guide.WelcomeMessage = WebUtility.HtmlEncode(guide.WelcomeMessage);
                 db.WelcomeGuides.Add(guide);
+                if (newStatus != null)
+                {
+                    switch (newStatus)
+                    {
+                        case 1:
+                          guide.Status= Status.Published;
+                          break;
+                        case 2:
+                            guide.Status = Status.Submitted;
+                            break;
+                        case 3:
+                            guide.Status = Status.Complete;
+                            break;
+                        case 4:
+                            guide.Status = Status.Closed;
+                            break;
+                    }
+                }
                 db.Entry(guide).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+                if (newStatus == 3)
+                {
+                    return RedirectToAction("Personnel/Create", "Admin", new {guideid=guide.ID });
+                }
             }
             return RedirectToAction("Onboarding","Admin");
         }
+
+        [Route("Onboarding/progress/{guideurl}")]
         [Route("Onboarding/preview/{guideurl}")]
         public ActionResult PreviewGuide(string guideurl)
         {
@@ -176,7 +208,6 @@ namespace TalentAcquisition.Controllers
             }
             return View(guide);
         }
-
         [Authorize]
         [Route("Onboarding/Applicant/{guideurl}")]
         public ActionResult SecuredGuide(string guideurl)
@@ -192,6 +223,22 @@ namespace TalentAcquisition.Controllers
                 guide = _guide;
             }
             return View(guide);
+        }
+       // [Route("Onboarding/Applicant/{guideurl}")]
+        public ActionResult ValidateEmployee(int id)
+        {
+            var guide = new WelcomeGuide();
+            using (var db = new TalentContext())
+            {
+                var _guide = db.WelcomeGuides.Where(x => x.ID==id).First();
+                if (_guide == null)
+                {
+                    return HttpNotFound();
+                }
+                guide = _guide;
+            }
+            var url = Url.Action("Personnel/Create", "Admin");
+            return View(url,guide);
         }
         public ActionResult _GetAllTemplates()
         {
@@ -211,7 +258,7 @@ namespace TalentAcquisition.Controllers
               var applicationsinonboarding = db.JobApplications.Include("JobSeeker").Include("JobRequisition").Where(x => x.ApplicationStatus == Core.Domain.ApplicationStatus.Onboarding).ToList();
                 foreach ( var applicant in applicationsinonboarding)
                 {
-                    if (!db.WelcomeGuides.Where(x=>x.JobSeekerID == applicant.JobSeekerID).Any())
+                    if (!db.WelcomeGuides.Where(x=>x.JobSeekerID == applicant.JobSeekerID && x.Position==applicant.JobRequisition.JobTitle).Any())
                     {
                         JobApplications.Add(applicant);
                     }     
@@ -224,7 +271,7 @@ namespace TalentAcquisition.Controllers
             var WelcomeGuides = new List<WelcomeGuide>();
             using (var db = new TalentContext())
             {
-                WelcomeGuides = db.WelcomeGuides.Where(x => x.Status <= Status.Complete).ToList();
+                WelcomeGuides = db.WelcomeGuides.Where(x => x.Status < Status.Closed).ToList();
             }
             return PartialView(WelcomeGuides);
         }
@@ -251,17 +298,84 @@ namespace TalentAcquisition.Controllers
             activitymodel.OnboardingTemplateID = templateid;
             return PartialView(activitymodel);
         }
+        public ActionResult _CreateGuideActivityViewModel(int id, int templateid, int guideid)
+        {
+            var onboardActivity = db.OnboardActivities.Find(id);
+            var activitymodel = OnboardingUtilityHelper.ConvertToActivityModel(onboardActivity);
+            activitymodel.OnboardingTemplateID = templateid;
+            activitymodel.WelcomeGuideID = guideid;
+            activitymodel.Body = activitymodel.Title;
+            return PartialView("_CreateActivityViewModel",activitymodel);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public JsonResult _CreateActivityViewModel(ActivityViewModel activitymodel)
         {
+            string htmlEncoded = WebUtility.HtmlEncode(activitymodel.Body);
+            activitymodel.Body = htmlEncoded;
             if (ModelState.IsValid)
             {
                 CompletedActivity activity = OnboardingUtilityHelper.ConvertToCompletedActivity(activitymodel);
+                activity.OnboardActivityID = activitymodel.OnboardActivityID;
+                if (activity.WelcomeGuideID == 0)
+                {
+                    activity.WelcomeGuideID = null;
+                }
                 db.CompletedActivities.Add(activity);
                 db.SaveChanges();
             }
             return Json(true,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CKEditorUpload()
+        {
+            var funcNum = 0;
+            int.TryParse(Request["CKEditorFuncNum"], out funcNum);
+
+            if (Request.Files == null || Request.Files.Count < 1)
+                return BuildReturnScript(funcNum, null, "No file has been sent");
+
+            string fileName = string.Empty;
+            SaveAttatchedFile(filesavepath, Request, ref fileName);
+            var url = baseUrl + fileName;
+            // return BuildReturnScript(funcNum, url, null);
+            Dictionary<string, dynamic> response = new Dictionary<string, dynamic>();
+    //        "uploaded": 1,
+    //"fileName": "foo.jpg",
+    //"url": "/files/foo.jpg"
+            response["uploaded"] = (int)1;
+            response["fileName"] = fileName;
+            response["url"] = HttpUtility.JavaScriptStringEncode(url ?? "");
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+        private ContentResult BuildReturnScript(int functionNumber, string url, string errorMessage)
+        {
+            return Content(
+                string.Format(scriptTag, functionNumber, HttpUtility.JavaScriptStringEncode(url ?? ""), HttpUtility.JavaScriptStringEncode(errorMessage ?? "")),
+                "text/html"
+                );
+        }
+
+        private void SaveAttatchedFile(string filepath, HttpRequestBase Request, ref string fileName)
+        {
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                var file = Request.Files[i];
+                if (file != null && file.ContentLength > 0)
+                {
+                    fileName = Path.GetFileName(file.FileName);
+                    _helper = new AzureFileHelper();
+                    
+                    string targetPath = Server.MapPath(filepath);
+                    if (!Directory.Exists(targetPath))
+                    {
+                        Directory.CreateDirectory(targetPath);
+                    }
+                    fileName = Guid.NewGuid() + fileName;
+                    _helper.UploadSingleFileAsync(file, fileName, targetPath);
+                    //string fileSavePath = Path.Combine(targetPath, fileName);
+                    //file.SaveAs(fileSavePath);
+                }
+            }
         }
         public ActionResult _GetAllActivitiesForTemplate(int id)
         {
@@ -303,21 +417,47 @@ namespace TalentAcquisition.Controllers
             activities.Activities.AddRange(OnboardingUtilityHelper.ConvertToActivityModelList(activitylist));
             return PartialView(activities);
         }
+        public async Task<JsonResult> PushCompletedOnboardingToFullEmployee(int id)
+        {
+            bool action = false;
+            var guide = db.WelcomeGuides.Where(x => x.ID == id);
+            if (guide != null)
+            {
+                guide.First().Status = Status.Complete;
+                await db.SaveChangesAsync();
+                //db.SaveChanges();
+                action = true;
+            }
+            return Json(action, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public async Task<JsonResult> _MarkActivityAsCompleted(int id)
-       // public JsonResult _MarkActivityAsCompleted(int id)
+       
         {
             bool action = false;
             var activity = db.CompletedActivities.Where(x => x.ID == id);
             if (activity != null)
             {
-                //activity.First().HasTaskBeenCompleted = true;
+                activity.First().HasTaskBeenCompleted = true;
                 await db.SaveChangesAsync();
                 //db.SaveChanges();
                 action = true;
             }
             return Json(action,JsonRequestBehavior.AllowGet);
         }
+        public async Task<JsonResult> _SubmitAsCompletedOnboarding(int id)
+        {
+            bool action = false;
+            var guide = db.WelcomeGuides.Where(x => x.ID == id);
+            if (guide != null)
+            {
+                guide.First().Status=Status.Submitted;
+                await db.SaveChangesAsync();
+                //db.SaveChanges();
+                action = true;
+            }
+            return Json(action, JsonRequestBehavior.AllowGet);
+        }      
         public JsonResult _NotifyApplicant(int id)
         {
             var guide = db.WelcomeGuides.Find(id);
@@ -326,23 +466,59 @@ namespace TalentAcquisition.Controllers
             return Json(true,JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public async Task<JsonResult> UploadFile(HttpPostedFileBase file)
+        public async Task<JsonResult> UploadFile(int id)
         {
-            try
+            if (Request.Files.Count > 0)
             {
-                if (file.ContentLength > 0)
+                try
                 {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/Uploads/documents"), _FileName);
-                    file.SaveAs(_path);
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    var activity = db.CompletedActivities.Where(x => x.ID == id);
+                    if (activity != null)
+                    {
+                        //activity.First().HasTaskBeenCompleted = true;
+                       // await db.SaveChangesAsync();
+                        //db.SaveChanges();
+                       // action = true;
+                    }
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            string extension = Path.GetExtension(file.FileName);
+                            fname = activity.First().Name+activity.First().ID+extension;
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Uploads/"), fname);
+                        file.SaveAs(fname);
+                    }
+                    // Returns message that successfully uploaded 
+                    await db.SaveChangesAsync();
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
                 }
             }
-            catch
+            else
             {
-                
+                return Json("No files selected.");
             }
-            await db.SaveChangesAsync();
-            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
     }

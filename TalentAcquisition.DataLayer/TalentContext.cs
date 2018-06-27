@@ -53,13 +53,24 @@ namespace TalentAcquisition.DataLayer
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<Employee>()
+            .HasKey(c => c.ID);
+            modelBuilder.Entity<ApplicationRole>().HasKey(r => r.Id);
+
+            modelBuilder.Entity<Employee>().HasMany<ApplicationUserGroup>((Employee u) => u.Groups);
+            modelBuilder.Entity<ApplicationUserGroup>().HasKey((ApplicationUserGroup r) => new { EmployeeID = r.EmployeeID, GroupId = r.GroupId }).ToTable("ApplicationUserGroups");
+
+            // And here:
+            modelBuilder.Entity<Group>().HasMany<ApplicationRoleGroup>((Group g) => g.Roles);
+            modelBuilder.Entity<ApplicationRoleGroup>().HasKey((ApplicationRoleGroup gr) => new { RoleId = gr.RoleId, GroupId = gr.GroupId }).ToTable("ApplicationRoleGroups");
+
             //modelBuilder.Entity<JobRequisition>()
             //    .Property(s => s.Employee1)
             //    .HasColumnName("HeadOfDepartmentID");
             //modelBuilder.Entity<JobRequisition>().
             //    Property(s => s.Employee.ID).
             //    HasColumnName("HumanResourcePersonnelID");
-           // modelBuilder.Entity<JobSeeker>().Property(e => e.RegistrationDate).HasColumnType("datetime2");
+            // modelBuilder.Entity<JobSeeker>().Property(e => e.RegistrationDate).HasColumnType("datetime2");
         }
         public DbSet<JobSeeker> Applicants { get; set; }
         public DbSet<JobRequisition> JobRequisitions { get; set; }
@@ -87,6 +98,15 @@ namespace TalentAcquisition.DataLayer
         public DbSet<CompletedActivity> CompletedActivities { get; set; }
         public DbSet<EvaluationCategory> EvaluationCategories { get; set; }
         public DbSet<ApplicantEvaluationMetrics> ApplicantEvaluationMetrics { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<ApplicationUserGroup> ApplicationUserGroups { get; set; }
+        public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { get; set; }
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+        public DbSet<GrievanceType> GrievanceTypes { get; set; }
+        public DbSet<GrievanceAction> GrievanceActions { get; set; }
+        public DbSet<GrievanceReport> GrievanceReports { get; set; }
+
+        //public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.AssignToGroupViewModel> AssignToGroupViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.ActivityViewModel> ActivityViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.RegisterViewModel> RegisterViewModels { get; set; }
 

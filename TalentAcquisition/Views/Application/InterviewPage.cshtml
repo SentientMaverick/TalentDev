@@ -74,8 +74,15 @@
             </div>
             <div id="collapse1" class="panel-collapse collapse in">
                 <div class="panel-body">
-                    @Html.Action("_GetCandidateAvailabilityForm", new { requisitionid = ViewBag.requisitionid, applicationid =ViewBag.applicationid})
-                </div>
+                    @if (((int)ViewBag.interviewid == 0) && !((bool)ViewBag.Status))
+                    {
+                        @Html.Action("_GetCandidateAvailabilityForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid, interviewid = ViewBag.interviewid })
+                    }
+                    else
+                    {
+                        <p>Interview in Progress</p>
+                    }
+               </div>
             </div>
         </div>
         <div class="panel panel-primary">
@@ -86,9 +93,15 @@
             </div>
             <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body" id="interviewteam">
+<<<<<<< HEAD
                     @*@Html.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })*@
+=======
+                    @if (((int)ViewBag.interviewid != 0)&& !((bool)ViewBag.Status))
+                    {
+                        @Html.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid,interviewid= ViewBag.interviewid })
+                    }
+>>>>>>> EmployeeFeatureBranch
                 </div>
-
             </div>
         </div>
         @*<div class="panel panel-primary">
@@ -111,8 +124,16 @@
             </div>
             <div id="collapse4" class="panel-collapse collapse">
                 <div class="panel-body" id="finalizeinterview">
+<<<<<<< HEAD
                     @*@Html.Action("_GetFinalizeInterviewForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })*@
                 </div>
+=======
+                    @if ((int)ViewBag.interviewid != 0 && !((bool)ViewBag.Status))
+                    {
+                       @Html.Action("_GetFinalizeInterviewForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid, interviewid = ViewBag.interviewid })
+                    }
+                 </div>
+>>>>>>> EmployeeFeatureBranch
             </div>
         </div>
      </div>

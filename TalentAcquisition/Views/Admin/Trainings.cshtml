@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Trainings";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+<p style="font-size: 22px;">Trainings</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Trainings</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Activities</p>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>@Html.ActionLink("View Personal Training Schedule", "Schedule", "Trainings")</li>
+                    <li>@Html.ActionLink("Request For New Training", "Request", "Trainings")</li>
+                    <li>@Html.ActionLink("View Trainings List","All","Trainings")</li>
+                     @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Add Training Type", "AddTrainingType", "Trainings")</li>
+                            <li>@Html.ActionLink("Approve Training Request", "ApproveRequest", "Trainings")</li>
+                     }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

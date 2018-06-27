@@ -2,106 +2,73 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
 }
 
-<style>
-    .adminsidebar {
-        height: 100%;
-        min-height: 500px;
-        padding: 1em;
-        color: black;
-    }
-
-        .adminsidebar h1, .adminsidebar h2, .adminsidebar h3 {
-            color: snow;
-            font-size: 125%;
-            text-shadow: white;
-            text-align: center;
-        }
-
-        .adminsidebar .nav {
-            margin: 0 auto;
-            /*background:rgba(255,255,255,0.1);*/
-            padding: 1em;
-        }
-
-        .adminsidebar li {
-            border-bottom: 1px solid white;
-            text-align: left;
-            border-left: 4px solid brown;
-        }
-
-            .adminsidebar li a:hover {
-                color: rgb(4, 5, 47);
-                background-color: snow;
-                display: block;
-            }
-
-            .adminsidebar li a {
-                color: white;
-                line-height: 2em;
-                width: 100%;
-                color: black;
-            }
-
-        .adminsidebar .nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-
-            .adminsidebar .nav ul li {
-                border: 0;
-                margin-left: 1em;
-            }
-
-                .adminsidebar .nav ul li a:link,
-                .adminsidebar .nav ul li a:visited {
-                    color: black;
-                    padding: 0.5em 0.5em 0.5em 1em;
-                    display: block;
-                    text-decoration: none;
-                    border-left: 5px solid rgb(239,213,252);
-                }
-
-                .adminsidebar .nav ul li a:hover {
-                    color: rgb(49,52,61);
-                    border-left: 5px solid rgb(250,136,234);
-                }
-    /*.bioform input,
-                    select {
-                        width: 100%;
-                        max-width: 100%;
-                    }
-                    .bioform #submit input
-                    {
-                        max-width: 280px;
-                    }*/
-</style>
-<section class="mainbody">
-    <div class="container">
-        <div class="col-md-4">
-            <div class="container">
-                <ul class="nav">
-                    @Html.Partial("_AdminDashboardSidebar")
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-size: 22px;">Employee Management</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                @*<li><a href="#">Pictures</a></li>*@
+                <li class="active">Employee Directory</li>
+            </ol>
             <section class="container body-content">
                 <div class="row bioform">
-                    <h2>Employee Manager</h2>
-                    <br />
-                    <h4></h4>
                     <!--Comment-->
                     <span class="alert-danger"></span>
                     <span class="alert-danger">@ViewBag.Message</span>
                     @*<p>
                             @Html.ActionLink("Create New", "Create")
                         </p>*@
-                    <table class="table table-striped" style="font-size:90%">
+                    
+                    <a href="@Url.Action("Personnel/create","Admin")" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create New Employee</a>
+                    <div class="row">
+                        <style>
+                            .card {
+                                    /* Add shadows to create the "card" effect */
+                                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                                    transition: 0.3s;
+                                }
+
+                                /* On mouse-over, add a deeper shadow */
+                                .card:hover {
+                                    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                                }
+                           .card .container {
+                                padding: 2px 16px;
+                                margin-bottom:1em;
+                            }
+                        </style>
+
+                        @foreach (var employee in Model)
+                        {
+                            <div class="col-md-4">
+                                <div class="card">
+                                    
+                                    @if (String.IsNullOrEmpty(employee.PassportDetails))
+                                    {
+                                        <img src="~/Assets/Icons/Man-Suit-2.png" alt="Avatar" width="200" style="">
+                                    }
+                                    else
+                                    {
+                                           string url = Path.Combine(Server.MapPath("~/Uploads/"), employee.UserId + "_img.png");
+                                           string azureurl = Path.Combine("https://codelabstorage.blob.core.windows.net/webappstoragedotnet-imagecontainer/",employee.PassportDetails);
+                                      <img src="@azureurl" alt="Avatar" width="200" style="">
+                                    }
+                                    <div class="container">
+                                        <h4><b>@employee.FullName</b></h4>
+                                        <p>@employee.OfficePosition.Title</p>
+                                        <p>@employee.PhoneNumber</p>
+                                        <h6>@Html.ActionLink("Details", "Details", new { id = employee.ID },
+                                   htmlAttributes: new { @class = "btn btn-default btn-xs" })</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                   
+                    @*<table class="table table-striped" style="font-size:90%">
                         
                         <tr style="border:none;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
                             <th>
@@ -160,18 +127,10 @@
                                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                                 </td>
                                 <td>
-                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
-                                    @Html.ActionLink("Details", "Details", new { id = item.ID },
-                                   htmlAttributes: new { @class = "btn btn-default btn-xs" })
-                                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
                                 </td>
                             </tr>
                         }
 
-                    </table>
+                    </table>*@
                 </div>
             </section>
-        </div>
-
-    </div>
-</section>

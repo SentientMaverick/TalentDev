@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Talent.HRM.Services.Interfaces;
+using Talent.HRM.Services.FileManger;
 
 namespace TalentAcquisition.Controllers
 {

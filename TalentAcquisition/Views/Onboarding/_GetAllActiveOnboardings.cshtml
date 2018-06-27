@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.WelcomeGuide>
-
+@using Humanizer
 <table class="table table-striped" style="font-size:90%">
     <tr>
         <th>
@@ -32,10 +32,10 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
+            @item.DateCreated.Humanize()
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @item.StartDate.Humanize()
         </td>
         <td>
             <a href="/Onboarding/Guide/Customize/@item.Name/@item.ID">View</a>
