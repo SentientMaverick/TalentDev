@@ -1,0 +1,295 @@
+﻿@model TalentAcquisition.Core.Domain.Employee
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<div style="padding-top:2em;"></div>
+<p style="font-size: 22px;">Employee Profile</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Employee</li>
+    <li class="active">Profile</li>
+    <li class="active">Edit</li>
+</ol>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="container body-content">
+        <div class="row">
+            <div class="col-md-10">
+                <input type="submit" value="Save" class="btn btn-default btn-primary col-md-4" />
+            </div>
+            <br /><br />
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1">Personal Details</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <br />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmployeeNumber, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <input value="@Model.EmployeeNumber" disabled class="form-control input-sm" />
+                                @Html.EditorFor(model => model.EmployeeNumber, new { htmlAttributes = new { @class = "hidden" } })
+                                @Html.ValidationMessageFor(model => model.EmployeeNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmploymentDate, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <input type="datetime" data-date-format="DD-MM-YYYY" class="form-control input-sm" value="@Model.EmploymentDate.ToShortDateString()" no-padding placeholder="Choose Employment Date" disabled />
+                                <input type="datetime" name="EmploymentDate" id="EmploymentDate" data-date-format="DD-MM-YYYY" class="form-control hidden input-sm" value="@Model.EmploymentDate.ToShortDateString()" no-padding placeholder="Choose Employment Date" hidden />
+                                @*@Html.EditorFor(model => model.EmploymentDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.EmploymentDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Role", htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.DropDownList("OfficePositionID", null, htmlAttributes: new { @class = "form-control input-sm",@disabled="true" })
+                                @Html.ValidationMessageFor(model => model.OfficePositionID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden">
+                            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = " col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = " col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <input type="datetime" data-date-format="DD-MM-YYYY" class="form-control input-sm" value="@Model.DateOfBirth.ToShortDateString()" no-padding disabled />
+                                <input type="datetime" name="DateOfBirth" id="DateOfBirth" data-date-format="DD-MM-YYYY" class="form-control hidden" value="@Model.DateOfBirth.ToShortDateString()" no-padding disabled />
+                                @*@Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse2">Contact Information</a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse3">Dependents/Next of Kin</a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NextofKinName, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.NextofKinName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NextofKinRelationship, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.NextofKinRelationship, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NextofKinAddress, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.NextofKinAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NextofKinContact, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.NextofKinContact, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.NextofKinContact, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse4">Immigration</a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse in">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse5">Work Experience</a>
+                </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse in">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse6">Education</a>
+                </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse in">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse7">Skills</a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div ng-controller="EmployeeController" ng-init="setEmployeeId(@Model.ID)">
+                        <style>
+                            .btn-default, .btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger {
+                                border-radius: 23px;
+                            }
+                        </style>
+                        <ul class="nav nav-pills">
+
+                            <li ng-repeat="skill in employeeskills" class="active btn-sm">
+                                <a ng-click="removeSkill(skill.ID)">{{skill.Name}}</a>
+                            </li>
+                        </ul>
+                        <form>
+                            <hr />
+                            <div class="col-md-12">
+                                <div class="col-md-4"><input type="text" ng-model="skillName" class="form-control input-sm col-md-4"></div>
+                                <input type="button" ng-click="addSkill()" value="Add Skill" class="btn btn-default btn-primary btn-sm"/>
+                             </div>
+                             
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse8">Other Details</a>
+                </h4>
+            </div>
+            <div id="collapse8" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div>
+                        @foreach (var item in Model.Groups)
+                        {
+                            <h5><b>GroupName : @item.Group.Name</b></h5>
+
+                            <ul>
+                                @foreach (var priviledge in item.Group.Roles)
+                                {
+                                    <li>@priviledge.Role.Name</li>
+                                }
+
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

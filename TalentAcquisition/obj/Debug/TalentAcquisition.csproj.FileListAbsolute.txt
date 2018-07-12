@@ -1,4 +1,3 @@
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\obj\Debug\TalentAcquisition.csprojResolveAssemblyReference.cache
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\csc.exe
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -122,5 +121,6 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\vi\Humanizer.
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\zh-CN\Humanizer.resources.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\zh-Hans\Humanizer.resources.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\bin\zh-Hant\Humanizer.resources.dll
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\obj\Debug\TalentAcquisition.csprojResolveAssemblyReference.cache
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\obj\Debug\TalentAcquisition.dll
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition\obj\Debug\TalentAcquisition.pdb

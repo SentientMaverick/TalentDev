@@ -1,0 +1,114 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.Appraisal>
+
+@{
+    ViewBag.Title = "Pending Appraisals";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Appraisal List</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Performance</li>
+    <li class="active">Appraisal List</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Appraisal List</p>
+            </div>
+            <div class="panel-body" style="overflow-x:scroll">
+                <p>
+                    @Html.ActionLink("Create New", "Appraisal/Personal", "Performance")
+                </p>
+                <table class="table" style="font-size:80%">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.No)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalPeriodCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalClass)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraiseeCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalSupervisor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalJobTitle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalSupervisorName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item.No, "Appraisal/Supervisor/Review/"+ item.No, "Performance")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalPeriodCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalTypeCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalClass)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraiseeCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalSupervisor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalJobTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalSupervisorName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.No }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.No }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.No })*@
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,93 @@
+﻿@model List<TalentAcquisition.BusinessLogic.UpdatedDomain.Evaluation>
+@{
+    int stage = (int)ViewBag.stageid;
+}
+@{
+    Dictionary<string, int> maxscores = ViewBag.maxscores;
+}
+<script>
+   
+</script>
+<style>
+    #evaluationlist input, #evaluationlist select {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background-color: inherit;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+<table class="table table-striped">
+    <tr class="">
+        <th>
+           EvaluationCode
+        </th>
+        <th>
+            Evaluation Description
+        </th>
+        <th>
+            Stage Score
+        </th> 
+            @if (stage >= 2)
+            {
+                <th>
+                    <p>Stage 2 Score</p>
+                </th>
+            }          
+            @if (stage == 3)
+            {
+                <th>
+                    <p>Stage 3 Score</p>
+                </th>
+            }             
+        <th>
+            Maximum Score
+        </th>
+        <th></th>
+    </tr>
+
+   @for (var i = 0; i < Model.Count(); i++)
+   {
+@*@foreach (var item in Model) {*@
+    <tr id="evaluationlist">
+        <td class="hidden">
+        @Html.HiddenFor(it => it[i].ID)
+        </td>
+        <td>
+            @Html.DisplayFor(it => it[i].EvaluationCode)
+        </td>
+        <td>
+            @Html.DisplayFor(it => it[i].EvaluationDescription)
+        </td>
+        <td class="hidden">@Html.HiddenFor(it => it[i].EvaluationCode)</td>
+        <td class="hidden">@Html.HiddenFor(it => it[i].EvaluationDescription)</td>
+        <td class="hidden">@Html.HiddenFor(it => it[i].InterviewEvaluationID)</td>
+        <td>
+            @Html.EditorFor(it => it[i].Score1, new { htmlAttributes = new { @class = "form-control input-sm col-md-4 score" } })
+        </td>
+        @if (stage >= 2)
+        {
+            <td>
+                @Html.EditorFor(it => it[i].Score2)
+            </td>
+            if (stage == 3)
+            {
+                <td>
+                    @Html.EditorFor(it => it[i].Score3)
+                </td>
+            }
+        }
+        <td>
+            @*@{ 
+                string code = Model[i].EvaluationCode;
+            }*@
+                @maxscores[Model[i].EvaluationCode]
+        </td>
+        @*<td>
+            <a href="javascript:void(0)" id="deleteitem">Delete</a>
+        </td>*@
+    </tr>
+}
+
+</table>

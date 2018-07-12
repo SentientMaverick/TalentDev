@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Create  Requisition";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-3 mysidebar">
+            <div class="" style="width:100px">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Raise Requisition</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard", "Admin")">Home</a></li>
+                <li><a href="@Url.Action("Requisitionmanager", "Admin")">Requisition Manager</a></li>
+                <li class="active">Create Requisition</li>
+                @*<li class="active">@Model.Title</li>*@
+            </ol>
+            <section class="" style="margin:-2px">
+                <div class="row">
+                    <a href="javascript:void()" id="submitreq" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="15" />Submit Requisition</a>
+                    @*<a href="javascript:void()" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Approve Requisition</a>*@
+                </div>
+                <div class="row">
+                    <!--Comment-->
+                    <span class="alert-danger">@ViewBag.Message</span>
+                    @Html.Action("_GetDetailsFromRole")
+                </div>
+            </section>
+        </div>
+
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#StartDate').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+         });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ClosingDate').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+        });
+    </script>
+}

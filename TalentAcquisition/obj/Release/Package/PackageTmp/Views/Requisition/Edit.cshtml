@@ -1,0 +1,178 @@
+﻿@model TalentAcquisition.Core.Domain.JobRequisition
+
+@{
+    ViewBag.Title = "Edit Requisition";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Edit Job Requisition</p>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                <li><a href="@Url.Action("Requisitions","Admin")">Job  Requisition</a></li>
+                <li class="active">Edit</li>
+                <li class="active">@Model.RequisitionNo</li>
+            </ol>
+            <section class="body-content">
+                <div class="row bioform">
+                    <!--Comment-->
+                    <div class="panel panel-default">
+                        <div class="panel-body alert-info">
+                            @Model.RejectionNote
+                        </div>
+                    </div>
+                    <style>
+                        select, input {
+                            min-width: 100%;
+                            width: 100%;
+                        }
+
+                        select {
+                            margin-left: 0px;
+                        }
+                        label{
+                            font-size:90%;
+                        }
+                    </style>
+                    <span class="alert-danger">@ViewBag.Message</span>
+                    <div id="UpdatedSection">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p>Requisition -@Model.RequisitionNo</p>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    @using (Html.BeginForm(FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.JobRequisitionID)
+                                        @Html.HiddenFor(model => model.OfficePositionID)
+                                        @Html.HiddenFor(model => model.JobTitle)
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <b class="col-md-4">Department</b>
+                                                <div class="col-md-8">
+                                                    <p>@Model.OfficePosition.Department.DepartmentName</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <b class="col-md-4">Position</b>
+                                                <div class="col-md-8">
+                                                    <p class="form-control-static">@Model.OfficePosition.Title</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Location</label>
+                                                <div class="col-md-12">
+                                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @placeholder = "Specify Location" } })
+                                                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Slots Available</label>
+                                                <div class="col-md-12">
+                                                    @Html.EditorFor(model => model.NoOfPositionsAvailable, new { htmlAttributes = new { @class = "form-control", @placeholder = "Specify Number Of Slots Available" } })
+                                                    @Html.ValidationMessageFor(model => model.NoOfPositionsAvailable, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Job Description</label>
+                                                <div class="col-md-12">
+                                                    @Html.TextAreaFor(model => model.JobDescription, new { @class = "form-control", @placeholder = "Enter Job Description", rows = "8", cols = "10" })
+                                                    @Html.ValidationMessageFor(model => model.JobDescription, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Age Limit</label>
+                                                <div class="col-md-12">
+                                                    @Html.EditorFor(model => model.AgeLimit, new { htmlAttributes = new { @class = "form-control", @placeholder = "Set The Upper Age Limit" } })
+                                                    @Html.ValidationMessageFor(model => model.AgeLimit, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Minimum Years Of Experience</label>
+                                                <div class="col-md-12">
+                                                    @Html.EditorFor(model => model.YearsOfExperience, new { htmlAttributes = new { @class = "form-control", @placeholder = "No of Years of Experience" } })
+                                                    @Html.ValidationMessageFor(model => model.YearsOfExperience, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Educational Requirements</label>
+                                                <div class="col-md-12">
+                                                    @Html.TextAreaFor(model => model.EducationalRequirements, new { @class = "form-control", @placeholder = "Enter Educational Requirements", rows = "8", cols = "10" })
+                                                    @Html.ValidationMessageFor(model => model.EducationalRequirements, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Responsibilites of Role</label>
+                                                <div class="col-md-12">
+                                                    @Html.TextAreaFor(model => model.JobResponsibilities, new { @class = "form-control", @placeholder = "Enter The Responsibilities for the Role", rows = "8", cols = "10" })
+                                                    @Html.ValidationMessageFor(model => model.JobResponsibilities, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Commencement Date</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" name="StartDate" data-date-format="DD-MM-YYYY" id="StartDate" class="form-control" value="@Model.StartDate.ToShortDateString()" placeholder="Pick Starting Date for Recruitment" />
+                                                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Expiry Date</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" name="ClosingDate" data-date-format="DD-MM-YYYY" id="ClosingDate" class="form-control" value="@Model.ClosingDate.ToShortDateString()" placeholder="Pick Closing Date for Recruitment" />
+                                                    @Html.ValidationMessageFor(model => model.ClosingDate, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Required Skills</label>
+                                                <div class="col-md-12">
+                                                    @Html.Action("_GetSkills", new { id = Model.JobRequisitionID })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <input type="submit" value="Save Changes" class="btn btn-default" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#StartDate').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+         });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ClosingDate').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+        });
+    </script>
+}

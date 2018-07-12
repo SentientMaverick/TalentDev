@@ -1,0 +1,28 @@
+﻿<style>
+    .nav-tabs li{
+        min-width:10em;
+    }
+    .nav-tabs li a{
+        color:green;
+    }
+</style>
+<h2></h2>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon">&#xe008;</span>Profile</a></li>
+    <li><a data-toggle="tab" href="#resume"><span class="glyphicon glyphicon-book"></span>Resume</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        <h3>Applicant Profile</h3>
+        <hr />
+        @Html.Action("_GetApplicantOverview", "Applicant", new {applicantid=ViewBag.applicantid })
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="resume" class="tab-pane fade">
+          <embed src="~/Uploads/Resume.pdf" width="800" height="1000" />
+    </div>
+</div>

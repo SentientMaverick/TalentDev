@@ -1,0 +1,110 @@
+﻿@{ 
+
+}
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+            <li>
+                <a href="@Url.Action("Dashboard", "Applicant")"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Profile<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="@Url.Action("Profile", "Applicant")">Personal Information</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Profile/Education", "Applicant")">Education</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Profile/Employment", "Applicant")">Work Experience</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Profile/Certification", "Applicant")">Certifications</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Profile/Overview", "Applicant")">Complete Profile</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#applications"><i class="fa fa-table fa-fw"></i> Applications<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="">New Application</a>
+                    </li>
+                    <li>
+                        <a href="">Complete Application</a>
+                    </li>
+                    <li>
+                        <a href="">Manage Application</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#uploads"><i class="fa fa-table fa-fw"></i> Uploads<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="@Url.Action("Passport Photo", "Profile/Passport")">Upload Passport</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Passport Photo", "Profile/Resume")">Upload CV</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Passport Photo", "Profile/Documents")">Other Documents</a>
+                    </li>
+                </ul>
+            </li>
+            @*<li>
+                <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="#">Second Level Item</a>
+                    </li>
+                    <li>
+                        <a href="#">Second Level Item</a>
+                    </li>
+                    <li>
+                        <a href="#">Third Level <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li>
+                                <a href="#">Third Level Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level Item</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-third-level -->
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="blank.html">Blank Page</a>
+                    </li>
+                    <li>
+                        <a href="login.html">Login Page</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>*@
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>
+<!-- /.navbar-static-->

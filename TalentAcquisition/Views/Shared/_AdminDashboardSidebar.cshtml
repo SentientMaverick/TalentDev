@@ -58,10 +58,10 @@
                         <a href="#"><i class="fa fa-database fa-fw"></i> Office Positions<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
                             <li>
-                                <a href="@Url.Action("manage_officeposition/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i>Add New</a>
+                                <a href="@Url.Action("Job/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i>Add New</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("manage_officeposition", "Admin")"><i class="fa fa-gears fa-fw"></i>Manage All</a>
+                                <a href="@Url.Action("Jobmanager", "Admin")"><i class="fa fa-gears fa-fw"></i>Manage All</a>
                             </li>
                         </ul>
                     </li>
@@ -176,9 +176,9 @@ else
                 @*<li>
                         <a href="@Url.Action("Retirement","Admin")"><i class="fa fa-dashboard fa-fw"></i><span class="fa arrow"></span>Retirement and Pension</a>
                     </li>*@
-                <li>
+                @*<li>
                     <a href="@Url.Action("Trainings","Admin")"><i class="fa fa-balance-scale fa-fw"></i> Employee Exit</a>
-                </li>
+                </li>*@
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

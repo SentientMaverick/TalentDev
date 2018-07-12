@@ -1,0 +1,73 @@
+﻿@model TalentAcquisition.Core.Domain.Interview
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse3">Interview Details</a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <style>
+                    dd,dt{
+                        margin:0.2em;
+                    }
+                </style>
+                    <dl class="">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ProposedDate1)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ProposedDate1)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ProposedDate2)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ProposedDate2)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ScheduledDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ScheduledDate)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SchedulingFinalNote)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SchedulingFinalNote)
+                        </dd>
+
+                    </dl>
+                @if (Model.ScheduledDate== null)
+                {
+                    <form class="form-horizontal" action="/Applicant/_SubmitInterview" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.InterviewID)
+                        @Html.HiddenFor(model => model.JobApplicationID)
+                        @Html.HiddenFor(model => model.JobRequisitionID)
+                        @Html.HiddenFor(model => model.OfficePositionID)
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <h5> Which of the Dates Provided would you prefer to fix the Interview ? </h5>
+                                <h4>@Model.ProposedDate1.ToShortDateString()  <input type="radio" value="@Model.ProposedDate1" name="ScheduledDate" /><span class="pull-right">@Model.ProposedDate2.ToShortDateString() <input type="radio" value="@Model.ProposedDate2" name="ScheduledDate" /></span></h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4">
+                                <input type="submit" value="Submit Selection" class="btn btn-default btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                }
+                           
+            </div>
+        </div>
+    </div>
+</div>

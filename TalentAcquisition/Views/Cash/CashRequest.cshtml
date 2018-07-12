@@ -1,0 +1,183 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.CashRequisition
+
+@{
+    ViewBag.Title = "Cash Request";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Cash Requisition</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Expenses</li>
+    <li class="active">Transaction</li>
+    <li class="active">Request</li>
+</ol>
+<section class="container body-content">
+    <span class="alert-danger alert-dismissable">@ViewBag.Error</span>
+    <div class="row" ng-controller="ExpenseRecordController" ng-init="init()">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <p class="">Cash Requisition</p>
+                </div>
+                <div class="panel-body">
+                        <div class="form-horizontal">
+                            <style>
+                                label{
+                                    font-size:80%;
+                                }
+                            </style>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.No, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            <input type="text" id="No" name="No" value="@Model.No" class="form-control" ng-readonly="true" />
+                                            @*@Html.EditorFor(model => model.No, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.ValidationMessageFor(model => model.No, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CashRequisitionTypeCode, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.DropDownList("CashRequisitionTypeCode", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CashRequisitionTypeCode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <span class="alert-danger pull-left">*</span>
+                                            @Html.LabelFor(model => model.RequestCreator, htmlAttributes: new { @class = "col-md-2" })
+                                        </div>
+                                            <div class="col-md-8">
+                                                <select class="form-control" id="RequestCreator" name="RequestCreator" ng-model="SelectedEmployee"
+                                                        ng-options="item.Number for item in employees track by item.Id" ng-change="selectedemployeechanged()"></select>
+                                                @*@Html.EditorFor(model => model.RequestCreator, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.RequestCreator, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control disabled" } })
+                                            @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DateModified, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.DateModified, new { htmlAttributes = new { @class = "form-control" ,@disabled="true" } })
+                                            @Html.ValidationMessageFor(model => model.DateModified, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BranchCode, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.DropDownList("BranchCode", new SelectList(ViewBag.Branches, "BranchId ", "Location"), null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            <input ng-model="selectedEmployeeDepartment" id="DepartmentId" name="DepartmentId" class="form-control" ng-readonly="true" />
+                                            @*@Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control hidden" } })*@
+                                            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>       
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <p class="">Line Items</p>
+                </div>
+                <div class="panel-body">
+                    <div class="row container">
+                        <button type="button" id="Mexico" style="float:right;margin-bottom: 10px;" class="btn btn-info btn-sm" ng-click="addGrievanceType()">Add Transaction Types</button>
+                        <style>
+                            #myTable input, #myTable select {
+                                border: none;
+                                outline: none;
+                                box-shadow: none;
+                                background-color: inherit;
+                                padding: 0;
+                                margin: 0;
+                            }
+                        </style>
+                        <form id="empform" ng-submit="submitGrievanceTypes()">
+                            <table id="mytable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="type in grievanceTypes">
+                                        <td>{{$index+1}}</td>
+                                        <td>
+                                            <input class="form-control input-sm" id="Line{{$index}}.Name" name="Line[{{$index}}].Name" ng-required="true" ng-model="type.Name" ng-disabled="!enabledEdit[{{$index}}]" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm" ng-required="true" id="Line{{$index}}.Description" name="Line[{{$index}}].Description" ng-model="type.Description" ng-disabled="!enabledEdit[{{$index}}]" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm" ng-required="true" id="Line{{$index}}.Amount" name="Line[{{$index}}].Amount" ng-model="type.Amount" ng-disabled="!enabledEdit[{{$index}}]" />
+                                        </td>
+                                        <td>
+                                            <div class="buttons">
+                                                <button class="btn btn-primary btn-xs" ng-click="edit($index)">Edit</button>
+                                                <button class="btn btn-danger btn-xs" ng-click="delete($index)">Delete</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                            @*<input type="submit" class="btn btn-primary" value="Submit" />*@
+                        </form>
+                    </div>
+                </div>
+            </div>
+    }
+    </div>
+</section>
+
+
+<script>
+    employeesbs=@Html.Raw(Json.Encode(ViewBag.Employees));
+    itemsbs=@Html.Raw(Json.Encode(ViewBag.Items));
+</script>
+

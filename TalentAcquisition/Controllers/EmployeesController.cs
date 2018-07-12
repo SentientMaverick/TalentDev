@@ -56,7 +56,7 @@ namespace TalentAcquisition.Controllers
             string userid = UserId;
             var employee = db.Employees.Where(x => x.UserId == userid).First();
             ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
-            return View(employee);
+            return View("Profile",employee);
         }
         [Route("Employees/Profile")]
         [HttpPost]
@@ -79,7 +79,7 @@ namespace TalentAcquisition.Controllers
                 return RedirectToAction("Dashboard","Admin");
             }
             ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
-            return View(employee);
+            return View("Profile", employee);
         }
         // GET: Employees/Details/5
         public ActionResult Details(int? id)
@@ -155,7 +155,6 @@ namespace TalentAcquisition.Controllers
             ViewBag.GuideCreation = false;
             return View(employee);
         }
-
         // POST: Employees/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -175,7 +174,6 @@ namespace TalentAcquisition.Controllers
                 return View(employee);
             }
         }
-
         [HttpPost]
         [Route("Admin/Personnel/Update/{id:int}")]
         [ValidateAntiForgeryToken]
@@ -201,7 +199,6 @@ namespace TalentAcquisition.Controllers
             ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
             return View(employee);
         }
-
         // GET: Employees/Delete/5
         public ActionResult Delete(int? id)
         {

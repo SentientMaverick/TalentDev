@@ -1,0 +1,94 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobSeeker>
+
+<table class="table table-striped" style="font-size:90%;border:none">
+    <tr style="font-family:'Century Gothic'" class="alert-info">
+        <th>
+            @*@Html.DisplayNameFor(model => model.ApplicantNumber)*@
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.UploadedCVAddress)
+        </th>*@
+        <th>
+            @Html.DisplayName("Full Name")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.HighestQualification)*@
+            Highest Qualification 
+        </th>
+        <th>
+            Age
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            Skills
+        </th>
+        <th></th>
+  </tr>
+
+        @foreach (var item in Model)
+        {
+          <tr style="height:2em;border:1px solid #91dbdb;font-size:10px">
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Industry.Name)
+                </td>*@
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.ApplicantNumber)*@
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.RegistrationDate)
+                </td>*@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.UploadedCVAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UploadedPassportAddress)
+                </td>*@
+               <td>
+                  @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HighestQualification)
+                </td>
+              <td>
+                  @Html.DisplayFor(modelItem => item.Age)
+              </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>*@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+               <td style="font-size:10px">
+                  @{ var skills = "";
+                      if(item.Skills.Count()>0){
+                          foreach (var skill in item.Skills)
+                          {
+                              skills += skill.Name+" ,";
+                          }
+                          skills = skills.Substring(0,skills.Length-1);
+                      }
+                  }
+                  @skills
+              </td>
+                <td>
+                    <a class="btn btn-default btn-xs" id="screen" href="@ViewBag.RequisitionID/ScreenApplicant/@item.ID/"><img src="~/Assets/Icons/Send.png" height="20">Validate</a>
+                </td>
+            </tr>
+        @*<tr style="height:0.5em;"></tr>*@
+    }
+
+</table>

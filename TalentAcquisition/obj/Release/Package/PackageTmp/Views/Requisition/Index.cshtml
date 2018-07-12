@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Manage Requisitions";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $(".collapse.in").each(function () {
+
+            $(this).siblings(".panel-heading").find(".glyphicon").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+
+        });
+        $('.panel-heading a').on('click', function (e) {
+            if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
+                e.preventDefault();
+            }
+        });
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+});
+</script>
+
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4">
+            <div class="container">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-size: 22px;">Add Job</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                @*<li><a href="#">Pictures</a></li>*@
+                <li class="active"><a href="@Url.Action("jobrequisitionmanager","Admin")">Job Requisition Manager</a></li>
+                <li class="active">Requisitions</li>
+                </ol>
+            <section class="container body-content">
+                <span>@ViewBag.Message</span>
+                <div class="row">
+                    <a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+                    @*<span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />*@
+                    <p class="pull-right"><input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" /></p>
+ 
+                </div>
+                <hr/>
+                <div class="row">
+                    
+                    <div class="panel panel-default panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse1">New Requisitions</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                @*<table id="myTable" class="table table-striped">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Age</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Tosin</td>
+                                        <td>24</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Frank</td>
+                                        <td>34</td>
+                                    </tr>
+                                </table>*@
+                                @Html.Action("_GetIncomingRequisitions", "Requisition")
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse2">Approved Requisitions</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                @Html.Action("_GetActiveRequisitions", "Requisition")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="panel panel-default panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse3">Rejected Requisitions</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                @Html.Action("_GetRejectedRequisitions", "Requisition")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</section>
+<script type="text/javascript">
+    $(function () {
+        
+    });
+</script>

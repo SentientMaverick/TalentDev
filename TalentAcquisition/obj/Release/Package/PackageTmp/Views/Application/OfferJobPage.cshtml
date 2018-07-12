@@ -1,0 +1,246 @@
+﻿@model TalentAcquisition.Models.ViewModel.OfferJobViewModel
+
+<style>
+    .onboarding{
+        min-height:200px;
+        border:1px solid #d1c4c4;
+        border-radius:5px;
+    }
+    .onboarding h4{
+
+    }
+</style>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //$("#employmentdate").datepicker({
+        //    dateFormat: 'dd/mm/yy',
+        //    minDate: 2,
+        //    maxDate: "+2M"
+        //});
+      //  $('#employmentdate').datetimepicker({});
+    //    $("#deadlinedate").datepicker({
+    //        dateFormat: 'dd/mm/yy',
+    //        minDate: 2,
+    //        maxDate: "+2M"
+    //    });
+    
+      //  $('#deadlinedate').datetimepicker({});
+  });
+</script>
+@*<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>*@
+<script type="text/javascript">
+    $("#advance").prop("disabled", true);
+    var application=@ViewBag.applicationid;
+    var finalmessage="";
+   // $("#onboardcandidate").prop("disabled", true);
+    $(function () {
+       // $("#onboardcandidate").addClass("hidden");
+        $("#onboardcandidate").on("click", function () {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        $("#sendJobOffer").on("click", function () {
+            var answer = confirm("Please Confirm Details before sending Offer Letter!");
+            if (answer)
+                $("#form").submit();           
+        });
+        $("#previewJobOffer").on("click", function () {
+            var url = "/Application/_EmployeeOfferLetter";
+            $("#offermessage").val(CKEDITOR.instances['offermessage'].getData());
+            var formdata = $("#form").serialize();
+            alert(formdata);
+            $.post(url, formdata, function (data) {
+                var newWindow = window.open();
+                $("#finalmessage").val(data);
+                finalmessage=data;
+                newWindow.document.body.innerHTML = data;
+            });
+        });
+        $("#acceptJobOffer").on("click", function () {
+            var url = "/Application/_AcceptApplicationJobOffer";
+            alert(application);
+            $.post(url, {id:application}, function (data) {
+                if(data){
+                    alert("Offer Accepted");
+                }
+            });
+        });
+        var form = $("#form");
+        $("#form").submit(function (e) {
+            e.preventDefault();
+            //e.stopPropagation();
+            //alert(form.serialize().toString());
+            $.ajax(
+            {
+                type: "POST",
+                url: form.attr("action"),
+                data: form.serialize(),
+                success: function (response) {
+                    alert('Offer Sent');
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            });
+        });
+
+    });
+</script>
+<div class="row">
+    <div class="padding"></div>
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Prepare Job Offer
+            </div>
+            <div class="panel-body">
+            @using (Html.BeginForm("_submitoffermessage", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="requisitionid" value="@ViewBag.requisitionid" />
+                <input type="hidden" name="applicationid" value="@ViewBag.applicationid" />
+                <div class="container">
+                    <div class="row">
+                         <div class="col-md-12 col-lg-6">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-6">Resumption Date :</label>
+                                    <div class="col-md-6">
+                                        <input type="text" data-date-format="DD-MM-YYYY" id="employmentdate" value="@DateTime.Now.ToShortDateString()" name="employmentdate" class="form-control input-sm" />
+                                    </div>
+                                   </div>
+                            </div>
+                             <br/><br/>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-6">Offer Deadline :</label>
+                                    <div class="col-md-6">
+                                        <input  type="text" data-date-format="DD-MM-YYYY" id="deadlinedate" value="@DateTime.Now.ToShortDateString()" name="deadlinedate" class="form-control input-sm" />
+                                    </div>
+                                    </div>
+                            </div>
+                         </div>
+                         <div class="col-md-12 col-lg-6">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                     <label class="col-md-6">Position:</label>
+                                     <div class="col-md-6">
+                                        <input type="text" required id="position" name="position" class="form-control input-sm" />
+                                      </div>
+                                  </div>
+                                </div>
+                             <br/><br />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-6">Salary:</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="salary" name="salary" class="form-control input-sm" />
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+                    <hr/>
+                @*<script>CKEDITOR.replace("OfferMessage");</script>*@
+                <textarea class="form-control ckeditor" id="offermessage" name="offermessage" rows="5" cols="40"></textarea>
+                <input type="hidden" value="" id="finalmessage" name="finalmessage" />
+                 <div class="row container">
+                     <br/>
+                     @if (Model.OfferAccepted)
+                     {
+                        <a class="btn btn-default btn-primary btn-sm pull-right"
+                           href="@(Url.Action("_confirmapplicantonboarding", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))" id="onboardcandidate" name="onboardcandidate">Onboard Candidate</a>
+                     }
+                     else
+                     {
+                         <div class="col-md-12">
+                             <input type="button" id="sendJobOffer" class="btn btn-primary input-sm" value="Send Offer" />
+                             <input type="button" id="previewJobOffer" class="btn btn-primary input-sm pull-right" value="Preview Offer" />
+                             <input type="button" id="acceptJobOffer" class="btn btn-primary input-sm pull-right" value="Accept Offer" />
+                         </div>
+                         }
+                    </div>
+            }
+            </div>
+        </div>
+        <div class="row" style="font-size:80%">
+            <style>
+                select {
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
+                    min-width: 100%;
+                    font-size: 80%;
+                }
+
+                .form-group {
+                    padding-bottom: -1.0em;
+                    margin-bottom: 0.4em;
+                }
+
+                textarea {
+                    margin-top: -2em;
+                    padding-top: -2em;
+                }
+
+                input {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                label {
+                    font-size: 90%;
+                }
+            </style>
+            @*@Html.Action("_GetAllInterviewsForApplication", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })*@
+        </div> 
+           @*<div class="panel panel-primary">
+                <div class="panel-heading">
+                    Interview Summary
+                </div>
+                <div class="panel-body" style="margin-bottom:-1.5em">
+                    @Html.Action("_GetInterviewEvaluations", "Application", new { interviewid = ViewBag.interviewid })
+                </div>
+            </div>*@
+            @* <div class="panel panel-primary" style="margin-top:-1.2em;">
+            <div class="panel-heading">
+                Interview Summary
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td>Name</td>
+                                <td>Strength</td>
+                                <td>Weakness</td>
+                                <td colspan="3">Score</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Frank Oliver</td>
+                                <td>Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!</td>
+                                <td>Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!Please Confirm your Applicant Recommendation!</td>
+                                <td>12</td>
+                                <td>12</td>
+                                <td>12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                </div>*@
+        </div>
+            @*<div class="col-md-3 onboarding">
+                <h4 class="padding">Proceed To Onboarding</h4>
+                <a class="btn btn-default btn-primary btn-sm" href="@(Url.Action("_confirmapplicantonboarding", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid }))" id="onboardcandidate" name="onboardcandidate">Onboard Candidate</a>
+            </div>*@
+        </div>

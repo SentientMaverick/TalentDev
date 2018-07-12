@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.WorkExperience>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.CompanyName)*@
+            <h5>Company Name</h5>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.JobTitle)*@
+            <h5>Job Title</h5>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.JobDescription)*@
+            <h5>Job Description</h5>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ReasonsForLeaving)*@
+            <h5>Reason for Leaving</h5>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.StartingDate)*@
+            <h5>Start Date</h5>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.EndingDate)*@
+            <h5>End Date</h5>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="hidden">
+                @item.ID
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReasonsForLeaving)
+            </td>
+            <td>
+                @item.StartingDate.ToShortDateString()
+            </td>
+            <td>
+                @{ 
+                    if(item.EndingDate!=null)
+                    {
+                        DateTime dt = (DateTime)item.EndingDate;
+                        <p>@dt.ToShortDateString()</p>
+                    }
+                }
+            </td>
+            @if (ViewBag.Links == "Hide")
+            {
+
+            }
+            else
+            {
+                <td>
+                    <a href="javascript:void(0)" class="edititem">Edit</a> |
+                    <a href="javascript:void(0)" class="deleteitem">Delete</a>
+                    @*@Html.ActionLink("Edit", "Edit", new { htmlAttributes= new { @class = "edititem" }, id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { htmlAttributes= new { @class = "deleteitem" }, id = item.ID })*@
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>
+

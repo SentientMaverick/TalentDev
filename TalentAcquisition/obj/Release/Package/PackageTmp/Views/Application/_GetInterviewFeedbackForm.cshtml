@@ -1,0 +1,48 @@
+﻿@*@model TalentAcquisition.Core.Domain.Interview
+@using TalentAcquisition.Core.Domain;*@
+
+<div class="row">
+    <div class="container">
+        <style>
+            input[type=radio]{
+               margin:0px !important;
+               padding:0px !important;
+            }
+            span{
+               margin:0px !important;
+               padding:0px !important;
+            }
+        </style>
+        <form method="post" action="@Url.Action("_SubmitInterviewFeedbackForm","Application")">
+            @Html.AntiForgeryToken()
+            @*<h4  class="alert-info">Recommendation</h4>*@
+            <input type="hidden" id="interviewid" value="@ViewBag.interviewid" />
+            <div class="col-md-8">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Strength</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Weakness</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <br />
+                        <textarea class="form-control" id="Strength" name="Strength" rows="5" cols="40"></textarea>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <br />
+                        <textarea class="form-control" id="Weakness" name="Weakness" rows="5" cols="40"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <br />
+                <h5>
+                    Based on your Assesment of this candidate, do you think that this candidate should be offered a Job?
+                </h5>
+                <br />
+                <h4 class="glyphicon glyphicon-bold"> Yes <input type="radio" value="true" name="Recommendation" id="Recommendation"/><span> No <input type="radio" value="false" name="Recommendation" id="Recommendation" /></span></h4>
+                <br/><br/>
+                <input type="submit" value="Submit Recommendation" class="btn btn-default btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

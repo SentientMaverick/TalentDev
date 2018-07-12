@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Admin Panel";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+ .icon{
+     padding:0.8em;
+     height:200px;
+ }
+ .icon a{
+     text-decoration:none;
+ }
+ .icon a:hover{
+     color:azure;
+     display:block;
+     width:100%;
+ }
+
+.icon img{
+    margin:0 auto;
+    /*top:50%;*/
+    left:30%;
+    position:relative;
+}
+.icon h4{
+    color:rgba(4, 5, 47,0.7);
+    line-height:1.5em;
+    padding-top:1em;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align:center;
+    font-size:125%;
+}
+</style>
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4">
+            @Html.Partial("_AdminDashboardSidebar")
+        </div>
+        <div class="col-md-8">
+            <section class="">
+               <div style="padding-top:2em;"></div>
+                <p style="font-family: 'Fira Mono';font-size: 22px;">Dashboard</p>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    @*<li><a href="#">Private</a></li>*@
+                    @*<li><a href="#">Pictures</a></li>*@
+                    <li class="active">Dashboard</li>
+                </ol>
+                <div class="row">
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Agenda.png" />
+                            <h4>Dashboard</h4>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("jobmanager")">
+                                <img src="~/Assets/Icons/Presentation-.png" />
+                                <h4>Job Board</h4>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("jobrequisitionmanager")">
+                                <img src="~/Assets/Icons/Man-Suit-2.png" />
+                                <h4>Job Requisition Management</h4>
+                            </a>
+                            </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("onboarding")">
+                                <img src="~/Assets/Icons/Desk.png" />
+                                <h4>Employee Onboarding</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("expensemanager")">
+                                <img src="~/Assets/Icons/Coin-Dollar.png" />
+                                <h4>Expense Management</h4>
+                            </a>                          
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("trainings")">
+                                <img src="~/Assets/Icons/Engineer.png" />
+                                <h4>Trainings</h4>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("complaintmanager")">
+                                <img src="~/Assets/Icons/Support.png" />
+                                <h4>Complaint-Indiscipline Management</h4>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <img src="~/Assets/Icons/Bank.png" />
+                            <h4>Leave Management</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("organisationmanager")">
+                                <img src="~/Assets/Icons/Organogram-2.png" />
+                                <h4>Organizational Management</h4>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("personnelmanager")">
+                                <img src="~/Assets/Icons/Bedge.png" />
+                                <h4>Personnel Management</h4>
+                            </a>  
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("performance")">
+                                <img src="~/Assets/Icons/Bullish.png" />
+                                <h4>Employee Performance</h4>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 icon">
+                            <a href="@Url.Action("settings")">
+                                <img src="~/Assets/Icons/Hammer.png" />
+                                <h4>Settings</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">
+                    @Html.Action("_GetNotifications", "Admin")
+                </div>*@
+            </section>
+        </div>
+    
+    </div>
+</section>

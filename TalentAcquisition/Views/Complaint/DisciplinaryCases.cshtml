@@ -1,0 +1,109 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.DisciplinaryCase>
+
+@{
+    ViewBag.Title = "Disciplinary Cases";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Disciplinary Cases</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Disciplinary Case</li>
+    <li class="active">All</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Disciplinary Cases</p>
+            </div>
+            <div class="panel-body" style="padding:0">
+                <table class="table">
+                    <tr style="font-size:80%">
+                        <th>
+                            @Html.DisplayNameFor(model => model.CaseNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmployeeNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmployeeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobTitleCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobTitleName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ComplaintDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActionDetails)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActionStartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActionEndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reasons)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Posted)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr style="font-size:80%">
+                            <td>
+                                @Html.ActionLink(item.CaseNumber, "Disciplinary/Manage", new { id = item.Id })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobTitleCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobTitleName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ComplaintDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActionDetails)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActionStartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActionEndDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reasons)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Posted)
+                            </td>
+                            @*<td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>*@
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

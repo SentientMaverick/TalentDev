@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Organisation Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4">
+            <div class="container">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Organisation Manager</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                @*<li><a href="#">Pictures</a></li>*@
+                @*<li class="active"><a href="@Url.Action("jobrequisitionmanager","Admin")">Job Requisition Manager</a></li>*@
+                <li class="active">Organisation Manager</li>
+            </ol>
+            <section class="container body-content">
+                <span>@ViewBag.Message</span>
+                <div class="row">
+                    @*<a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+                    <span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />*@
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Organisation and Departments Mangement</p>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Organisational Administration<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>Departments<span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                <li>
+                                                    <a href="@Url.Action("manage_departments/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i> Add New</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("manage_departments", "Admin")"><i class="fa fa-gears fa-fw"></i>  Manage All</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-university fa-fw"></i>Specializations<span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                <li>
+                                                    <a href="@Url.Action("manage_industries/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i>Add New</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("manage_industries", "Admin")"><i class="fa fa-gears fa-fw"></i>Manage All</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-database fa-fw"></i> Office Positions<span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                <li>
+                                                    <a href="@Url.Action("manage_officeposition/create", "Admin")"><i class="fa fa-plus-circle fa-fw"></i>Add New</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("manage_officeposition", "Admin")"><i class="fa fa-gears fa-fw"></i>Manage All</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Organisation and Branches Mangement</p>
+                        </div>
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Quintessential Skills Management</p>
+                        </div>
+                        <div class="panel-body">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Industries and Specializations Management</p>
+                        </div>
+                        <div class="panel-body">
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</section>
+
+

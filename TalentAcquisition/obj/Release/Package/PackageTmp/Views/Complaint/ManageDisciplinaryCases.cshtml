@@ -1,0 +1,137 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.DisciplinaryCase
+
+@{
+    ViewBag.Title = "Manage Disciplinary Cases";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+<p style="font-size: 22px;">Disciplinary Case</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Disciplinary Case</li>
+    <li class="active">Details</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Disciplinary Case - @Model.CaseNumber</p>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DisciplinaryAction.Description)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DisciplinaryAction.Description)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.IndisciplineType.Description)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.IndisciplineType.Description)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CaseNumber)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CaseNumber)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EmployeeNumber)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EmployeeNumber)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EmployeeName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EmployeeName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.JobTitleCode)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.JobTitleCode)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.JobTitleName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.JobTitleName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ComplaintDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ComplaintDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ActionDetails)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ActionDetails)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ActionStartDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ActionStartDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ActionEndDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ActionEndDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Reasons)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Reasons)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Posted)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Posted)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

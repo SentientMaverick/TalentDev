@@ -306,6 +306,50 @@
     <Compile Include="Migrations\201806261248218_AddedGrievanceModelsToContext.Designer.cs">
       <DependentUpon>201806261248218_AddedGrievanceModelsToContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806271143304_AddedDisciplinaryModels.cs" />
+    <Compile Include="Migrations\201806271143304_AddedDisciplinaryModels.Designer.cs">
+      <DependentUpon>201806271143304_AddedDisciplinaryModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806280806274_AddedTrainingModels.cs" />
+    <Compile Include="Migrations\201806280806274_AddedTrainingModels.Designer.cs">
+      <DependentUpon>201806280806274_AddedTrainingModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806281217441_AddedCashModels.cs" />
+    <Compile Include="Migrations\201806281217441_AddedCashModels.Designer.cs">
+      <DependentUpon>201806281217441_AddedCashModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806281424209_AddedAppraisalKPIModels.cs" />
+    <Compile Include="Migrations\201806281424209_AddedAppraisalKPIModels.Designer.cs">
+      <DependentUpon>201806281424209_AddedAppraisalKPIModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806302040082_updatedGrievanceReportModel.cs" />
+    <Compile Include="Migrations\201806302040082_updatedGrievanceReportModel.Designer.cs">
+      <DependentUpon>201806302040082_updatedGrievanceReportModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807030916442_updatedCashRequisitionModel.cs" />
+    <Compile Include="Migrations\201807030916442_updatedCashRequisitionModel.Designer.cs">
+      <DependentUpon>201807030916442_updatedCashRequisitionModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807031437593_UpdateCashModel.cs" />
+    <Compile Include="Migrations\201807031437593_UpdateCashModel.Designer.cs">
+      <DependentUpon>201807031437593_UpdateCashModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807041040413_AddedSomeModels.cs" />
+    <Compile Include="Migrations\201807041040413_AddedSomeModels.Designer.cs">
+      <DependentUpon>201807041040413_AddedSomeModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807041059118_removedIndexfromEmployee.cs" />
+    <Compile Include="Migrations\201807041059118_removedIndexfromEmployee.Designer.cs">
+      <DependentUpon>201807041059118_removedIndexfromEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807051024255_UpdatedPerformanceModels.cs" />
+    <Compile Include="Migrations\201807051024255_UpdatedPerformanceModels.Designer.cs">
+      <DependentUpon>201807051024255_UpdatedPerformanceModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807061330275_UpdatedAppraisalKPIModel.cs" />
+    <Compile Include="Migrations\201807061330275_UpdatedAppraisalKPIModel.Designer.cs">
+      <DependentUpon>201807061330275_UpdatedAppraisalKPIModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -461,6 +505,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806261248218_AddedGrievanceModelsToContext.resx">
       <DependentUpon>201806261248218_AddedGrievanceModelsToContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806271143304_AddedDisciplinaryModels.resx">
+      <DependentUpon>201806271143304_AddedDisciplinaryModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806280806274_AddedTrainingModels.resx">
+      <DependentUpon>201806280806274_AddedTrainingModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806281217441_AddedCashModels.resx">
+      <DependentUpon>201806281217441_AddedCashModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806281424209_AddedAppraisalKPIModels.resx">
+      <DependentUpon>201806281424209_AddedAppraisalKPIModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806302040082_updatedGrievanceReportModel.resx">
+      <DependentUpon>201806302040082_updatedGrievanceReportModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807030916442_updatedCashRequisitionModel.resx">
+      <DependentUpon>201807030916442_updatedCashRequisitionModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807031437593_UpdateCashModel.resx">
+      <DependentUpon>201807031437593_UpdateCashModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807041040413_AddedSomeModels.resx">
+      <DependentUpon>201807041040413_AddedSomeModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807041059118_removedIndexfromEmployee.resx">
+      <DependentUpon>201807041059118_removedIndexfromEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807051024255_UpdatedPerformanceModels.resx">
+      <DependentUpon>201807051024255_UpdatedPerformanceModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807061330275_UpdatedAppraisalKPIModel.resx">
+      <DependentUpon>201807061330275_UpdatedAppraisalKPIModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

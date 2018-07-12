@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    @Html.AntiForgeryToken()
+
+        <li>@Html.ActionLink("Profile", "Profile", "Applicant")</li>
+        
+        <li>@Html.ActionLink("Manage Applications", "JobApplied", "Applicant")</li>
+}
+

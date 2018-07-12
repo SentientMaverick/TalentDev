@@ -201,7 +201,6 @@ namespace TalentAcquisition.Controllers
                 return View("Error");
             }
         }
-
         // GET: Role/Edit/5
         [Route("Admin/Job/{id:int}")]
         [Route("Admin/Job/Edit/{id:int}")]

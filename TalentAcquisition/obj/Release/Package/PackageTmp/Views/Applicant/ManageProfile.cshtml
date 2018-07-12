@@ -1,0 +1,192 @@
+﻿@model TalentAcquisition.Core.Domain.JobSeeker
+@using TalentAcquisition.Models.Core;
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+@*<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>*@
+@*<script src="~/Scripts/jquery-1.12.4.min.js" type="text/javascript"></script>*@
+<style>
+    .profile-link-active
+    {
+        border-left:2px solid rgb(4, 5, 47);
+    }
+    .profile-link-active a:hover{
+        border-left:none;
+    }
+    #blackview{
+        position: fixed; /* Stay in place */
+            z-index: 200; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4)
+    }
+                        #bioform input,
+                    select {
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                    #bioform #submit input
+                    {
+                        max-width: 280px;
+                    }
+    /***/
+</style>
+<div class="mainbody">
+    <div class="container body-content">
+        <div class="row container" id="pagecontent">
+            <br/><br/>
+            <div class="col-md-4">
+                @Html.Partial("_ApplicantSideBar")
+            </div>
+            <div class="col-md-8" style="color:black;font-size:80%;padding-top:5em">
+                @using (Html.BeginForm("Profile", "Applicant", FormMethod.Post, new { id = "bioForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.ID);
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Personal Details</div>
+                            <div class="panel-body" id="JobRequisitionDetails" style="font-size:90%">
+                                <div class="form-horizontal">
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="wideinput" id="bioform">
+                                        <div class="form-group hidden">
+                                            @Html.LabelFor(model => model.RegistrationDate, htmlAttributes: new { @class = "control-label col-md-3", })
+                                            <div class="col-md-8" id="dateinput">
+                                                @Html.EditorFor(model => model.RegistrationDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.RegistrationDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" data-date-format="DD/MM/YYYY" id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth" />
+                                                @*@Html.EditorFor(model => model.DateOfBirth, new
+                               {
+                                   htmlAttributes = new
+                                   {
+                                       @Value = Model.DateOfBirth.ToString("mm/DD/yyyy"),
+                                       @class = "form-control"
+                                   }
+                               })*@
+                                                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-8">
+                                                @Html.TextAreaFor(model => model.Address, new { @class = "form-control", rows = "3", cols = "10" })
+                                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.IndustryID, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-8">
+                                                @Html.DropDownList("IndustryID", new SelectList(ViewBag.Industries, "IndustryId", "Name"), "Select Specialization", htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.IndustryID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.HighestQualification, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-8">
+                                            @Html.EnumDropDownListFor(model => model.HighestQualification, "Select Highest Qualification", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.HighestQualification, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Skills</label>
+                                        <div class="col-md-8">
+                                            @Html.Action("_GetSkills", new { id = ViewBag.userid })
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="submit">
+                                        <div class="col-md-offset-3 col-md-8">
+                                            <input class="btn-default btn" type="submit" name="submit" value="Save Changes" />
+                                            @*<a class="btn-default btn" href="javascript:document.getElementById('bioForm').submit()">Save as Draft</a>
+                                        <a class="btn-default btn" href="javascript:void()" id="nextpage">Next Page</a>
+                                        <a class="btn-default btn" href="javascript:void()" id="previouspage">Previous Page</a>*@
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">Page 1 of 4</div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            </div>
+    </div>
+</div>
+    <div id="blackview" class="hide">
+        <div class="modal-content">
+            <div class="loader"></div>
+        </div>
+    </div>
+@section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#dateinput :input').prop("disabled", true);
+        $('#DateOfBirth').datetimepicker({
+            defaultDate: '@Model.DateOfBirth',
+            format: 'L',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'top'
+        });
+        //$('#blackview').addClass("hide");
+        $('#nextpage').click(function (evt) {
+            alert('Form Started');
+            //$('#modal').removeClass("hide").addClass("show");
+            $('#blackview').removeClass("hide").addClass("show").delay(2000);
+            @*$.ajax({
+                type:"POST",url:"@(Url.Action("FirstPage","Home"))",data:{},
+                success: function (data) {
+                    alert('Form Changed');
+                    $('#pagecontent').load("/Home/SecondPage");
+                    $('.pagecontent').load(@(Url.Action("ThirdPage","Home"));
+                }
+            });*@
+        });
+    });
+</script>
+        }
+

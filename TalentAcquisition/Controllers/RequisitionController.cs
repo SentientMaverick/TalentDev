@@ -557,7 +557,12 @@ namespace TalentAcquisition.Controllers
             {
                 if (id == null)
                 {
-                    ViewBag.Skills = db.Skills.ToList();
+                   // ViewBag.Skills = db.Skills.ToList();
+                    var ag = db.Skills
+                        .GroupBy(o=>o.Name)
+                        .Select(x=>x.FirstOrDefault()).ToList();
+                    var bg = ag.SkipWhile(x => x.Name.Count() > 1);
+                    ViewBag.Skills = ag;
                     var list = new List<CheckModel>();
                     foreach (var item in (List<Skill>)ViewBag.Skills)
                     {
@@ -569,7 +574,11 @@ namespace TalentAcquisition.Controllers
                 else
                 {
                     user = db.JobRequisitions.Include("Skills").Where(s => s.JobRequisitionID == id).FirstOrDefault();
-                    ViewBag.Skills = db.Skills.ToList();
+                    var ag = db.Skills
+                       .GroupBy(o => o.Name)
+                       .Select(x => x.FirstOrDefault()).ToList();
+                    var bg = ag.SkipWhile(x => x.Name.Count() > 1);
+                    ViewBag.Skills = ag;
                     var list = new List<CheckModel>();
                     foreach (var item in (List<Skill>)ViewBag.Skills)
                     {

@@ -94,6 +94,7 @@ namespace TalentAcquisition.Controllers
             }
             return View(model);
         }
+        [Route("Permissions/Groups/AddUser")]
         public ActionResult AssignEmployeeToGroup(int? id)
         {
             var employeelist = db.Employees.ToList();
@@ -112,6 +113,7 @@ namespace TalentAcquisition.Controllers
             return View(model);
         }
         [HttpPost]
+        [Route("Permissions/Groups/AddUser")]
         public ActionResult AssignEmployeeToGroup(AssignEmployeeToGroupViewModel model)
         {
             try
@@ -128,9 +130,42 @@ namespace TalentAcquisition.Controllers
                 return View(model);
             }
         }
-        // POST: Groups/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("Permissions/Groups/ManageUser")]
+        public ActionResult ManageEmployeeGroup(int? id)
+        {
+            var employeelist = db.Employees.ToList();
+            var groups = db.Groups.ToList();
+            AssignEmployeeToGroupViewModel model = new AssignEmployeeToGroupViewModel(employeelist, groups);
+
+            if (id != null)
+            {
+                model.EmployeeID = (int)id;
+                ViewBag.Employee = new SelectList(employeelist, "ID", "FirstName", id);
+            }
+            else
+            {
+                ViewBag.Employee = new SelectList(employeelist, "ID", "FirstName");
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [Route("Permissions/Groups/ManageUser")]
+        public ActionResult ManageEmployeeGroup(AssignEmployeeToGroupViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    IdentityManager _manager = new IdentityManager();
+                    _manager.AddUserToGroupUpdated(model.EmployeeID, model.GroupID);
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(model);
+            }
+        }
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -159,7 +194,6 @@ namespace TalentAcquisition.Controllers
             }
             return View(group);
         }
-
         // POST: Groups/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -175,7 +209,6 @@ namespace TalentAcquisition.Controllers
             }
             return View(group);
         }
-
         // GET: Groups/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -190,7 +223,6 @@ namespace TalentAcquisition.Controllers
             }
             return View(group);
         }
-
         // POST: Groups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -201,7 +233,6 @@ namespace TalentAcquisition.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

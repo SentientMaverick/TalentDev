@@ -1,0 +1,187 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.GrievanceReport
+
+@{
+    ViewBag.Title = "Manage Grievance";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+<p style="font-size: 22px;">Grievance Report</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Complaint</li>
+    <li class="active">Grievance Report</li>
+    <li class="active">Create</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Grievance Report</p>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <style>
+                        label {
+                            font-size: 80%;
+                        }
+                    </style>
+                    <div class="form-horizontal" ng-controller="GrievanceRecordController">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.No, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <input type="text" disabled="disabled" value="@Model.No" class="form-control input-sm" />
+                                        @Html.EditorFor(model => model.No, new { htmlAttributes = new { @class = "form-control input-sm hidden" } })
+                                        @Html.ValidationMessageFor(model => model.No, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmployeeNumber, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(model => model.EmployeeNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*<select class="form-control" id="EmployeeNumber" name="EmployeeNumber" ng-model="SelectedEmployee"
+                                                ng-options="item.Number for item in employees track by item.Number" ng-change="selectedemployeechanged()"></select>*@
+                                        @*@Html.DropDownList("EmployeeNumber",null, htmlAttributes :new { @class = "form-control" })*@
+                                        @Html.ValidationMessageFor(model => model.EmployeeNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <input type="text" id="EmployeeName" name="EmployeeName" value="@Model.EmployeeName" class="form-control" ng-readonly="true" />
+                                        @*@Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GrievanceCode, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                          @Html.DisplayFor(model => model.GrievanceCode, new { htmlAttributes = new { @class = "form-control" } })
+                                      
+                                        @*<select class="form-control" id="GrievanceCode" name="GrievanceCode" ng-model="SelectedGrievance"
+                                                ng-options="item.Code for item in grievances track by item.Code" ng-change="selectedGrievanceChanged()"></select>*@
+                                        @*@Html.DropDownList("GrievanceCode",null, htmlAttributes : new { @class = "form-control" })*@
+                                        @Html.ValidationMessageFor(model => model.GrievanceCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GrievanceDescription, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @*<input type="text" id="GrievanceDescription" name="GrievanceDescription" ng-model="selectedGrievanceDescription" class="form-control" ng-readonly="true" />*@
+                                        @Html.DisplayFor(model => model.GrievanceDescription, new { htmlAttributes = new { @class = "form-control hidden" } })
+                                        @Html.ValidationMessageFor(model => model.GrievanceDescription, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.IsApproved)
+                                            @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <input type="text" disabled="disabled" value="@Model.DateCreated.ToShortDateString()" class="form-control input-sm" />
+                                        @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control hidden" } })
+                                        @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateApproved, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @if (Model.DateApproved != null)
+                                        {
+                                            <input type="text" disabled="disabled" value="@Model.DateApproved.ToShortDateString()" class="form-control input-sm" />
+
+                                        }
+                                        else
+                                        {
+                                            <input type="text" disabled="disabled" value="" class="form-control input-sm" />
+
+                                        }
+                                        @Html.EditorFor(model => model.DateApproved, new { htmlAttributes = new { @class = "form-control hidden" } })
+                                        @Html.ValidationMessageFor(model => model.DateApproved, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OffenderCode, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(model => model.OffenderCode, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*<select class="form-control" id="OffenderCode" name="OffenderCode" ng-model="SelectedOffender"
+                                                ng-options="item.Number for item in employees track by item.Number" ng-change="selectedOffenderChanged()"></select>*@
+                                        @*@Html.DropDownList("OffenderCode",null, htmlAttributes : new { @class = "form-control" })*@
+                                        @Html.ValidationMessageFor(model => model.OffenderCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OffenderName, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @*<input type="text" ng-bind="selectedOffenderName" class="form-control" ng-disabled="true" />*@
+                                        <input type="text" id="OffenderName" name="OffenderName" value="@Model.OffenderName" class="form-control" ng-readonly="true" />
+                                        @*@Html.EditorFor(model => model.OffenderName, new { htmlAttributes = new { @class = "form-control hidden" } })*@
+                                        @Html.ValidationMessageFor(model => model.OffenderName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Document, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.Document, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Document, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsClosed, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.IsClosed)
+                                            @Html.ValidationMessageFor(model => model.IsClosed, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Update Record" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    employeesbs=@Html.Raw(Json.Encode(ViewBag.Employees));
+    grievancesbs=@Html.Raw(Json.Encode(ViewBag.Grievances));
+    //$(function (app) {
+
+    //    //$("EmployeeNumber").on("selectchanged", function (event) {
+    //    //    $("EmployeeName").val("Max");
+    //    //});
+    //    //$("OffenderCode").on("selectchanged", function (event) {
+    //    //    $("OffenderName").val("Min");
+    //    //});
+    //}(angular.module("NormalApp")));
+</script>

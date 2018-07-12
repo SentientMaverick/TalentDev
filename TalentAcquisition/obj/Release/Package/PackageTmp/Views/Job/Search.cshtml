@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobRequisition>
+
+@{
+    ViewBag.Title = "Job Search";
+    ViewBag.Comment = "<b>Sorry!</b>  We couldnt find a job that matches your search queries";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+ <div class="mainbody">
+        <div class="container body-content">
+            <div class="recentjobs">
+                <div class="row">
+                    <section class="searcharea">
+                        <h4 style="color:Background">Job Search</h4>
+                        @Html.Action("_GetSearchForm")
+                    </section>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-3">
+                       
+                        @if (User.Identity.IsAuthenticated)
+                        { 
+                            @*<ul class="sidebar nav">
+                              @Html.Partial("_SideBarMenu")
+                          </ul>*@
+                        }
+                        
+                    </div>
+                    <div class="col-md-9">
+                        <div class="container">
+                            <h2>Matching Jobs</h2>
+                            @if (Model.Count() <= 0)
+                            {
+                                <div style="text-align:center;color:black;">
+                                    <p><b>Sorry!</b>  We couldnt find a job that matches your search queries</p>
+                                </div>
+                            }
+                            else
+                            {
+
+                                foreach (var item in Model)
+                                {
+                                    @Html.Partial("JobPost", item)
+                                }
+                          }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+    </div>

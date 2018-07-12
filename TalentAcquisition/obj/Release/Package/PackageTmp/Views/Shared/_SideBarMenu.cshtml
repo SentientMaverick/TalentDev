@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+
+    <li>@Html.ActionLink("Manage Profile", "Profile", "Applicant")</li>
+        <li>@Html.ActionLink("Manage Applications", "JobApplications", "Applicant")</li>
+     <li>@Html.ActionLink("Search for Jobs", "Search", "Job")</li>
+}
+

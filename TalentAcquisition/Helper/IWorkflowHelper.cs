@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TalentAcquisition.BusinessLogic.UpdatedDomain;
+namespace TalentAcquisition.Helper
+{
+    interface IWorkflowHelper
+    {
+        Task<bool> IsApprovalEntryExisting(string type, string processno);
+        Task<bool> IsEmployeeAuthorizedForAction(string type,int userId);
+        Task<List<ApprovalEntry>> GenerateApprovalEntries<T>(T value,string key,string processno,int userId);
+        Task<ApprovalEntry> GetNextApproval(List<ApprovalEntry> entries,string processno);
+        Task<ApprovalEntry> UpdateApprovalEntry(ApprovalEntry entry);
+    }
+}

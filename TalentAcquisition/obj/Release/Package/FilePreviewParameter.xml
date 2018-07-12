@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="talenthrm" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=DESKTOP-2PMUVC7;Initial Catalog=Talent;Integrated Security=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="TalentAcquisition.DataLayer.ApplicationDbContext-Web.config Connection String" description="" value="Data Source=DESKTOP-2PMUVC7;Initial Catalog=Talent;Integrated Security=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentAcquisition.DataLayer.ApplicationDbContext']/@connectionString" />
+  </parameter>
+  <parameter name="TalentAcquisition.DataLayer.BaseContext`1-Web.config Connection String" description="" value="Data Source=DESKTOP-2PMUVC7;Initial Catalog=Talent;Integrated Security=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentAcquisition.DataLayer.BaseContext`1']/@connectionString" />
+  </parameter>
+  <parameter name="TalentAcquisition.DataLayer.LoginContext-Web.config Connection String" description="" value="Data Source=DESKTOP-2PMUVC7;Initial Catalog=Talent;Integrated Security=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentAcquisition.DataLayer.LoginContext']/@connectionString" />
+  </parameter>
+  <parameter name="TalentConnection-Web.config Connection String" description="" value="Server=tcp:talentapp.database.windows.net,1433;Initial Catalog=TalentDb;Persist Security Info=False;User ID=talent123Admin;Password=CrossOver!&amp;78;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentConnection']/@connectionString" />
+  </parameter>
+</parameters>

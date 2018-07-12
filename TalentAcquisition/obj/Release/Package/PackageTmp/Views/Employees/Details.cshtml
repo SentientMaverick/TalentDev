@@ -1,0 +1,144 @@
+﻿@model TalentAcquisition.Core.Domain.Employee
+
+@{
+    ViewBag.Title = "Employee Personal Profile";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+            <div style="padding-top:2em;"></div>
+            <p style="font-size: 22px;">Employee Profile</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                @*<li><a href="#">Pictures</a></li>*@
+                <li class="active">Employee Directory</li>
+                <li class="active">Employee Profile</li>
+                <li class="active">@Model.EmployeeNumber</li>
+            </ol>
+            <section class="container body-content">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Details
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                                <style>
+                                    .card {
+                                        /* Add shadows to create the "card" effect */
+                                        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                                        transition: 0.3s;
+                                    }
+
+                                        /* On mouse-over, add a deeper shadow */
+                                        .card:hover {
+                                            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                                        }
+
+                                        .card .container {
+                                            padding: 2px 16px;
+                                            margin-bottom: 1em;
+                                        }
+                                </style>
+                           <div class="col-md-4">
+                                        <div class="card">
+
+                                            @if (String.IsNullOrEmpty(Model.PassportDetails))
+                                            {
+                                                <img src="~/Assets/Icons/Man-Suit-2.png" alt="Avatar" width="200" style="">
+                                            }
+                                            else
+                                            {
+                                                string url = Path.Combine(Server.MapPath("~/Uploads/"), Model.UserId + "_img.png");
+                                                string azureurl = Path.Combine("https://codelabstorage.blob.core.windows.net/webappstoragedotnet-imagecontainer/", Model.PassportDetails);
+                                                <img src="@azureurl" alt="Avatar" width="150" style="">
+                                            }
+                                    </div>
+                           </div>
+                           <div class="col-md-8">
+                            <div class="row">
+                                <br />
+                                <!--Comment-->
+                                <span class="alert-danger"></span>
+                                <span class="alert-danger">@ViewBag.Message</span>
+                                <dl>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.OfficePosition.Title)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.OfficePosition.Title)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.EmployeeNumber)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.EmployeeNumber)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.EmploymentDate)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.EmploymentDate)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.FirstName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.FirstName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.LastName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.LastName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.DateOfBirth)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.DateOfBirth)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Address)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Address)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.PhoneNumber)
+                                    </dd>
+
+                                </dl>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+
+                                    @if(User.IsInRole("Admin"))
+                                    { 
+                                        @Html.ActionLink("Edit", "Edit", new { id = Model.ID },
+                                       htmlAttributes: new { @class = "btn btn-default btn-sm col-md-4" })
+                                        @Html.ActionLink("Delete", "Delete", new { id = Model.ID },
+                                       htmlAttributes: new { @class = "btn btn-default btn-sm col-md-4 pull-right" })
+                                    }
+                                    </div>
+                                <br />
+                            </div>
+                           </div>
+                    </div>
+                    </div>
+                </div>
+            </section>

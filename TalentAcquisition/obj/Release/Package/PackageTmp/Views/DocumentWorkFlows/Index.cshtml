@@ -1,0 +1,130 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.DocumentWorkFlow>
+
+@{
+    ViewBag.Title = "Approval Flows";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+<p style="font-size: 22px;">Approval Flows</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Approval Flows</li>
+    <li class="active">All</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Approval Flows</p>
+            </div>
+            <div class="panel-body" style="overflow-x:scroll">
+                <p>
+                    @Html.ActionLink("Create New", "Flows/Create","Approval")
+                </p>
+                @{
+                    var x = (List<TalentAcquisition.Core.Domain.Employee>)ViewBag.Employees;
+                }
+                <table class="table" style="font-size:80%" >
+                    <tr>
+                        <th>No</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Sender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProcessName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NoOfApprovals)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Approver1Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Approver2Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Approver3Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Approver4Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Approver5Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsEnabled)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Id
+                            </td>
+                            <td>
+                                
+                                @x.Where(y=>y.ID==item.Sender).First().FullName
+                                @*@Html.DisplayFor(modelItem => item.Sender)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProcessName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoOfApprovals)
+                            </td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(item.Approver1Id))
+                                {
+                                    @x.Where(y => y.EmployeeNumber == item.Approver1Id).First().FullName
+                                }
+                                @*@Html.DisplayFor(modelItem => item.Approver1Id)*@
+                            </td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(item.Approver2Id))
+                                {
+                                    @x.Where(y => y.EmployeeNumber == item.Approver2Id).First().FullName
+                                }
+                                @*@Html.DisplayFor(modelItem => item.Approver2Id)*@
+                            </td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(item.Approver3Id))
+                                {
+                                    @x.Where(y => y.EmployeeNumber == item.Approver3Id).First().FullName
+                                }
+                                @*@Html.DisplayFor(modelItem => item.Approver3Id)*@
+                            </td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(item.Approver4Id))
+                                {
+                                    @x.Where(y => y.EmployeeNumber == item.Approver1Id).First().FullName
+                                }
+                                @*@Html.DisplayFor(modelItem => item.Approver4Id)*@
+                            </td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(item.Approver5Id))
+                                {
+                                    @x.Where(y => y.EmployeeNumber == item.Approver1Id).First().FullName
+                                }
+                                @*@Html.DisplayFor(modelItem => item.Approver5Id)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsEnabled)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+

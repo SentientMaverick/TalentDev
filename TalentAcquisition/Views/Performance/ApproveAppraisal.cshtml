@@ -1,0 +1,110 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.Appraisal
+@{
+    ViewBag.Title = "ApproveAppraisal";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalNonJobKPI.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalNonJobKPI.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalPeriod.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalPeriod.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraiseeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraiseeCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalSupervisor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalSupervisor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalJobTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalJobTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppraisalSupervisorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppraisalSupervisorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @foreach (var item in Model.Lines)
+    {
+
+
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.No }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

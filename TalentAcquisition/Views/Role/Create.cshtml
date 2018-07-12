@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-8">
             <div style="padding-top:2em;"></div>
-            <p style="font-family: 'Fira Mono';font-size: 22px;">Manage Requisitions</p>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Manage Jobs</p>
             <ol class="breadcrumb">
                 <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
                 @*<li><a href="#">Private</a></li>*@
@@ -31,7 +31,7 @@
                     <a href="javascript:void()" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
                 </div>
                 <div class="row" style="font-size:80%">
-                    <form action="" method="post" id="createform">
+                    <form action="" method="post" id="createform" ng-controller="JobController">
                         <style>
                             select {
                                 padding:0;
@@ -164,9 +164,55 @@
                                 Job Requirements
                             </div>
                             <div class="panel-body">
+                                <style>
+                                    #mytable input,#mytable select{
+        border:none;
+        outline:none;
+        box-shadow:none;
+        background-color:inherit;
+        padding:0;
+        margin:0;
+    }
+                                </style>
                                 <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs"style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
                                 @*<hr/>*@
-                                @Html.Action("_GetRequirements")
+                                @*@Html.Action("_GetRequirements")*@
+                                <div id="empform" ng-submit="submitGrievanceTypes()">
+                                    <table id="mytable" class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Code</th>
+                                                <th>Type</th>
+                                                <th>Description</th>
+                                                <th>Score ID</th>
+                                                <th>Priority</th>
+                                                <th>Need Code</th>
+                                                <th>Stage Code</th>
+                                                <th>Desired Code</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr ng-repeat="type in grievanceTypes">
+                                            <td>{{$index+1}}</td>
+                                              <td>
+                                                <input class="form-control input-sm" name="Line[{{$index}}].Priority" ng-required="true" ng-model="type.Priority" ng-disabled="!enabledEdit[{{$index}}]" />
+                                              </td>
+                                              <td>
+                                                  <input type="checkbox" class="form-control input-sm" ng-required="true" name="Line[{{$index}}].Mandatory" ng-model="type.Mandatory" />
+                                              </td>
+                                            <td>
+                                                <div class="buttons">
+                                                    @*<button class="btn btn-primary btn-xs" ng-click="edit($index)">Edit</button>*@
+                                                    <a id="removeitem" href="javascript:void()" ng-click="delete($index)"><img src="~/Assets/Icons/Delete.png" width="20" height="20" class="pull-right" /></a>
+                                                    @*<button class="btn btn-danger btn-xs" ng-click="delete($index)"><img src="~/Assets/Icons/Delete.png" width="20" height="20" class="pull-right" /></button>*@
+                                                </div>
+                                            </td>
+                                           </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </form>

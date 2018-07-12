@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobRequisition>
+
+<table class="table table-striped" id="RequisitionTable" style="font-size:90%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            Dated Published
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClosingDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @if ((int)item.Status == 2)
+                {
+                    @item.PublishedDate.ToShortDateString()
+                }
+                else
+                {
+                    <p> Unpublished </p>
+                }
+            </td>
+
+            <td>
+                @item.StartDate.ToShortDateString()
+            </td>
+            <td>
+                @item.ClosingDate.ToShortDateString()
+            </td>
+            <td>
+                @if ((int)item.Status == 2)
+                {
+                    <a href="@Url.RouteUrl("MatchSkill",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                        Skill Matching
+                    </a> <span>|</span>
+                    <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                        Close
+                    </a>
+                   <span>|</span><a href="@Url.RouteUrl("RequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">Details</a>
+
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("MatchSkill",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                        Skill Matching
+                    </a> <span>|</span>
+                    <a href="@Url.RouteUrl("PublishLink",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                        Publish
+                    </a> <span>|</span><a href="@Url.RouteUrl("RequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">Details</a>
+                    <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                        Close
+                    </a>
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>
+

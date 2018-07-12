@@ -1,0 +1,91 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.DocumentWorkFlow
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DocumentWorkFlow</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProcessName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProcessName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoOfApprovals)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoOfApprovals)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approver1Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approver1Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approver2Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approver2Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approver3Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approver3Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approver4Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approver4Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approver5Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approver5Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEnabled)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

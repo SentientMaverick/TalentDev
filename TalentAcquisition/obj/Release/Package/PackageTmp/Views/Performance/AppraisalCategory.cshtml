@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Appraisal Category";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Appraisal Category</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Performance</li>
+    <li class="active">Appraisal Category</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Appraisal Category</p>
+            </div>
+            <div class="panel-body">
+                <div ng-controller="GrievanceActionController" ng-init="init()" class="row container">
+                    <button type="button" id="Mexico" style="float:right;margin-bottom: 10px;" class="btn btn-info btn-sm" ng-click="addGrievanceType()">Add Appraisal Category</button>
+                    <style>
+                        #myTable input, #myTable select {
+                            border: none;
+                            outline: none;
+                            box-shadow: none;
+                            background-color: inherit;
+                            padding: 0;
+                            margin: 0;
+                        }
+                    </style>
+                    <form id="empform" ng-submit="submitGrievanceTypes()">
+                        <table id="mytable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Code</th>
+                                    <th style="width:50%">Description</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="type in grievanceTypes">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        <input class="form-control input-sm" name="Code{{$index}}" ng-model="type.Code"
+                                               ng-disabled="!enabledEdit[{{$index}}]" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control input-sm" name="Description{{$index}}" ng-model="type.Description" ng-disabled="!enabledEdit[{{$index}}]" />
+                                    </td>
+                                    <td>
+                                        <div class="buttons">
+                                            <button class="btn btn-primary btn-xs" ng-click="edit($index)">Edit</button>
+                                            <button class="btn btn-danger btn-xs" ng-click="delete($index)">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

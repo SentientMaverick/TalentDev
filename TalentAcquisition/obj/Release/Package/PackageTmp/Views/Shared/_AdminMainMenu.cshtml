@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+     <li>@Html.ActionLink("Create Requisition", "Requisition/Create", "Admin")</li>
+     <li>@Html.ActionLink("Manage Requisitions", "Requisitions", "Admin")</li>
+     <li>@Html.ActionLink("Interviews", "Requisitions", "Team")</li>
+
+}
+

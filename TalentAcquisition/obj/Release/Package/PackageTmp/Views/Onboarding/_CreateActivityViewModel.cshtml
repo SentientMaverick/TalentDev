@@ -1,0 +1,159 @@
+﻿@model TalentAcquisition.Models.ViewModel.ActivityViewModel
+<style>
+    .panel-heading {
+        padding: 0.5em;
+    }
+
+        .panel-heading h4 {
+            padding: 0px;
+        }
+</style>
+@*<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>*@
+<script type="text/javascript">
+   // $("#advance").prop("disabled", true);
+
+    $(function () {
+        $('.panel-heading a').on('click', function (e) {
+            if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+@using (Html.BeginForm("_CreateActivityViewModel","Onboarding", FormMethod.Post, new { @class = "form", @id = "form" }))
+{
+            @Html.AntiForgeryToken();
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#@Model.ID" style="text-decoration:none">@Html.EditorFor(model=>model.Title, new { htmlAttributes = new { @class = "form-control col-md-12" } })</a>
+                    </h4>
+                </div>
+                <div id="@Model.ID" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <input type="datetime" data-date-format="DD/MM/YYYY" name="DueDate" id="DueDate" value="" class="form-control input-sm" />
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <div class="col-md-12" style="margin-top:0.5em">
+                                @Html.TextArea("htmlBody", WebUtility.HtmlDecode(Model.Body), new { @class = "form-control", rows = "8", cols = "5" })
+                                @Html.TextAreaFor(model=>model.Body, new { @class = "form-control hidden", rows = "8", cols = "5" })
+                                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                                <script>
+                                    var myToolbar = [
+                                                       ['Bold'],
+                                                       ['Styles'],
+                                                       ['Link', 'Anchor']
+                                    ];
+                                    var config =
+                                   {
+                                       toolbar_mySimpleToolbar: myToolbar,
+                                       toolbar: 'mySimpleToolbar'
+                                   };
+                                    var config3 = { height: 250, width: 390 };
+                                    var config4 = { toolbar: 'Basic' };
+                                    config.filebrowserUploadMethod = 'form';
+                                  // $('#Body').ckeditor(config);
+                                    config.filebrowserUploadMethod = 'form';
+                                    CKEDITOR.replace('htmlBody', {
+                                            UploadUrl: '/Onboarding/CKEditorUpload/',
+                                            filebrowserUploadUrl: '/Onboarding/CKEditorUpload/'
+                                        });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="submit" value="Create" class="btn col-sm-6 btn-default btn-primary btn-xs" />
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.OnboardActivityID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OnboardActivityID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OnboardActivityID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.WelcomeGuideID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.WelcomeGuideID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.WelcomeGuideID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.OnboardingTemplateID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OnboardingTemplateID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OnboardingTemplateID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        //var date = new Date();
+        // $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+
+        $("#DueDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+            minDate: 2,
+            maxDate: "+1M"
+            //pickTime: false,
+            //// daysOfWeekDisabled: [0],
+            // format: 'dd/mm/yyyy',
+            //language: 'en',
+            //startDate: '+2d',
+            // "startDate":date,
+            // endDate: date
+        });
+
+        //$("#DueDate").datetimepicker({
+        //});
+
+    });
+</script>
+<script>
+    $(function () {
+        var form = $("#form");
+        form.submit(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var data = CKEDITOR.instances.htmlBody.getData();
+            $("#Body").val(data);
+            if (e.isDefaultPrevented()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr("action"),
+                    data: form.serialize(),
+                    success: function (response) {
+                        //alert(response);
+                        $('#dvright').load("@(Url.Action("_GetAllActivitiesForTemplate", "Onboarding", new { id = Model.OnboardingTemplateID }))");
+                      },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                });
+           }
+
+        });
+    });
+</script>
+

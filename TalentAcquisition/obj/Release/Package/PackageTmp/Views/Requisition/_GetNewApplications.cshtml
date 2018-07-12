@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobApplication>
+@using Humanizer;
+
+<table id="myTable" class="table" style="font-size:90%;border:none">
+    <tr style="font-family:'Century Gothic'">
+        <th>
+           <label>Title</label>
+        </th>
+        <th>
+            <label>Username</label>
+        </th>
+        <th>
+            <label>Application Status</label>
+        </th>
+        <th>
+            <label>Registration Date</label>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr style="height:2em;border:1px solid #91dbdb;">
+        <td>
+            @Html.DisplayFor(modelItem => item.JobRequisition.JobTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobSeeker.ApplicantNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationStatus)
+        </td>
+        <td>
+            <p>@item.RegistrationDate.Humanize()</p>
+        </td>
+        <td><a class="btn btn-primary btn-xs" href="/Admin/Application/@item.JobApplicationID/@item.JobRequisition.JobTitle">Manage</a></td>
+    </tr>
+    <tr style="height:0.5em;"></tr>
+}
+
+</table>

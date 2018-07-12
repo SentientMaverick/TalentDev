@@ -1,0 +1,71 @@
+﻿@model TalentAcquisition.Core.Domain.JobSeeker
+<section class="mainbody" style="color:black">
+    <section class="container body-content">
+            <div class="row">
+                <div class="col-md-10" style="font-size:100%;line-height:1.5em;padding:0.2em">
+                    @*<dt>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>*@
+                    <h5>
+                        <b>Firstname</b>: @Html.DisplayFor(model => model.FirstName)<span style="margin-left: 3em;"><b>Lastname</b>: @Html.DisplayFor(model => model.LastName) </span><span style="margin-left: 3em;"><b>Date of Birth</b>: @Model.DateOfBirth.ToString("dd/MM/yyyy") </span>
+                    </h5>
+                    <br />
+                    
+                    
+                    <h5>
+                        <strong>Primary Address</strong>: @Html.DisplayFor(model => model.Address)<span style="margin-left: 12em;"><b>Phone Number</b>: @Html.DisplayFor(model => model.PhoneNumber) </span>
+                    </h5>
+                                    
+                    @*<dt>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </dd>*@
+
+                </div>
+                <div class="col-md-2">
+                    <img src="~/Uploads/passport.png" width="100" height="100" />
+                </div>
+            </div>
+        <br/>
+            <h4>Employment History</h4>
+        <hr/>
+            <div class="row container" style="font-size:90%">
+                @Html.Partial("_GetEmploymentList", Model.WorkExperiences)
+            </div>
+
+            <h4>Education</h4>
+            <hr/>
+            <div class="row container">
+
+                @foreach (var item in Model.Schools)
+                {
+
+                }
+            </div>
+
+            <h4>Professional Certification and Training</h4>
+             <hr/>
+            <div class="row">
+
+                @foreach (var item in Model.Certifications)
+                {
+
+                }
+            </div>
+    </section>
+</section>

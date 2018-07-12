@@ -1,0 +1,96 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.GrievanceReport>
+
+@{
+    ViewBag.Title = "Grievance List";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Complaint Management</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Complaint Management</li>
+    <li class="active">Grievances</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Grievances</p>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr style="font-size:80%">
+                        <th>
+                            Grievance Number
+                        </th>
+                        <th>
+                            Employee Number
+                        </th>
+                        <th>
+                            Employee Name
+                        </th>
+                        <th>
+                            Grievance Code
+                        </th>
+                        <th>
+                            Grievance Description
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateCreated)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateApproved)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OffenderCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OffenderName)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr style="font-size:80%">
+                        <td>
+                            @Html.ActionLink(item.No, "Grievance/Manage", new { id = item.No })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GrievanceCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GrievanceDescription)
+                        </td>
+                        <td>
+                            @item.DateCreated.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.DateApproved.ToShortDateString()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OffenderCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OffenderName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Approve", "Manage", new { id = item.No }) |
+                            @Html.ActionLink("Reject", "Reject", new { id = item.No })
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

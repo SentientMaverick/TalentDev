@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.OfficePosition>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleSummary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleSummary)
+                </td>
+                <td>
+                    @if (item.IsAvailable)
+                    {
+                        <p>Occupied</p>
+                    }
+                    else
+                    {
+                        <p>Vaccant</p>
+                    }
+                </td>
+                <td>
+                   <a href="/Admin/manage_officeposition/Edit/@item.OfficePositionID">Edit</a> |
+                    <a href="/Admin/manage_officeposition/Details/@item.OfficePositionID">Details</a> |
+                    <a href="/Admin/manage_officeposition/Delete/@item.OfficePositionID">Delete</a>|
+                </td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h2>No Job Role </h2>
+    <h2>Create new Role in the office</h2>
+}
+

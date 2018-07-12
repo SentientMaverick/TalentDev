@@ -1,0 +1,206 @@
+﻿
+@model TalentAcquisition.Core.Domain.JobRequisition
+
+@{
+    ViewBag.Title = "Approve Job Requisition ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4">
+            <div class="">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-size: 22px;">Approve Requisition</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard", "Admin")">Home</a></li>
+                <li><a href="@Url.Action("Requisitionmanager", "Admin")">Requisition Manager</a></li>
+                <li class="active">Approve Requisition</li>
+                <li class="active">@Model.RequisitionNo</li>
+            </ol>
+            <section class="" style="margin:-2px">
+                <div class="row">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.JobRequisitionID)
+
+                        <a href="javascript:void()" id="submitreq" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="15" /><input type="submit" value="Approve Requisition" style="outline:none;background-color:none;border:none" /></a>
+                        <a href="/Admin/Requisition/Reject/@Model.JobRequisitionID/@Model.JobTitle" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Minus.png" width="15" />Reject Requisition</a>
+                    }
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Requisition Summary
+                        </div>
+                        <div class="panel-body" style="margin-bottom:-1.5em">
+                            <section>
+                                <h4>Proceed with Posting Job to Public Portal?</h4>
+                                <div>
+                                    <br />
+                                    <h4>Job Requisition Information</h4>
+                                    <hr />
+                                    <dl class="dl-horizontal">
+                                        @*<dt>
+                                                @Html.DisplayNameFor(model => model.OfficePosition.Title)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.OfficePosition.Title)
+                                            </dd>*@
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.JobTitle)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.JobTitle)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.Location)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Location)
+                                        </dd>
+
+                                        @*<dt>
+                                                @Html.DisplayNameFor(model => model.Status)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Status)
+                                            </dd>*@
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.NoOfPositionsAvailable)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.NoOfPositionsAvailable)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.JobDescription)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.JobDescription)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.AgeLimit)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.AgeLimit)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.EducationalRequirements)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.EducationalRequirements)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.JobResponsibilities)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.JobResponsibilities)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.YearsOfExperience)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.YearsOfExperience)
+                                        </dd>
+
+                                        @*<dt>
+                                                @Html.DisplayNameFor(model => model.HumanResourcePersonnelID)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.HumanResourcePersonnelID)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.HeadOfDepartmentID)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.HeadOfDepartmentID)
+                                            </dd>*@
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.PublishedDate)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.PublishedDate)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.StartDate)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.StartDate)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.ClosingDate)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.ClosingDate)
+                                        </dd>
+                                        <dt>
+                                            Required Skills
+                                        </dt>
+                                        <dd>
+                                            @{
+                                                var requiredskills = "";
+                                                foreach (var skill in Model.Skills)
+                                                {
+                                                    requiredskills += skill.Name + " , ";
+                                                }
+                                                if (requiredskills != "")
+                                                {
+                                                    requiredskills = requiredskills.Remove(requiredskills.Length - 2, 2);
+                                                }
+
+                                            }
+                                            @requiredskills
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+

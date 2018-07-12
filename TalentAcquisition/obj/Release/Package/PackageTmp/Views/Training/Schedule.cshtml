@@ -1,0 +1,162 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.Training>
+@{
+    ViewBag.Title = "Employee Schedule";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Trainings</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Trainings</li>
+    <li class="active">Schedule</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Schedule</p>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrainingCourse.Code)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrainingCourse.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrainingProvider.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ApplicationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmployeeNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrainingGroupNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ParticipantNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmployeeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmployeeDepartment)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Purpose)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StopDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DurationUnits)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProviderName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EstimatedCost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ApprovedCost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrainingCourse.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrainingCourse.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrainingProvider.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ApplicationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrainingGroupNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ParticipantNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeDepartment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Purpose)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StopDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Duration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DurationUnits)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProviderName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EstimatedCost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ApprovedCost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationNo }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ApplicationNo }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationNo })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

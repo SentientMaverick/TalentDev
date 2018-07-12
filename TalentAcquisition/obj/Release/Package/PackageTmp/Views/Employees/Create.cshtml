@@ -1,0 +1,208 @@
+﻿@model TalentAcquisition.Core.Domain.Employee
+
+@{
+    ViewBag.Title = "Employee Creation";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+        <div style="padding-top:2em;"></div>
+        <p style="font-size: 22px;">Employee Creation</p>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+            @*<li><a href="#">Private</a></li>*@
+            @*<li><a href="#">Pictures</a></li>*@
+            <li class="active">Employee Management</li>
+            <li class="active">Register Employee</li>
+        </ol>
+
+  <section class="container body-content">
+      <div class="row bioform">
+
+          <span class="alert-danger"></span>
+          <span class="alert-danger">@ViewBag.Message</span>
+
+          @using (Html.BeginForm("Personnel/Create","Admin",FormMethod.Post, new { enctype = "multipart/form-data" }))
+          {
+                      @Html.AntiForgeryToken()
+                      <style>
+                          label{
+                              font-size:90%;
+                          }
+                          select{
+                              /*min-width:100%;*/
+                              margin-left:0;
+                          }
+                      </style>
+                      <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              Employee Details
+                          </div>
+                          <div class="panel-body" style="margin-bottom:-1.5em">
+                              <div class="form-horizontal">
+
+                                  @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                  <div class="col-md-12 col-lg-6">
+                                          <div class="form-group">
+                                              @Html.LabelFor(model => model.EmployeeNumber, htmlAttributes: new { @class = "col-md-5" })
+                                              <div class="col-md-7">
+                                                  @Html.HiddenFor(model => model.EmployeeNumber)
+                                                  <input type="text" disabled value="@Model.EmployeeNumber" class="form-control" />
+                                                   @Html.ValidationMessageFor(model => model.EmployeeNumber, "", new { @class = "text-danger" })
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = " col-md-5" })
+                                              <div class="col-md-7">
+                                                  @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                                  @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = " col-md-5" })
+                                              <div class="col-md-7">
+                                                  @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                  @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                          @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = " col-md-5" })
+                                          <div class="col-md-7">
+                                              @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                              @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                          </div>
+                                      </div>
+                                          <div class="form-group">
+                                              @*@using (Html.BeginForm("UploadFile", "Onboarding", FormMethod.Post, new { enctype = "multipart/form-data", id = "form" }))
+                                              {*@
+                                              <label class="col-md-4">Photo</label>
+                                                  <div class="col-md-8" id="uploadcontainer">
+                                                      <input type="file" name="ImageData" id="ImageData"/>
+                                                      @*<p>
+                                                          @Html.TextBox("file", "", new { type = "file", id = "file" })
+                                                      <input type="button" id="uploadbtn" value="Upload" class="btn btn-primary input-sm" />
+                                                  </p>*@
+                                              </div>
+                                              @*}*@
+                                          </div>
+                                    </div>
+                                      <div class="col-md-12 col-lg-6">
+                                          <div class="form-group">
+                                              @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = " col-md-5" })
+                                              <div class="col-md-7">
+                                                @if ((bool)ViewBag.GuideCreation)
+                                                {
+                                                   <input type="datetime" name="DateOfBirth" id="DateOfBirth" data-date-format="DD-MM-YYYY" class="form-control" value="@Model.DateOfBirth" no-padding placeholder="Pick Date of Birth" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="datetime" name="DateOfBirth" id="DateOfBirth" data-date-format="DD-MM-YYYY" class="form-control" value="" no-padding placeholder="Pick Date of Birth" />
+                                                }
+@*@Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                  @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <label class="col-md-5">Email Address</label>
+                                              <div class="col-md-7">
+                                                  <input type="email" id="UserEmail" name="UserEmail" class="form-control" required />
+                                                  @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-md-5" })
+                                              <div class="col-md-7">
+                                                  @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" ,@required=true } })
+                                                  @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = " col-md-5" })
+                                              <div class="col-md-12">
+                                                  @Html.TextAreaFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @rows = "8" } })
+                                                  @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                              </div>
+                                          </div>
+
+                                          <br />
+                                      </div>
+                                   </div>
+                                  </div>
+                              </div>
+                    <div class="panel panel-primary" style="margin-top:-1.2em;">
+                        <div class="panel-heading">
+                            Role Settings
+                        </div>
+                        <div class="panel-body" style="margin-bottom:-1.5em">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EmploymentDate, htmlAttributes: new { @class = "col-md-6" })
+                                        <div class="col-md-6">
+                                           @if ((bool)ViewBag.GuideCreation)
+                                           {
+                                            <input type="datetime" name="EmploymentDate" id="EmploymentDate" data-date-format="DD-MM-YYYY" class="form-control" value="@Model.EmploymentDate" no-padding placeholder="Choose Date" />
+                                           }
+                                           else
+                                           {
+                                            <input type="datetime" name="EmploymentDate" id="EmploymentDate" data-date-format="DD-MM-YYYY" class="form-control" value="" no-padding placeholder="Choose Date" />
+                                           }
+                                             @*@Html.EditorFor(model => model.EmploymentDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.ValidationMessageFor(model => model.EmploymentDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-2">Role</label>
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("OfficePositionID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.OfficePositionID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="">
+                            <input type="submit" value="Create" class="btn btn-primary col-sm-4" />
+                        </div>
+                    </div>
+          }
+     </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#EmploymentDate').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+         });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#DateOfBirth').datetimepicker({
+                defaultDate: '',
+                format: 'L',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+        });
+    </script>
+}
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+        </div>
+    </div>*@

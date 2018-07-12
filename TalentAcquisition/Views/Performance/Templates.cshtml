@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.AppraisalNonJobKPI>
+
+@{
+    ViewBag.Title = "Templates";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Performance KPI Templates</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Performance</li>
+    <li class="active">KPI Templates</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">KPI Templates</p>
+            </div>
+            <div class="panel-body">
+
+                <p>
+                    @Html.ActionLink("Create New", "Appraisal/Template/Create","Performance")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppraisalClass)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppraisalClass)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Code }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Code }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Code })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>

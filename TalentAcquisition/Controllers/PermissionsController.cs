@@ -31,7 +31,7 @@ namespace TalentAcquisition.Controllers
         // GET: Roles/Details/5
         public ActionResult Details(string id)
         {
-            return View();
+            return View(db.ApplicationRoles.Where(x=>x.Id==id));
         }
 
         // GET: Roles/Create
@@ -65,6 +65,10 @@ namespace TalentAcquisition.Controllers
             {
                 return View(Role);
             }
+        }
+        public ActionResult Edit(string id)
+        {
+            return View(db.ApplicationRoles.Where(x => x.Id == id));
         }
     }
 }

@@ -1,0 +1,97 @@
+﻿@model TalentAcquisition.Core.Domain.JobSeeker
+
+@{
+    ViewBag.Title = "Overview";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<section class="mainbody" style="color:black">
+    <section class="container body-content">
+        <section class="">
+            <h2>Complete Profile</h2>
+            <br />
+            <h4>Contact Information</h4>
+            <div class="row">
+
+                <dl class="dl-horizontal" style="font-size:120%;line-height:1.5em;padding:0.2em">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ApplicantNumber)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ApplicantNumber)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RegistrationDate)
+                    </dt>
+
+                    <dd>
+                        @Model.RegistrationDate.ToString("dd/MM/yyyy")
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DateOfBirth)
+                    </dt>
+
+                    <dd>
+                        @Model.DateOfBirth.ToString("dd/MM/yyyy")
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </dd>
+
+                </dl>
+            </div>
+            <h4>Employment History</h4>
+            <div class="row">
+                @Html.Partial("_GetEmploymentList", Model.WorkExperiences)
+            </div>
+
+            <h4>Education</h4>
+            <div class="row">
+
+                @foreach (var item in Model.Schools)
+                {
+
+                }
+            </div>
+
+            <h4>Professional Certification and Training</h4>
+            <div class="row">
+
+                @foreach (var item in Model.Certifications)
+                {
+
+                }
+            </div>
+        </section>
+    </section>
+</section>

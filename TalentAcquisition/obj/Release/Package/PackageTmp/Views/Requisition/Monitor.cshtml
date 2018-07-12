@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Monitor Requisitions";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#RequisitionTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<section class="mainbody">
+    <div class="container body-content">
+        <div class="col-md-4">
+            <div class="container">
+                @Html.Partial("_AdminDashboardSidebar")
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Requisition Dashboard</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+                @*<li><a href="#">Private</a></li>*@
+                @*<li><a href="#">Pictures</a></li>*@
+                @*<li class="active"><a href="@Url.Action("Requistionmanager","Admin")">Requisition Manager</a></li>*@
+                <li class="active">Job Requisition Manager</li>
+            </ol>
+            <section class="container body-content">
+                <div class="row">
+                    <a href="@Url.Action("requisition/create","Admin")" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+                    <a href="@Url.Action("requisitions","Admin")" class="btn"><img src="~/Assets/Icons/Agenda.png" width="20" />Manage Requisitions</a>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        @Html.Action("_GetNotifications", "Admin")
+                    </div>
+                </div>
+            </section>
+</div>
+
+    </div>
+</section>
+
+

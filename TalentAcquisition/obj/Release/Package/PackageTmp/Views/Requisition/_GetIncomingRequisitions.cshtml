@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.JobRequisition>
+@using Humanizer
+<table class="table table-striped" id="RequisitionTable" style="font-size:90%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            Date Created
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+                @item.PublishedDate.Humanize()
+        </td>
+        <td>
+            @if ((int)item.Status == 0)
+            {
+                <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                    Close
+                </a><span>|</span>
+                <a href="/Admin/Requisition/Approve/@item.JobRequisitionID/@item.JobTitle">View and Approve</a> <span>|</span>
+                <a href="/Admin/Requisition/Reject/@item.JobRequisitionID/@item.JobTitle">Reject</a>
+            }
+            else
+            {
+                <a href="@Url.RouteUrl("Edit",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                    Modify
+                </a><span>|</span>
+                <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                    Close
+                </a>
+            }
+        </td>
+    </tr>
+}
+
+</table>

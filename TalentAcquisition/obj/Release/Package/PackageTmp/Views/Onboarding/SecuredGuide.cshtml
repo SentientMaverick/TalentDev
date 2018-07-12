@@ -1,0 +1,307 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.WelcomeGuide
+@{
+    ViewBag.Title = "Welcome Guide";
+    Layout = "~/Views/Shared/_OnboardingLayout.cshtml";
+}
+@section Scripts{
+    <script type="text/javascript">
+    $(function () {
+        $(".Details").accordion({
+            collapsible: true
+        });
+    });
+    </script>
+<script type="text/javascript">
+   // $("#advance").prop("disabled", true);
+    var guideid = @Model.ID;
+    $(function () {
+        $('.panel-heading a').on('click', function (e) {
+            if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
+                e.preventDefault();
+            }
+        });
+        var mainurl = "/Onboarding/_MarkActivityAsCompleted";
+        var uploadurl="/Onboarding/UploadFile";
+        $("input#markactivity").click(function (e) {
+            var row = $(this).closest("#activitypanel");
+            var header = row.find(".panel-heading .panel-title");
+            $(this).attr("disabled", true);
+            var id = row.find("#ID").html().trim();
+           // alert(id);
+            url=mainurl + "?id="+id;
+           //alert(url);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {}, // serializes the form's elements. data: form.serialize(),
+                success: function (data) {
+                    header.append("<img src='/Assets/Icons/OK.png' class='pull-right' height='15' />");
+                    $('#selectedactivities').append(data);
+                }
+            });
+               //$.get(url,{},function(data,status,jqXHR) {
+               //    // alert(data);
+               //    header.append("<img src='/Assets/Icons/OK.png' class='pull-right' height='15' />");
+               //    $('#selectedactivities').append(data);
+               //});
+        });
+        $("#form").submit(function (e) {
+            e.preventDefault();
+            var id = $(this).find("#intid");
+            var spurl = uploadurl + "?id=" + id.html().trim();
+            //var spurl = uploadurl + "?id=" + 2;
+            alert(spurl);
+            if (window.FormData !== undefined) {
+                var fileUpload = $("#file").get(0);
+                var files = fileUpload.files;
+                alert(files[0].name);
+                // Create FormData object  
+                var fileData = new FormData();
+               // fileData.append("file", files[0].name);
+                alert("yay");
+                // Looping over all files and add it to FormData object  
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                //fileData.append('username', 'Manas');
+                $.ajax({
+                    type: "POST",
+                    url:spurl ,
+                    contentType: false, // Not to set any content header  
+                    processData: false, // Not to process data 
+                    data: fileData, // serializes the form's elements. data: form.serialize(),
+                   // dataType:'json',
+                    success: function (data) {
+                        alert(data);
+                        var x = $(this).closest("#activitypanel");
+                        var y = x.find("div#uploadcontainer");
+                        y.slideUp(300).addClass("hidden");
+                    }
+                });
+            }
+            //$.post($(this).attr("action"), $(this).serialize(), function () {
+            //    var x = $(this).closest("#activitypanel");
+            //    var y = x.find("div#uploadcontainer");
+            //    y.slideUp(300).addClass("hidden");
+            //});
+        });
+        $('#submitprop').click(function (e) {  
+        $.get("/Onboarding/_SubmitAsCompletedOnboarding", { id: guideid }, function (data) {
+                if (data) {
+                    alert("Succcessfully Completed Onboarding");
+                }
+            });
+        });
+    });
+</script>
+}
+<style>
+    .padding {
+        padding-top: 3em;
+    }
+
+    .banner {
+        min-height: 100px;
+        background-color: rgba(0,0,0,0.1);
+        padding: 1.5em;
+        width: 100%;
+    }
+
+        .banner button {
+            margin-top: 2em;
+        }
+
+        .banner h3 {
+            color: yellowgreen;
+        }
+
+    .contain {
+        width: 80%;
+        margin: 0 auto;
+    }
+</style>
+<!-- Banner IS Fixed-->
+<div class="banner">
+    <div class="contain">
+        <div class="row">
+            <div class="col-md-3">
+                <h3>Position</h3>
+                <h5>@Model.Position</h5>
+            </div>
+            <div class="col-md-9">
+                <h3 class="text-center">Onboarding Details</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="text-center" style="font-size:95%">Name</h3>
+                        <h5 class="text-center">@Model.Name</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="text-center" style="font-size:95%">Resumption-Date</h3>
+                        <h5 class="text-center">@Model.StartDate.ToShortDateString()</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="text-center" style="font-size:95%">Status</h3>
+                        <h5 class="text-center">@Model.Status</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (Model.Status.ToString() == "Published")
+                    {
+                        <div class="col-md-4 pull-right">
+                            <input type="button" id="submitprop" name="submitprop" value="Submit Onboarding" class="btn btn-primary" />
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-6 col-sm-3">
+            <style>
+                #cres li a {
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+                    background-color: none;
+                }
+
+                #cres {
+                    border: none;
+                    background-color: rgba(255,255,255,0.2);
+                    margin-bottom: 0em;
+                    padding: 0;
+                }
+            </style>
+            <ul class="nav nav-tabs" id="">
+                <li class="active"><a data-toggle="tab" href="#home"><img src="~/Assets/Icons/Diploma.png" height="15" /> Welcome Message</a></li>
+                <li><a data-toggle="tab" href="#activities"><img src="~/Assets/Icons/Piechart.png" height="15" /> Activities</a></li>
+                <li><a data-toggle="tab" href="#extrainfo"><img src="~/Assets/Icons/Books.png" height="15" /> Resources</a></li>
+                <li><a data-toggle="tab" href="#people"><img src="~/Assets/Icons/Man-Suit-2.png" height="15" /> People</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container body-content">
+    <br />
+    <div class="col-md-2">
+        <br />
+        <div class="container hidden">
+            <section class="container body-content">
+                <div class="row Details" id="JobDetails">
+                    <h4>Job Details</h4>
+                    <div class="col-lg-12" style="font-size:90%">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <br />
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <div class="row col-md-8 col-md-offset-2 body-content">
+                    <p>@Html.Raw(WebUtility.HtmlDecode(Model.WelcomeMessage))</p>
+                </div>
+            </div>
+            <div id="activities" class="tab-pane fade">
+                <div class="row">
+                    @Html.Action("_GetAllActivitiesForGuideEditable", new { id = Model.ID })
+                </div>
+            </div>
+            <div id="extrainfo" class="tab-pane fade">
+            </div>
+            <section class="container body-content">
+
+                <div class="hidden">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Position)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Position)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.previewurl)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.previewurl)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Status)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.WelcomeMessage)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.WelcomeMessage)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Location)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.BranchID)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.BranchID)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TemplateID)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TemplateID)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DateCreated)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DateCreated)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.StartDate)
+                        </dd>
+
+                    </dl>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>
+
+
+

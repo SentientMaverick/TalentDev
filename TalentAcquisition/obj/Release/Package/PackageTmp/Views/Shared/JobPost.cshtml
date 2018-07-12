@@ -1,0 +1,22 @@
+﻿@model TalentAcquisition.Core.Domain.JobRequisition
+@{
+    string url = Html.DisplayFor(model => model.JobTitle).ToString();
+    url=url.Replace(" ","-");
+}
+<div class="col-sm-4">
+    <div class="job">
+        <h2><a href="@Url.RouteUrl("JobDetails",
+                    new { id = Model.JobRequisitionID, name = url })">@Html.DisplayFor(model => model.JobTitle)
+             </a>
+        @*@Html.ActionLink(Model.JobTitle,"Details","Job",new {id=Model.JobRequisitionID })*@</h2>
+        <h4><span class="glyphicon glyphicon-calendar"></span>  @Model.ClosingDate.ToShortDateString() <span class="glyphicon glyphicon-map-marker"></span>  @Html.DisplayFor(model => model.Location)</h4>
+        <p>@Html.DisplayFor(model => model.JobDescription)</p>
+    </div>
+</div>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClosingDate)*@
+
+

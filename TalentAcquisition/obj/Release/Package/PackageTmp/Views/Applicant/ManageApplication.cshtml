@@ -1,0 +1,88 @@
+﻿@model TalentAcquisition.Core.Domain.JobApplication
+
+@{
+    ViewBag.Title = "Manage Application";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<div class="mainbody">
+<div class="container body-content">
+    <div class="col-md-4">
+            <ul class="" style="margin-top:-20px">
+               @Html.Partial("_ApplicantSideBar")
+            </ul>
+        </div>
+    <div class="col-md-8" style="color:black">
+        <section class="container body-content" style="margin-top:2em">
+            <div class="row">
+                <div class="panel-group">
+                    @if (Equals(Model.ApplicationStatus.ToString(), "Interview"))
+                    {
+                        //<h3>Interview</h3>
+                        @Html.Action("_GetInterview", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                    }
+                    @if (Equals(Model.ApplicationStatus.ToString(), "JobOffer"))
+                    {
+                        //<h3>Job Offer</h3>
+                        @Html.Action("_GetJobOffer", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse1">Application Details</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.JobRequisition.JobTitle)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.JobRequisition.JobTitle)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.JobSeeker.ApplicantNumber)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.JobSeeker.ApplicantNumber)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.RegistrationDate)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.RegistrationDate)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.ApplicationStatus)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.ApplicationStatus)
+                                    </dd>
+
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @Html.Action("_GetRequisition",new {id=Model.JobRequisitionID })
+            </div>
+            
+            
+        </section>
+    </div>
+
+</div>
+</div>

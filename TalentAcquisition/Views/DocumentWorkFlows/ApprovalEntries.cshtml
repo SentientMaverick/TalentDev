@@ -1,0 +1,81 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.ApprovalEntry>
+
+@{
+    ViewBag.Title = "Approval Entries";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Approval Entries</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Approval Entries</li>
+    <li class="active">All</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Approval Entries</p>
+            </div>
+            <div class="panel-body" style="overflow-x:scroll">
+                <p>
+                    @Html.ActionLink("Create New", "Flows/Create", "Approval")
+                </p>
+                @{
+                    var x = (List<TalentAcquisition.Core.Domain.Employee>)ViewBag.Employees;
+                }
+                <table class="table" style="font-size:80%">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProcessNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Sender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Approver)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Sequence)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProcessType)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProcessNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Approver)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sequence)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProcessType)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+

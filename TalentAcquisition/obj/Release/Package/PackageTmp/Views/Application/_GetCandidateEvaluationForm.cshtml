@@ -1,0 +1,583 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.InterviewEvaluation
+@{
+    ViewBag.Title = "Interview Evaluation Page";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .padding {
+        padding-top: 3em;
+    }
+
+    .banner {
+        min-height: 100px;
+        background-color: rgba(0,0,0,0.1);
+        padding: 1.5em;
+        width: 100%;
+    }
+
+        .banner button {
+            margin-top: 2em;
+        }
+
+    .contain {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .progress-meter {
+        padding: 0;
+    }
+
+    ol.progress-meter {
+        padding-bottom: 9.5px;
+        list-style-type: none;
+    }
+
+        ol.progress-meter li {
+            display: inline-block;
+            text-align: center;
+            text-indent: -19px;
+            height: 36px;
+            width: 15.99%;
+            font-size: 12px;
+            border-bottom-width: 4px;
+            border-bottom-style: solid;
+        }
+
+            ol.progress-meter li:before {
+                position: relative;
+                float: left;
+                text-indent: 0;
+                left: calc(50% - 9.5px);
+            }
+
+            ol.progress-meter li.done {
+                font-size: 12px;
+            }
+
+                ol.progress-meter li.done:before {
+                    content: "\2713";
+                    height: 19px;
+                    width: 19px;
+                    line-height: 21.85px;
+                    bottom: -28.175px;
+                    border: none;
+                    border-radius: 19px;
+                }
+
+            ol.progress-meter li.todo {
+                font-size: 12px;
+            }
+
+                ol.progress-meter li.todo:before {
+                    content: "\2B24";
+                    font-size: 17.1px;
+                    bottom: -26.95px;
+                    line-height: 18.05px;
+                }
+
+            ol.progress-meter li.done {
+                color: black;
+                border-bottom-color: yellowgreen;
+            }
+
+                ol.progress-meter li.done:before {
+                    color: white;
+                    background-color: yellowgreen;
+                }
+
+            ol.progress-meter li.todo {
+                color: silver;
+                border-bottom-color: silver;
+            }
+
+                ol.progress-meter li.todo:before {
+                    color: silver;
+                }
+</style>
+<section class="mainbody">
+    <div class="banner hidden-md hidden-sm hidden-xs">
+        <div class="contain">
+            <ol class="progress-meter">
+                <li class="progress-point done">Applied</li>
+                <li class="progress-point done">Screened</li>
+                <li class="progress-point done">Interview</li>
+                <li class="progress-point done">Evaluation</li>
+                <li class="progress-point todo">Job Offer</li>
+            </ol>
+        </div>
+        <div class="container">
+            <div class="col-md-6 col-sm-3">
+                <h6>Interview Number: @Model.InterviewID</h6>
+                <h6>Job Position: </h6>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top:-4.5em">
+        <div class="row">
+            <div style="padding-top:5em"></div>
+            <div class="col-md-3">
+                <div class="row" style="font-size:80%">
+                    <div class="col-xs-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Applicant Profile
+                            </div>
+                            <div class="panel-body">
+                                @Html.Action("_GetApplicantInterviewView", "Application",new {id=Model.InterviewID, officeid = ViewBag.OfficeID })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                @using (Html.BeginForm("_submitcandidateevaluationform", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.EmployeeID)
+                    @Html.HiddenFor(model => model.EvaluationNo)
+                    @Html.HiddenFor(model => model.InterviewID)
+                    @Html.HiddenFor(model => model.StageID)
+                    @Html.HiddenFor(model => model.Score1)
+                    @Html.HiddenFor(model => model.Score2)
+                    @Html.HiddenFor(model => model.Score3)
+                    <div class="container">
+                        
+                        <span class="alert-success">@ViewBag.Message</span>
+                        <div class="row" style="font-size:80%">
+                            <style>
+                                select {
+                                    padding: 0;
+                                    margin: 0;
+                                    width: 100%;
+                                    min-width: 100%;
+                                    font-size: 80%;
+                                }
+
+                                .form-group {
+                                    padding-bottom: -1.0em;
+                                    margin-bottom: 0.4em;
+                                }
+
+                                textarea {
+                                    margin-top: -2em;
+                                    padding-top: -2em;
+                                }
+
+                                input {
+                                    margin: 0;
+                                    padding: 0;
+                                }
+
+                                label {
+                                    font-size: 90%;
+                                }
+                            </style>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Interview Evaluation
+                                </div>
+                                <div class="panel-body" style="margin-bottom:-1.5em">
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-6">
+                                                <div class="col-md-12">
+                                                    @Html.HiddenFor(model => model.ID)
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.EvaluationNo, htmlAttributes: new { @class = "col-md-3" })
+                                                        <div class="col-md-8">
+                                                            <input value="@Model.EvaluationNo" class="form-control input-sm" disabled />
+                                                            @*@Html.DisplayFor(model => model.EvaluationNo, new { htmlAttributes = new { @class = "form-control input-sm" } })*@
+                                                            @Html.ValidationMessageFor(model => model.EvaluationNo, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.InterviewID, htmlAttributes: new { @class = "col-md-3" })
+                                                        <div class="col-md-8">
+                                                            <input value="@Model.InterviewID" class="form-control input-sm" disabled />
+                                                            @*@Html.DisplayFor(model => model.InterviewID, new { htmlAttributes = new { @class = "form-control input-sm disabled" } })*@
+                                                            @Html.ValidationMessageFor(model => model.InterviewID, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*<div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.DisplayFor(model => model.EmployeeID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.StageID, htmlAttributes: new { @class = "col-md-3" })
+                                                    <div class="col-md-8">
+                                                        @Html.DisplayFor(model => model.StageID, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.ValidationMessageFor(model => model.StageID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                                @if (Model.StageID < 2)
+                                                {
+                                                    <div class="col-md-6 col-xs-6 hidden">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.RecommendForStage2, htmlAttributes: new { @class = "control-label" })
+                                                            <div style="display:inline-block">
+                                                                @*<input type="radio" name="RecommendForStage2" />
+                                                                <input type="radio" name="RecommendForStage2" />*@
+                                                                @Html.CheckBoxFor(model => model.RecommendForStage2, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.RecommendForStage2, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @if (Model.StageID < 3)
+                                                {
+                                                    <div class="col-md-6 col-xs-6 hidden">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.RecommendForStage3, htmlAttributes: new { @class = "control-label" })
+                                                            <div style="display:inline-block">
+                                                                @Html.CheckBoxFor(model => model.RecommendForStage3, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.RecommendForStage3, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="col-md-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        @*<p><span class="control-label">Recommend For Hire</span></p>*@
+                                                        <label class="control-label">Recommend For Next Stage</label>
+                                                          <div style="display:inline-block">
+                                                                Yes @Html.RadioButtonFor(model => model.RecommendForHire, true, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                <span class="pull-right">   No @Html.RadioButtonFor(model => model.RecommendForHire, false, new { htmlAttributes = new { @class = "form-control input-sm" } })</span>
+                                                            </div>
+                                                            @*@Html.CheckBoxFor(model => model.RecommendForHire, new { htmlAttributes = new { @class = "form-control input-sm" } })*@
+                                                            @Html.ValidationMessageFor(model => model.RecommendForHire, "", new { @class = "text-danger" })
+                                                        </div>
+                                                </div>
+                                                @*<div class="col-md-6 col-xs-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.JobAcceptance, htmlAttributes: new { @class = "col-md-6" })
+                                                    <div class="col-md-6">
+                                                        @Html.CheckBoxFor(model => model.JobAcceptance, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                        @Html.ValidationMessageFor(model => model.JobAcceptance, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            </div>
+                                            <div class="col-md-12 col-lg-6">
+                                                <div class="">
+                                                    <style>
+                                                        input[type=radio] {
+                                                            margin: 0px !important;
+                                                            padding: 0px !important;
+                                                        }
+
+                                                        span {
+                                                            margin: 0px !important;
+                                                            padding: 0px !important;
+                                                        }
+                                                    </style>
+                                                    <div class="col-md-12">
+                                                        <ul class="nav nav-tabs">
+                                                            <li class="active"><a data-toggle="tab" href="#home">Strength</a></li>
+                                                            <li><a data-toggle="tab" href="#menu1">Weakness</a></li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div id="home" class="tab-pane fade in active">
+                                                                <br />
+                                                                <textarea class="form-control" id="Strength" name="Strength" rows="5" cols="40"></textarea>
+                                                            </div>
+                                                            <div id="menu1" class="tab-pane fade">
+                                                                <br />
+                                                                <textarea class="form-control" id="Weakness" name="Weakness" rows="5" cols="40"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                    @*<h6>
+                                                        Based on your Assesment of this candidate, do you think that this candidate should be offered a Job?
+                                                    </h6>
+                                                    <h5 class=""> Yes <input type="radio" value="true" name="Recommendation" id="Recommendation" /><span> No <input type="radio" value="false" name="Recommendation" id="Recommendation" /></span></h5>*@
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                                <div class="row">
+                                                    @*<div class="col-xs-12">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Score1, htmlAttributes: new { @class = "col-md-5" })
+                                                            <div class="col-md-6">
+                                                                @Html.DisplayFor(model => model.Score1, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.Score1, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Score2, htmlAttributes: new { @class = "col-md-5" })
+                                                            <div class="col-md-6">
+                                                                @Html.DisplayFor(model => model.Score2, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.Score2, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Score3, htmlAttributes: new { @class = "col-md-5" })
+                                                            <div class="col-md-6">
+                                                                @Html.DisplayFor(model => model.Score3, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                                                @Html.ValidationMessageFor(model => model.Score3, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary" style="margin-top:-1.7em;">
+                                <div class="panel-heading">
+                                    Evaluation Areas
+                                </div>
+                                <div class="panel-body">
+                                    @*<a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>*@
+                                    <div id="evaluations">
+                                        @Html.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID,officeid=ViewBag.OfficeID,maxscores= ViewBag.Dictionary })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-xs-12" style="margin-left:-2em">
+                            <input type="button" value="Save" class="btn btn-default btn-primary col-md-4 col-xs-12" id="submitjob" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>     
+    </div>
+</section>
+@*<div id="blackview" class="hide">
+    <div class="modal-content">
+        <div class="loader"></div>
+    </div>
+</div>*@
+@*<div id="divEdit" style="display:none">
+    @using (Html.BeginForm("_AddorUpdateEvaluation", "Application", FormMethod.Post,new { @class = "form", @id = "form" }))
+    {
+        @Html.Action("_NewEvaluation",new { aid=Model.InterviewID});
+    }
+
+</div>*@
+<style>
+        #blackview {
+        position: fixed; /* Stay in place */
+        z-index: 200; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4);
+    }
+</style>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>*@
+@{
+  Dictionary<string,int> dict = ViewBag.Dictionary;
+}
+@{ 
+    bool status = ViewBag.Status;
+}
+
+@section Scripts{
+<script type="text/javascript">
+    @*var  stageid=@Model.StageID;*@
+    var collection = @Html.Raw(Json.Encode(dict));
+    //alert(collection["AQ"]);
+    //$.each(collection, function (key, value) {
+    //   // console.log(key);
+    //   // console.log(value);
+    //});
+    //$("#dcode").change(function(){
+    //    //alert("valuechanged");
+    //    var newval= $(this).val();
+    //    //alert(collection[newval]);
+    //    $("#deval").val(collection[newval]);
+    //    $("#EvaluationDescription").val(collection[newval])
+    //});
+    $(function () {
+        //if(status){
+        //    function Redirect() {
+        //        window.location="http://localhost:54105/Admin/Dashboard";
+        //    }
+        //    document.write("You will be redirected to main page in 5 sec.");
+        //    setTimeout('Redirect()', 5000);
+        //}
+        //$(".score").keyup(function () {
+        //    alert("changed value");
+        //});
+        //alert(collection["AQ"]);
+        
+        $(".score").on("keyup", function(e) {
+            var value = $(this).val();
+            if(value!=""){
+                if(value!=null){
+                    var maxvalue=collection["AQ"];
+                    if(value==0){
+                        //alert("The value For this Metric cannot be zero");
+                    }
+                    else if(value>maxvalue){
+                        alert("The Maximum value For this Metric is "+ maxvalue);
+                        $(this).val(0);
+                    }
+                  //alert(value);
+                }
+            }           
+        });
+        $("#submitjob").on("click", function () {
+            var validated = ValidateForms();
+            if (validated) {
+                var answer = confirm("Please Confirm your Applicant Recommendation!");
+                if (answer)
+                  $("#form").submit();
+            }
+            else {
+                alert("Please Fill All Fields Properly");
+            }
+        });
+        var ValidateForms = function () {
+
+            return true;
+        }
+
+        $("#reqjob").on("click", function () {
+            //$("#editform").attr('url').set();
+            $("#form").submit();
+
+        });
+
+        $("#form").submit(function (e) {
+            e.preventDefault();
+            var form = $("#form");
+           // alert(form.serialize().toString());
+            $.ajax(
+                    {
+                         type: "post",
+                          url: form.attr("action"),
+                          data: form.serialize(),
+                          success: function (response) {
+                              alert("Success");
+                              alert("You will be redirected to main page");
+                              window.location = "http://localhost:54105/Admin/Dashboard";
+                              //setTimeout('Redirect()', 1000);
+                                },
+                                error: function (error) {
+                                    // alert('failed');
+                                }
+                            });
+        });
+            $("#RecommendForStage2").change(function() {
+                if(this.checked) {
+                    $("#RecommendForStage3").attr("disabled",true);
+                }
+                else{
+                    $("#RecommendForStage3").attr("disabled",false);
+                }
+            });
+
+            $("#RecommendForStage3").change(function() {
+                if(this.checked) {
+                    $("#RecommendForStage2").attr("disabled",true);
+                }
+                else{
+                    $("#RecommendForStage2").attr("disabled",false);
+                }
+            });
+        });
+    </script>
+}
+
+
+@*
+                //$("a#additem").on("click", function () {
+                //    initDialog("Add");
+                //    $("#divEdit").dialog("open");
+                //    return false;
+                //});
+
+                //$("a#deleteitem").on("click", function () {
+                //    var row = $(this).closest('tr');
+                //    var id = row.find("td:eq(0)").html().trim();
+                //    var answer = confirm("You are about to delete this Entry." + id + "Continue?");
+                //    if (answer)
+                //        DeleteEvaluation(id);
+                //        //alert(id);
+                //    return false;
+                //});
+    function DeleteEvaluation(eid) {
+            $.ajax(
+                            {
+                                type: "POST",
+                                url: "@(Url.Action("_DeleteEvaluation", "Application"))",
+                                data: {id:eid},
+                                success: function (response) {
+                                    $('#evaluations').load("@(Url.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID }))");
+                                },
+                                error: function (error) {
+                                    alert('failed');
+                                }
+                            });
+        }
+                //$("#EvaluationNo").attr("disabled", true);
+                //$("#EmployeeID").attr("disabled", true);
+                //$("#InterviewID").attr("disabled", true);
+                //$("#StageID").attr("disabled", true);
+
+*@
+
+@*var initDialog = function (type) {
+                var title = type;
+                $("#divEdit").dialog({
+                    title: type + ' Evaluation',
+                    autoOpen: false,
+                    modal: true,
+                    width: 500,
+                    dialogClass: 'mod-no-close',
+                    buttons: {
+                        Save: function () {
+                            // alert('here');
+                            var form = $("#form");
+                            $("#InterviewEvaluationID").val(@Model.ID);
+                           // alert($("#EvaluationDescription").val());
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: form.attr("action"),
+                                    data: form.serialize(),
+                                    success: function (response) {
+                                        $('#evaluations').load("@(Url.Action("_GetEvaluations", "Application", new { id = Model.ID, stageid = Model.StageID }))");
+                                    },
+                                    error: function (error) {
+                                        alert('failed');
+                                    }
+                                });
+                           // alert('there');
+                            $(this).dialog("destroy");
+            },
+                        Cancel: function () {
+                            $(this).dialog("destroy");
+            }
+        }
+    });
+            };*@

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.CashRequisition>
+
+@{
+    ViewBag.Title = "Open Transactions";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Cash Requisition</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Expenses</li>
+    <li class="active">Transaction</li>
+    <li class="active">Open</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Open Transactions</p>
+            </div>
+            <div class="panel-body">
+                <p>
+                    @Html.ActionLink("Create New", "Transaction/Create","Expenses")
+                </p>
+                <table class="table" style="font-size:80%">
+                    <tr>
+                        <th>
+                            Request Number
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequestCreator)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateCreated)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateModified)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BranchCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepartmentId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item.No, "Transactions/Approve/"+ item.No,"Expenses")
+                                @*@Html.DisplayFor(modelItem => item.No)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestCreator)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreated)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateModified)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BranchCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepartmentId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.No }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.No }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.No })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+

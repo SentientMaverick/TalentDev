@@ -1,0 +1,169 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.DisciplinaryCase
+
+@{
+    ViewBag.Title = "Disciplinary Case";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Disciplinary Case</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Disciplinary Case</li>
+    <li class="active">Create</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <span class="alert-danger">@ViewBag.Error</span>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">New Disciplinary Case</p>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <style>
+                        label {
+                            font-size: 80%;
+                        }
+                    </style>
+                    <div class="form-horizontal" ng-controller="DisciplinaryRecordController">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CaseNumber, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.CaseNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CaseNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmployeeNumber, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @*@Html.EditorFor(model => model.EmployeeNumber, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        <select class="form-control" id="EmployeeNumber" name="EmployeeNumber" ng-model="SelectedEmployee"
+                                                ng-options="item.Number for item in employees track by item.Number" ng-change="selectedemployeechanged()"></select>
+                                        @*@Html.DropDownList("EmployeeNumber",null, htmlAttributes :new { @class = "form-control" })*@
+                                        @Html.ValidationMessageFor(model => model.EmployeeNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <input type="text" id="EmployeeName" name="EmployeeName" ng-model="selectedEmployeeName" class="form-control" ng-readonly="true" />
+                                        @*@Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.JobTitleCode, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <input type="text" id="JobTitleCode" name="JobTitleCode" ng-model="selectedEmployeeJobCode" class="form-control" ng-readonly="true" />
+                                        @*@Html.EditorFor(model => model.JobTitleCode, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.JobTitleCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.JobTitleName, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <input type="text" id="JobTitleName" name="JobTitleName" ng-model="selectedEmployeeJobTitle" class="form-control" ng-readonly="true" />
+                                        @*@Html.EditorFor(model => model.JobTitleName, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.JobTitleName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ComplaintDate, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.ComplaintDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ComplaintDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IndisciplineTypeCode,htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.DropDownList("IndisciplineTypeCode", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.IndisciplineTypeCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DisciplinaryActionCode, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <select class="form-control" id="EmployeeNumber" name="EmployeeNumber" ng-model="SelectedDisciplinaryAction"
+                                                ng-options="item.Code for item in actions track by item.Code" ng-change="selectedDisciplinaryActionChanged()"></select>
+                                        @*@Html.DropDownList("DisciplinaryActionCode", null, htmlAttributes: new { @class = "form-control" })*@
+                                        @Html.ValidationMessageFor(model => model.DisciplinaryActionCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActionDetails, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <input type="text" id="ActionDetails" name="ActionDetails" ng-model="selectedDisciplinaryActionDetails" class="form-control" ng-readonly="true" />
+                                        @*@Html.EditorFor(model => model.ActionDetails, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.ActionDetails, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActionStartDate, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.ActionStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActionStartDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActionEndDate, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.ActionEndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActionEndDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Reasons, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.TextAreaFor(model => model.Reasons, new { htmlAttributes = new { @class = "form-control", @rows="5" } })
+                                        @Html.ValidationMessageFor(model => model.Reasons, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Posted, htmlAttributes: new { @class = "col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.Posted)
+                                            @Html.ValidationMessageFor(model => model.Posted, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                               
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+    </div>
+</section>
+<script>
+    employeesbs=@Html.Raw(Json.Encode(ViewBag.Employees));
+    actionsbs=@Html.Raw(Json.Encode(ViewBag.Actions));
+    $(function(){
+        console.log(actionsbs);
+        $("#ActionStartDate").datepicker({});
+        $("#ActionEndDate").datepicker({});
+    });
+</script>

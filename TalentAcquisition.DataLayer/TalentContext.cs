@@ -57,12 +57,16 @@ namespace TalentAcquisition.DataLayer
             .HasKey(c => c.ID);
             modelBuilder.Entity<ApplicationRole>().HasKey(r => r.Id);
 
+            modelBuilder.Entity<Employee>().Property(r => r.EmployeeNumber).HasMaxLength(50);
+            //modelBuilder.Entity<Employee>().HasIndex(r => r.EmployeeNumber);
+
             modelBuilder.Entity<Employee>().HasMany<ApplicationUserGroup>((Employee u) => u.Groups);
             modelBuilder.Entity<ApplicationUserGroup>().HasKey((ApplicationUserGroup r) => new { EmployeeID = r.EmployeeID, GroupId = r.GroupId }).ToTable("ApplicationUserGroups");
 
             // And here:
             modelBuilder.Entity<Group>().HasMany<ApplicationRoleGroup>((Group g) => g.Roles);
             modelBuilder.Entity<ApplicationRoleGroup>().HasKey((ApplicationRoleGroup gr) => new { RoleId = gr.RoleId, GroupId = gr.GroupId }).ToTable("ApplicationRoleGroups");
+            modelBuilder.Entity<AppraisalKPI>().HasKey((AppraisalKPI gr) => new { AppraisalNo = gr.AppraisalNo, JobKPIId = gr.JobKPIId });
 
             //modelBuilder.Entity<JobRequisition>()
             //    .Property(s => s.Employee1)
@@ -105,7 +109,30 @@ namespace TalentAcquisition.DataLayer
         public DbSet<GrievanceType> GrievanceTypes { get; set; }
         public DbSet<GrievanceAction> GrievanceActions { get; set; }
         public DbSet<GrievanceReport> GrievanceReports { get; set; }
+        public DbSet<IndisciplineType> IndisciplineTypes { get; set; }
+        public DbSet<DisciplinaryAction> DisciplinaryActions { get; set; }
+        public DbSet<DisciplinaryCase> DisciplinaryCases { get; set; }
+        public DbSet<Training> Trainings { get; set; }
+        public DbSet<TrainingProvider> TrainingProviders { get; set; }
+        public DbSet<TrainingCourse> TrainingCourses { get; set; }
+        public DbSet<TrainingQuestion> TrainingQuestions { get; set; }
 
+        public DbSet<CashRequisition> CashRequisitions { get; set; }
+
+        public DbSet<CashRequisitionType> CashRequisitionTypes { get; set; }
+        public DbSet<CashLineItem> CashLineItems { get; set; }
+
+        public DbSet<Appraisal> Appraisals { get; set; }
+        public DbSet<AppraisalGrade> AppraisalGrades { get; set; }
+        public DbSet<AppraisalType> AppraisalTypes { get; set; }
+        public DbSet<AppraisalCategory> AppraisalCategories { get; set; }
+        public DbSet<AppraisalNonJobKPI> AppraisalNonJobKPIs { get; set; }
+        public DbSet<JobKPI> JobKPIs { get; set; }
+        public DbSet<NonJobKPI> NonJobKPIs { get; set; }
+        public DbSet<AppraisalPeriod> AppraisalPeriods { get; set; }
+        public DbSet<AppraisalKPI> AppraisalKPIs { get; set; }
+        public DbSet<DocumentWorkFlow> ApprovalFlows { get; set; }
+        public DbSet<ApprovalEntry> ApprovalEntries { get; set; }
         //public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.AssignToGroupViewModel> AssignToGroupViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.ActivityViewModel> ActivityViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.RegisterViewModel> RegisterViewModels { get; set; }

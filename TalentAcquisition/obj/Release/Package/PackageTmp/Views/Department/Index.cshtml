@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.Department>
+
+@{
+    ViewBag.Title = "Manage Departments";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+  <section class="container body-content">
+                <div class="row">
+                    <h2>Dashboard</h2>
+                    <p>
+                        <a class="btn btn-default" href="/Admin/manage_departments/Create">Create New Department</a>
+                    </p>
+                    <table class="table" style="color:black">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DepartmentName)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+  </section>
+
+

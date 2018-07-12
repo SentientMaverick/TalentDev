@@ -184,8 +184,10 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\CashController.cs" />
     <Compile Include="Controllers\ComplaintController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DocumentWorkFlowsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\EvaluationCategoriesController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="Filters\AuthorizeApplicantAttribute.cs" />
     <Compile Include="Filters\AuthorizeEmployeeAttribute.cs" />
     <Compile Include="Filters\AuthorizeRolesAttribute.cs" />
@@ -209,9 +212,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\IWorkflowHelper.cs" />
     <Compile Include="Helper\OnboardingUtilityHelper.cs" />
     <Compile Include="Helper\UrlHelperAzure.cs" />
     <Compile Include="Helper\UrlHelperLocal.cs" />
+    <Compile Include="Helper\WorkFlowHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntityManager\ApplicationManager.cs" />
     <Compile Include="Models\EntityManager\AppManager.cs" />
@@ -816,8 +821,12 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Scripts\Angular\app.js" />
+    <Content Include="Scripts\Angular\EmployeeController - Copy.js" />
     <Content Include="Scripts\Angular\EmployeeController.js" />
     <Content Include="Scripts\Angular\EmployeeService.js" />
+    <Content Include="Scripts\Angular\CashController.js" />
+    <Content Include="Scripts\Angular\PerformanceController.js" />
+    <Content Include="Scripts\Angular\TrainingController.js" />
     <Content Include="Scripts\Angular\GrievanceController.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -894,6 +903,8 @@
     <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
+    <None Include="Properties\PublishProfiles\talenthrm - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\talenthrm - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1120,13 +1131,47 @@
     <Content Include="Views\Complaint\GrievanceAction.cshtml" />
     <Content Include="Views\Admin\LeaveManager.cshtml" />
     <Content Include="Views\Complaint\Create.cshtml" />
+    <Content Include="Views\Complaint\Index.cshtml" />
+    <Content Include="Views\Complaint\IndisciplineType.cshtml" />
+    <Content Include="Views\Complaint\DisciplinaryActionType.cshtml" />
+    <Content Include="Views\Complaint\CreateDisciplinaryCase.cshtml" />
+    <Content Include="Views\Complaint\ManageDisciplinaryCases.cshtml" />
+    <Content Include="Views\Complaint\DisciplinaryCases.cshtml" />
+    <Content Include="Views\Training\NewRequest.cshtml" />
+    <Content Include="Views\Training\Course.cshtml" />
+    <Content Include="Views\Training\Provider.cshtml" />
+    <Content Include="Views\Training\Index.cshtml" />
+    <Content Include="Views\Training\Schedule.cshtml" />
+    <Content Include="Views\Performance\AppraisalGrade.cshtml" />
+    <Content Include="Views\Performance\AppraisalCategory.cshtml" />
+    <Content Include="Views\Cash\TransactionTypes.cshtml" />
+    <Content Include="Views\Cash\CashRequest.cshtml" />
+    <Content Include="Views\Cash\OpenTransactions.cshtml" />
+    <Content Include="Views\Performance\SelfAppraisal.cshtml" />
+    <Content Include="Views\Performance\PendingAppraisals.cshtml" />
+    <Content Include="Views\Performance\ReviewAppraisal.cshtml" />
+    <Content Include="Views\Performance\ApproveAppraisal.cshtml" />
+    <Content Include="Views\Performance\Templates.cshtml" />
+    <Content Include="Views\Performance\Create.cshtml" />
+    <Content Include="Views\Performance\AppraisalPeriod.cshtml" />
+    <Content Include="Views\Complaint\ManageGrievance.cshtml" />
+    <Content Include="Views\Training\ApproveRequest.cshtml" />
+    <Content Include="Views\Cash\ApproveCashRequest.cshtml" />
+    <Content Include="Views\DocumentWorkFlows\Create.cshtml" />
+    <Content Include="Views\DocumentWorkFlows\Delete.cshtml" />
+    <Content Include="Views\DocumentWorkFlows\Details.cshtml" />
+    <Content Include="Views\DocumentWorkFlows\Edit.cshtml" />
+    <Content Include="Views\DocumentWorkFlows\Index.cshtml" />
+    <Content Include="Views\DocumentWorkFlows\ApprovalEntries.cshtml" />
+    <Content Include="Views\Performance\AppraisalType.cshtml" />
+    <Content Include="Views\Performance\Edit.cshtml" />
+    <Content Include="Views\Permissions\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\Ckeditor\" />
     <Folder Include="Uploads\documents\" />
     <Folder Include="Uploads\images\" />
-    <Folder Include="Views\Performance\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

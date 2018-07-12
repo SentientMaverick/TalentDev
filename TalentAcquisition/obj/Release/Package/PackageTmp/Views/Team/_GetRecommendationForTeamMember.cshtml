@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Recommend Applicant";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+$(document).ready(function(){
+});
+</script>
+<section class="mainbody">
+    <div class="container">
+        <div class="col-md-4">
+            <div class="container">
+                <ul class="nav">
+                    @Html.Partial("_AdminDashboardSidebar")
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div style="padding-top:2em;"></div>
+            <p style="font-family: 'Fira Mono';font-size: 22px;">Recommend Applicant</p>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Dashboard", "Admin")">Home</a></li>
+                <li><a href="@Url.Action("Requisitions", "Team")">Interview</a></li>
+                <li class="active">Recommend Applicant</li>
+            </ol>
+            <section class="">
+                @*<div class="row">
+                    <a href="javascript:void()" id="submitjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Save Changes</a>
+                    <a href="javascript:void()" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+                </div>*@
+                <div class="row" style="font-size:80%">
+                        <div class="row">
+                        <span class="alert-success">@ViewBag.Message</span>
+                    </div>
+                        <style>
+                            select {
+                                padding: 0;
+                                margin: 0;
+                                width: 100%;
+                                min-width: 100%;
+                                font-size: 80%;
+                            }
+
+                            .form-group {
+                                padding-bottom: -1.0em;
+                                margin-bottom: 0.4em;
+                            }
+
+                            textarea {
+                                margin-top: -2em;
+                                padding-top: -2em;
+                            }
+
+                            input {
+                                margin: 0;
+                                padding: 0;
+                            }
+
+                            label {
+                                font-size: 90%;
+                            }
+                        </style>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Recommendation
+                            </div>
+                            <div class="panel-body" style="margin-bottom:-1.5em">
+                                <div class="row">
+                                    @Html.Action("_GetInterviewFeedbackForm", "Application", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary" style="margin-top:-1.7em;">
+                            <div class="panel-heading">
+                                Applicant Profile
+                            </div>
+                            <div class="panel-body" style="min-height:400px;margin-bottom:10em">
+                                <div class="row">
+                                    <div class="container">
+                                        @Html.Action("_GetApplicantOverview", "Applicant", new { applicantid = ViewBag.applicantid })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</section>
+
