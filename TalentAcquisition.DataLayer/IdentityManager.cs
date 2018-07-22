@@ -163,7 +163,7 @@ namespace TalentAcquisition.DataLayer
             // Clear the roles from the group:
             ClearGroupRoles(groupId);
             db.Groups.Remove(group);
-            _db.SaveChanges();
+            db.SaveChanges();
         }
         public void AddRoleToGroup(int groupId, string roleName)
         {

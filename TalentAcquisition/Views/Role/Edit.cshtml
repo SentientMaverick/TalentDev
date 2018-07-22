@@ -24,14 +24,14 @@
             </ol>
             <section class="">
                 <div class="row">
-                    <a href="javascript:void()" id="submitjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Save Changes</a>
+                    <a href="javascript:void()" id="submitjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Save</a>
                     <a href="javascript:void()" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
                 </div>
                 <div class="row" style="font-size:80%">
                     <div class="row">
                         <span class="alert-success">@ViewBag.Message</span>
                     </div>
-                    <form action="" method="post" id="editform" enctype="multipart/form-data">
+                    <form action="" method="post" id="editform" enctype="multipart/form-data" ng-controller="JobController" ng-init="init()">
                         <style>
                             select {
                                 padding: 0;
@@ -60,6 +60,9 @@
                                 font-size: 90%;
                             }
                         </style>
+                        <br />
+                        <input type="submit" class="btn-sm btn-primary" value="Save Changes" />
+                        <br/><br/>
                         @Html.AntiForgeryToken()
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -169,27 +172,150 @@
                                 Job Requirements
                             </div>
                             <div class="panel-body">
+                                <style>
+                                    #mytable input, #mytable select {
+                                        border: none;
+                                        outline: none;
+                                        box-shadow: none;
+                                        background-color: inherit;
+                                        padding: 0;
+                                        margin: 0;
+                                    }
+                                </style>
+                                <a href="javascript:void(0)" ng-click="addJobRequirement()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+                                <div>
+                                    <table id="mytable" class="table table-striped">
+                                        <thead>
+                                            <tr style="font-size:90%">
+                                                <th>No</th>
+                                                <th>Code</th>
+                                                <th>Type</th>
+                                                <th>Score ID</th>
+                                                <th>Priority</th>
+                                                <th>Need Code</th>
+                                                <th>Stage Code</th>
+                                                <th>Desired Code</th>
+                                                <th>Mandatory</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="type in jobreqs" style="font-size:80%">
+                                                <td>{{$index+1}}</td>
+                                                <td style="width:10em">
+                                                    <select class="form-control input-sm" name="Line[{{$index}}].QualificationCode" ng-model="type.QualificationCode"
+                                                            ng-options="item.QualificationCode for item in codes track by item.QualificationCode" ng-change="codeSelected($index)"></select>
+                                                </td>
+                                                <td style="width:10em">
+                                                    <select class="form-control" name="Line[{{$index}}].QualificationType" ng-model="type.QualificationType"
+                                                            ng-options="item.QualificationType for item in validtypes track by item.QualificationType"></select>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control input-sm" name="Line[{{$index}}].Priority" ng-required="true" ng-model="type.Priority" ng-disabled="!enabledEdit[{{$index}}]" />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control input-sm" name="Line[{{$index}}].ScoreID" ng-required="true" ng-model="type.ScoreID" ng-disabled="!enabledEdit[{{$index}}]" />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control input-sm" name="Line[{{$index}}].NeedCode" ng-required="true" ng-model="type.NeedCode" ng-disabled="!enabledEdit[{{$index}}]" />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control input-sm" name="Line[{{$index}}].StageCode" ng-required="true" ng-model="type.StageCode" ng-disabled="!enabledEdit[{{$index}}]" />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control input-sm" name="Line[{{$index}}].DesiredScore" ng-required="true" ng-model="type.DesiredScore" ng-disabled="!enabledEdit[{{$index}}]" />
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="Line[{{$index}}].Mandatory" ng-model="type.Mandatory" value="true" />
+                                                    <input type="hidden" class="hidden" name="Line[{{$index}}].Mandatory" value="false" />
+                                                </td>
+                                                <td>
+                                                    @*<input type="checkbox" name="Line[{{$index}}].Mandatory" ng-model="type.Mandatory" ng-disabled="!enabledEdit[{{$index}}]" />*@
+                                                    @*<button class="btn btn-primary btn-xs" ng-click="edit($index)">Edit</button>*@
+                                                    <a id="removeitem" href="javascript:void()" ng-click="delete($index)"><img src="~/Assets/Icons/Delete.png" width="20" height="20" class="pull-right" /></a>
+                                                    @*<button class="btn btn-danger btn-xs" ng-click="delete($index)"><img src="~/Assets/Icons/Delete.png" width="20" height="20" class="pull-right" /></button>*@
+                                                </td>@*<td class="hidden"><input type="text" id="Line[{{$index}}].ID" name="Line[{{$index}}].ID" ng-required="true" value="0" ng-model="type.ID" ng-disabled="!enabledEdit[{{$index}}]" /></td>
+                            <td class="hidden"><input type="text" id="Line[{{$index}}].OfficePositionID" name="Line[{{$index}}].OfficePositionID" value="0" ng-model="type.OfficePositionID" ng-disabled="!enabledEdit[{{$index}}]" /></td>
+                            <td class="hidden"><input type="text" id="Line[{{$index}}].QualificationID" name="Line[{{$index}}].QualificationID" value="0" ng-model="type.QualificationID" ng-disabled="!enabledEdit[{{$index}}]" /></td>*@
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            @*<div class="panel-body">
                                 <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
                                 @Html.Action("_GetRequirementsForEditing",new {requirements= (List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>)ViewBag.SelectedRequirements })
-                            </div>
+                            </div>*@
                         </div>
                         <div class="panel panel-primary" style="margin-top:-1.7em;">
                             <div class="panel-heading">
                                 Applicant Evaluation Metrics
                             </div>
                             <div class="panel-body">
+                                <style>
+                                    #mytable input, #mytable select {
+                                        border: none;
+                                        outline: none;
+                                        box-shadow: none;
+                                        background-color: inherit;
+                                        padding: 0;
+                                        margin: 0;
+                                    }
+                                </style>
+                                <a href="javascript:void(0)" ng-click="addApplicantEvalMetric()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
+
+                                @*<hr/>*@
+                                @*@Html.Action("_GetRequirements")*@
+                                <div id="empform">
+                                    <table id="mytable" class="table table-striped">
+                                        <thead>
+                                            <tr style="font-size:90%">
+                                                <th>No</th>
+                                                <th>Code</th>
+                                                <th>Description</th>
+                                                <th>Maximum Score</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="type in appevals" style="font-size:80%">
+                                                <td>{{$index+1}}</td>
+                                                <td>
+                                                    <input class="form-control input-sm" required name="Evals[{{$index}}].EvaluationCode" ng-required="true" ng-model="type.EvaluationCode"/>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control input-sm" required name="Evals[{{$index}}].EvaluationDescription" ng-required="true" ng-model="type.EvaluationDescription"/>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="1" required class="form-control input-sm" name="Evals[{{$index}}].MaximumScore" ng-model="type.MaximumScore"/>
+                                                </td>
+                                                <td>
+                                                    @*<input type="checkbox" name="Line[{{$index}}].Mandatory" ng-model="type.Mandatory" ng-disabled="!enabledEdit[{{$index}}]" />*@
+                                                    @*<button class="btn btn-primary btn-xs" ng-click="edit($index)">Edit</button>*@
+                                                    <a id="removeitem" href="javascript:void()" ng-click="delete($index)"><img src="~/Assets/Icons/Delete.png" width="20" height="20" class="pull-right" /></a>
+                                                    @*<button class="btn btn-danger btn-xs" ng-click="delete($index)"><img src="~/Assets/Icons/Delete.png" width="20" height="20" class="pull-right" /></button>*@
+                                                </td>@*<td class="hidden"><input type="text" id="Line[{{$index}}].ID" name="Line[{{$index}}].ID" ng-required="true" value="0" ng-model="type.ID" ng-disabled="!enabledEdit[{{$index}}]" /></td>
+                            <td class="hidden"><input type="text" id="Line[{{$index}}].OfficePositionID" name="Line[{{$index}}].OfficePositionID" value="0" ng-model="type.OfficePositionID" ng-disabled="!enabledEdit[{{$index}}]" /></td>
+                            <td class="hidden"><input type="text" id="Line[{{$index}}].QualificationID" name="Line[{{$index}}].QualificationID" value="0" ng-model="type.QualificationID" ng-disabled="!enabledEdit[{{$index}}]" /></td>*@
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            @*<div class="panel-body">
                                 <a id="addappmetric" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
                                 @Html.Action("_GetApplicantMetrics", new {jobid=Model.OfficePositionID })
-                            </div>
+                            </div>*@
                         </div>
-                        <div class="panel panel-primary" style="margin-top:-1.7em;">
+                        @*<div class="panel panel-primary" style="margin-top:-1.7em;">
                             <div class="panel-heading">
                                 Probation Evaluation Metrics
                             </div>
                             <div class="panel-body">
                                 <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
-                                @*@Html.Action("_GetRequirementsForEditing", new { requirements = (List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>)ViewBag.SelectedRequirements })*@
-                            </div>
+                                 </div>
                         </div>
                         <div class="panel panel-primary" style="margin-top:-1.7em;">
                             <div class="panel-heading">
@@ -197,9 +323,8 @@
                             </div>
                             <div class="panel-body">
                                 <a id="additem" href="javascript:void()" class="pull-right btn btn-default btn-xs" style="margin-top:-0.8em"><img src="~/Assets/Icons/File-Plus.png" width="20" /> Add</a>
-                                @*@Html.Action("_GetRequirementsForEditing", new { requirements = (List<TalentAcquisition.BusinessLogic.UpdatedDomain.JobRequirement>)ViewBag.SelectedRequirements })*@
-                            </div>
-                        </div>
+                                </div>
+                        </div>*@
                     </form>
                 </div>
 
@@ -209,13 +334,17 @@
 </section>
 @section Scripts{
     <script type="text/javascript">
-        var reqcount = @Model.JobRequirements.Count() +1;
+        codesbs= @Html.Raw(Json.Encode(ViewBag.Codes));
+        typesbs= @Html.Raw(Json.Encode(ViewBag.Types));
+        appevalsbs= @Html.Raw(Json.Encode(ViewBag.ApplicantEvalMetrics));
+        jobreqsbs= @Html.Raw(Json.Encode(ViewBag.JobRequirements));
+
         $(document).ready(function()
         {
             $("#submitjob").on("click", function () {
                 var validated = ValidateForms();
                 if (validated) {
-                   // alert("Checking Form")
+                    // alert("Checking Form")
                     $("#editform").submit();
                 }
                 else {
@@ -235,7 +364,7 @@
 
             $("#editform").submit(function () {
                 var form = $("#editform");
-                alert(form.serialize().toString());
+               // alert(form.serialize().toString());
                 $.ajax(
                                 {
                                     type: "POST",
@@ -243,9 +372,9 @@
                                     data: form.serialize(),
                                     success: function (response) {
 
-                                         },
+                                    },
                                     error: function (error) {
-                                       // alert('failed');
+                                        // alert('failed');
                                     }
                                 });
             });
@@ -260,23 +389,6 @@
                 });
 
             });*@
-
-            $("a#additem").on("click", function () {
-                var i=reqcount;
-                var newdiv = "<tr id="+10+i+">";
-                $.ajax({
-                    type: "GET", url: "@(Url.Action("_CreateNewRequirement","Role"))",
-                    data: {id:i},
-                    success: function (data) {
-                        $("tbody#requirementslist").append(data);
-                        reqcount += 1;
-                    },
-                    error: function (error) {
-                        alert("Error" + error.toString());
-                    }
-                    });
-                });
-
         });
     </script>
 }

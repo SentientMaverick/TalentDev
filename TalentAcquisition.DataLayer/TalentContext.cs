@@ -133,6 +133,9 @@ namespace TalentAcquisition.DataLayer
         public DbSet<AppraisalKPI> AppraisalKPIs { get; set; }
         public DbSet<DocumentWorkFlow> ApprovalFlows { get; set; }
         public DbSet<ApprovalEntry> ApprovalEntries { get; set; }
+        public DbSet<ExitInterview> ExitInterviews { get; set; }
+        public DbSet<ExitActivity> ExitActivities { get; set; }
+        public DbSet<ExitActivityLine> ExitActivityLines { get; set; }
         //public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.AssignToGroupViewModel> AssignToGroupViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.ActivityViewModel> ActivityViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.RegisterViewModel> RegisterViewModels { get; set; }

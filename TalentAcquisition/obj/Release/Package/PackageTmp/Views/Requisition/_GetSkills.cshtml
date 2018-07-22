@@ -11,8 +11,8 @@
     @for (var i = 0; i < Model.Count(); i++)
     {
         <div class="col-md-6 skills">
-                <span class="col-md-2">@Html.CheckBoxFor(it => it[i].Checked)</span>
-                <div class="col-md-8">@Model[i].Name</div>
+           <span class="col-md-2"  style="color:red">@Html.CheckBoxFor(it => it[i].Checked)</span>
+           <div class="col-md-8">@Model[i].Name</div>
             @Html.HiddenFor(it => it[i].Id)
             @Html.HiddenFor(it => it[i].Name) 
             @*@Html.CheckBoxFor(it => it[i].Checked)*@

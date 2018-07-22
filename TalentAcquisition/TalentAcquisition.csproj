@@ -184,12 +184,14 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\CashController.cs" />
     <Compile Include="Controllers\ComplaintController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DocumentWorkFlowsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\EvaluationCategoriesController.cs" />
+    <Compile Include="Controllers\ExitInterviewsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndustryController.cs" />
@@ -296,6 +298,7 @@
     <Content Include="Assets\Icons\Wheelbarrow.png" />
     <Content Include="Assets\Icons\Woman-Suit.png" />
     <Content Include="Assets\js\sb-admin-2.js" />
+    <Content Include="Assets\MyCss.css" />
     <Content Include="Assets\vendor\bootstrap-social\bootstrap-social.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap.min.css" />
@@ -821,7 +824,7 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Scripts\Angular\app.js" />
-    <Content Include="Scripts\Angular\EmployeeController - Copy.js" />
+    <Content Include="Scripts\Angular\JobController.js" />
     <Content Include="Scripts\Angular\EmployeeController.js" />
     <Content Include="Scripts\Angular\EmployeeService.js" />
     <Content Include="Scripts\Angular\CashController.js" />
@@ -903,7 +906,9 @@
     <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
+    <None Include="Properties\PublishProfiles\talenthrm - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\talenthrm - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\talenthrm - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\talenthrm - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1166,6 +1171,20 @@
     <Content Include="Views\Performance\AppraisalType.cshtml" />
     <Content Include="Views\Performance\Edit.cshtml" />
     <Content Include="Views\Permissions\Details.cshtml" />
+    <Content Include="Views\Employees\EmployeeSelfService.cshtml" />
+    <Content Include="Views\Branches\Create.cshtml" />
+    <Content Include="Views\Branches\Delete.cshtml" />
+    <Content Include="Views\Branches\Details.cshtml" />
+    <Content Include="Views\Branches\Edit.cshtml" />
+    <Content Include="Views\Branches\Index.cshtml" />
+    <Content Include="Views\Admin\ExitManagement.cshtml" />
+    <Content Include="Views\Groups\Edit.cshtml" />
+    <Content Include="Views\Groups\Delete.cshtml" />
+    <Content Include="Views\ExitInterviews\Create.cshtml" />
+    <Content Include="Views\ExitInterviews\Delete.cshtml" />
+    <Content Include="Views\ExitInterviews\Details.cshtml" />
+    <Content Include="Views\ExitInterviews\Edit.cshtml" />
+    <Content Include="Views\ExitInterviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

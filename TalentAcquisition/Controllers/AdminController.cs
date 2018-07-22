@@ -140,6 +140,15 @@ namespace TalentAcquisition.Controllers
             }
             return View();
         }
+        [Route("Admin/ExitManager")]
+        public ActionResult ExitManagement()
+        {
+            using (var db = new TalentContext())
+            {
+
+            }
+            return View();
+        }
         [ChildActionOnly]
         public ActionResult _GetNotifications()
         {

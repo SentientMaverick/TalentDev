@@ -43,6 +43,18 @@ namespace TalentAcquisition.Controllers
         {
             var req = new TalentContext().JobRequisitions.Count();
             requisition.RequisitionNo = "TR" + String.Format("{0:D6}", req + 1);
+            if (DateTime.Now.Year > requisition.StartDate.Year)
+            {
+                ViewBag.Message = "Invalid Start Date for Requisition";
+                //ViewBag.Message = requisition.StartDate + " " + requisition.ClosingDate+ " " + requisition.PublishedDate;
+                return View(requisition);
+            }
+            if (DateTime.Now.Year > requisition.ClosingDate.Year)
+            {
+                ViewBag.Message = "Invalid Closing Date for Requisition";
+                //ViewBag.Message = requisition.StartDate + " " + requisition.ClosingDate+ " " + requisition.PublishedDate;
+                return View(requisition);
+            }
             if (!ModelState.IsValid)
             {
                 ViewBag.Message = "Couldn't Create Requisition; Form was not Completed Properly";
@@ -55,7 +67,9 @@ namespace TalentAcquisition.Controllers
                 var selectedint = selectedskills.Select(o => o.ID).ToList();
 
                 requisition.Status = JobRequisition.JobRequisitionStatus.Created;
-                requisition.PublishedDate = DateTime.Now;
+                //requisition.StartDate = DateTime.UtcNow;
+                //requisition.ClosingDate = DateTime.UtcNow;
+                requisition.PublishedDate = DateTime.UtcNow;
                 using (var db = new TalentContext())
                 {
                     var skills = db.Skills
@@ -267,7 +281,7 @@ namespace TalentAcquisition.Controllers
             ViewBag.Message = "Job Successfully Published";
             return RedirectToAction("Requisitions", "Admin");
         }
-        [Route("Admin/Requisition/Edit/{id:int}/{details}")]
+        [Route("Admin/Requisition/Edit/{id:int}/{details}", Name = "EditRequisitionLink")]
         [Route("Admin/Edit/{id:int}/{details}")]
         public ActionResult Edit(int? id)
         {
@@ -281,13 +295,18 @@ namespace TalentAcquisition.Controllers
             {
                 return HttpNotFound();
             }
+            if (string.IsNullOrEmpty(jobRequisition.RequisitionNo))
+            {
+                var req = new TalentContext().JobRequisitions.Count();
+                jobRequisition.RequisitionNo = "TR" + String.Format("{0:D6}", req + 1);
+            }
             ViewBag.RequisitionID = jobRequisition.JobRequisitionID;
             ViewBag.Departments = db.Departments.ToList();
             ViewBag.Industries = db.Departments.ToList();
             return View(jobRequisition);
         }
         [Route("Admin/Requisition/Edit/{id:int}/{details}")]
-        [Route("Admin/Edit/{id:int}/{details}", Name = "Edit")]
+        [Route("Admin/Edit/{id:int}/{details}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, JobRequisition requisition, List<CheckModel> checks)
@@ -299,13 +318,17 @@ namespace TalentAcquisition.Controllers
             }
             try
             {
-                List<Skill> selectedskills = checks.Where(x => x.Checked == true)
-                                            .Select(o => new Skill { ID = o.Id, Name = o.Name }).ToList();
-                var selectedint = selectedskills.Select(o => o.ID).ToList();
+                //List<Skill> selectedskills = checks.Where(x => x.Checked == true)
+                //                            .Select(o => new Skill { ID = o.Id, Name = o.Name }).ToList();
+                //var selectedint = selectedskills.Select(o => o.ID).ToList();
                 using (var db = new TalentContext())
                 {
                     JobRequisition jobRequisition = db.JobRequisitions.Find(id);
-
+                    if (string.IsNullOrEmpty(jobRequisition.RequisitionNo))
+                    {
+                        var req = new TalentContext().JobRequisitions.Count();
+                        jobRequisition.RequisitionNo = "TR" + String.Format("{0:D6}", req + 1);
+                    }
                     jobRequisition.JobResponsibilities = requisition.JobResponsibilities;
                     jobRequisition.EducationalRequirements = requisition.EducationalRequirements;
                     jobRequisition.AgeLimit = requisition.AgeLimit;
@@ -319,16 +342,18 @@ namespace TalentAcquisition.Controllers
                     jobRequisition.PublishedDate = DateTime.Now;
                     db.Entry(jobRequisition).State = System.Data.Entity.EntityState.Modified;
 
-                    var skills = db.Skills
-                                   .Where(x => selectedint.Contains(x.ID))
-                                   .ToList();
+                    //var skills = db.Skills
+                    //               .Where(x => selectedint.Contains(x.ID))
+                    //               .ToList();
                     // db.JobRequisitions.Add(requisition);
+                    //jobRequisition.Skills.Clear();
+                    //jobRequisition.Skills = selectedskills;
                     db.SaveChanges();
-                    requisition.Skills.Union(skills);
-                    requisition.Skills.Intersect(skills);
-                    requisition.Skills = skills;
+                    //requisition.Skills.Union(skills);
+                    //requisition.Skills.Intersect(skills);
+                    //requisition.Skills = skills;
 
-                    db.SaveChanges();
+                   // db.SaveChanges();
                     ViewBag.Message = "Changes Were succesfully Saved";
                     return RedirectToAction("Requisitions", "Admin");
                     //return View(requisition);
@@ -363,17 +388,33 @@ namespace TalentAcquisition.Controllers
         [Route("Admin/reject/{id:int}/{details}")]
         public ActionResult Reject(int? id, JobRequisition requisition)
         {
-            JobRequisition jobRequisition;
-            using (var db = new TalentContext())
+            if (id == null)
             {
-                jobRequisition = db.JobRequisitions.Find(id);
-                jobRequisition.RejectionNote = requisition.RejectionNote;
-                jobRequisition.Status = JobRequisition.JobRequisitionStatus.Rejected;
-                db.Entry(jobRequisition).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                ViewBag.Message = "Action Successful";
+                return View("Error");
             }
-            return View();
+            try
+            {
+                JobRequisition jobRequisition;
+                using (var db = new TalentContext())
+                {
+                    jobRequisition = db.JobRequisitions.Find(id);
+                    if (string.IsNullOrEmpty(jobRequisition.RequisitionNo))
+                    {
+                        var req = new TalentContext().JobRequisitions.Count();
+                        jobRequisition.RequisitionNo = "TR" + String.Format("{0:D6}", req + 1);
+                    }
+                    jobRequisition.RejectionNote = requisition.RejectionNote;
+                    jobRequisition.Status = JobRequisition.JobRequisitionStatus.Rejected;
+                    db.Entry(jobRequisition).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    ViewBag.Message = "Action Successful";
+                    return RedirectToAction("Requisitions", "Admin");
+                }
+            }
+            catch(Exception ex)
+            {
+                return View("Error");
+            }      
         }
         [Route("Admin/close/{id:int}/{details}/", Name = "Close")]
         public ActionResult Close(int? id)
@@ -545,6 +586,8 @@ namespace TalentAcquisition.Controllers
                 var req = db.JobRequisitions.Count();
                 job.RequisitionNo = "TR" + String.Format("{0:D6}", req + 1);
             }
+            job.StartDate = DateTime.Now;
+            job.ClosingDate = DateTime.Now;
             // var numgen = new Random();
 
             return PartialView(job);

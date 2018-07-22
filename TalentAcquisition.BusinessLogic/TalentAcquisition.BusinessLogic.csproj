@@ -94,6 +94,7 @@
     <Compile Include="Domain\WorkExperience.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdatedDomain\ApplicantEvaluationMetrics.cs" />
+    <Compile Include="UpdatedDomain\ExitInterview.cs" />
     <Compile Include="UpdatedDomain\Grievance.cs" />
     <Compile Include="UpdatedDomain\Indiscipline.cs" />
     <Compile Include="UpdatedDomain\PerformanceAppraisal.cs" />

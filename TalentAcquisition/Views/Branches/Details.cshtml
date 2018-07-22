@@ -1,0 +1,27 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.Branch
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Branch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BranchId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

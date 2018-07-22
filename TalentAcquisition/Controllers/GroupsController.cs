@@ -14,6 +14,7 @@ namespace TalentAcquisition.Controllers
     public class GroupsController : Controller
     {
         private TalentContext db = new TalentContext();
+        private IdentityManager _manager = new IdentityManager();
 
         [Route("Groups/All")]
         // GET: Groups
@@ -228,9 +229,10 @@ namespace TalentAcquisition.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Group group = db.Groups.Find(id);
-            db.Groups.Remove(group);
-            db.SaveChanges();
+            _manager.DeleteGroup(id);
+            //Group group = db.Groups.Find(id);
+            //db.Groups.Remove(group);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
         protected override void Dispose(bool disposing)

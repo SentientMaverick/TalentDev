@@ -1,7 +1,7 @@
 ﻿@model TalentAcquisition.Core.Domain.JobRequisition
 
 @{
-    ViewBag.Title = "Edit Requisition";
+    ViewBag.Title = "Edit Job Requisition";
     Layout = "~/Views/Shared/_NormalLayout.cshtml";
 }
             <p style="font-family: 'Fira Mono';font-size: 22px;">Edit Job Requisition</p>
@@ -52,14 +52,21 @@
                                             <div class="form-group">
                                                 <b class="col-md-4">Department</b>
                                                 <div class="col-md-8">
-                                                    <p>@Model.OfficePosition.Department.DepartmentName</p>
-                                                </div>
+                                                    @if (Model.OfficePosition != null)
+                                                    {
+                                                        <p>@Model.OfficePosition.Department.DepartmentName</p>
+                                                    }
+                                                    </div>
                                             </div>
                                             <div class="form-group">
                                                 <b class="col-md-4">Position</b>
                                                 <div class="col-md-8">
-                                                    <p class="form-control-static">@Model.OfficePosition.Title</p>
-                                                </div>
+                                                    @if (Model.OfficePosition != null)
+                                                    {
+                                                        <p class="form-control-static">@Model.OfficePosition.Title</p>
+
+                                                    }
+                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Location</label>
@@ -131,7 +138,7 @@
                                             <div class="form-group">
                                                 <label>Required Skills</label>
                                                 <div class="col-md-12">
-                                                    @Html.Action("_GetSkills", new { id = Model.JobRequisitionID })
+                                                    @*@Html.Action("_GetSkills", new { id = Model.JobRequisitionID })*@
                                                 </div>
                                             </div>
                                             <div class="form-group">

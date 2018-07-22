@@ -13,7 +13,7 @@
 </ol>
 <section class="container body-content">
     <div class="row">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary hidden">
             <div class="panel-heading">
                 <p class="">Basic Settings</p>
             </div>
@@ -46,13 +46,13 @@
                     }
                     @if (User.IsInRole("SuperAdmin"))
                     {
-                    <li>@Html.ActionLink("Create New User Permission", "Create", "Permissions")</li>
+                    <li class="hidden">@Html.ActionLink("Create New User Permission", "Create", "Permissions")</li>
                     <li>@Html.ActionLink("Create New Permission Groups", "Create", "Groups")</li>
                     }
                 </ul>
             </div>
         </div>
-        <div class="panel panel-primary">
+        <div class="panel panel-primary hidden">
             <div class="panel-heading">
                 <p class="">File Settings</p>
             </div>

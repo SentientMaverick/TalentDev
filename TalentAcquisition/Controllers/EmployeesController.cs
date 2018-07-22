@@ -48,6 +48,11 @@ namespace TalentAcquisition.Controllers
             var employees = db.Employees.Include(e => e.OfficePosition);
             return View(employees.ToList());
         }
+        [Route("Employees/SelfService")]
+        public ActionResult EmployeeSelfService()
+        {
+          return View();
+        }
         [HttpGet]
         [Route("Employees/Profile")]
         public ActionResult EmployeeProfile()

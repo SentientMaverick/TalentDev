@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Exit Management";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Exit Management</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Exit Management</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Employee Exit Management</p>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Setup New Record", "Records/Create", "Exit")</li>
+                        <li>@Html.ActionLink("View Exit Records", "Records/All", "Exit")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+

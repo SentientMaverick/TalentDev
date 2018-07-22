@@ -11,6 +11,39 @@ namespace TalentAcquisition.Helper
     public class WorkFlowHelper : IWorkflowHelper
     {
         TalentContext db = new TalentContext();
+
+        public WorkFlowHelper()
+        {
+            this.ApprovalEntries = new List<ApprovalEntry>();
+        }
+        public List<ApprovalEntry> ApprovalEntries { get;set;}
+
+        public int RequiredApprovals
+        {
+            get
+            {
+                if(ApprovalEntries!=null && ApprovalEntries.Count() > 0)
+                {
+                    return ApprovalEntries.Where(x=>x.Status == "Pending")
+                                          .OrderBy(x => x.Sequence)
+                                          .Count();
+                }
+                else
+                {
+                   // throw new NullReferenceException();
+                    return 0;
+                }
+            }
+        }
+
+        public int TotalApprovals
+        {
+            get
+            {
+                return ApprovalEntries.Count();
+            }
+        }
+
         public async Task<bool> IsApprovalEntryExisting(string type, string processno)
         {
             bool x =  db.ApprovalEntries.Where(r => r.ProcessNo == processno).Any();

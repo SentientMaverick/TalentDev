@@ -33,7 +33,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Template/Customize/"+ item.ID, "Onboarding", new { title=item.Title }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID })
+            @Html.ActionLink("Details", "Template/Customize/" + item.ID, "Onboarding", new { id=item.ID })
         </td>
     </tr>
 }

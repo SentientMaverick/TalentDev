@@ -102,7 +102,8 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "col-md-3" })
                                 <div class="col-md-8">
-                                    <input type="text" name="StartDate" data-date-format="DD-MM-YYYY" id="StartDate" class="form-control input-sm" value="" placeholder="Pick Starting Date for Recruitment" />
+                                    @*@Html.EditorFor(item=>item.StartDate)*@
+                                    <input type="text" name="StartDate" data-date-format="DD/MM/YYYY" id="StartDate" class="form-control input-sm" value="@DateTime.UtcNow.ToShortDateString()" placeholder="Pick Starting Date for Recruitment" />
                                     @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -111,7 +112,8 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ClosingDate, htmlAttributes: new { @class = "col-md-3" })
                                 <div class="col-md-8">
-                                    <input type="text" name="ClosingDate" data-date-format="DD-MM-YYYY" id="ClosingDate" class="form-control input-sm" value="" placeholder="Pick Closing Date for Recruitment" />
+                                    @*@Html.EditorFor(item => item.ClosingDate)*@
+                                    <input type="text" name="ClosingDate" data-date-format="DD/MM/YYYY" id="ClosingDate" class="form-control input-sm" value="@DateTime.UtcNow.ToShortDateString()" placeholder="Pick Closing Date for Recruitment" />
                                     @Html.ValidationMessageFor(model => model.ClosingDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>

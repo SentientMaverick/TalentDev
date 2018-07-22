@@ -27,7 +27,7 @@
 
                 @using (Html.BeginForm())
                 {
-                    <a href=""><img src="~/Assets/Icons/File-Plus.png" width="20" /><input type="submit" value="Create Guide" class="btn btn-default input-sm" style="outline:none;border:none" /></a>
+                    <a href=""><img src="~/Assets/Icons/File-Plus.png" width="20" /></a><input type="submit" value="Create Guide" class="btn btn-default input-sm" style="outline:none;border:none" />
                     <hr />
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal" style="font-size:90%">
@@ -41,7 +41,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-md-4" })
-                                    <div class="col-md-8">
+                                    <div class="col-md-8" style="margin-left:-1.3em">
                                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                     </div>
@@ -72,7 +72,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "col-md-4" })
                                     <div class="col-md-8" style="margin-left:-4em">
-                                        <input type="text" class="form-control" data-date-format="DD/MM/YYYY" id="StartDate" name="StartDate" value="@Model.StartDate.ToShortDateString()" />
+                                        <input type="text" class="form-control" required data-date-format="MM/DD/YYYY" id="StartDate" name="StartDate" value="@Model.StartDate.ToShortDateString()" />
                                         @*@Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control input-sm" } })*@
                                         @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                                     </div>
@@ -125,13 +125,14 @@
     <script type="text/javascript">
         $(document).ready(function () {
             //$('#dateinput :input').prop("disabled", true);
-            $('#StartDate').datetimepicker({
-                defaultDate: '@Model.StartDate',
-                format: 'L',
-                showClose: true,
-                showClear: true,
-                toolbarPlacement: 'top'
-            });
+            //$('#StartDate').datetimepicker({
+            //    defaultDate: '',
+            //    showClose: true,
+            //    showClear: true,
+            //    toolbarPlacement: 'top',
+            //    format: 'mm/dd/yyyy'
+            //});
+            $('#StartDate').datepicker({ });
         });
       </script>  
  }

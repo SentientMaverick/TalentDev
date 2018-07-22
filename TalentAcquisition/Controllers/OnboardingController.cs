@@ -18,14 +18,17 @@ namespace TalentAcquisition.Controllers
 {
     public class OnboardingController : Controller
     {
+        #region Fields
         private TalentContext db = new TalentContext();
         private IEmailMessaging _messaging;
         private IFileHelper _helper;
         const string filesavepath = "~/Uploads/Ckeditor";
-       // const string baseUrl = @"http://localhost:54105/Uploads/Ckeditor/";
+        // const string baseUrl = @"http://localhost:54105/Uploads/Ckeditor/";
         const string baseUrl = @"/Uploads/Ckeditor/";
         const string scriptTag = "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction({0}, '{1}', '{2}')</script>";
 
+        #endregion
+        #region Views
         // GET: Onboarding
         public ActionResult Index()
         {
@@ -61,7 +64,7 @@ namespace TalentAcquisition.Controllers
                 template.DateEdited = DateTime.Now;
                 db.OnboardingTemplates.Add(template);
                 db.SaveChanges();
-                return RedirectToAction("Template/Customize/"+template.ID, "Onboarding");
+                return RedirectToAction("Template/Customize/" + template.ID, "Onboarding");
             }
             return View(template);
         }
@@ -76,7 +79,7 @@ namespace TalentAcquisition.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Onboarding/Template/Customize/{id:int}")]
-        public ActionResult EditTemplate(int id,OnboardingTemplate template,string htmlMessage)
+        public ActionResult EditTemplate(int id, OnboardingTemplate template, string htmlMessage)
         {
             string htmlEncoded = WebUtility.HtmlEncode(htmlMessage);
             if (ModelState.IsValid)
@@ -93,13 +96,13 @@ namespace TalentAcquisition.Controllers
         //[Route("Onboarding/Guide/Create/applicant/{applicantid:int}")]
         [Route("Onboarding/Guide/Create/applicant")]
         [Route("Onboarding/Guide/Create/applicant/{applicantid:int}")]
-        public ActionResult CreateGuide(int? applicantid=0,string name="",string position="")
+        public ActionResult CreateGuide(int? applicantid = 0, string name = "", string position = "")
         {
             WelcomeGuide guide = new WelcomeGuide();
-            guide.DateCreated = DateTime.Now;
+            guide.DateCreated = DateTime.UtcNow;
             guide.Name = name;
             guide.Position = position;
-            guide.StartDate = DateTime.Now.AddDays(7);
+            guide.StartDate = DateTime.UtcNow.AddDays(7);
             guide.JobSeekerID = applicantid;
             ViewBag.Templates = db.OnboardingTemplates.ToList();
             ViewBag.Branches = db.Branches.ToList();
@@ -108,14 +111,14 @@ namespace TalentAcquisition.Controllers
         [Route("Onboarding/Guide/Create/applicant")]
         [Route("Onboarding/Guide/Create/applicant/{applicantid:int}")]
         [HttpPost]
-        public ActionResult CreateGuide(int? applicantid,WelcomeGuide guide)
+        public ActionResult CreateGuide(int? applicantid, WelcomeGuide guide)
         {
             ViewBag.Templates = db.OnboardingTemplates.ToList();
             ViewBag.Branches = db.Branches.ToList();
             if (!ModelState.IsValid)
             {
-                guide.DateCreated = DateTime.Now;
-                guide.StartDate = DateTime.Now.AddDays(7);
+                guide.DateCreated = DateTime.UtcNow;
+                guide.StartDate = DateTime.UtcNow.AddDays(7);
                 return View(guide);
             }
             using (var db = new TalentContext())
@@ -141,8 +144,8 @@ namespace TalentAcquisition.Controllers
         public ActionResult EditGuide(int id)
         {
             using (var db = new TalentContext())
-             {
-              var guide = db.WelcomeGuides.Include("CompletedActivities").Where(x => x.ID == id);
+            {
+                var guide = db.WelcomeGuides.Include("CompletedActivities").Where(x => x.ID == id);
                 if (guide == null)
                 {
                     return HttpNotFound();
@@ -154,13 +157,13 @@ namespace TalentAcquisition.Controllers
         [ValidateAntiForgeryToken]
         [Route("Onboarding/Guide/Customize/{applicant}/{id:int}")]
         [HttpPost]
-        public ActionResult EditGuide(int id,WelcomeGuide guide,int? newStatus)
+        public ActionResult EditGuide(int id, WelcomeGuide guide, int? newStatus)
         {
             if (!ModelState.IsValid)
             {
                 return View(guide);
             }
-            using (var db=new TalentContext())
+            using (var db = new TalentContext())
             {
                 guide.WelcomeMessage = WebUtility.HtmlEncode(guide.WelcomeMessage);
                 db.WelcomeGuides.Add(guide);
@@ -169,8 +172,8 @@ namespace TalentAcquisition.Controllers
                     switch (newStatus)
                     {
                         case 1:
-                          guide.Status= Status.Published;
-                          break;
+                            guide.Status = Status.Published;
+                            break;
                         case 2:
                             guide.Status = Status.Submitted;
                             break;
@@ -186,10 +189,10 @@ namespace TalentAcquisition.Controllers
                 db.SaveChanges();
                 if (newStatus == 3)
                 {
-                    return RedirectToAction("Personnel/Create", "Admin", new {guideid=guide.ID });
+                    return RedirectToAction("Personnel/Create", "Admin", new { guideid = guide.ID });
                 }
             }
-            return RedirectToAction("Onboarding","Admin");
+            return RedirectToAction("Onboarding", "Admin");
         }
 
         [Route("Onboarding/progress/{guideurl}")]
@@ -199,7 +202,7 @@ namespace TalentAcquisition.Controllers
             var guide = new WelcomeGuide();
             using (var db = new TalentContext())
             {
-              var  _guide = db.WelcomeGuides.Where(x => x.previewurl == guideurl).First();
+                var _guide = db.WelcomeGuides.Where(x => x.previewurl == guideurl).First();
                 if (_guide == null)
                 {
                     return HttpNotFound();
@@ -224,13 +227,15 @@ namespace TalentAcquisition.Controllers
             }
             return View(guide);
         }
-       // [Route("Onboarding/Applicant/{guideurl}")]
+        #endregion
+        #region PartialView
+        // [Route("Onboarding/Applicant/{guideurl}")]
         public ActionResult ValidateEmployee(int id)
         {
             var guide = new WelcomeGuide();
             using (var db = new TalentContext())
             {
-                var _guide = db.WelcomeGuides.Where(x => x.ID==id).First();
+                var _guide = db.WelcomeGuides.Where(x => x.ID == id).First();
                 if (_guide == null)
                 {
                     return HttpNotFound();
@@ -238,7 +243,7 @@ namespace TalentAcquisition.Controllers
                 guide = _guide;
             }
             var url = Url.Action("Personnel/Create", "Admin");
-            return View(url,guide);
+            return View(url, guide);
         }
         public ActionResult _GetAllTemplates()
         {
@@ -255,13 +260,13 @@ namespace TalentAcquisition.Controllers
             var JobApplications = new List<Core.Domain.JobApplication>();
             using (var db = new TalentContext())
             {
-              var applicationsinonboarding = db.JobApplications.Include("JobSeeker").Include("JobRequisition").Where(x => x.ApplicationStatus == Core.Domain.ApplicationStatus.Onboarding).ToList();
-                foreach ( var applicant in applicationsinonboarding)
+                var applicationsinonboarding = db.JobApplications.Include("JobSeeker").Include("JobRequisition").Where(x => x.ApplicationStatus == Core.Domain.ApplicationStatus.Onboarding).ToList();
+                foreach (var applicant in applicationsinonboarding)
                 {
-                    if (!db.WelcomeGuides.Where(x=>x.JobSeekerID == applicant.JobSeekerID && x.Position==applicant.JobRequisition.JobTitle).Any())
+                    if (!db.WelcomeGuides.Where(x => x.JobSeekerID == applicant.JobSeekerID && x.Position == applicant.JobRequisition.JobTitle).Any())
                     {
                         JobApplications.Add(applicant);
-                    }     
+                    }
                 }
             }
             return PartialView(JobApplications);
@@ -291,7 +296,7 @@ namespace TalentAcquisition.Controllers
             }
             return View();
         }
-        public ActionResult _CreateActivityViewModel(int id,int templateid)
+        public ActionResult _CreateActivityViewModel(int id, int templateid)
         {
             var onboardActivity = db.OnboardActivities.Find(id);
             var activitymodel = OnboardingUtilityHelper.ConvertToActivityModel(onboardActivity);
@@ -305,7 +310,7 @@ namespace TalentAcquisition.Controllers
             activitymodel.OnboardingTemplateID = templateid;
             activitymodel.WelcomeGuideID = guideid;
             activitymodel.Body = activitymodel.Title;
-            return PartialView("_CreateActivityViewModel",activitymodel);
+            return PartialView("_CreateActivityViewModel", activitymodel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -324,8 +329,10 @@ namespace TalentAcquisition.Controllers
                 db.CompletedActivities.Add(activity);
                 db.SaveChanges();
             }
-            return Json(true,JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+        #region CKEditorUpload
         public ActionResult CKEditorUpload()
         {
             var funcNum = 0;
@@ -339,9 +346,9 @@ namespace TalentAcquisition.Controllers
             var url = baseUrl + fileName;
             // return BuildReturnScript(funcNum, url, null);
             Dictionary<string, dynamic> response = new Dictionary<string, dynamic>();
-    //        "uploaded": 1,
-    //"fileName": "foo.jpg",
-    //"url": "/files/foo.jpg"
+            //        "uploaded": 1,
+            //"fileName": "foo.jpg",
+            //"url": "/files/foo.jpg"
             response["uploaded"] = (int)1;
             response["fileName"] = fileName;
             response["url"] = HttpUtility.JavaScriptStringEncode(url ?? "");
@@ -354,7 +361,6 @@ namespace TalentAcquisition.Controllers
                 "text/html"
                 );
         }
-
         private void SaveAttatchedFile(string filepath, HttpRequestBase Request, ref string fileName)
         {
             for (int i = 0; i < Request.Files.Count; i++)
@@ -364,7 +370,7 @@ namespace TalentAcquisition.Controllers
                 {
                     fileName = Path.GetFileName(file.FileName);
                     _helper = new AzureFileHelper();
-                    
+
                     string targetPath = Server.MapPath(filepath);
                     if (!Directory.Exists(targetPath))
                     {
@@ -377,11 +383,68 @@ namespace TalentAcquisition.Controllers
                 }
             }
         }
+        [HttpPost]
+        public async Task<JsonResult> UploadFile(int id)
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    var activity = db.CompletedActivities.Where(x => x.ID == id);
+                    if (activity != null)
+                    {
+                        //activity.First().HasTaskBeenCompleted = true;
+                        // await db.SaveChangesAsync();
+                        //db.SaveChanges();
+                        // action = true;
+                    }
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            string extension = Path.GetExtension(file.FileName);
+                            fname = activity.First().Name + activity.First().ID + extension;
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Uploads/"), fname);
+                        file.SaveAs(fname);
+                    }
+                    // Returns message that successfully uploaded 
+                    await db.SaveChangesAsync();
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        } 
+        #endregion
+        #region PartialJsonView
         public ActionResult _GetAllActivitiesForTemplate(int id)
         {
             var activities = new SelectedActivityViewModel();
             var activitylist = new List<CompletedActivity>();
-            activitylist = db.CompletedActivities.Where(x=>x.OnboardingTemplateID==id).ToList();
+            activitylist = db.CompletedActivities.Where(x => x.OnboardingTemplateID == id).ToList();
             activities.Activities.AddRange(OnboardingUtilityHelper.ConvertToActivityModelList(activitylist));
             return PartialView(activities);
         }
@@ -432,7 +495,7 @@ namespace TalentAcquisition.Controllers
         }
         [HttpPost]
         public async Task<JsonResult> _MarkActivityAsCompleted(int id)
-       
+
         {
             bool action = false;
             var activity = db.CompletedActivities.Where(x => x.ID == id);
@@ -443,7 +506,7 @@ namespace TalentAcquisition.Controllers
                 //db.SaveChanges();
                 action = true;
             }
-            return Json(action,JsonRequestBehavior.AllowGet);
+            return Json(action, JsonRequestBehavior.AllowGet);
         }
         public async Task<JsonResult> _SubmitAsCompletedOnboarding(int id)
         {
@@ -451,75 +514,21 @@ namespace TalentAcquisition.Controllers
             var guide = db.WelcomeGuides.Where(x => x.ID == id);
             if (guide != null)
             {
-                guide.First().Status=Status.Submitted;
+                guide.First().Status = Status.Submitted;
                 await db.SaveChangesAsync();
                 //db.SaveChanges();
                 action = true;
             }
             return Json(action, JsonRequestBehavior.AllowGet);
-        }      
+        }
         public JsonResult _NotifyApplicant(int id)
         {
             var guide = db.WelcomeGuides.Find(id);
-            _messaging = new NotifyOnboardingEmail("ayandaoluwatosin@gmail.com", guide.Name, guide.Position,"http://localhost:54105"+"/Onboarding/Applicant/"+guide.previewurl);
+            _messaging = new NotifyOnboardingEmail("ayandaoluwatosin@gmail.com", guide.Name, guide.Position, "http://localhost:54105" + "/Onboarding/Applicant/" + guide.previewurl);
             _messaging.SendEmailToApplicant();
-            return Json(true,JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public async Task<JsonResult> UploadFile(int id)
-        {
-            if (Request.Files.Count > 0)
-            {
-                try
-                {
-                    //  Get all files from Request object  
-                    HttpFileCollectionBase files = Request.Files;
-                    var activity = db.CompletedActivities.Where(x => x.ID == id);
-                    if (activity != null)
-                    {
-                        //activity.First().HasTaskBeenCompleted = true;
-                       // await db.SaveChangesAsync();
-                        //db.SaveChanges();
-                       // action = true;
-                    }
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
-                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
-
-                        HttpPostedFileBase file = files[i];
-                        string fname;
-
-                        // Checking for Internet Explorer  
-                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                        {
-                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                            fname = testfiles[testfiles.Length - 1];
-                        }
-                        else
-                        {
-                            string extension = Path.GetExtension(file.FileName);
-                            fname = activity.First().Name+activity.First().ID+extension;
-                        }
-
-                        // Get the complete folder path and store the file inside it.  
-                        fname = Path.Combine(Server.MapPath("~/Uploads/"), fname);
-                        file.SaveAs(fname);
-                    }
-                    // Returns message that successfully uploaded 
-                    await db.SaveChangesAsync();
-                    return Json(true, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
-                    return Json("Error occurred. Error details: " + ex.Message);
-                }
-            }
-            else
-            {
-                return Json("No files selected.");
-            }
-        }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        } 
+        #endregion
 
     }
 }

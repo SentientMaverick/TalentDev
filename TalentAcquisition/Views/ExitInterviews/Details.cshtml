@@ -1,0 +1,123 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.ExitInterview
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ExitInterview</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherReasons)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherReasons)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeavingOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeavingOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReEmploy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReEmploy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterviewDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterviewDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterviewerNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterviewerNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterviewerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterviewerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApproveProcess)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApproveProcess)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProcessCompleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProcessCompleted)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.No }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,132 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.ExitInterview>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Employee Exit</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Exit</li>
+    <li class="active">Records</li>
+    <li class="active">All</li>
+</ol>
+<section class="container body-content">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <p class="">Exit Records</p>
+                </div>
+                <div class="panel-body">
+                    <style>
+                        tr,td {
+                            font-size: 70%;
+                        }
+                    </style>
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reason)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OtherReasons)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LeavingOn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ReEmploy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InterviewDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InterviewerNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InterviewerName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Comment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ApproveProcess)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProcessCompleted)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reason)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OtherReasons)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeavingOn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReEmploy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InterviewDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InterviewerNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InterviewerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Comment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApproveProcess)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProcessCompleted)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.No }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.No }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.No })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+    </div>
+</section>
+

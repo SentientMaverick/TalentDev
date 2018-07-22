@@ -36,7 +36,7 @@
             }
             else
             {
-                <a href="@Url.RouteUrl("Edit",new { id = item.JobRequisitionID, details = item.JobTitle })">
+                <a href="@Url.RouteUrl("EditRequisitionLink",new { id = item.JobRequisitionID, details = item.JobTitle })">
                     Modify
                 </a><span>|</span>
                 <a href="@Url.RouteUrl("Close",new { id = item.JobRequisitionID, details = item.JobTitle })">
