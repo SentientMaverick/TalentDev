@@ -34,6 +34,17 @@ namespace TalentAcquisition.DataLayer
             // return _roleManager.Create(new ApplicationRole(name, description));
             return _roleManager.Create(new IdentityRole(name));
         }
+
+        public List<Employee> getEmployeesInGroup(int? groupId)
+        {
+            using (var db = new TalentContext())
+            {
+                Group group = db.Groups.Find(groupId);
+                // IQueryable<ApplicationUser> groupUsers = _db.Users.Where(u => u.Groups.Any(g => g.GroupId == group.Id));
+                List<Employee> groupUsers = db.Employees.Where(u => u.Groups.Any(g => g.GroupId == group.Id)).ToList();
+                return groupUsers;
+            }
+        }
         public string CreateRoleReturnString(string name)
         {
             // Swap ApplicationRole for IdentityRole:
@@ -156,6 +167,31 @@ namespace TalentAcquisition.DataLayer
             db.SaveChanges();
             _db.SaveChanges();
         }
+        public void RemoveUserFromGroup(int id, int groupId)
+        {
+            Group group = db.Groups.Find(groupId);
+            Employee employee = db.Employees.Find(id);
+
+            ApplicationUser user = _db.Users.Find(employee.UserId);
+
+            var userGroup = db.ApplicationUserGroups.Where(x => x.GroupId == groupId && x.EmployeeID == id).First();
+            foreach (ApplicationRoleGroup role in group.Roles)
+            {
+                List<ApplicationUserGroup> ff = db.ApplicationUserGroups
+                    .Where(r => r.GroupId == groupId && r.EmployeeID == id
+                         && r.Group.Roles.Any(o => o.RoleId ==role.RoleId)).ToList();
+                int groupsWithRole = ff.Count();
+
+                if (groupsWithRole == 1)
+                {
+                    RemoveFromRole(employee.UserId, role.Role.Name);
+                }
+               // _userManager.RemoveFromRole(employee.UserId, role.Role.Name);
+            }
+            employee.Groups.Remove(userGroup);
+            db.SaveChanges();
+            _db.SaveChanges();
+        }
         public void DeleteGroup(int groupId)
         {
             Group group = db.Groups.Find(groupId);
@@ -197,6 +233,16 @@ namespace TalentAcquisition.DataLayer
                     AddUserToRole(user.UserId, role.Name);
                 }
             }
+        }
+        public IdentityResult DisableUserCredentials(Employee employee)
+        {
+            var user = _userManager.FindById(employee.UserId);
+            if (user != null)
+            {
+                ClearUserGroups(employee.UserId);
+                return _userManager.Delete(user);
+            }
+            return new IdentityResult("Dereferenced User");
         }
         public void ClearGroupRoles(int groupId)
         {

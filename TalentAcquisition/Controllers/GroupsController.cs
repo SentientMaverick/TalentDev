@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
 using TalentAcquisition.Models.ViewModel;
+using TalentAcquisition.Repositories;
+using TalentAcquisition.Repositories.Interfaces;
 
 namespace TalentAcquisition.Controllers
 {
@@ -15,14 +17,18 @@ namespace TalentAcquisition.Controllers
     {
         private TalentContext db = new TalentContext();
         private IdentityManager _manager = new IdentityManager();
+        private IEmployeeRepository _repo;
 
+        public GroupsController()
+        {
+            _repo = new EmployeeRepository(db);
+        }
         [Route("Groups/All")]
         // GET: Groups
         public ActionResult Index()
         {
             return View(db.Groups.ToList());
         }
-
         // GET: Groups/Details/5
         public ActionResult Details(int? id)
         {
@@ -31,11 +37,14 @@ namespace TalentAcquisition.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Group group = db.Groups.Find(id);
+            ManageGroupViewModel model = new ManageGroupViewModel();
+            model.Group = group;
+            model.Members = _manager.getEmployeesInGroup(id).Select(x=>new GroupMember { Id=x.ID,Number=x.EmployeeNumber,Name=x.FullName}).ToList();
             if (group == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(model);
         }
         public ActionResult Create()
         {
@@ -98,7 +107,7 @@ namespace TalentAcquisition.Controllers
         [Route("Permissions/Groups/AddUser")]
         public ActionResult AssignEmployeeToGroup(int? id)
         {
-            var employeelist = db.Employees.ToList();
+            var employeelist = _repo.GetAll().ToList();
             var groups = db.Groups.ToList();
             AssignEmployeeToGroupViewModel model = new AssignEmployeeToGroupViewModel(employeelist, groups);
            
@@ -131,10 +140,16 @@ namespace TalentAcquisition.Controllers
                 return View(model);
             }
         }
+        [Route("Groups/RemoveUser/{id}")]
+        public ActionResult RemoveUserFromGroup(int id,int employeeid)
+        {
+            _manager.RemoveUserFromGroup(employeeid,id);
+            return RedirectToAction("Details/"+ id, "Groups");
+        }
         [Route("Permissions/Groups/ManageUser")]
         public ActionResult ManageEmployeeGroup(int? id)
         {
-            var employeelist = db.Employees.ToList();
+            var employeelist = _repo.GetAll().ToList();
             var groups = db.Groups.ToList();
             AssignEmployeeToGroupViewModel model = new AssignEmployeeToGroupViewModel(employeelist, groups);
 

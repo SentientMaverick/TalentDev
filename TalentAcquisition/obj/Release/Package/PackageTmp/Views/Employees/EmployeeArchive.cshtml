@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TalentAcquisition.Core.Domain.Employee>
+
+@{
+    ViewBag.Title = "Employee Archive";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<div style="padding-top:2em;"></div>
+<p style="font-size: 22px;">Employee Management</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    <li class="active">Employee Directory</li>
+    <li class="active">Archive</li>
+</ol>
+<section class="container body-content">
+    <div class="row bioform">
+        <!--Comment-->
+        <span class="alert-danger"></span>
+        <span class="alert-danger">@ViewBag.Message</span>
+        @*<p>
+                @Html.ActionLink("Create New", "Create")
+            </p>*@
+       <div class="row">
+            <style>
+                .card {
+                    /* Add shadows to create the "card" effect */
+                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                    transition: 0.3s;
+                }
+
+                    /* On mouse-over, add a deeper shadow */
+                    .card:hover {
+                        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                    }
+
+                    .card .container {
+                        padding: 2px 16px;
+                        margin-bottom: 1em;
+                    }
+            </style>
+
+            @foreach (var employee in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+
+                        @if (String.IsNullOrEmpty(employee.PassportDetails))
+                        {
+                            <img src="~/Assets/Icons/Man-Suit-2.png" alt="Avatar" width="100" height="100" style="border-radius:50%">
+                        }
+                        else
+                        {
+                            string url = Path.Combine(Server.MapPath("~/Uploads/"), employee.UserId + "_img.png");
+                            string azureurl = Path.Combine("https://codelabstorage.blob.core.windows.net/webappstoragedotnet-imagecontainer/", employee.PassportDetails);
+                            <img src="@azureurl" alt="Avatar" width="100" height="100" style="border-radius:50%">
+                        }
+                        <div class="container">
+                            <h4><b>@employee.FullName</b></h4>
+                            <p>@employee.OfficePosition.Title</p>
+                            <p>@employee.PhoneNumber</p>
+                            @*<h6>
+                                @Html.ActionLink("Details", "Details", new { id = employee.ID },
+                                   htmlAttributes: new { @class = "btn btn-default btn-xs" })
+                        </h6>*@
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+

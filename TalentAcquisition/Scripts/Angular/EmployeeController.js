@@ -48,4 +48,29 @@
                });
         };
     };
+    app.controller('ExitController', ['$scope', 'appSetting', '$http', ExitController]);
+    function ExitController($scope, appSetting, $http) {
+        console.log("This works fine in this ctrl");
+        $scope.employees = employeesbs;
+        $scope.exitno = "";
+        $scope.enabledEdit = [];
+        $scope.grievanceTypes = [];
+        $scope.init = function (no) {
+            $scope.exitno = no;
+        };
+        $scope.addGrievanceType = function () {
+            var gtype = {
+                Id: "", Name: "", ExitInterviewNo:$scope.exitno,Completed:false,disableEdit: false
+            };
+            $scope.grievanceTypes.push(gtype);
+            $scope.enabledEdit[$scope.grievanceTypes.length - 1] = true;
+        };
+        $scope.selectedemployeechanged = function () {
+            $scope.selectedEmployeeName = $scope.SelectedEmployee.Name;
+        };
+        $scope.selectedInterviewerchanged = function () {
+            $scope.selectedInterviewerName = $scope.SelectedInterviewer.Name;
+        };
+
+    };
 })(angular.module("NormalApp"));

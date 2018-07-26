@@ -17,14 +17,18 @@ using System.Web.Mvc;
 using TalentAcquisition.BusinessLogic.UpdatedDomain;
 using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
+using TalentAcquisition.Repositories.Interfaces;
+using TalentAcquisition.Repositories;
 
 namespace TalentAcquisition.Controllers
 {
     public class EmployeesController : Controller
     {
-        #region Iniializer
+        #region Initializer
         private TalentContext db = new TalentContext();
         private AppManager app = new AppManager();
+        private IEmployeeRepository _repo;
+        private IdentityManager _identityManager;
         public string UserId { get; private set; }
         private void SetInitializers()
         {
@@ -35,7 +39,8 @@ namespace TalentAcquisition.Controllers
         }
         public EmployeesController()
         {
-           
+            _repo = new EmployeeRepository(db);
+            _identityManager = new IdentityManager();
         }
         #endregion
 
@@ -45,7 +50,13 @@ namespace TalentAcquisition.Controllers
         [Route("Admin/Restricted/manage_Employee")]
         public ActionResult Index()
         {
-            var employees = db.Employees.Include(e => e.OfficePosition);
+            var employees =_repo.GetAllQueryable();
+            return View(employees.ToList());
+        }
+        [Route("Admin/Employees/Archive")]
+        public ActionResult EmployeeArchive()
+        {
+            var employees = _repo.GetAllArchive();
             return View(employees.ToList());
         }
         [Route("Employees/SelfService")]
@@ -59,7 +70,7 @@ namespace TalentAcquisition.Controllers
         {
             UserId = User.Identity.GetUserId();
             string userid = UserId;
-            var employee = db.Employees.Where(x => x.UserId == userid).First();
+            var employee = _repo.GetAll().Where(x => x.UserId == userid).First();
             ViewBag.OfficePositionID = new SelectList(db.OfficePositions, "OfficePositionID", "Title", employee.OfficePositionID);
             return View("Profile",employee);
         }
@@ -218,18 +229,18 @@ namespace TalentAcquisition.Controllers
             }
             return View(employee);
         }
-
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
-            db.SaveChanges();
+            Employee employee = _repo.GetEmployee(id);
+            _identityManager.ClearUserGroups(employee.UserId);
+            _identityManager.ClearUserRoles(employee.UserId);
+            _repo.DisableEmployee(employee);
+            _repo.Save();
             return RedirectToAction("Index");
-        } 
-        
+        }      
         // GET: Employees/Edit/5
         [Route("Admin/Personnel/Update/{id:int}")]
         public ActionResult Edit(int? id)

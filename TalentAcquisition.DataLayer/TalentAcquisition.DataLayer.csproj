@@ -354,6 +354,10 @@
     <Compile Include="Migrations\201807211912534_AddedModelsForEmployeeExit.Designer.cs">
       <DependentUpon>201807211912534_AddedModelsForEmployeeExit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807251015097_AddedDisabledFieldToEmployeeTable.cs" />
+    <Compile Include="Migrations\201807251015097_AddedDisabledFieldToEmployeeTable.Designer.cs">
+      <DependentUpon>201807251015097_AddedDisabledFieldToEmployeeTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -545,6 +549,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807211912534_AddedModelsForEmployeeExit.resx">
       <DependentUpon>201807211912534_AddedModelsForEmployeeExit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807251015097_AddedDisabledFieldToEmployeeTable.resx">
+      <DependentUpon>201807251015097_AddedDisabledFieldToEmployeeTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

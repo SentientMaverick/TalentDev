@@ -1,12 +1,9 @@
 ﻿@model TalentAcquisition.Models.LoginViewModel
 @using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-}
-else
+@if(!Request.IsAuthenticated)
 {
  <div class="row">
-            <div class="row">
+            <div class="col-md-12">
                 @using (Html.BeginForm("Portal", "Applicant", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
@@ -30,7 +27,7 @@ else
                             @*<label>Email</label>*@
                             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -39,7 +36,7 @@ else
                             @*<label>Password</label>*@
                             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>

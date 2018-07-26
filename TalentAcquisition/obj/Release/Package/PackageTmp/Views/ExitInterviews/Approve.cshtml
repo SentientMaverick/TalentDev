@@ -1,0 +1,223 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.ExitInterview
+@{
+    ViewBag.Title = "Approve";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p style="font-size: 22px;">Employee Exit</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Exit</li>
+    <li class="active">Records</li>
+    <li class="active">@Model.No</li>
+</ol>
+<section class="container body-content">
+    <span class="alert-danger">@ViewBag.Error</span>
+    <div class="row" ng-controller="ExitController" ng-init="init('@Model.No')">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="row container">
+            <input type="submit" value="Approve" class="btn btn-default btn-primary btn-sm" />
+            <br/>
+        </div>
+        
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <p class="">Exit Record</p>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <style>
+                        label {
+                            font-size: 80%;
+                        }
+                    </style>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.No, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(model => model.No, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.No, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmployeeNo, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @*<select class="form-control" required id="EmployeeNo" name="EmployeeNo" ng-model="SelectedEmployee"
+                                        ng-options="item.Number for item in employees track by item.Id" ng-change="selectedemployeechanged()"></select>*@
+                                    @Html.DisplayFor(model => model.EmployeeNo, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.EmployeeNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @*<input ng-model="selectedEmployeeName" required id="EmployeeName" name="EmployeeName" class="form-control input-sm" ng-readonly="true" />*@
+                                    @Html.DisplayFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control input-sm", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OtherReasons, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @*<input id="OtherReasons" name="OtherReasons" class="form-control input-sm" ng-readonly="{{}}" />*@
+                                    @Html.DisplayFor(model => model.OtherReasons, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.OtherReasons, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeavingOn, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(model => model.LeavingOn, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.LeavingOn, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ReEmploy, htmlAttributes: new { @class = "col-md-6" })
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.ReEmploy)
+                                        @Html.ValidationMessageFor(model => model.ReEmploy, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InterviewDate, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(model => model.InterviewDate, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.InterviewDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InterviewerNo, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @*<select class="form-control" id="InterviewerNo" required name="InterviewerNo" ng-model="SelectedInterviewer"
+                                        ng-options="item.Number for item in employees track by item.Id" ng-change="selectedInterviewerchanged()"></select>*@
+                                    @Html.DisplayFor(model => model.InterviewerNo, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.InterviewerNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InterviewerName, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @*<input ng-model="selectedInterviewerName" id="InterviewerName" required name="InterviewerName" class="form-control input-sm" ng-readonly="true" />*@
+                                    @Html.DisplayFor(model => model.InterviewerName, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.InterviewerName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(model => model.Status, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApproveProcess, htmlAttributes: new { @class = "col-md-6" })
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.ApproveProcess)
+                                        @Html.ValidationMessageFor(model => model.ApproveProcess, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProcessCompleted, htmlAttributes: new { @class = "col-md-6" })
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.ProcessCompleted)
+                                        @Html.ValidationMessageFor(model => model.ProcessCompleted, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-primary" style="margin-top:-1.5em">
+            <div class="panel-heading">
+                <p class="">Exit Checklist</p>
+            </div>
+            <div class="panel-body">
+                <div class="row container">
+                    <style>
+                        #myTable input, #myTable select {
+                            border: none;
+                            outline: none;
+                            box-shadow: none;
+                            background-color: inherit;
+                            padding: 0;
+                            margin: 0;
+                        }
+                    </style>
+                    <form id="empform">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.ExitCheckList != null)
+                                {
+                                    foreach (var item in Model.ExitCheckList)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Completed)</td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+</section>
+<script>
+    employeesbs=@Html.Raw(Json.Encode(ViewBag.Employees));
+</script>
+
+

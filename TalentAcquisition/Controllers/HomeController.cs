@@ -12,7 +12,7 @@ namespace TalentAcquisition.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
-        [OutputCache(Duration =1200, VaryByParam = "none")]
+        //[OutputCache(Duration =1200, VaryByParam = "none")]
         public ActionResult Index()
         {
             return View();

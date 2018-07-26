@@ -73,13 +73,24 @@ namespace TalentAcquisition.Controllers
         {
             OnboardingTemplate template = new OnboardingTemplate();
             template = db.OnboardingTemplates.Find(id);
+            var activities = new SelectedActivityViewModel();
+            var activitylist = new List<CompletedActivity>();
+            activitylist = db.CompletedActivities.Where(x => x.OnboardingTemplateID == id).ToList();
+            var list =OnboardingUtilityHelper.ConvertToActivityModelList(activitylist);
+            foreach (var item in list)
+            {
+                item.OnboardActivityID = id;
+                item.Body = WebUtility.HtmlDecode(item.Body);
+            }
+            ViewBag.Activities = list.Select(x=>new { x.ID, x.OnboardActivityID, x.OnboardingTemplateID,
+                                    x.Title,x.WelcomeGuideID,x.Type,x.Body,x.DueDate}).ToList();
             return View(template);
         }
         [ValidateInput(false)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Onboarding/Template/Customize/{id:int}")]
-        public ActionResult EditTemplate(int id, OnboardingTemplate template, string htmlMessage)
+        public ActionResult EditTemplate(int id, OnboardingTemplate template, string htmlMessage,ICollection<ActivityViewModel> Line)
         {
             string htmlEncoded = WebUtility.HtmlEncode(htmlMessage);
             if (ModelState.IsValid)
@@ -194,7 +205,6 @@ namespace TalentAcquisition.Controllers
             }
             return RedirectToAction("Onboarding", "Admin");
         }
-
         [Route("Onboarding/progress/{guideurl}")]
         [Route("Onboarding/preview/{guideurl}")]
         public ActionResult PreviewGuide(string guideurl)
@@ -529,6 +539,5 @@ namespace TalentAcquisition.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         } 
         #endregion
-
     }
 }

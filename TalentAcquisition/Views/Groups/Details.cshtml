@@ -1,4 +1,4 @@
-﻿@model TalentAcquisition.Core.Domain.Group
+﻿@model TalentAcquisition.Models.ViewModel.ManageGroupViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -20,20 +20,44 @@
                 <p class="">Group Details</p>
             </div>
             <div class="panel-body">
-                <div>
-                    <dl class="dl-horizontal">
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.Name)
-                        </dd>
-
-                    </dl>
+                <div class="row container">
+                 <h4><b>Name : @Model.Group.Name</b></h4>
+                    <hr/>
+                    <h6>
+                       Priviledges
+                    </h6>
+                    <ul>
+                        @foreach (var role in Model.Group.Roles)
+                        {
+                            <li>@role.Role.Name</li>
+                        }
+                    </ul>
+                   <hr/>
+                    <h6>
+                        Members
+                    </h6>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model.Members)
+                            {
+                             <tr>
+                                 <td>@role.Number</td>
+                                 <td>@role.Name</td>
+                                <td>@Html.ActionLink("Remove From Group", "RemoveUser", new { id = Model.Group.Id,employeeid=role.Id })</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
                 <p>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Group.Id }) |
                     @Html.ActionLink("Back to List", "Index")
                 </p>
             </div>

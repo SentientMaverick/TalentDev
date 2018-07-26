@@ -61,15 +61,15 @@
                 </section>
             </div>
             <div class="row container">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="row">
-                        @Html.Partial("_LoginForm")
+                        @Html.Partial("_LoginFormHome")
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-9 col-md-4">
                     <h2 class="text-center">Recent Job Openings</h2>
-                    <hr/>
                     <div class="container">
+                        <hr />
                         @Html.Action("_GetRecentJobs", "Job")
                     </div>
                 </div>

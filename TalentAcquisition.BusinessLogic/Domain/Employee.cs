@@ -32,6 +32,7 @@ namespace TalentAcquisition.Core.Domain
         public string PassportNumber { get; set; }
         [Display(Name = "Tax Identification Number")]
         public string TIN { get; set; }
+        public bool Disabled { get; set; }
         public virtual ICollection<WorkHistory> WorkHistorys { get; set; }
         public virtual ICollection<BusinessLogic.Domain.Skill> Skills { get; set; }
         public virtual ICollection<ProfessionalCertification> ProfessionalCertifications { get; set; }

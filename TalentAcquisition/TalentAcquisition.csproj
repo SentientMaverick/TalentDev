@@ -230,11 +230,14 @@
     <Compile Include="Models\ViewModel\EmployeePortalView.cs" />
     <Compile Include="Models\ViewModel\AdminView .cs" />
     <Compile Include="Models\ViewModel\IdentityModel.cs" />
+    <Compile Include="Models\ViewModel\ManageGroupViewModel.cs" />
     <Compile Include="Models\ViewModel\OfferJobViewModel.cs" />
     <Compile Include="Models\ViewModel\OfferLetterViewModel.cs" />
     <Compile Include="Models\ViewModel\PublicPortalView.cs" />
     <Compile Include="Models\ViewModel\SelectedActivityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -824,6 +827,8 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Scripts\Angular\app.js" />
+    <Content Include="Scripts\Angular\CKService.js" />
+    <Content Include="Scripts\Angular\OnboardingController.js" />
     <Content Include="Scripts\Angular\JobController.js" />
     <Content Include="Scripts\Angular\EmployeeController.js" />
     <Content Include="Scripts\Angular\EmployeeService.js" />
@@ -929,6 +934,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\ng-ckeditor.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -1185,6 +1191,9 @@
     <Content Include="Views\ExitInterviews\Details.cshtml" />
     <Content Include="Views\ExitInterviews\Edit.cshtml" />
     <Content Include="Views\ExitInterviews\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginFormHome.cshtml" />
+    <Content Include="Views\ExitInterviews\Approve.cshtml" />
+    <Content Include="Views\Employees\EmployeeArchive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

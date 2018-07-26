@@ -12,6 +12,7 @@
                 @*<li><a href="#">Private</a></li>*@
                 @*<li><a href="#">Pictures</a></li>*@
                 <li class="active">Employee Directory</li>
+                <li class="active">Active</li>
             </ol>
             <section class="container body-content">
                 <div class="row bioform">
@@ -48,13 +49,13 @@
                                     
                                     @if (String.IsNullOrEmpty(employee.PassportDetails))
                                     {
-                                        <img src="~/Assets/Icons/Man-Suit-2.png" alt="Avatar" width="200" style="">
+                                        <img src="~/Assets/Icons/Man-Suit-2.png" alt="Avatar" width="100" height="100" style="border-radius:50%">
                                     }
                                     else
                                     {
                                            string url = Path.Combine(Server.MapPath("~/Uploads/"), employee.UserId + "_img.png");
                                            string azureurl = Path.Combine("https://codelabstorage.blob.core.windows.net/webappstoragedotnet-imagecontainer/",employee.PassportDetails);
-                                      <img src="@azureurl" alt="Avatar" width="200" style="">
+                                      <img src="@azureurl" alt="Avatar" width="100" height="100" style="border-radius:50%">
                                     }
                                     <div class="container">
                                         <h4><b>@employee.FullName</b></h4>
