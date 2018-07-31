@@ -3,7 +3,7 @@
   <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-TalentAcquisition-20171222105018.mdf;Initial Catalog=aspnet-TalentAcquisition-20171222105018;Integrated Security=True" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
-  <parameter name="TalentConnection-Web.config Connection String" description="TalentConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=DESKTOP-2PMUVC7;Initial Catalog=Talent;Integrated Security=True" tags="SqlConnectionString">
+  <parameter name="TalentConnection-Web.config Connection String" description="TalentConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=DESKTOP-2PMUVC7;Initial Catalog=TalentTest2;Integrated Security=True" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentConnection']/@connectionString" />
   </parameter>
   <parameter name="TalentAcquisition.DataLayer.ApplicationDbContext-Web.config Connection String" description="TalentAcquisition.DataLayer.ApplicationDbContext Connection String used in web.config by the application to access the database." defaultValue="TalentAcquisition.DataLayer.ApplicationDbContext_ConnectionString" tags="SqlConnectionString">
@@ -14,5 +14,8 @@
   </parameter>
   <parameter name="TalentAcquisition.DataLayer.LoginContext-Web.config Connection String" description="TalentAcquisition.DataLayer.LoginContext Connection String used in web.config by the application to access the database." defaultValue="TalentAcquisition.DataLayer.LoginContext_ConnectionString" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentAcquisition.DataLayer.LoginContext']/@connectionString" />
+  </parameter>
+  <parameter name="TalentConnection_DatabasePublish-Web.config Connection String" description="TalentConnection_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="TalentConnection_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentConnection_DatabasePublish']/@connectionString" />
   </parameter>
 </parameters>

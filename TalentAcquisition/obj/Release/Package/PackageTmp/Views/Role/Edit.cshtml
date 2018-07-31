@@ -203,12 +203,13 @@
                                             <tr ng-repeat="type in jobreqs" style="font-size:80%">
                                                 <td>{{$index+1}}</td>
                                                 <td style="width:10em">
-                                                    <select class="form-control input-sm" name="Line[{{$index}}].QualificationCode" ng-model="type.QualificationCode"
+                                                    <select class="form-control input-sm" name="Line[{{$index}}].QualificationCode" ng-init="type.QualificationCode=SelectedCodes[$index]" ng-model="SelectedCodes[$index]"
                                                             ng-options="item.QualificationCode for item in codes track by item.QualificationCode" ng-change="codeSelected($index)"></select>
                                                 </td>
+                                                @*| filter: {'QualificationCode': SelectedCodes[$index]}*@ 
                                                 <td style="width:10em">
                                                     <select class="form-control" name="Line[{{$index}}].QualificationType" ng-model="type.QualificationType"
-                                                            ng-options="item.QualificationType for item in validtypes track by item.QualificationType"></select>
+                                                            ng-options="item.QualificationType for item in types | filter: {'QualificationCode': type.QualificationCode} track by item.QualificationType"></select>
                                                 </td>
                                                 <td>
                                                     <input class="form-control input-sm" name="Line[{{$index}}].Priority" ng-required="true" ng-model="type.Priority" ng-disabled="!enabledEdit[{{$index}}]" />

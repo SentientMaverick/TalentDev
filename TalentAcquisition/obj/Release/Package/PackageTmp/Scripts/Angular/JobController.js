@@ -28,6 +28,12 @@
             $scope.jobreqs = jobreqsbs;
             console.log($scope.appevals);
             console.log($scope.jobreqs);
+            //var codes = $scope.codes;
+            //var types=$scope.types;
+            for (var i = 0; i < $scope.jobreqs.length; i++) {
+                $scope.SelectedCodes[i] = $scope.jobreqs[i].QualificationCode;
+            }
+            console.log($scope.SelectedCodes);
         };
         $scope.edit = function (index) {
             console.log("edit index" + index);

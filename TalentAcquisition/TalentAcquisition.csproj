@@ -198,7 +198,12 @@
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobQualificationsController.cs" />
     <Compile Include="Controllers\JobSeekersController.cs" />
+    <Compile Include="Controllers\LeaveApplicationsController.cs" />
+    <Compile Include="Controllers\LeaveManagementController.cs" />
+    <Compile Include="Controllers\LeaveResumptionsController.cs" />
+    <Compile Include="Controllers\LeaveType_LimitController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageEmployeeLeavesController.cs" />
     <Compile Include="Controllers\OnboardingController.cs" />
     <Compile Include="Controllers\PerformanceController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
@@ -210,6 +215,7 @@
     <Compile Include="Filters\AuthorizeApplicantAttribute.cs" />
     <Compile Include="Filters\AuthorizeEmployeeAttribute.cs" />
     <Compile Include="Filters\AuthorizeRolesAttribute.cs" />
+    <Compile Include="Helper\IdentityManager.cs" />
     <Compile Include="Helper\IUrlHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -826,8 +832,10 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Scripts\Angular\app2.js" />
     <Content Include="Scripts\Angular\app.js" />
     <Content Include="Scripts\Angular\CKService.js" />
+    <Content Include="Scripts\Angular\OnboardingController2.js" />
     <Content Include="Scripts\Angular\OnboardingController.js" />
     <Content Include="Scripts\Angular\JobController.js" />
     <Content Include="Scripts\Angular\EmployeeController.js" />
@@ -911,6 +919,7 @@
     <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Assets\EmailTemplate\LeaveApproved.cshtml" />
     <None Include="Properties\PublishProfiles\talenthrm - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\talenthrm - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\talenthrm - Web Deploy %282%29.pubxml" />
@@ -1194,6 +1203,41 @@
     <Content Include="Views\Shared\_LoginFormHome.cshtml" />
     <Content Include="Views\ExitInterviews\Approve.cshtml" />
     <Content Include="Views\Employees\EmployeeArchive.cshtml" />
+    <Content Include="Views\LeaveManagement\Edit.cshtml" />
+    <Content Include="Views\LeaveManagement\Index.cshtml" />
+    <Content Include="Views\LeaveManagement\_GetApprovedLeavePlanList.cshtml" />
+    <Content Include="Views\LeaveManagement\_GetleavePlanList.cshtml" />
+    <Content Include="Views\LeaveManagement\_GetRejectedLeavePlanList.cshtml" />
+    <Content Include="Views\LeaveType_Limit\Create.cshtml" />
+    <Content Include="Views\LeaveType_Limit\Delete.cshtml" />
+    <Content Include="Views\LeaveType_Limit\Details.cshtml" />
+    <Content Include="Views\LeaveType_Limit\Edit.cshtml" />
+    <Content Include="Views\LeaveType_Limit\Index.cshtml" />
+    <Content Include="Views\ManageEmployeeLeaves\Create.cshtml" />
+    <Content Include="Views\ManageEmployeeLeaves\Delete.cshtml" />
+    <Content Include="Views\ManageEmployeeLeaves\Details.cshtml" />
+    <Content Include="Views\ManageEmployeeLeaves\Edit.cshtml" />
+    <Content Include="Views\ManageEmployeeLeaves\Index.cshtml" />
+    <Content Include="Views\LeaveManagement\Settings.cshtml" />
+    <Content Include="Views\LeaveApplications\Create.cshtml" />
+    <Content Include="Views\LeaveApplications\Delete.cshtml" />
+    <Content Include="Views\LeaveApplications\Details.cshtml" />
+    <Content Include="Views\LeaveApplications\Edit.cshtml" />
+    <Content Include="Views\LeaveApplications\Index.cshtml" />
+    <Content Include="Views\LeaveApplications\LeaveApplication.cshtml" />
+    <Content Include="Views\LeaveApplications\GetApplicationsList.cshtml" />
+    <Content Include="Views\LeaveApplications\GetApprovedApplicationsList.cshtml" />
+    <Content Include="Views\LeaveApplications\GetRejectedApplicationsList.cshtml" />
+    <Content Include="Views\Shared\_LayoutPure.cshtml" />
+    <Content Include="Views\LeaveResumptions\Create.cshtml" />
+    <Content Include="Views\LeaveResumptions\Delete.cshtml" />
+    <Content Include="Views\LeaveResumptions\Details.cshtml" />
+    <Content Include="Views\LeaveResumptions\Edit.cshtml" />
+    <Content Include="Views\LeaveResumptions\Index.cshtml" />
+    <Content Include="Views\LeaveResumptions\GetPendingList.cshtml" />
+    <Content Include="Views\LeaveResumptions\GetApprovedList.cshtml" />
+    <Content Include="Views\LeaveResumptions\GetRejectedList.cshtml" />
+    <Content Include="Views\LeaveResumptions\LeaveApplicationExisting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

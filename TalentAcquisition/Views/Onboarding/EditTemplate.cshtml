@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit Template";
-    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
 }
 @*<script src="~/ckeditor/ckeditor.js"></script>
 <script src="~/ckeditor/adapters/jquery.js"></script>*@
@@ -20,7 +20,7 @@
             @*<a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
             <span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />*@
         </div>
-        <div class="row" ng-controller="OnboardingTemplateController" ng-init="init()">
+        <div class="row" ng-controller="OnboardingTempController" ng-init="init()">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <p class="panel-title">
@@ -132,15 +132,6 @@
                                     margin: 0;
                                 }
                             </style>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('.panel-heading a').on('click', function (e) {
-                                        if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
-                                            e.preventDefault();
-                                        }
-                                    });
-                                });
-                            </script>
                             <div class="panel-group">
                                 <div ng-repeat="type in TemplateActivities" id="acts">
                                     
@@ -169,7 +160,8 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="" style="margin-top:1em">
-                                                            <textarea ckeditor="editorOptions" class="form-control" name="Line[{{$index}}].Body" ng-model="type.Body"></textarea>
+                                                            @*<textarea ckeditor="editorOptions" class="form-control" name="Line[{{$index}}].Body" ng-model="type.Body"></textarea>*@
+                                                            <textarea class="form-control" name="Line[{{$index}}].Body" ng-model="type.Body" data-ck-editor></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -202,21 +194,30 @@
     </div>
     
 </section>
-@Scripts.Render("~/bundles/jqueryval")
+@*@Scripts.Render("~/bundles/jqueryval")*@
 @section Scripts{
+<script type="text/javascript">
+                                $(function () {
+                                    $('.panel-heading a').on('click', function (e) {
+                                        if ($(this).parents('.panel').children('.panel-collapse').hasClass('in')) {
+                                            e.preventDefault();
+                                        }
+                                    });
+                                });
+</script>
     <script type="text/javascript">
         activitiesbs=@Html.Raw(Json.Encode(ViewBag.Activities));
 
         $(function () {
 
-            $(".myDate").datepicker({
-                dateFormat: 'dd-mm-yy'
-            });
-            $("#addActivity").click(function(){
-                $(".myDate").datepicker({
-                    dateFormat: 'dd-mm-yy'
-                });
-            });
+            //$(".myDate").datepicker({
+            //    dateFormat: 'dd-mm-yy'
+            //});
+            //$("#addActivity").click(function(){
+            //    $(".myDate").datepicker({
+            //        dateFormat: 'dd-mm-yy'
+            //    });
+            //});
        });
     </script>
 }

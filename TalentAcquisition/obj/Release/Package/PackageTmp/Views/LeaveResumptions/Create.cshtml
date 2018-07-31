@@ -1,0 +1,167 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.LeaveResumption
+
+@{
+    ViewBag.Title = "Resume Leave";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p>Leave Resumption</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Leave Resumption</li>
+</ol>
+<section class="container body-content">
+    @*<span>@ViewBag.Message</span>*@
+    <div class="row">
+        @*<a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+            <span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />*@
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <a data-toggle="collapse" href="#collapse5">Leave Resumption Request</a>
+                </div>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                       
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <style>
+                                label {
+                                    font-size: 80%;
+                                }
+                            </style>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group hidden">
+                                        @Html.LabelFor(model => model.LeaveAppID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.LeaveAppID, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.LeaveAppID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group  hidden">
+                                        @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger", @readonly = true })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ResumptionDate, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.ResumptionDate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ResumptionDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ApplyDate, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.ApplyDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @Html.ValidationMessageFor(model => model.ApplyDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control",@readonly=true })
+                                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Submit Request" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+             </div>
+        </div>
+    </div>
+</section>
+ @section Scripts {
+     @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+        $('#StartDate').datepicker({
+            defaultDate: new Date(@Model.StartDate.ToShortDateString()),
+            dateFormat: 'dd/mm/yy',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'top'
+        }).on('dp.change', function (e) {
+            alert(e);
+            console.log("datr");
+        });
+    </script>
+    <script type="text/javascript">
+        $('#ResumptionDate').datepicker({
+            defaultDate: '',
+            dateFormat: 'dd/mm/yy',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'top'
+        });
+
+        //$( "#StartDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+        $( "#ResumptionDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+
+        $('#ResumptionDate').change(function () {
+            var start = $('#StartDate').datepicker('getDate');
+            var end = $('#ResumptionDate').datepicker('getDate');
+            console.log(end);
+            console.log(start);
+            if (start<end) {
+                var days   = (end - start)/1000/60/60/24;
+                $('#Duration').val(days);
+            }
+            else {
+                alert ("Please select right Date format for the two dates!");
+                //$('#StartDate').val("");
+                $('#ResumptionDate').val("");
+                $('#Duration').val("");
+            }
+        }); //end change function
+
+    </script>
+}

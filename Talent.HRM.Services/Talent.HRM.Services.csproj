@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Email\ConfirmInterviewEmail.cs" />
+    <Compile Include="Email\LeaveApplicationAcceptedEmail.cs" />
     <Compile Include="Email\NotifyOnboardingEmail.cs" />
     <Compile Include="Email\SendJobOfferEmail.cs" />
     <Compile Include="FileManger\AzureFileHelper.cs" />

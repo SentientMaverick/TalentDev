@@ -1,0 +1,142 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.ManageEmployeeLeave>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<h2></h2>
+
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Leave Plan</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <a data-toggle="collapse" href="#collapse2">Leave Plan History</a>
+                </div>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body" style="overflow-x:scroll; height: 500px; font-size: 80%" >
+                    <p>
+                        @Html.ActionLink("Create New", "Create")
+                    </p>
+
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.EmployeeId)*@
+                                Employee ID
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.EmployeeName)*@
+                                Fullname
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.StartDate)*@
+                                Start Date
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.EndDate)*@
+                                End Date
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Duration)*@
+                                Duration
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.ApplyDate)*@
+                                Applied Date
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Status)*@
+                                Leave Type
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Status)*@
+                                Leave Limit
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Status)*@
+                                Total Leave Taken
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Status)*@
+                                Total Leave Remain
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Status)*@
+                                Status
+                            </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Duration)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApplyDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeaveType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeaveLimit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalLeaveTaken)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalLeaveAvailable)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td style="width:10em">
+                                    
+                                       @if (item.Status == TalentAcquisition.BusinessLogic.UpdatedDomain.ManageEmployeeLeave.LeaveStatus.Pending)
+                                       {
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                                        <span> | </span> @Html.ActionLink("Delete", "Delete", new { id = item.ID });
+                                       }
+                                        @if (item.Status == TalentAcquisition.BusinessLogic.UpdatedDomain.ManageEmployeeLeave.LeaveStatus.Approved)
+                                        {
+                                            @Html.ActionLink("Apply To Leave", "LeaveApplication/Create/Plan/"+item.ID+"", "Employee");
+                                        }
+                                    <span> | </span>  @Html.ActionLink("Details", "Details", new { id = item.ID })
+                                   
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    

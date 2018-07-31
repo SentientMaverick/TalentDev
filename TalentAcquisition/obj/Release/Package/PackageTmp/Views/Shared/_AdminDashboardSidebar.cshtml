@@ -101,8 +101,29 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            @*<li>
                 <a href="@Url.Action("LeaveManager","Admin")"><i class="fa fa-dashboard fa-fw"></i>Leave Mangement</a>
+            </li>*@
+@*<a href="@Url.Action("LeaveManager","Admin")"><i class="fa fa-dashboard fa-fw"></i>Leave Mangement</a>*@
+            <li>
+            <a href="#"><i class="fa fa-group fa-fw"></i>  Leave Management<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>
+                    <a href="@Url.Action("Index", "LeaveManagement")"><i class="fa fa-user-plus fa-fw"></i>Leave Plan</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("LeaveApplication", "Admin")"><i class="fa fa-address-book fa-fw"></i>Leave Application</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("LeaveResumption", "Admin")"><i class="fa fa-address-book fa-fw"></i>Leave Resumption</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Settings", "LeaveManagement")"><i class="fa fa-user-plus fa-fw"></i>Leave Settings</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("History", "LeaveManagement")"><i class="fa fa-address-book fa-fw"></i>History</a>
+                </li>
+            </ul>
             </li>
             <li>
                 <a href="@Url.Action("Trainings","Admin")"><i class="fa fa-pie-chart fa-fw"></i> Trainings</a>

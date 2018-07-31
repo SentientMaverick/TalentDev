@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module("NormalApp", ["ngCkeditor","ui.router"])
+    var app = angular.module("NormalApp", ["ui.router"])
         .directive('ckEditor', function () {
              return {
             require: '?ngModel',

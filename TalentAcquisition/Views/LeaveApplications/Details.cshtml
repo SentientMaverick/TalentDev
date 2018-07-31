@@ -1,0 +1,123 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.LeaveApplication
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LeaveApplication</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LeavePlanID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeavePlanID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveLimit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalLeaveTaken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalLeaveTaken)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalLeaveAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalLeaveAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplyDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeavePlanStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeavePlanStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveAppStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveAppStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LeaveAppID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Leave Application";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p>Leave Application</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Leave Application</li>
+</ol>
+<section class="container body-content">
+    @*<span>@ViewBag.Message</span>*@
+    <div class="row">
+        @*<a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+            <span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />*@
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <a data-toggle="collapse" href="#collapse5">Personal Leave Application Management</a>
+                </div>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul>
+                        <li>@Html.ActionLink("Create Leave Application", "LeaveApplication/Create", "Employee")</li>
+                        <li>@Html.ActionLink("Manage Leave Applications", "LeaveApplication/All", "Employee")</li>
+                     </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">Pending Leave Applications</a>
+                    </div>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body" style="overflow-x:scroll">
+                        @Html.Action("GetApplicationsList", "LeaveApplications")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">Approved Leave Applications</a>
+                    </div>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body" style="overflow-x:scroll">
+                        @Html.Action("GetApprovedApplicationsList", "LeaveApplications")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">Rejected Leave Applications</a>
+                    </div>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body" style="overflow-x:scroll">
+                        @Html.Action("GetRejectedApplicationsList", "LeaveApplications")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+</section>

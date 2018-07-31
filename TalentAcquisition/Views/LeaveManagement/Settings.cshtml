@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Leave Settings";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Leave Plan</li>
+</ol>
+<section class="container body-content">
+    @*<span>@ViewBag.Message</span>*@
+    <div class="row">
+        @*<a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+            <span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />*@
+    </div>
+    <div class="row">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">Leave Types Management</a>
+                    </div>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul>
+                            <li>@Html.ActionLink("Create Leave Plan Type", "Create", "LeaveTypes")</li>
+                            <li>@Html.ActionLink("Manage Leave Types", "All", "LeaveTypes")</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+
+</section>
+

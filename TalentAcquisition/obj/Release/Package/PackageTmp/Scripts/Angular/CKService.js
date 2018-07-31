@@ -1,5 +1,4 @@
 ﻿(function (app) {
-    'use strict';
     //app.directive('ckEditor', function () {
     //    return {
     //        require: '?ngModel',
@@ -48,10 +47,9 @@
     //        }
     //    };
     //});
-    app.directive('book', function () {
-        return {
-            require: '?ngModel'
-        };
-    });
-})(angular.module("NormalApp"));
-
+    //app.directive('book', function () {
+    //    return {
+    //       // require: '?ngModel'
+    //    };
+    //});
+})(angular.module("NormalApp2"));

@@ -97,6 +97,11 @@
     <Compile Include="UpdatedDomain\ExitInterview.cs" />
     <Compile Include="UpdatedDomain\Grievance.cs" />
     <Compile Include="UpdatedDomain\Indiscipline.cs" />
+    <Compile Include="UpdatedDomain\LeaveApplication.cs" />
+    <Compile Include="UpdatedDomain\LeaveManage.cs" />
+    <Compile Include="UpdatedDomain\LeaveResumption.cs" />
+    <Compile Include="UpdatedDomain\LeaveType_Limit.cs" />
+    <Compile Include="UpdatedDomain\ManageEmployeeLeave.cs" />
     <Compile Include="UpdatedDomain\PerformanceAppraisal.cs" />
     <Compile Include="UpdatedDomain\Branch.cs" />
     <Compile Include="UpdatedDomain\CashRequisition.cs" />

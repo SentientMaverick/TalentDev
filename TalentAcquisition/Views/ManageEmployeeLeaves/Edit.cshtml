@@ -1,0 +1,258 @@
+﻿@model TalentAcquisition.BusinessLogic.UpdatedDomain.ManageEmployeeLeave
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<script>
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "/ManageEmployeeLeaves/GetLeavetypeLimit",
+            datatype: "Json",
+            success: function (data) {
+                $.each(data, function (index, value) {
+                    $('#LeaveType').append('<option value="' + value.LeaveType + '">' + value.LeaveType + '</option>');
+                });
+            }
+        });
+
+        $('#LeaveType').change(function () {
+            console.log($('#LeaveType').text());
+           // alert($('#LeaveType :selected').text());
+            $('#LeaveLimit').empty();
+
+            $.ajax({
+                type: "POST",
+                url: "/ManageEmployeeLeaves/GetLeaveLimit",
+                datatype: "application/json",
+                data: { Limit: $('#LeaveType :selected').text() },
+                success: function (data) {
+                console.log(data);
+                    $.each(data, function (index, value) {
+                        $('#LeaveLimit').append('<option value="' + value.Limit + '">' + value.Limit + '</option>');
+                    });
+                }
+            });
+        });
+
+
+    });
+
+    //$('#StartDate').change(function () {
+    //    alert("startdate");
+    //})
+    //$('#EndDate').change(function () {
+    //    alert("enddate");
+    //})
+</script>
+<h2>Edit</h2>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Edit Leave Plan</li>
+</ol>
+<section class="container body-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <a data-toggle="collapse" href="#collapse2">Edit Leave Plan</a>
+                </div>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body" style="font-size: 80%">
+                    @*<p>
+                        @Html.ActionLink("Create New", "Create")
+                    </p>*@
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.ID)
+
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.EmployeeId, "Employee Id", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.EmployeeName, "Employee Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.StartDate, "Proposed Start Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EndDate, "Proposed End Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveType, "Leave Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @*@Html.DropDownList("DdlLeavetype", new SelectList(ViewBag.LeaveType_Limits, "ID", "LeaveType"), "Select", htmlAttributes: new { @class = "form-control" })*@
+                                    @Html.DropDownList("LeaveType", new SelectList(String.Empty, "Text", "Text"), "Select", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveLimit, "Leave Limit", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @*@Html.DropDownList("DdlLeavetype", new SelectList(ViewBag.LeaveType_Limits, "ID", "LeaveType"), "Select", htmlAttributes: new { @class = "form-control" })*@
+                                    @Html.DropDownList("LeaveLimit", new SelectList(String.Empty, "Text", "Text"), "Select", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.LeaveLimit, "", new { @class = "text-danger" })
+                                </div>
+                            </div>  
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Duration, "Duration", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.LeaveLimit, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.LeaveLimit, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LeaveLimit, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.ApplyDate, "Applied Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.ApplyDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ApplyDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden">
+                                @Html.LabelFor(model => model.Status, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+@section Scripts{
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+        $('#StartDate').datepicker({
+            defaultDate: '@Model.StartDate.ToShortDateString()',
+            dateFormat: 'dd/mm/yy',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'top'
+        }).on('dp.change', function (e) {
+            alert(e);
+            console.log("datr");
+        });
+    </script>
+    <script type="text/javascript">
+        $('#EndDate').datepicker({
+            defaultDate: '@Model.EndDate.ToShortDateString()',
+            dateFormat: 'dd/mm/yy',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'top'
+        });
+
+        //var calcdays = function () {
+        //    var date1in = $("#StartDate").val();
+        //    var date2in = $("#EndDate").val();
+
+        //    if ((date1in == "") || (date2in == "")) {
+
+        //      //  alert(date1in);
+        //     //   alert(date2in);
+
+        //        return false;
+        //    }
+        //    var date1 = new Date(date1in);
+        //    var date2 = new Date(date2in);
+        //  //  alert(date1);
+        //  //  alert(date2);
+        //    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        //    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        //    if (diffDays > 0)
+        //    {
+        //       alert(diffDays);
+        //    }
+
+        //    return false;
+        //}
+        //    $("#StartDate").keyup(function () {
+        //        calcdays();
+        //    });
+        //    $("#EndDate").keyup(function () {
+        //        calcdays();
+        //    });
+
+        $( "#StartDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+        $( "#EndDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+
+        $('#EndDate').change(function() {
+            var start = $('#StartDate').datepicker('getDate');
+            var end   = $('#EndDate').datepicker('getDate');
+
+            if (start<end) {
+                var days   = (end - start)/1000/60/60/24;
+                $('#Duration').val(days);
+            }
+            else {
+                alert ("Please select right Date format for the two dates!");
+                $('#StartDate').val("");
+                $('#EndDate').val("");
+                $('#Duration').val("");
+            }
+        }); //end change function
+
+    </script>
+}

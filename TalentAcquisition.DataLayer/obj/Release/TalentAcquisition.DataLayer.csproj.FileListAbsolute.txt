@@ -99,3 +99,6 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Rel
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Release\TalentAcquisition.DataLayer.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Release\TalentAcquisition.DataLayer.Migrations.AddedModelsForEmployeeExit.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Release\TalentAcquisition.DataLayer.Migrations.AddedDisabledFieldToEmployeeTable.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Release\TalentAcquisition.DataLayer.Migrations.addedLeaveb4merge.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Release\TalentAcquisition.DataLayer.Migrations.AddedLeaveResumptionModule.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Release\TalentAcquisition.DataLayer.Migrations.AddedFieldsToLeaveResumptionModule.resources

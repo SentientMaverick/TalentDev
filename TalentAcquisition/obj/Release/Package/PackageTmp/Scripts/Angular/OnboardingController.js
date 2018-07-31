@@ -1,12 +1,12 @@
 ﻿(function (app) {
     'use strict';
-
     app.controller('OnboardingTemplateController', ['$scope', 'appSetting', '$http', '$filter', OnboardingTemplateController]);
-    function OnboardingTemplateController($scope, appSetting, $http,$filter) {
+    function OnboardingTemplateController($scope, appSetting, $http, $filter) {
         console.log("This works fine in this ctrl");
         $scope.Ids = [];
         $scope.validtypes = [];
         $scope.enabledEdit = [];
+        $scope.Body="";
         $scope.TemplateActivities = activitiesbs;
         $scope.parseDate = function (date) {
             // var date1 = date.replaceAll("\\\\/Date\\((\\d+\\+\\d+)\\)\\\\/", "$1+$2");
@@ -74,5 +74,30 @@
                 $scope.validtypes = [];
             }
         };
+        $scope.editorOptions = {
+
+        };
     };
 })(angular.module("NormalApp"));
+// @*<textarea ng-model="type.Body" ckeditor="editorOptions" class="form-control" name="Line[{{$index}}].Body" rows="8" cols="20" ng-disabled="!enabledEdit[{{$index}}]"></textarea>*@
+                                                         //   @*<input class="hidden hghg" name="Line[{{$index+1}}].Priority" id="{{$index+1}}" />*@ 
+                                                          //  <script>
+                                                               // var y= $("#activitypanel").find('.hghg');
+                                                                //var y= $(document.getElementById('activitypanel')).find('.panel-collapse');
+                                                                //console.log(y[0].id);
+                                                              //  console.log($("#activitypanel").closest("#hghg").val());
+                                                               // var x=y.val();
+                                                                //console.log($(this).find("#acts").length);
+                                                       //         var myToolbar = [
+                                                       //['Bold'],
+                                                       //['Styles'],
+                                                       //['Link', 'Anchor']
+                                                       //         ];
+                                                       //         var config ={
+                                                       //             toolbar_mySimpleToolbar: myToolbar,
+                                                       //             toolbar: 'mySimpleToolbar'
+                                                       //         };
+                                                       //         config.filebrowserUploadMethod = 'form';
+                                                       //         config.filebrowserUploadMethod = 'form';
+                                                       //         CKEDITOR.replace('myBody');
+                                                          //  </script>

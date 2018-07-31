@@ -1,0 +1,204 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.LeaveApplication>
+
+@{
+    ViewBag.Title = "Employee Leave History";
+    Layout = "~/Views/Shared/_NormalLayout.cshtml";
+}
+
+<p>Leave Application</p>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Dashboard","Admin")">Home</a></li>
+    @*<li><a href="#">Private</a></li>*@
+    @*<li><a href="#">Pictures</a></li>*@
+    <li class="active">Leave Application</li>
+</ol>
+<section class="container body-content">
+    @*<span>@ViewBag.Message</span>*@
+    <div class="row">
+        @*<a href="@Url.Action("requisition/create","Admin")" id="reqjob" class="btn"><img src="~/Assets/Icons/File-Plus.png" width="20" />Create Requisition</a>
+            <span class="glyphicon glyphicon-search"></span> <input class="form-control input-sm" id="myInput" type="text" placeholder="filter requisition entries.." style="display:inline-block;outline:none" />*@
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <a data-toggle="collapse" href="#collapse5">Leave Application Records</a>
+                </div>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body" style="overflow-x:scroll">
+                    <table class="table table-striped" style="font-size:80%">
+                        <tr>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.LeavePlanID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeId)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LeaveType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LeaveLimit)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalLeaveTaken)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalLeaveAvailable)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Duration)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ApplyDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LeavePlanStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LeaveAppStatus)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.LeavePlanID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeaveType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeaveLimit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalLeaveTaken)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalLeaveAvailable)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Duration)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApplyDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeavePlanStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeaveAppStatus)
+                                </td>
+                                <td>
+                                    @if (item.LeaveAppStatus==TalentAcquisition.BusinessLogic.UpdatedDomain.LeaveApplication.LeaveApplicationStatus.Approved)
+                                    {
+                                        @Html.ActionLink("Print", "Print", new { id = item.LeaveAppID }) <span>|</span>
+                                        @Html.ActionLink("Resume", "LeaveApplication/"+item.LeaveAppID+"/Resume","Employee")   <span>|</span>
+                                    }
+                                     @Html.ActionLink("Details", "Details", new { id = item.LeaveAppID })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        @*<div class="row">
+            <div class="panel panel-default panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Compose Leave Plan Message</a>
+                    </div>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <form method="post">
+                            <div class="form-group">
+                                <textarea id="editor1" name="MessageBody" class="ckeditor" value="@Model.MessageBody"></textarea>
+                                <div style="margin-left:15px; margin-bottom:5px">
+                                    <input type="submit" class="btn btn-success" value="Send Message" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">Pending Leave Plan</a>
+                    </div>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Action("_GetleavePlanList", "LeaveManagement")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">Approved Leave Plan</a>
+                    </div>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Action("_GetApprovedLeavePlanList", "LeaveManagement")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">Rejected Leave Plan</a>
+                    </div>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Action("_GetRejectedLeavePlanList", "LeaveManagement")
+                    </div>
+                </div>
+
+            </div>
+        </div>*@
+    }
+
+</section>
+
