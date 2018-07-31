@@ -18,6 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Limit)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequiresPlan)
+        </th>
         <th></th>
     </tr>
 
@@ -28,6 +31,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Limit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequiresPlan)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

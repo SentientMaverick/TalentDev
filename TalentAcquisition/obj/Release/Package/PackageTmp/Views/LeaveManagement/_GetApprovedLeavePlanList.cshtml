@@ -14,6 +14,10 @@
             <h6><strong>Fullname</strong></h6>
         </th>
         <th>
+            @*@Html.DisplayNameFor(model => model.EmployeeName)*@
+            <h6><strong>Leave Type</strong></h6>
+        </th>
+        <th>
             @*@Html.DisplayNameFor(model => model.StartDate)*@
             <h6><strong>Proposed Start Date</strong></h6>
         </th>
@@ -44,6 +48,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)

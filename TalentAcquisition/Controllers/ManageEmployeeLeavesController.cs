@@ -69,7 +69,7 @@ namespace TalentAcquisition.Controllers
             {
                 if (manageEmployeeLeave.LeaveLimit < manageEmployeeLeave.Duration)
                 {
-                    ViewBag.Error = "Leave Duration Cannot exceed leave limit!";
+                    ViewBag.Error = "Your "+manageEmployeeLeave.LeaveType+" Leave Duration Cannot exceed leave limit of "+manageEmployeeLeave.LeaveLimit+" days !";
                     manageEmployeeLeave.EndDate = manageEmployeeLeave.StartDate.AddDays((double)manageEmployeeLeave.LeaveLimit - 1);
                     return View(manageEmployeeLeave);
                 }

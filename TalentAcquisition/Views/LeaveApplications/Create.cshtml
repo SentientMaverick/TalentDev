@@ -18,6 +18,10 @@
         //    }
         //});
 
+        $('#submitbtn').prop("disabled", true);
+        $('#StartDate').prop("disabled", true);
+        $('#EndDate').prop("disabled", true);
+        
         $('#LeaveType').change(function () {
             console.log($('#LeaveType').text());
            // alert($('#LeaveType :selected').text());
@@ -25,11 +29,19 @@
 
             $.ajax({
                 type: "POST",
-                url: "/ManageEmployeeLeaves/GetLeaveLimit",
+                url: "/LeaveApplications/GetLeaveLimit",
                 datatype: "application/json",
                 data: { Limit: $('#LeaveType :selected').text() },
                 success: function (data) {
-                console.log(data);
+                    if (data.Status == "Error") {
+                        $('#LeaveLimit').append('<option value="' + 0+ '">' + 0 + '</option>');
+                        alert("Sorry; You do not have an existing Plan");
+                        return false;
+                    }
+                    $('#StartDate').prop("disabled", false);
+                    $('#EndDate').prop("disabled", false);
+                    $('#submitbtn').prop("disabled", false);
+                    console.log(data);
                     $.each(data, function (index, value) {
                         $('#LeaveLimit').append('<option value="' + value.Limit + '">' + value.Limit + '</option>');
                     });
@@ -203,7 +215,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create" class="btn btn-default" />
+                                    <input type="submit" id="submitbtn" value="Create" class="btn btn-default" />
                                 </div>
                             </div>
                         </div>
@@ -271,8 +283,8 @@
         //        calcdays();
         //    });
 
-        $("#StartDate").datepicker({ dateFormat: 'dd-mm-yy', minDate: new Date() });
-        $("#EndDate").datepicker({ dateFormat: 'dd-mm-yy', minDate: '+1d' });
+        $("#StartDate").datepicker({ dateFormat: 'dd-mm-yy', minDate: +3 });
+        $("#EndDate").datepicker({ dateFormat: 'dd-mm-yy', minDate: +6 });
 
         $('#EndDate').change(function() {
             var start = $('#StartDate').datepicker('getDate');

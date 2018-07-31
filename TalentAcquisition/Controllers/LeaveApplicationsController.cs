@@ -139,7 +139,8 @@ namespace TalentAcquisition.Controllers
             {
                 if (leaveApplication.LeaveLimit < leaveApplication.Duration)
                 {
-                    ViewBag.Error = "Leave Duration Cannot exceed leave limit!";
+                    ViewBag.LeaveType = new SelectList(db.LeaveType_Limits.ToList(), "LeaveType", "LeaveType");
+                    ViewBag.Error = "Your " + leaveApplication.LeaveType + " Leave Duration Cannot exceed leave limit of " + leaveApplication.LeaveLimit + " days !";
                     leaveApplication.EndDate = leaveApplication.StartDate.AddDays((double)leaveApplication.LeaveLimit - 1);
                     return View(leaveApplication);
                 }
@@ -218,27 +219,33 @@ namespace TalentAcquisition.Controllers
         {
 
             //    var limit = db.LeaveType_Limits.Where(c=>c.ID==Id).Select(c => c.Limit);
+            var leavetype = db.LeaveType_Limits.Where(x => x.LeaveType == Limit).FirstOrDefault();
             SetEmployeeSessionID();
             var id = Session["employeeid"];
             var employee = _repo.GetEmployee((int)id);
             var existingleaveplan = db.ManageEmployeeLeaves
                                       .Where(x => x.EmployeeId == employee.EmployeeNumber)
                                       .Where(x => x.LeaveType == Limit)
-                                      .Where(x => x.Status == ManageEmployeeLeave.LeaveStatus.Approved).ToList();
+                                      .Where(x => x.Status == ManageEmployeeLeave.LeaveStatus.Approved)
+                                      .ToList();
+            if (!existingleaveplan.Any() && leavetype.RequiresPlan)
+            {
+                 return Json(new { Status = "Error", Message = "An Existing Leave Plan is required" }, JsonRequestBehavior.AllowGet);
+            }
             if (existingleaveplan.Any())
             {
-                var leavetaken = existingleaveplan.Sum(x => x.TotalLeaveTaken);
-                //  var limit = new Dictionary<string, dynamic>();
-                var leaveremaining = existingleaveplan.FirstOrDefault().LeaveLimit - leavetaken;
-                var limit = db.LeaveType_Limits
-                               .Where(c => c.LeaveType == Limit)
-                               .Select(c => new { ID = c.ID, Limit = leaveremaining });
-                //limit.Add("ID", existingleaveplan.LastOrDefault().LeaveType);
-                //limit.Add("Limit", existingleaveplan.FirstOrDefault().LeaveLimit -leavetaken);
-                return Json(limit, JsonRequestBehavior.AllowGet);
+                    var leavetaken = existingleaveplan.Sum(x => x.TotalLeaveTaken);
+                    //  var limit = new Dictionary<string, dynamic>();
+                    var leaveremaining = existingleaveplan.FirstOrDefault().LeaveLimit - leavetaken;
+                    var limit = db.LeaveType_Limits
+                                   .Where(c => c.LeaveType == Limit)
+                                   .Select(c => new { ID = c.ID, Limit = leaveremaining });
+                    //limit.Add("ID", existingleaveplan.LastOrDefault().LeaveType);
+                    //limit.Add("Limit", existingleaveplan.FirstOrDefault().LeaveLimit -leavetaken);
+                    return Json(limit, JsonRequestBehavior.AllowGet);
             }
             else
-            {
+            {   
                 var limit = db.LeaveType_Limits.Where(c => c.LeaveType == Limit).Select(c => new { c.ID, c.Limit });
                 return Json(limit, JsonRequestBehavior.AllowGet);
             }

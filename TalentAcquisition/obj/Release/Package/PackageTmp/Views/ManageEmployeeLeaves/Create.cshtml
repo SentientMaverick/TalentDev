@@ -57,6 +57,7 @@
 </ol>
 <section class="container body-content">
     <div class="row">
+        <span class="alert-danger">@ViewBag.Error</span>
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-title">
@@ -182,9 +183,6 @@
                         </div>
                     }
 
-                    <div>
-                        @Html.ActionLink("Back to List", "Index")
-                    </div>
                 </div>
             </div>
 
@@ -195,25 +193,25 @@
 @section Scripts{
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript">
-        $('#StartDate').datepicker({
-            defaultDate: '',
-            dateFormat: 'dd/mm/yy',
-            showClose: true,
-            showClear: true,
-            toolbarPlacement: 'top'
-        }).on('dp.change', function (e) {
-            alert(e);
-            console.log("datr");
-        });
+        //$('#StartDate').datepicker({
+        //    defaultDate: '',
+        //    dateFormat: 'dd/mm/yy',
+        //    showClose: true,
+        //    showClear: true,
+        //    toolbarPlacement: 'top'
+        //}).on('dp.change', function (e) {
+        //    alert(e);
+        //    console.log("datr");
+        //});
     </script>
     <script type="text/javascript">
-        $('#EndDate').datepicker({
-            defaultDate: '',
-            dateFormat: 'dd/mm/yy',
-            showClose: true,
-            showClear: true,
-            toolbarPlacement: 'top'
-        });
+        //$('#EndDate').datepicker({
+        //    defaultDate: '',
+        //    dateFormat: 'dd/mm/yy',
+        //    showClose: true,
+        //    showClear: true,
+        //    toolbarPlacement: 'top'
+        //});
 
         //var calcdays = function () {
         //    var date1in = $("#StartDate").val();
@@ -247,8 +245,8 @@
         //        calcdays();
         //    });
 
-        $( "#StartDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
-        $( "#EndDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+        $( "#StartDate" ).datepicker({ dateFormat: 'dd-mm-yy',minDate:+2 });
+        $("#EndDate").datepicker({ dateFormat: 'dd-mm-yy', minDate: +2 });
 
         $('#EndDate').change(function() {
             var start = $('#StartDate').datepicker('getDate');

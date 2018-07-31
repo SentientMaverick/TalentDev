@@ -6,39 +6,51 @@
 }
 
 <script>
-    //$(function () {
-    //    $.ajax({
-    //        type: "GET",
-    //        url: "/ManageEmployeeLeaves/GetLeavetypeLimit",
-    //        datatype: "Json",
-    //        success: function (data) {
-    //            $.each(data, function (index, value) {
-    //                $('#LeaveType').append('<option value="' + value.LeaveType + '">' + value.LeaveType + '</option>');
-    //            });
-    //        }
-    //    });
+    $(function () {
+        //$.ajax({
+        //    type: "GET",
+        //    url: "/ManageEmployeeLeaves/GetLeavetypeLimit",
+        //    datatype: "Json",
+        //    success: function (data) {
+        //        $.each(data, function (index, value) {
+        //            $('#LeaveType').append('<option value="' + value.LeaveType + '">' + value.LeaveType + '</option>');
+        //        });
+        //    }
+        //});
 
-    //    $('#LeaveType').change(function () {
-    //        console.log($('#LeaveType').text());
-    //       // alert($('#LeaveType :selected').text());
-    //        $('#LeaveLimit').empty();
+        $('#submitbtn').prop("disabled", true);
+        $('#StartDate').prop("disabled", true);
+        $('#EndDate').prop("disabled", true);
+        
+        $('#LeaveType').change(function () {
+            console.log($('#LeaveType').text());
+           // alert($('#LeaveType :selected').text());
+            $('#LeaveLimit').empty();
 
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/ManageEmployeeLeaves/GetLeaveLimit",
-    //            datatype: "application/json",
-    //            data: { Limit: $('#LeaveType :selected').text() },
-    //            success: function (data) {
-    //            console.log(data);
-    //                $.each(data, function (index, value) {
-    //                    $('#LeaveLimit').append('<option value="' + value.Limit + '">' + value.Limit + '</option>');
-    //                });
-    //            }
-    //        });
-    //    });
+            $.ajax({
+                type: "POST",
+                url: "/LeaveApplications/GetLeaveLimit",
+                datatype: "application/json",
+                data: { Limit: $('#LeaveType :selected').text() },
+                success: function (data) {
+                    if (data.Status == "Error") {
+                        $('#LeaveLimit').append('<option value="' + 0+ '">' + 0 + '</option>');
+                        alert("Sorry; You do not have an existing Plan");
+                        return false;
+                    }
+                    $('#StartDate').prop("disabled", false);
+                    $('#EndDate').prop("disabled", false);
+                    $('#submitbtn').prop("disabled", false);
+                    console.log(data);
+                    $.each(data, function (index, value) {
+                        $('#LeaveLimit').append('<option value="' + value.Limit + '">' + value.Limit + '</option>');
+                    });
+                }
+            });
+        });
 
 
-    //});
+    });
 
     //$('#StartDate').change(function () {
     //    alert("startdate");
@@ -112,7 +124,7 @@
                                             @if (Model.LeavePlanID == null || Model.LeavePlanID == 0)
                                             {
                                                 @*@Html.DropDownList("LeaveType",new SelectList(ViewBag.LeaveTypes,"LeaveType", "LeaveType"))*@
-                                                @Html.DropDownList("LeaveType", null, htmlAttributes: new { @class = "form-control", @required = true })
+                                                @Html.DropDownList("LeaveType", null,"", htmlAttributes: new { @class = "form-control", @required = true })
                                             }
                                             else
                                             {
@@ -127,7 +139,8 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.LeaveLimit, htmlAttributes: new { @class = "col-md-4" })
                                         <div class="col-md-8">
-                                            @Html.EditorFor(model => model.LeaveLimit, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @*@Html.EditorFor(model => model.LeaveLimit, new { htmlAttributes = new { @class = "form-control"} })*@
+                                            @Html.DropDownList("LeaveLimit", new SelectList(String.Empty, "Text", "Text"), "Select", htmlAttributes: new { @class = "form-control",@readonly=true })
                                             @Html.ValidationMessageFor(model => model.LeaveLimit, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -202,7 +215,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create" class="btn btn-default" />
+                                    <input type="submit" id="submitbtn" value="Create" class="btn btn-default" />
                                 </div>
                             </div>
                         </div>
@@ -270,8 +283,8 @@
         //        calcdays();
         //    });
 
-        $( "#StartDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
-        $( "#EndDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+        $("#StartDate").datepicker({ dateFormat: 'dd-mm-yy', minDate: +3 });
+        $("#EndDate").datepicker({ dateFormat: 'dd-mm-yy', minDate: +6 });
 
         $('#EndDate').change(function() {
             var start = $('#StartDate').datepicker('getDate');
