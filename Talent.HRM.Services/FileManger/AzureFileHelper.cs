@@ -24,7 +24,9 @@ namespace Talent.HRM.Services.FileManger
         {
             if (blobContainer == null)
             {
-                string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=codelabstorage;AccountKey=ZhDqmcMh0hvBojC+BX0o0s2OYUuC+50VttPcbldMcYCUyhXwHNrM0rvPg/9d2PTMtXyOqHrhvWPxG5wijjADMw==;EndpointSuffix=core.windows.net";
+                //string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=codelabstorage;AccountKey=ZhDqmcMh0hvBojC+BX0o0s2OYUuC+50VttPcbldMcYCUyhXwHNrM0rvPg/9d2PTMtXyOqHrhvWPxG5wijjADMw==;EndpointSuffix=core.windows.net";
+                string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=hiretoretirestorage;AccountKey=ErNZ0CeahF4vuUC3DxQyZ6tphqzSlJkqnc3s5vzA8UnrECT1utPSUuDOxBSMmWVEPCjY9x+RW8PuJEdk0MQW2g==;EndpointSuffix=core.windows.net";
+
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(StorageConnectionString);
                 blobClient = storageAccount.CreateCloudBlobClient();
                 blobContainer = blobClient.GetContainerReference(blobContainerName);
@@ -38,7 +40,7 @@ namespace Talent.HRM.Services.FileManger
         }
         public async Task<bool> CreateFolder()
         {
-            string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=codelabstorage;AccountKey=ZhDqmcMh0hvBojC+BX0o0s2OYUuC+50VttPcbldMcYCUyhXwHNrM0rvPg/9d2PTMtXyOqHrhvWPxG5wijjADMw==;EndpointSuffix=core.windows.net";
+            string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=hiretoretirestorage;AccountKey=ErNZ0CeahF4vuUC3DxQyZ6tphqzSlJkqnc3s5vzA8UnrECT1utPSUuDOxBSMmWVEPCjY9x+RW8PuJEdk0MQW2g==;EndpointSuffix=core.windows.net";
             try
             {
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(StorageConnectionString);
