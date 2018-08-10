@@ -97,9 +97,10 @@ C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Deb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedModelsForEmployeeExit.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedDisabledFieldToEmployeeTable.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.addedLeaveb4merge.resources
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.csproj.GenerateResource.Cache
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.dll
-C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.pdb
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedLeaveResumptionModule.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedFieldsToLeaveResumptionModule.resources
 C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.UpdatedLeaveTypeLimitModel.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.Migrations.AddedAnouncementModel.resources
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.csproj.GenerateResource.Cache
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.dll
+C:\Users\User\Desktop\Projects\Git\TalentDev\TalentAcquisition.DataLayer\obj\Debug\TalentAcquisition.DataLayer.pdb

@@ -81,7 +81,6 @@ namespace TalentAcquisition.Controllers
         #region Views
         // GET: Role
         //[AuthorizeRoles("SuperAdmin")]
-        [Route("Admin/JobBoard")]
         [Route("Admin/manage_officeposition")]
         public ActionResult Index()
         {

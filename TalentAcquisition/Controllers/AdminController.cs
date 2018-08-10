@@ -8,6 +8,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Talent.HRM.Services.Interfaces;
+using Talent.HRM.Services.Notification;
 using TalentAcquisition.Core.Domain;
 using TalentAcquisition.DataLayer;
 using TalentAcquisition.Filters;
@@ -20,6 +22,8 @@ namespace TalentAcquisition.Controllers
     public class AdminController : Controller
     {
         private AppManager app = new AppManager();
+        private INotificationService _notificationService = new NotificationService();
+        #region Views
         // GET: Admin
         [AllowAnonymous]
         // GET: Applicant
@@ -33,7 +37,7 @@ namespace TalentAcquisition.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-       // [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public async Task<ActionResult> Portal(LoginViewModel model, string returnUrl)
         {
             try
@@ -44,30 +48,35 @@ namespace TalentAcquisition.Controllers
             catch
             {
 
-                return RedirectToAction("Portal",model);
+                return RedirectToAction("Portal", model);
             }
         }
         //[Route("Employee/Dashboard")]
         [AuthorizeEmployee]
         [Route("Admin/Dashboard")]
-        [OutputCache(Duration =20)]
-        public ActionResult Dashboard()
+        [OutputCache(Duration = 20)]
+        public async Task<ActionResult> Dashboard()
         {
             SetUserSessionID();
-            ViewBag.UserID = TempData["userid"];
-            return View();
+            int userid = (int)TempData["userid"];
+            var general = await _notificationService.GeneralNotifications();
+            var employee = await _notificationService.GetApprovalsForEmployeeWithId(userid);
+            DashboardViewModel dashboardforEmployee = new DashboardViewModel(general,employee);
+            return View(dashboardforEmployee);
         }
+        [Route("Admin/JobBoard")]
         [Route("Admin/jobmanager")]
         public ActionResult jobmanager()
         {
             var allCompanyJobs = new List<OfficePosition>();
-            using (var db=new TalentContext())
+            using (var db = new TalentContext())
             {
                 allCompanyJobs = db.OfficePositions.Include("Department").Include("Industry").ToList();
             }
             return View(allCompanyJobs);
         }
         [Route("Admin/onboarding")]
+        [AuthorizeRoles("SuperAdmin","Admin", "CanViewOnboarding,HR")]
         public ActionResult onboarding()
         {
             using (var db = new TalentContext())
@@ -114,7 +123,7 @@ namespace TalentAcquisition.Controllers
         }
         [Route("Admin/expensemanager")]
         public ActionResult expensemanager()
-        {   
+        {
             using (var db = new TalentContext())
             {
 
@@ -155,7 +164,7 @@ namespace TalentAcquisition.Controllers
             SetUserSessionID();
             int id = (int)TempData["userid"];
             AdminDashboardNotification notification = GetNotifications(id);
-            
+
             return PartialView(notification);
         }
         private AdminDashboardNotification GetNotifications(int? id)
@@ -190,12 +199,13 @@ namespace TalentAcquisition.Controllers
                             {
                                 ID = item.JobRequisitionID,
                                 Title = "New Requisition for " +
-                                item.JobTitle, Location = item.Location,
-                                JobApplicationCount=item.JobApplications.Count,
+                                item.JobTitle,
+                                Location = item.Location,
+                                JobApplicationCount = item.JobApplications.Count,
                                 url = "/Job/" + item.JobRequisitionID + "/" + String.Join("-", url)
                             };
-                          notification.Notifications.Add(notificationitem);
-                            
+                            notification.Notifications.Add(notificationitem);
+
                             //count++;
                         }
                         if (newrequisitions.Any())
@@ -204,7 +214,7 @@ namespace TalentAcquisition.Controllers
                             foreach (var item in newrequisitions)
                             {
                                 var url = item.JobTitle.Split(' ');
-                                var notificationitem= new DashboardNotification
+                                var notificationitem = new DashboardNotification
                                 {
                                     ID = item.JobRequisitionID,
                                     Title = "New Requisition for " +
@@ -217,7 +227,7 @@ namespace TalentAcquisition.Controllers
                         }
                     }
                 }
-                notification.Notifications= (List<DashboardNotification>)notification.Notifications.Take(5);
+                notification.Notifications = (List<DashboardNotification>)notification.Notifications.Take(5);
             }
             catch
             {
@@ -229,7 +239,7 @@ namespace TalentAcquisition.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Portal", "Admin");
-        }          
+        }
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
@@ -269,8 +279,10 @@ namespace TalentAcquisition.Controllers
             {
 
             }
-            return Json(new { status = updatestatus },JsonRequestBehavior.AllowGet);
+            return Json(new { status = updatestatus }, JsonRequestBehavior.AllowGet);
         }
+        #endregion      
+        #region UnTouchable
         public ActionResult Create()
         {
             return View();
@@ -310,6 +322,8 @@ namespace TalentAcquisition.Controllers
                 return View();
             }
         }
+        #endregion
+        #region HelperAndInitiaizers
         private void SetInitializers()
         {
             var var1 = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
@@ -329,7 +343,7 @@ namespace TalentAcquisition.Controllers
             {
                 var userid = User.Identity.GetUserId();
                 var applicant = new TalentContext().Employees.Where(s => s.UserId == userid);
-                if(applicant.Any())
+                if (applicant.Any())
                 {
                     //var applicantid = new TalentContext().Employees.Where(s => s.UserId == userid).FirstOrDefault().ID;
                     var applicantid = applicant.FirstOrDefault().ID;
@@ -339,5 +353,6 @@ namespace TalentAcquisition.Controllers
 
         }
 
+        #endregion
     }
 }

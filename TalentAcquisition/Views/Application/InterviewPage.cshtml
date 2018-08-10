@@ -94,9 +94,13 @@
             <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body" id="interviewteam">
                     @*@Html.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid })*@
-                    @if (((int)ViewBag.interviewid != 0)&& !((bool)ViewBag.Status))
+                    @if (((int)ViewBag.interviewid != 0)&& !((bool)ViewBag.Status) && ((bool)ViewBag.Count))
                     {
                         @Html.Action("_GetChooseInterviewTeamForm", new { requisitionid = ViewBag.requisitionid, applicationid = ViewBag.applicationid,interviewid= ViewBag.interviewid })
+                    }
+                    else
+                    {
+                        <p>Interview in Progress</p>
                     }
                 </div>
             </div>

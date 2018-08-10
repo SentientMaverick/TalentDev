@@ -62,11 +62,11 @@
 <script type="text/javascript">
     var id1=@ViewBag.requisitionid;
     var id2=@ViewBag.applicationid;
-    function LoadScheduleInterviewForm() {
-        var url="/Application/_GetFinalizeInterviewForm?requisitionid="+id1 +"&applicationid="+id2;
-        //alert(url);
+    //function LoadScheduleInterviewForm() {
+    //    var url="/Application/_GetFinalizeInterviewForm?requisitionid="+id1 +"&applicationid="+id2;
+    //    //alert(url);
         // $("#interviewteam").load(url);
-        $.get(url,{}, function (data, status, jqXHR) {
+       // $.get(url,{}, function (data, status, jqXHR) {
     function LoadScheduleInterviewForm() {
         var url = "/Application/_GetFinalizeInterviewForm?requisitionid=" + id1 + "&applicationid=" + id2 + "&interviewid=" + interview;
         //alert(url);

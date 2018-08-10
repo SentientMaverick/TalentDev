@@ -13,6 +13,8 @@ using TalentAcquisition.DataLayer;
 using Talent.HRM.Services.Interfaces;
 using Talent.HRM.Services.Email;
 using TalentAcquisition.Models.ViewModel;
+using TalentAcquisition.Repositories.Interfaces;
+using TalentAcquisition.Repositories;
 
 namespace TalentAcquisition.Controllers
 {
@@ -22,8 +24,13 @@ namespace TalentAcquisition.Controllers
         TalentContext db = new TalentContext();
         IEmailMessaging _messaging;
         private OfferLetterViewModel letter;
+        private IEmployeeRepository _repo;
         #endregion
         #region Views
+        public ApplicationController()
+        {
+            _repo = new EmployeeRepository(db);
+        }
         // GET: Application
         public ActionResult Index()
         {
@@ -72,8 +79,10 @@ namespace TalentAcquisition.Controllers
 
             ViewBag.interviewid = 0;
             ViewBag.Status = false;
+            ViewBag.Count = false;
             if (Interviews.Count() > 0)
             {
+              
                 if (Interviews.Count() == 1)
                 {
                    interview = Interviews.FirstOrDefault();
@@ -83,6 +92,7 @@ namespace TalentAcquisition.Controllers
                     interview = Interviews.OrderByDescending(o => o.InterviewID).First();
                 }
                 ViewBag.interviewid = interview.InterviewID;
+                ViewBag.Count = Equals(interview.InterviewDetails.TeamMember1ID, null);
                // ViewBag.Status = interview.HasInterviewBeenCompleted;
                 if (!String.IsNullOrEmpty(interview.Venue))
                 {
@@ -124,6 +134,7 @@ namespace TalentAcquisition.Controllers
             db.SaveChanges();
             var Interview = db.Interviews
                 .Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid);
+           // if(req.ApplicationStatus==ApplicationStatus.)
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;
             ViewBag.interviewid = Interview.First().InterviewID;
@@ -213,19 +224,20 @@ namespace TalentAcquisition.Controllers
         {
 
             var interviewdetail = new InterviewDetail();
-            var allEmployees = new List<Employee>();
-            using (var db = new TalentContext())
-            {
-               // var interview = new Interview();
-              //  interview = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid).FirstOrDefault();
-               // interview = db.Interviews.Where(o => o.InterviewID==interviewid).FirstOrDefault();
-                interviewdetail.InterviewID = interviewid;
-                //interviewdetail.Interview = interview;
-                //for the Interview Team we add
-                //--One person from the HR Department
-                //--The Head of Department for the position
-                allEmployees = db.Employees.ToList();
-            }
+            var allEmployees = _repo.GetAll().ToList();
+            interviewdetail.InterviewID = interviewid;
+            //using (var db = new TalentContext())
+            //{
+            //   // var interview = new Interview();
+            //  //  interview = db.Interviews.Where(o => o.JobRequisitionID == requisitionid && o.JobApplicationID == applicationid).FirstOrDefault();
+            //   // interview = db.Interviews.Where(o => o.InterviewID==interviewid).FirstOrDefault();
+            //    interviewdetail.InterviewID = interviewid;
+            //    //interviewdetail.Interview = interview;
+            //    //for the Interview Team we add
+            //    //--One person from the HR Department
+            //    //--The Head of Department for the position
+            //    allEmployees = db.Employees.ToList();
+            //}
             ViewBag.applicationid = applicationid;
             ViewBag.requisitionid = requisitionid;
             ViewBag.allEmployees = allEmployees;
@@ -325,18 +337,21 @@ namespace TalentAcquisition.Controllers
                     var interviewdetail = db.InterviewDetails.Where(o => o.Interview.InterviewID == interview.InterviewID).FirstOrDefault();
                     var interviewevaluations = new List<InterviewEvaluation>();
                     int[] employeeids = new int[4] { interviewdetail.TeamMember1ID, interviewdetail.TeamMember2ID, interviewdetail.TeamMember3ID, interviewdetail.TeamMember4ID };
+                    int count = 5;
                     foreach (var item in employeeids)
                     {
                         var tempeval = new InterviewEvaluation
                         {
-                         EvaluationNo = "TR" + String.Format("{0:D6}", data.InterviewID + item),
+                         EvaluationNo = "TR" + String.Format("{0:D6}", data.InterviewID + count),
                          InterviewID = data.InterviewID,
                          EmployeeID = item
                         };
                         interviewevaluations.Add(tempeval);
+                        count++;
                     }
                     db.InterviewEvaluations.AddRange(interviewevaluations);
                     db.SaveChanges();
+                    //message interview Team Members
                 }
                 action = true;
             }
@@ -360,6 +375,7 @@ namespace TalentAcquisition.Controllers
             ViewBag.teamMembers = teamMembers;
             return PartialView(interviewdetail);
         }
+        [Route("Application/Interview/{interviewid}/Evaluation/Employee/{employeeid}")]
         public ActionResult _GetCandidateEvaluationForm(int interviewid, int employeeid,string status)
         {
             var interviewevaluation = new InterviewEvaluation();
@@ -367,10 +383,11 @@ namespace TalentAcquisition.Controllers
             using (var db = new TalentContext())
             {
                 var categories = db.EvaluationCategories.Where(x => x.InterviewID == interviewid).ToList();
-                var officeid = db.Interviews.Where(x => x.InterviewID == interviewid).First().OfficePositionID;
+                var interview = db.Interviews.Find(interviewid);
+                var officeid = interview.OfficePositionID;
                 ViewBag.OfficeID = officeid;
                 var evaluationss = db.ApplicantEvaluationMetrics.Where(x => x.OfficePositionID == officeid);
-                
+                ViewBag.JobDetails = evaluationss.FirstOrDefault().OfficePosition.Title;
                 foreach (var item in evaluationss)
                 {
                     dictionary[item.EvaluationCode] = item.MaximumScore;

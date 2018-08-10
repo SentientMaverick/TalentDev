@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,29 +9,67 @@ using TalentAcquisition.DataLayer;
 
 namespace TalentAcquisition.Filters
 {
-    public class AuthorizeApplicantAttribute:AuthorizeAttribute
+    public class AuthorizeApplicantAttribute : AuthorizeAttribute
     {
         private AppManager app = new AppManager();
-        private string returnto,returnurl;
+        ApplicationDbContext context = new ApplicationDbContext();
+
+
+        private string returnto, returnurl;
         public AuthorizeApplicantAttribute()
         {
         }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            if (Equals(httpContext.User.Identity.Name, ""))
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            try
             {
-                returnto = httpContext.Request.CurrentExecutionFilePath;
-                returnurl = httpContext.Request.Url.ToString();
+                if (Equals(httpContext.User.Identity.Name, ""))
+                {
+                    returnto = httpContext.Request.CurrentExecutionFilePath;
+                    returnurl = httpContext.Request.Url.ToString();
+                    return false;
+                }
+                var user = UserManager.FindByName(httpContext.User.Identity.Name);
+                if (user.Roles.Count != 0)
+                {
+                    returnto = httpContext.Request.CurrentExecutionFilePath;
+                    returnurl = httpContext.Request.Url.ToString();
+                    return false;
+                }
+                else
+                    return true;
+            }
+            catch (Exception ex)
+            {
                 return false;
             }
-            else
-                return true;
+            
         }
-        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-                {
+        protected override void HandleUnauthorizedRequest(AuthorizationContext ctx)
+        {
             //filterContext.HttpContext.Response.
-            filterContext.Result = new RedirectResult("~/Applicant/Portal?returnUrl="+returnto);
-          
+            //ctx.Result = new RedirectResult("~/Applicant/Portal?returnUrl="+returnto);
+            if (!ctx.HttpContext.User.Identity.IsAuthenticated)
+                ctx.Result = new RedirectResult("~/Applicant/Portal?returnUrl="+returnto);
+                //base.HandleUnauthorizedRequest(ctx);
+            else
+            {
+                if (true)
+                {
+                    // handle controller access
+                    ctx.Result = new ViewResult { ViewName = "Unauthorized" };
+                    ctx.HttpContext.Response.StatusCode = 403;
                 }
+                else
+                {
+                    // handle menu links
+                    ctx.Result = new HttpUnauthorizedResult();
+                    ctx.HttpContext.Response.StatusCode = 403;
+                }
+
+            }
         }
+    }
 }

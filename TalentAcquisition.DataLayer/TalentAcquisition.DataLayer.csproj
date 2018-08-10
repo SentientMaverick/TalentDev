@@ -374,6 +374,10 @@
     <Compile Include="Migrations\201807310918223_UpdatedLeaveTypeLimitModel.Designer.cs">
       <DependentUpon>201807310918223_UpdatedLeaveTypeLimitModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808101103227_AddedAnouncementModel.cs" />
+    <Compile Include="Migrations\201808101103227_AddedAnouncementModel.Designer.cs">
+      <DependentUpon>201808101103227_AddedAnouncementModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TalentContext.cs" />
@@ -580,6 +584,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807310918223_UpdatedLeaveTypeLimitModel.resx">
       <DependentUpon>201807310918223_UpdatedLeaveTypeLimitModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808101103227_AddedAnouncementModel.resx">
+      <DependentUpon>201808101103227_AddedAnouncementModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

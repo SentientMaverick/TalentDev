@@ -15,7 +15,4 @@
   <parameter name="TalentAcquisition.DataLayer.LoginContext-Web.config Connection String" description="TalentAcquisition.DataLayer.LoginContext Connection String used in web.config by the application to access the database." defaultValue="TalentAcquisition.DataLayer.LoginContext_ConnectionString" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentAcquisition.DataLayer.LoginContext']/@connectionString" />
   </parameter>
-  <parameter name="TalentConnection_DatabasePublish-Web.config Connection String" description="TalentConnection_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="TalentConnection_DatabasePublish.ConnetionString" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\Desktop\\Projects\\Git\\TalentDev\\TalentAcquisition\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TalentConnection_DatabasePublish']/@connectionString" />
-  </parameter>
 </parameters>

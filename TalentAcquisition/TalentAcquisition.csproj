@@ -182,6 +182,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModel\ApplicantEvalFormViewModel.cs" />
     <Compile Include="Models\ViewModel\CheckModel.cs" />
+    <Compile Include="Models\ViewModel\DashboardViewModel.cs" />
     <Compile Include="Models\ViewModel\EmployeePortalView.cs" />
     <Compile Include="Models\ViewModel\AdminView .cs" />
     <Compile Include="Models\ViewModel\IdentityModel.cs" />
@@ -920,6 +922,10 @@
     <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Assets\EmailTemplate\LeaveApproved.cshtml" />
+    <None Include="Properties\PublishProfiles\hire2retire - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\hire2retire - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\hire2retire - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\hire2retire - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\talenthrm - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\talenthrm - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\talenthrm - Web Deploy %282%29.pubxml" />
@@ -1238,6 +1244,13 @@
     <Content Include="Views\LeaveResumptions\GetApprovedList.cshtml" />
     <Content Include="Views\LeaveResumptions\GetRejectedList.cshtml" />
     <Content Include="Views\LeaveResumptions\LeaveApplicationExisting.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Announcements\Create.cshtml" />
+    <Content Include="Views\Announcements\Delete.cshtml" />
+    <Content Include="Views\Announcements\Details.cshtml" />
+    <Content Include="Views\Announcements\Edit.cshtml" />
+    <Content Include="Views\Announcements\Index.cshtml" />
+    <Content Include="Views\Announcements\_GetLatestAnnouncements.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
@@ -66,6 +67,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Approval\ApprovalService.cs" />
+    <Compile Include="Approval\IApprovalService.cs" />
     <Compile Include="Email\ConfirmInterviewEmail.cs" />
     <Compile Include="Email\LeaveApplicationAcceptedEmail.cs" />
     <Compile Include="Email\NotifyOnboardingEmail.cs" />
@@ -74,10 +77,24 @@
     <Compile Include="FileManger\LocalFileManager.cs" />
     <Compile Include="Interfaces\IEmailMessaging.cs" />
     <Compile Include="Interfaces\IFileHelper.cs" />
+    <Compile Include="Interfaces\INotificationService.cs" />
+    <Compile Include="Notification\EmployeeApprovalDTO.cs" />
+    <Compile Include="Notification\GeneralNotificationDTO.cs" />
+    <Compile Include="Notification\NotificationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TalentAcquisition.BusinessLogic\TalentAcquisition.BusinessLogic.csproj">
+      <Project>{EC5D80EF-25BE-42D2-9E24-4CFAC0B41374}</Project>
+      <Name>TalentAcquisition.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TalentAcquisition.DataLayer\TalentAcquisition.DataLayer.csproj">
+      <Project>{526BD282-AB06-4F44-A5A5-6F5461E83864}</Project>
+      <Name>TalentAcquisition.DataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

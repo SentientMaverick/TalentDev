@@ -1,0 +1,19 @@
+﻿@model IEnumerable<TalentAcquisition.BusinessLogic.UpdatedDomain.Announcement>
+@using Humanizer
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <p class="">@Html.DisplayFor(modelItem => item.Title)</p>
+        </div>
+        <div class="panel-body">
+           <p>@item.Body.Substring(0,30) .............</p>
+        </div>
+        <div class="panel-footer">
+            @item.CreatedAt.Humanize()
+            <a href="/Announcements/Details/@item.Id">Read More</a>
+        </div>
+   </div>
+}
+

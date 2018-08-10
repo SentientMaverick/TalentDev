@@ -1,4 +1,4 @@
-﻿
+﻿@model TalentAcquisition.Models.ViewModel.DashboardViewModel
 @{
     ViewBag.Title = "Admin Panel";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -48,92 +48,321 @@
                     <li class="active">Dashboard</li>
                 </ol>
                 <div class="row">
-
-                    <div class="row">
-                        
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("jobmanager")">
-                                <img src="~/Assets/Icons/Presentation-.png" />
-                                <h4>Job Board</h4>
-                            </a>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="">Quick Links</p>
                         </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("personnelmanager")">
-                                <img src="~/Assets/Icons/Bedge.png" />
-                                <h4>Personnel Management</h4>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("jobrequisitionmanager")">
-                                <img src="~/Assets/Icons/Man-Suit-2.png" />
-                                <h4>Job Requisition Management</h4>
-                            </a>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <a href="/Employee/SelfService" class="btn btn-default col-md-4 col-sm-6 col-xs-12">Self Service</a>
+                                <a href="/Expenses/Transaction/Create" class="btn btn-default col-md-4 col-sm-6 col-xs-12">Request for Cash</a>
+                                <a href="/Admin/Requisition/Create" class="btn btn-default col-md-4 col-sm-6 col-xs-12">Fill Job Position</a>
+                                <a href="/Employee/SelfService" class="btn btn-default col-md-4 col-sm-6 col-xs-12">Employee List</a>
+                                <a href="/Employee/SelfService" class="btn btn-default col-md-4 col-sm-6 col-xs-12">Apply For Leave</a>
+                                <a href="/Employee/SelfService" class="btn btn-default col-md-4 col-sm-6 col-xs-12">Launch Grievance Complaint</a>
                             </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("onboarding")">
-                                <img src="~/Assets/Icons/Desk.png" />
-                                <h4>Employee Onboarding</h4>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("expensemanager")">
-                                <img src="~/Assets/Icons/Coin-Dollar.png" />
-                                <h4>Expense Management</h4>
-                            </a>                          
-                        </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("trainings")">
-                                <img src="~/Assets/Icons/Engineer.png" />
-                                <h4>Trainings</h4>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("complaintmanager")">
-                                <img src="~/Assets/Icons/Support.png" />
-                                <h4>Complaint-Indiscipline Management</h4>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-6 icon">   
-                            <a href="@Url.Action("LeavePlan")">
-                                <img src="~/Assets/Icons/Bank.png" />
-                                <h4>Leave Management</h4>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("organisationmanager")">
-                                <img src="~/Assets/Icons/Organogram-2.png" />
-                                <h4>Organizational Management</h4>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("performance")">
-                                <img src="~/Assets/Icons/Bullish.png" />
-                                <h4>Employee Performance</h4>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("exitmanager")">
-                                <img src="~/Assets/Icons/Agenda.png" />
-                                <h4>Exit Management</h4>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-6 icon">
-                            <a href="@Url.Action("settings")">
-                                <img src="~/Assets/Icons/Hammer.png" />
-                                <h4>Settings</h4>
-                            </a>
                         </div>
                     </div>
                 </div>
-                @*<div class="row">
-                    @Html.Action("_GetNotifications", "Admin")
-                </div>*@
+                <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <p class="">Activities Alerts</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <div class="row">
+                                                            <div class="col-xs-3">
+                                                                <i class="fa fa-comments fa-5x"></i>
+                                                            </div>
+                                                            <div class="col-xs-9 text-right">
+                                                                <div class="huge">@Model._generalNotifications.JobRequisition</div>
+                                                                <div>New Requisitions</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#">
+                                                        <div class="panel-footer">
+                                                            <span class="pull-left">View Details</span>
+                                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="panel panel-green">
+                                                    <div class="panel-heading">
+                                                        <div class="row">
+                                                            <div class="col-xs-3">
+                                                                <i class="fa fa-tasks fa-5x"></i>
+                                                            </div>
+                                                            <div class="col-xs-9 text-right">
+                                                                <div class="huge">@Model._generalNotifications.ActiveRequisition</div>
+                                                                <div>Active Recruitments</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#">
+                                                        <div class="panel-footer">
+                                                            <span class="pull-left">View Details</span>
+                                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            @*<div class="col-lg-6 col-md-6">
+                                                <div class="panel panel-yellow">
+                                                    <div class="panel-heading">
+                                                        <div class="row">
+                                                            <div class="col-xs-3">
+                                                                <i class="fa fa-shopping-cart fa-5x"></i>
+                                                            </div>
+                                                            <div class="col-xs-9 text-right">
+                                                                <div class="huge">124</div>
+                                                                <div>New Orders!</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#">
+                                                        <div class="panel-footer">
+                                                            <span class="pull-left">View Details</span>
+                                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="panel panel-red">
+                                                    <div class="panel-heading">
+                                                        <div class="row">
+                                                            <div class="col-xs-3">
+                                                                <i class="fa fa-support fa-5x"></i>
+                                                            </div>
+                                                            <div class="col-xs-9 text-right">
+                                                                <div class="huge">13</div>
+                                                                <div>Support Tickets!</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#">
+                                                        <div class="panel-footer">
+                                                            <span class="pull-left">View Details</span>
+                                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>*@
+                                        </div>
+                                   </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <p class="">Approvals</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-comments fa-5x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge">2</div>
+                                                            <div>Cash Approval</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="panel-footer">
+                                                        <span class="pull-left">View Details</span>
+                                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="panel panel-green">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-tasks fa-5x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge">2</div>
+                                                            <div>Leave Approval</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="panel-footer">
+                                                        <span class="pull-left">View Details</span>
+                                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="panel panel-yellow">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-shopping-cart fa-5x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge">124</div>
+                                                            <div>Complaint Approvals </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="panel-footer">
+                                                        <span class="pull-left">View Details</span>
+                                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="panel panel-red">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-support fa-5x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge">13</div>
+                                                            <div>Performance Approval</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="panel-footer">
+                                                        <span class="pull-left">View Details</span>
+                                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <p class="">Announcements:@DateTime.Now.ToShortDateString()</p>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row container">
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a href="/Announcements/Create" class="btn btn-default btn-sm col-md-12 col-sm-12 col-xs-12">Create New</a>
+                                            <br/>
+                                        }
+                                        <a href="/Announcements" class="btn btn-default btn-sm col-md-12 col-sm-12 col-xs-12">View All</a>
+                                        <hr/>
+                                    </div>
+                                    @Html.Action("_GetLatestAnnouncements", "Announcements")
+                           </div>
+                        </div>
+                </div>
+                </div>
             </section>
         </div>
     
     </div>
 </section>
+
+@*<div class="row">
+
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("jobmanager")">
+            <img src="~/Assets/Icons/Presentation-.png" />
+            <h4>Job Board</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("personnelmanager")">
+            <img src="~/Assets/Icons/Bedge.png" />
+            <h4>Personnel Management</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("jobrequisitionmanager")">
+            <img src="~/Assets/Icons/Man-Suit-2.png" />
+            <h4>Job Requisition Management</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("onboarding")">
+            <img src="~/Assets/Icons/Desk.png" />
+            <h4>Employee Onboarding</h4>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("expensemanager")">
+            <img src="~/Assets/Icons/Coin-Dollar.png" />
+            <h4>Expense Management</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("trainings")">
+            <img src="~/Assets/Icons/Engineer.png" />
+            <h4>Trainings</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("complaintmanager")">
+            <img src="~/Assets/Icons/Support.png" />
+            <h4>Complaint-Indiscipline Management</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("LeavePlan")">
+            <img src="~/Assets/Icons/Bank.png" />
+            <h4>Leave Management</h4>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("organisationmanager")">
+            <img src="~/Assets/Icons/Organogram-2.png" />
+            <h4>Organizational Management</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("performance")">
+            <img src="~/Assets/Icons/Bullish.png" />
+            <h4>Employee Performance</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("exitmanager")">
+            <img src="~/Assets/Icons/Agenda.png" />
+            <h4>Exit Management</h4>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 icon">
+        <a href="@Url.Action("settings")">
+            <img src="~/Assets/Icons/Hammer.png" />
+            <h4>Settings</h4>
+        </a>
+    </div>
+</div>*@

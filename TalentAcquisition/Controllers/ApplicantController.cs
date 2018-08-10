@@ -410,6 +410,7 @@ namespace TalentAcquisition.Controllers
             }
             return PartialView(applicant);
         }
+        [AllowAnonymous]
         public ActionResult _GetApplicantOverview(int applicantid)
         {
             var applicant = new JobSeeker();

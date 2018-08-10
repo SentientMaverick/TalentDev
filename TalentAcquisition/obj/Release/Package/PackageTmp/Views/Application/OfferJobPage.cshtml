@@ -11,8 +11,8 @@
     }
 </style>
 @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
-<script src="~/ckeditor/ckeditor.js"></script>
-<script src="~/ckeditor/adapters/jquery.js"></script>
+@*<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>*@
 <script type="text/javascript">
     $(function () {
         //$("#employmentdate").datepicker({
@@ -100,55 +100,59 @@
             <div class="panel-body">
             @using (Html.BeginForm("_submitoffermessage", "Application", FormMethod.Post, new { @class = "form", @id = "form" }))
             {
+              
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="requisitionid" value="@ViewBag.requisitionid" />
                 <input type="hidden" name="applicationid" value="@ViewBag.applicationid" />
-                <div class="container">
-                    <div class="row">
-                         <div class="col-md-12 col-lg-6">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="col-md-6">Resumption Date :</label>
-                                    <div class="col-md-6">
-                                        <input type="text" data-date-format="DD-MM-YYYY" id="employmentdate" value="@DateTime.Now.ToShortDateString()" name="employmentdate" class="form-control input-sm" />
+               if(Model.OfferAccepted)
+                {
+                        <div class="container">
+                            <div class="row">
+                                 <div class="col-md-12 col-lg-6">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-6">Resumption Date</label>
+                                            <div class="col-md-6">
+                                                <input type="text" data-date-format="DD-MM-YYYY" id="employmentdate" value="@DateTime.Now.ToShortDateString()" name="employmentdate" class="form-control input-sm" />
+                                            </div>
+                                           </div>
                                     </div>
-                                   </div>
-                            </div>
-                             <br/><br/>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="col-md-6">Offer Deadline :</label>
-                                    <div class="col-md-6">
-                                        <input  type="text" data-date-format="DD-MM-YYYY" id="deadlinedate" value="@DateTime.Now.ToShortDateString()" name="deadlinedate" class="form-control input-sm" />
+                                     <br/><br/>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-6">Offer Deadline</label>
+                                            <div class="col-md-6">
+                                                <input  type="text" data-date-format="DD-MM-YYYY" id="deadlinedate" value="@DateTime.Now.ToShortDateString()" name="deadlinedate" class="form-control input-sm" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-12 col-lg-6">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                             <label class="col-md-6">Position</label>
+                                             <div class="col-md-6">
+                                                <input type="text" required id="position" name="position" class="form-control input-sm" />
+                                              </div>
+                                          </div>
+                                        </div>
+                                     <br/><br />
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-6">Salary</label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="salary" name="salary" class="form-control input-sm" />
+                                            </div>
+                                        </div>
                                     </div>
                                     </div>
-                            </div>
-                         </div>
-                         <div class="col-md-12 col-lg-6">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                     <label class="col-md-6">Position:</label>
-                                     <div class="col-md-6">
-                                        <input type="text" required id="position" name="position" class="form-control input-sm" />
-                                      </div>
-                                  </div>
                                 </div>
-                             <br/><br />
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="col-md-6">Salary:</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="salary" name="salary" class="form-control input-sm" />
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
                         </div>
-                </div>
-                    <hr/>
-                @*<script>CKEDITOR.replace("OfferMessage");</script>*@
-                <textarea class="form-control ckeditor" id="offermessage" name="offermessage" rows="5" cols="40"></textarea>
-                <input type="hidden" value="" id="finalmessage" name="finalmessage" />
+                        <hr/>
+                        <script>CKEDITOR.replace("offermessage");</script>
+                        <textarea class="form-control ckeditor" id="offermessage" name="offermessage" rows="5" cols="40" data-ck-editor></textarea>
+                        <input type="hidden" value="" id="finalmessage" name="finalmessage" />
+                 }
                  <div class="row container">
                      <br/>
                      @if (Model.OfferAccepted)
@@ -159,9 +163,9 @@
                      else
                      {
                          <div class="col-md-12">
-                             <input type="button" id="sendJobOffer" class="btn btn-primary input-sm" value="Send Offer" />
-                             <input type="button" id="previewJobOffer" class="btn btn-primary input-sm pull-right" value="Preview Offer" />
-                             <input type="button" id="acceptJobOffer" class="btn btn-primary input-sm pull-right" value="Accept Offer" />
+                             <input type="button" id="sendJobOffer" class="btn btn-primary btn-xs" value="Send Offer" />
+                             <input type="button" id="previewJobOffer" class="btn btn-primary btn-xs pull-right" value="Preview Offer" />
+                             <input type="button" id="acceptJobOffer" class="btn btn-primary btn-xs pull-right" value="Accept Offer" />
                          </div>
                          }
                     </div>

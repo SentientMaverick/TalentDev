@@ -140,6 +140,7 @@ namespace TalentAcquisition.DataLayer
         public DbSet<LeaveType_Limit> LeaveType_Limits { get; set; }
         public DbSet<LeaveApplication> LeaveApplications { get; set; }
         public DbSet<LeaveResumption> LeaveResumptions { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
         //public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.AssignToGroupViewModel> AssignToGroupViewModels { get; set; }
         // public System.Data.Entity.DbSet<TalentAcquisition.Models.ViewModel.ActivityViewModel> ActivityViewModels { get; set; }
